@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.11.20)  25 NOV 2013 23:21
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.11.20)  25 NOV 2013 23:39
 entering extended mode
  %&-line parsing enabled.
 **sigproc-sp.tex
@@ -241,53 +241,58 @@ Overfull \hbox (1.26794pt too wide) in paragraph at lines 122--123
 /n/9 ]: Mis-cel-la-neous;
  []
 
+
+Overfull \hbox (5.78156pt too wide) in paragraph at lines 135--136
+\T1/aer/m/n/9 com-po-nentes the min-i-mal failure-inducing schemas, I.e., MFS.
+ []
+
 [1
 
 
 ]
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 182.
+ne 194.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 197.
+ne 209.
 
 
 LaTeX Warning: Citation `bowman:reasoning' on page \thepage  undefined on input
- line 223.
+ line 235.
 
 
 LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 2
-23.
+35.
 
 
 LaTeX Warning: Citation `braams:babel' on page \thepage  undefined on input lin
-e 223.
+e 235.
 
 
 LaTeX Warning: Citation `herlihy:methodology' on page \thepage  undefined on in
-put line 223.
+put line 235.
 
 
 LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 2
-25.
+37.
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 225.
+ine 237.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 225.
+ne 237.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 231.
+ne 243.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 242.
+ne 254.
 
 [2]
 File: fly.eps Graphic file (type eps)
@@ -296,11 +301,11 @@ File: fly.eps Graphic file (type eps)
  <fly.eps>
 
 LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 325.
+(Font)              using `T1/aett/m/n' instead on input line 337.
 
 \c@theorem=\count108
 
-Underfull \hbox (badness 1603) in paragraph at lines 349--353
+Underfull \hbox (badness 1603) in paragraph at lines 361--365
 []\T1/aer/m/n/9 This uses the \T1/aer/bx/n/9 the-o-rem \T1/aer/m/n/9 en-vi-ron-
 ment, cre-ated by the
  []
@@ -309,8 +314,8 @@ ment, cre-ated by the
 File: rosette.ps Graphic file (type eps)
 <rosette.ps>
 File: flies.eps Graphic file (type eps)
- <flies.eps>
-Overfull \hbox (15.60826pt too wide) detected at line 405
+ <flies.eps> [3]
+Overfull \hbox (15.60826pt too wide) detected at line 417
 \OML/cmm/m/it/9 l \OT1/cmr/m/n/9 = [] \OML/cmm/m/it/9 f\OT1/cmr/m/n/9 (\OML/cmm
 /m/it/9 x\OT1/cmr/m/n/9 ) = [] [] = [] \OML/cmm/m/it/9 g\OT1/cmr/m/n/9 (\OML/cm
 m/m/it/9 x\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^A [] [] \OT1/cmr/m/n/9 = 0 \OMS/cm
@@ -319,11 +324,12 @@ sy/m/n/9 ^^A \OML/cmm/m/it/9 L \OT1/cmr/m/n/9 = 0\OML/cmm/m/it/9 ;
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 415.
+ine 427.
 
-[3]
 No file sigproc-sp.bbl.
-[4] (./sigproc-sp.aux)
+[4] [5
+
+] (./sigproc-sp.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -331,10 +337,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  1861 strings out of 495062
  20411 string characters out of 1182643
- 78973 words of memory out of 3000000
+ 77973 words of memory out of 3000000
  5021 multiletter control sequences out of 15000+50000
  45086 words of font info for 55 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  39i,10n,26p,953b,248s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sigproc-sp.dvi (4 pages, 27188 bytes).
+Output written on sigproc-sp.dvi (5 pages, 29412 bytes).
