@@ -126,23 +126,43 @@ In this paper, we propose a framework which can help the algorithms to avoid thi
 \keywords{Minimal failure-inducing schemas, Masking effect} % NOT required for Proceedings
 
 \section{Introduction}
-Modern software are designed module and having many components. While it can make software portable and flexible. It also give a big pressure on testers to test. A big challenge is that we must make sure that the components in the software coexistence with each other. As exhaustive testing each possible combination is not impractical when the number of components is of much amount, we need choose some of them and let them give us a confidence that we can get some coverage critical as the exhaustive testing. Combinatorial testing is a effective testing technique that can use small.  
+With the increase of requirements for more features and customisable, modern software are designed to be configurable and modular. While it can make software portable and flexible, it also bring many challenges to the testers when testing them. The major one of these challenges is that we must make sure the components or options in the software coexistence with each other. As exhaustive testing each possible combination is not impractical when there are large amount of components or options in the SUT, we should choose some of them to test with considering the cost. There are many strategies for one to select the test configurations among all the possible configurations. Combinatorial testing is one of them that can reach the coverage of all the interactions of components with the number of component(we called interaction strength) not more than t.
 
-during the process of identify the MFS in the test cases, we will record each fault with the code block information related to the fault when executing a test case. 
+Which criteria we should choose or how to generate these test cases is not the point in this paper, however, we will focus on the followed problem: if we find some test configurations failed during executing, which subset of the combination of component is the source of this failure?  In another word, we want to identify the failure-inducing interactions of component rather than just detect them. Many works (as well as our previous work) are proposed to solve this problem. Most of these works focus on how to identify as more MFSs as possible while just generating small size of extra test configurations.
 
-To have a confidence in the interaction, we must generate trest cases which will compose different combinations of compoents and we will execute them. There are many generating strategies and coverage critiria, combinatorial testing teachnique is a good critiia, that can use a small amount cover a set of interactions of compnent with the number of component in a interaction(we called interaction strenth) not more than t. Which critiria we should choose or how to generate these test cases is not the point in this paper, however, we will focus on the followed problem: if we find some test cases failed during test case executing, which subset of the combination of component is the source of this failure?  
- 
-In practice, we hope we can get the set of componens with a minimal number of . that is, no other factors irrelated to this failure will in . We call this minimal set of failure-inducing componentes the minimal failure-inducing schemas, I.e., MFS. It is easy u, we will have less space of code needed to inspect to find the source of the bug. 
- 
-Many studies has focus on identifying the MFSs when given a failing test case. We have find we could not accurately or correctly indenty the MFSs we want. Through deep inspected, we find that all these approaches . It diden't consider the priority of faulty. And these faulty will trigger a masking effect. When this happened, we will have a false confidence on .
+In our recent studies, however, we find these algorithms cannot behave as expected in some subject software. Through a deep analysis, we find that there are multiple faults with different levels in these subject. It means that when we set up a test configuration and execute the SUT to observe the result, the high level fault will trigger first and perturb we examining the code that may trigger the low level fault. As a result we will omit some options or component in this test configuration that may be the cause of the low level fault. We call this a masking effect which make the MFS identifying algorithms not able to work properly.
+
+In this paper, we propose a approach that can assist these algorithms to avoid these masking effect. Our framework consists of three parts: first, it will use the statistic analysis technique--dominate tree to analysis the test script and then collect the information of code lines in this script. Second, we will support a interface called "Record" for the MFS identifying algorithms that each time the algorithm encounter a fault should call this interface. So that we can record this fault as well as the code lines that trigger this fault. Last, this framework support these algorithms the interface "analysis" that can tell them whether the fault they encounter having masked some fault else.
+
+%First we will comprehensively analysis this two programs to get the MFSs and their corresponding fault level as the basic information for the left experiment.
+To evaluate the effectiveness of our framework, we took two widely-used open source software as our experiment subject. And then we will choose five MFSs identifying  algorithms, for each algorithm, we will compare the identifying result among two versions of this algorithm, one using our framework while another one not. The result of the empirical studies shows that our framework can assist the MFS identifying algorithm in getting a more accurate result.
 
 The main contributions of this paper are: 
- 
-Rest of paper is organised as follows: 
+\begin{enumerate}
+ \item We show that the fault corresponding to the MFS has different levels, i.e., fault with high level can mask the fault with low level.
+ \item We give a framework to assist algorithms to avoid the bad influence of the masking effect in different levels of fault.
+ \item We empirically studies that with considering the masking effect the algorithm can perform better than not considering the effect.
 
+\end{enumerate}
+
+Rest of paper is organised as follows: 
+section 2 gives a simple example to motivate our work. Section 3 describe our framework in detail. Section 4 illustrate the experiment and reports the result. Section 5 discusses the related works. Section 6 provides some concluding remarks.
+
+\section{motivation example}
+The following code contain two kinds of fault.
+
+if else 
+...
+
+while.
+
+traditional identifying algorithms.
 
 \section{related works}
 Ylimaz propose a work that is feedback driven combinatorial testing, different from our work, it first using CTA classify the possible MFS and then elimate them and generate new test cases to detect possible masked interaction in the next iteration. The difference is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
+
+\section{approach}
+We have use the static analysis tool: dominate tree to record the relationships among the code lines in the test script.
 
 \section{The {\secit Body} of The Paper}
 Typically, the body of a paper is organized
