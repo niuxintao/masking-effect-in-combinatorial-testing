@@ -137,7 +137,7 @@ In this paper, we propose a approach that can assist these algorithms to avoid t
 %First we will comprehensively analysis this two programs to get the MFSs and their corresponding fault level as the basic information for the left experiment.
 To evaluate the effectiveness of our framework, we took two widely-used open source software as our experiment subject. And then we will choose five MFSs identifying  algorithms, for each algorithm, we will compare the identifying result among two versions of this algorithm, one using our framework while another one not. The result of the empirical studies shows that our framework can assist the MFS identifying algorithm in getting a more accurate result.
 
-The main contributions of this paper are:
+The main contributions of this paper are: 
 \begin{enumerate}
  \item We show that the fault corresponding to the MFS has different levels, i.e., fault with high level can mask the fault with low level.
  \item We give a framework to assist algorithms to avoid the bad influence of the masking effect in different levels of fault.
@@ -145,33 +145,36 @@ The main contributions of this paper are:
 
 \end{enumerate}
 
-Rest of paper is organised as follows:
+Rest of paper is organised as follows: 
 section 2 gives a simple example to motivate our work. Section 3 describe our framework in detail. Section 4 illustrate the experiment and reports the result. Section 5 discusses the related works. Section 6 provides some concluding remarks.
 
 \section{motivation example}
-Following we have construct a example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: d_{a} = \{7, 11\}, d_{b} = \{2, 4\}, d_{c} = \{4, 6\}, d_{d} = \{3, 5\} respectively.  The detail code of this method is listed as following:
+Following we have construct a example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: d_{a} = \{7, 11\}, d_{b} = \{2, 5\}, d_{c} = \{2, 6\}, d_{b} = \{3, 6\} respectively.  The detail code of this method is listed as following:
 
 \begin{verbatim}
 public static float foo(int a, int b, int c, int d){
   //step 1 will cause a exception when b == c
   float x = (float)a / (b - c);
-
-  //step 2 will cause a exception when c < d
-  float y = Math.sqrt(c - d);
-
+  
+  //step 2 will cause a exception when c == d
+  float y = x / (c - d);
+  
   return x+y;
   }
 \end{verbatim}
 
-Inspecting the simple code above, we can find two faults: First, in the step 1 we can get a ArithmeticException when b is equal to c, i.e.,  b = 2 & c = 2, that makes division by zero. Second, another ArithmeticException will be triggered in step 2 when c < d, i.e., c = 4 & d = 5, which makes square roots of negative numbers. So the expected MFSs in this example should be (-, 2, 2, -) and (-, -, 4, 5).
+From the code above, we can find two faults: first we can get a diversion exception when b is equal to c, that is b = 2 & c = 2.
 
-The step 1 and step 2 will not seen. Traditional algorithms are using. However, when applying MFSs identifying algorithms, we will get the different result. The basic action of these algorithms are setting different inputs to the programs and compares the inputs which makes the test case passing with those inputs which makes test case failing to isolate the failure-inducing factor. For example, if we set (7 , 4, 4 ,3) and fails, then (7, 2, 4, 3) passes, we can easily determine that b = 4 must be a failure-inducing factor. Additional inputs comparisons are needed to get the failure-inducing schema ( b = 4 & c = 4).  The difference of these algorithms are just at the order and number of choosing inputs.
+consider the a scenario: we want to read the integer numbers in a file and sort them in a descending order.
 
-However, in this example above, these algorithms will not effective.
+The following code contain two kinds of fault.
 
+the allowed values for these are:
+
+from this code we can obvious find two MFS:  a = b = c =  .  while another is a =  c= ,.  
 
 However, when we use traditional algorithms to apply in this example, we can find the result is not this t. Consider the followed test case, yes, it failed with, however, when we change a value of it to another , is it fails, but with different error message. So this time how can we .
-if else
+if else 
 ...
 
 while.
@@ -179,7 +182,7 @@ while.
 traditional identifying algorithms.
 
 \section{related works}
-combiantorial testing has may factors, Nie give a survey, at some are foucs,.
+combiantorial testing has may factors, Nie give a survey, at some are foucs,. 
 
 Identify MFS are
 
@@ -457,7 +460,7 @@ that needs to span two columns of text.}
 \end{figure*}
 and don't forget to end the environment with
 {figure*}, not {figure}!
-
+ 
 There is one other similar construct environment, which is
 already set up
 for you; i.e. you must \textit{not} use
