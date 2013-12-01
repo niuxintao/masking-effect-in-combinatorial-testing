@@ -149,8 +149,31 @@ Rest of paper is organised as follows:
 section 2 gives a simple example to motivate our work. Section 3 describe our framework in detail. Section 4 illustrate the experiment and reports the result. Section 5 discusses the related works. Section 6 provides some concluding remarks.
 
 \section{motivation example}
+Following we have construct a example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: d_{a} = \{7, 11\}, d_{b} = \{2, 5\}, d_{c} = \{2, 6\}, d_{b} = \{3, 6\} respectively.  The detail code of this method is listed as following:
+
+\begin{verbatim}
+public static float foo(int a, int b, int c, int d){
+  //step 1 will cause a exception when b == c
+  float x = (float)a / (b - c);
+  
+  //step 2 will cause a exception when c == d
+  float y = x / (c - d);
+  
+  return x+y;
+  }
+\end{verbatim}
+
+From the code above, we can find two faults: first we can get a diversion exception when b is equal to c, that is b = 2 & c = 2.
+
+consider the a scenario: we want to read the integer numbers in a file and sort them in a descending order.
+
 The following code contain two kinds of fault.
 
+the allowed values for these are:
+
+from this code we can obvious find two MFS:  a = b = c =  .  while another is a =  c= ,.  
+
+However, when we use traditional algorithms to apply in this example, we can find the result is not this t. Consider the followed test case, yes, it failed with, however, when we change a value of it to another , is it fails, but with different error message. So this time how can we .
 if else 
 ...
 
@@ -159,7 +182,29 @@ while.
 traditional identifying algorithms.
 
 \section{related works}
+combiantorial testing has may factors, Nie give a survey, at some are foucs,. 
+
+Identify MFS are
+
+then consider the masking effect is , to my best knowledege, only one paper, unfortuntately, it just consider the .
+
 Ylimaz propose a work that is feedback driven combinatorial testing, different from our work, it first using CTA classify the possible MFS and then elimate them and generate new test cases to detect possible masked interaction in the next iteration. The difference is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
+
+\section{preliminary}
+
+SUT,
+
+fault. level.
+given this definition, we can also take the constraint as a fault, usually it will have the highest level, for that if we take a combination which is constraint, it will may didn't compile at all, so that we can't exam any code in this software.
+
+test configuration?
+
+schema.
+faulty, healthy.
+we need to identify the minimal faulty schema, that is MFS.
+
+note that in our paper, we just consider the failure that is deterministic.
+
 
 \section{approach}
 We have use the static analysis tool: dominate tree to record the relationships among the code lines in the test script.
