@@ -132,7 +132,8 @@ Which criteria we should choose or how to generate these test cases is not the p
 
 In our recent studies, however, we find these algorithms cannot behave as expected in some subject software. Through a deep analysis, we find that there are multiple faults with different levels in these subject. It means that when we set up a test configuration and execute the SUT to observe the result, the high level fault will trigger first and perturb we examining the code that may trigger the low level fault. As a result we will omit some options or component in this test configuration that may be the cause of the low level fault. We call this a masking effect which make the MFS identifying algorithms not able to work properly.
 
-In this paper, we propose a approach that can assist these algorithms to avoid these masking effect. Our framework consists of three parts: first, it will use the statistic analysis technique--dominate tree to analysis the test script and then collect the information of code lines in this script. Second, we will support a interface called "Record" for the MFS identifying algorithms that each time the algorithm encounter a fault should call this interface. So that we can record this fault as well as the code lines that trigger this fault. Last, this framework support these algorithms the interface "analysis" that can tell them whether the fault they encounter having masked some fault else.
+In this paper, we propose a approach that can assist these algorithms to avoid these masking effect. Our framework consists of three parts: first, it will use the statistic analysis technique--dominate tree to analysis the test script and then collect the information
+traditional identifying algorithms. of code lines in this script. Second, we will support a interface called "Record" for the MFS identifying algorithms that each time the algorithm encounter a fault should call this interface. So that we can record this fault as well as the code lines that trigger this fault. Last, this framework support these algorithms the interface "analysis" that can tell them whether the fault they encounter having masked some fault else.
 
 %First we will comprehensively analysis this two programs to get the MFSs and their corresponding fault level as the basic information for the left experiment.
 To evaluate the effectiveness of our framework, we took two widely-used open source software as our experiment subject. And then we will choose five MFSs identifying  algorithms, for each algorithm, we will compare the identifying result among two versions of this algorithm, one using our framework while another one not. The result of the empirical studies shows that our framework can assist the MFS identifying algorithm in getting a more accurate result.
@@ -149,7 +150,8 @@ Rest of paper is organised as follows:
 section 2 gives a simple example to motivate our work. Section 3 describe our framework in detail. Section 4 illustrate the experiment and reports the result. Section 5 discusses the related works. Section 6 provides some concluding remarks.
 
 \section{motivation example}
-Following we have construct a example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: d_{a} = \{7, 11\}, d_{b} = \{2, 4\}, d_{c} = \{4, 6\}, d_{d} = \{3, 5\} respectively.  The detail code of this method is listed as following:
+
+Following we have construct a example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: $d_{a} = \{7, 11, 6\}, d_{b} = \{2, 4, 5\}, d_{c} = \{4, 6\}, d_{d} = \{3, 5\}$ respectively.  The detail code of this method is listed as following:
 
 \begin{verbatim}
 public static float foo(int a, int b, int c, int d){
@@ -163,20 +165,38 @@ public static float foo(int a, int b, int c, int d){
   }
 \end{verbatim}
 
-Inspecting the simple code above, we can find two faults: First, in the step 1 we can get a ArithmeticException when b is equal to c, i.e.,  b = 2 & c = 2, that makes division by zero. Second, another ArithmeticException will be triggered in step 2 when c < d, i.e., c = 4 & d = 5, which makes square roots of negative numbers. So the expected MFSs in this example should be (-, 2, 2, -) and (-, -, 4, 5).
+Inspecting the simple code above, we can find two faults: First, in the step 1 we can get a ArithmeticException when b is equal to c, i.e.,  b = 4 \& c = 4, that makes division by zero. Second, another ArithmeticException will be triggered in step 2 when c < d, i.e., c = 4 \& d = 5, which makes square roots of negative numbers. So the expected MFSs in this example should be (-, 4, 4, -) and (-, -, 4, 5).
 
-The step 1 and step 2 will not seen. Traditional algorithms are using. However, when applying MFSs identifying algorithms, we will get the different result. The basic action of these algorithms are setting different inputs to the programs and compares the inputs which makes the test case passing with those inputs which makes test case failing to isolate the failure-inducing factor. For example, if we set (7 , 4, 4 ,3) and fails, then (7, 2, 4, 3) passes, we can easily determine that b = 4 must be a failure-inducing factor. Additional inputs comparisons are needed to get the failure-inducing schema ( b = 4 & c = 4).  The difference of these algorithms are just at the order and number of choosing inputs.
+Traditional MFS identifying algorithms do not consider the detail of the code. They take black-box testing of this program, i.e., feed inputs to those programs and execute them to observe the result.  The basic justification behind those approaches is that if they find two inputs of which one makes the program fails while the other one makes the program passes then the different elements between this two inputs must contain the fail-inducing factors.  For example, if we set (7 , 4, 4 ,3) to the \emph{foo} method and it fails, then set (7, 2, 4, 3), it passes, we can easily determine that b = 4 must be a failure-inducing factor(as they just have one difference element). Additional inputs comparisons are needed to get the failure-inducing schema ( b = 4 \& c = 4).  The difference of these algorithms are just at the order and number of choosing inputs.
 
-However, in this example above, these algorithms will not effective.
+As for the program \emph{foo}, however, we find these algorithms cannot get the result as we expected. Consider the following test scenario. We feed the input (7, 2, 4, 5) to \emph{foo}, it fails and report a exception that related to the step 2, we call this exception Ex 1. Then we feed the input (7, 4, 4, 5) to \emph{foo}, we find the Ex 1 disappears, instead, \emph{foo} reports another exception that related to step 1, we call this exception Ex 2.  For traditional MFS identifying algorithms, as they don't consider multiple faults and their masking relationship, we will think that b = 4 will be a failure-inducing factor to Ex 1 which in fact is not. Further more, if we take a deeper thinking, we can find that if we analysis this program according to the MFS identifying algorithms, we can at last get the failure-inducing schemas as listed in table \ref{identify-example}.
 
+\begin{table}
+\centering
+\caption{Identified MFSs and their corresponding Exception}
+\label{identify-example}
+\begin{tabular}{|c|c|} \hline
+MFS & Exception\\ \hline
+(-, 4, 4, -) &  Ex 2\\ \hline
+(-, 2, 4, 5) &  Ex 1\\ \hline
+(-, 3, 4, 5) &  Ex 1\\ \hline
+\hline\end{tabular}
+\end{table}
 
-However, when we use traditional algorithms to apply in this example, we can find the result is not this t. Consider the followed test case, yes, it failed with, however, when we change a value of it to another , is it fails, but with different error message. So this time how can we .
-if else
-...
+These results are all got according to the definition of MFS, i.e., every possible inputs contain this schema will trigger the failure. For example, all the test case contain (- , 4, 4, -) will trigger the Ex 2. (-,-,4,5) is not a MFS according to the definition for that input (7, 4, 4, 5) did not trigger the Ex 1. However, these results obviously cannot reach our requirements. The result listed at table \ref{expected-example} can give us a clearer and more accurate view.
 
-while.
+\begin{table}
+\centering
+\caption{expected MFSs and their corresponding Exception}
+\label{expected-example}
+\begin{tabular}{|c|c|} \hline
+MFS & Exception\\ \hline
+(-, 4, 4, -) &  Ex 2\\ \hline
+(-, -, 4, 5) &  Ex 1\\ \hline
+\hline\end{tabular}
+\end{table}
 
-traditional identifying algorithms.
+To get the expected result, we need to understand the relationship between this two exceptions. Review the code of \emph{foo}, we can find that if Ex 2 are triggered, it will stop executing the remaining code and report the exception information. In another word, Ex 2 have a higher level than Ex 1 so that Ex 2 may mask Ex 1. With this information, when we tested the schema (-, -, 4, 5), we find all the test cases contain (-,-,4,5) will trigger exception 1, except these test cases trigger Ex 2 first. So we can conclude that (-,-,4,5) should be the causing schema of the Exception 1.
 
 \section{related works}
 combiantorial testing has may factors, Nie give a survey, at some are foucs,.
