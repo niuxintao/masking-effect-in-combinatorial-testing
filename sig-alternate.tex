@@ -133,7 +133,6 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
-
 \maketitle
 \begin{abstract}
 Minimal failure-inducing schema(MFS) is a important concept in combinatorial testing that indicate the failure-inducing interaction of parameters in the software under test(SUT). Identify the MFS can help developers quickly reduce the search space needed to find the buggy source. Many algorithms are proposed to find these MFSs in the failing test cases. In practice, however, we find that these algorithms cannot behave as expected in the condition that SUT has multiple faults with different levels. For if so, a fault with higher level may be triggered and leaving the code which will trigger the fault with lower level not executed. Thus we cannot observe the fault with lower level, as a result, we will omit the MFS that related to the fault with lower level. We call this a masking effect.
@@ -258,22 +257,44 @@ MFS & Exception\\ \hline
 \hline\end{tabular}
 \end{table}
 
-So in this paper, we need to analysis the level of the faults in the SUT and use the information to assist the MFS identifying algorithms to make the result more accurate and clearer.
+So in this paper, we need to analysis the priority among the faults in the SUT and use the information to assist the MFS identifying algorithms to make the result more accurate and clearer.
 
+\section{preliminary}
+Before we talk about our approach, we will give some formal definitions and background first, which is helpful to understand the description of our approach.
 
-\section{background}
-\subsection{related works}
-combiantorial testing has may factors, Nie give a survey, at some are foucs,.
+\subsection{Combinatorial testing}
+Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $c_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in .
 
-Identify MFS are
+\newdef{definition}{Definition}
+\begin{definition} 
+A \emph{test configuration} of the SUT is an array of \emph{n} values, one for each parameter of the SUT, which is denoted as a \emph{n}-tuple ($v_{1}$, $v_{2}$...$v_{n}$), where $v_{1}\in V_{1}$, $v_{2} \in V_{2}$ ... $v_{n} \in V_{n}$.
+\end{definition}
 
-then consider the masking effect is , to my best knowledege, only one paper, unfortuntately, it just consider the .
+\begin{definition}
+We consider the fact that abnormal executing of the SUT as a \emph{fault}. It can be a exception, a compilation error, a mismatched assertion or a constraint violation.
+\end{definition}
 
-Ylimaz propose a work that is feedback driven combinatorial testing, different from our work, it first using CTA classify the possible MFS and then elimate them and generate new test cases to detect possible masked interaction in the next iteration. The difference is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
+\begin{definition} 
+The \emph{priority} is a function indicate the  priority relationship between two faults. Specifically, we take $Priority(F_{a},F_{b}) = 1$ as that fault $F_{a}$ has a higher level than $F_{b}$, which means that if $F_{a}$ were triggered, it will omit the code that may trigger $F_{b}$. And $Priority(F_{a},F_{b}) = -1$ indicate that $F_{a}$ has a lower level than $F_{b}$. Finally, we take $Priority(F_{a},F_{b}) = 0$ as that there is no priority relationship between   $F_{a} $ and  $F_{b}$, in another word, neither  $F_{a}$ will mask  $F_{b}$ nor  $F_{b}$ will mask  $F_{a}$.
+\end{definition}
 
-\subsection{preliminary}
+\begin{definition}
+For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{schema} (k > 0) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". In effect a test configuration its self is a k-value \emph{schema}, which k is equal to n. Furthermore, if a test configuration contain a \emph{schema}, i.e., every fixed value in this schema is also in this test configuration, we say this configuration hit this \emph{schema}.
+\end{definition}
 
-SUT,
+\begin{definition}
+let $s_{l}$ be a \emph{l}-value schema, $s_{m}$ be an \emph{m}-value schema for the SUT and $l \leq m$. If all the fixed parameter values in $s_{l}$ are also in $s_{m}$, then $s_{m}$ \emph{subsumes} $s_{l}$. In this case we can also say that $s_{l}$ is a \emph{sub-schema} of $s_{m}$ and $s_{m}$ is a \emph{parent-schema} of $s_{l}$.
+\end{definition}
+
+\begin{definition}
+If all test configurations except these configurations triggered a higher level fault contain a schema, say $S_{a}$, trigger a particular fault, say $F_{a}$, then we call this schema $S_{a}$ the \emph{faulty schema} for $F_{a}$. Additionally, if none sub-schemas of $S_{a}$ is the \emph{faulty schema} for $F_{a}$, we will call the schema $S_{a}$ the \emph{minimal faulty schema} for $F_{a}$(\emph{MFS} for short).
+
+Note that, traditional MFS definition didn't consider the priority relationship among faults, so these definition will not take the schema as a MFS for some particular fault if some test configuration contain this schema doesn't trigger this fault.
+\end{definition}
+
+The target of traditional MFS identifying algorithms is to find thes MFSs for the faults of a SUT. For by doing that can help the developers reduce the scope of source code that needed to inspect to debug the software. Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
+
+\subsection{Dominate tree}
 
 fault. level.
 given this definition, we can also take the constraint as a fault, usually it will have the highest level, for that if we take a combination which is constraint, it will may didn't compile at all, so that we can't exam any code in this software.
@@ -287,9 +308,52 @@ we need to identify the minimal faulty schema, that is MFS.
 note that in our paper, we just consider the failure that is deterministic.
 
 
-\section{approach}
-We have use the static analysis tool: dominate tree to record the relationships among the code lines in the test script.
+\section{approach description}
 
+The approach, our approach is that, 
+
+if the algorithm want to get the result, we will put off the result, and generate another one.
+
+
+generate test cases:
+
+We generate as different as possible test cases for the tuple, to aviod some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases. 
+
+
+
+Five setup as follows:
+
+In detail, for FIC, TRT, OFOT, it can just use the original approach, that it each time test one tuple, and the we use our framework to assign this task.
+
+For CTA, we can use our framework to choose a set of test cases for it to identify the MFS, like shykara do, but different from her work, we just not one test one time, we diff the test cases for different fault.
+
+
+For SP, we can use our framework for him to generate test cases, it will test multiple tuples one time, and we just first for one fault, then another.
+
+So  our comparsion work is just compare the one fault, with a noise for the multiple faults.
+
+\section{empirical studies}
+
+Our empirical studies include the following questions:
+
+Q1: does our framework reduce the number of MFSs and the degree of MFS?
+
+Q2: does our framework can validate that MFSs exist masking effect.
+
+Q3: does our framework the result is match the result in developer's forum.
+
+
+
+\section{related works}
+combinatorial testing has may factors, Nie give a survey, at some are focus,.
+
+Identify MFS are
+
+then consider the masking effect is , to my best knowledge, only one paper, unfortunately, it just consider the .
+
+Ylimaz propose a work that is feedback driven combinatorial testing, different from our work, it first using CTA classify the possible MFS and then elimate them and generate new test cases to detect possible masked interaction in the next iteration. The difference is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
+
+\section{conclusion}
 
 \section{The {\secit Body} of The Paper}
 Typically, the body of a paper is organized
@@ -534,7 +598,6 @@ an antiderivative for $f$ on $[a,b]$, then
 
 The other uses the \textbf{definition} environment, created
 by the \texttt{{\char'134}newdef} command:
-\newdef{definition}{Definition}
 \begin{definition}
 If $z$ is irrational, then by $e^z$ we mean the
 unique number which has
