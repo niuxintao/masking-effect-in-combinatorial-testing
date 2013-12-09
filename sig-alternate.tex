@@ -309,6 +309,44 @@ note that in our paper, we just consider the failure that is deterministic.
 
 
 \section{approach description}
+In this section, we will give a detail description of our approach and a simple example will be attached to illustrate this algorithm.
+
+Traditional MFS identifying algorithms all including a step: fix some parts of the original failing test configuration and then mutant other parts  to generate newly test configuration. This step is the basis of these algorithms, as it can help them to compare other configurations, to isolate the failure-inducing parts, to help rank the possible schemas and so on. Our approach is to improve the quality of generated test configuration, so that to assist these algorithm to reduce the influence of the faults masking effects.
+
+As a overview of our approach, our approach is listed as figure \ref{framework}:
+
+\begin{figure}
+\centering
+\label{framework}
+\epsfig{file=framework.eps, height=2.3in}
+\caption{the overview of our approach.}
+\end{figure}
+
+This figure tell us when given a original failing test configuration and the fixed part, our approach will repeat generating test configurations which mutant the elements in the original test configuration except contain this fixed part until the end condition is matched.
+
+
+1. Mutant other parts of the original test configurations
+
+2. Execute the SUT under the test configuration make some  according to the result.
+
+original failing test configuration.  and fixed part.
+
+generate test configurations.
+
+judge the based on reuslt
+
+end. regenerate.
+
+In a word, our approach takes a revalidation strategy when encouter different faults until we find a test case. Next we will discuss the two parts in detail.
+
+\subsection{judge the result}
+
+\subsection{regenerate}
+
+we will give simple example next to illustrate our approach. Take the fic as a example.
+
+\subsection{simple example}
+
 
 The approach, our approach is that, 
 
@@ -319,9 +357,9 @@ generate test cases:
 
 We generate as different as possible test cases for the tuple, to aviod some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases. 
 
-
-
 Five setup as follows:
+
+Another note is that:
 
 In detail, for FIC, TRT, OFOT, it can just use the original approach, that it each time test one tuple, and the we use our framework to assign this task.
 
@@ -333,8 +371,9 @@ For SP, we can use our framework for him to generate test cases, it will test mu
 So  our comparsion work is just compare the one fault, with a noise for the multiple faults.
 
 \section{empirical studies}
+To evaluate our approach, we take two open-source software as our subjects: HSQLDB and . HSQLDB is a pure-java data-base management software, and  is a . Both of them have a large support developers' forum. Further more as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
 
-Our empirical studies include the following questions:
+There are three questions we want to figure our in this empirical studies:
 
 Q1: does our framework reduce the number of MFSs and the degree of MFS?
 
@@ -342,6 +381,11 @@ Q2: does our framework can validate that MFSs exist masking effect.
 
 Q3: does our framework the result is match the result in developer's forum.
 
+\subsection{experiment set up}
+
+\subsection{evaluation metrics}
+
+\subsection{result and analysis}
 
 
 \section{related works}
