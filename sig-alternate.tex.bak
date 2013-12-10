@@ -133,7 +133,6 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
-
 \maketitle
 \begin{abstract}
 Minimal failure-inducing schema(MFS) is a important concept in combinatorial testing that indicate the failure-inducing interaction of parameters in the software under test(SUT). Identify the MFS can help developers quickly reduce the search space needed to find the buggy source. Many algorithms are proposed to find these MFSs in the failing test cases. In practice, however, we find that these algorithms cannot behave as expected in the condition that SUT has multiple faults with different levels. For if so, a fault with higher level may be triggered and leaving the code which will trigger the fault with lower level not executed. Thus we cannot observe the fault with lower level, as a result, we will omit the MFS that related to the fault with lower level. We call this a masking effect.
@@ -193,7 +192,7 @@ public static float foo(int a, int b, int c, int d){
 
 Inspecting the simple code above, we can find two faults: First, in the step 1 we can get a ArithmeticException when b is equal to c, i.e.,  b = 4 \& c = 4, that makes division by zero. Second, another ArithmeticException will be triggered in step 2 when c < d, i.e., c = 4 \& d = 5, which makes square roots of negative numbers. So the expected MFSs in this example should be (-, 4, 4, -) and (-, -, 4, 5).
 
-Traditional MFS identifying algorithms do not consider the detail of the code. They take black-box testing of this program, i.e., feed inputs to those programs and execute them to observe the result. The basic justification behind those approaches is that the failure-inducing schema for a particular fault must only appear in those inputs that trigger this fault. As traditional MFS identifying algorithms aim at using as small number of inputs as possible to get the same or approximate result as exhaustive testing, so the results derive from a exhaustive testing set must be the best that these MFS identifying approaches can reach. Next we will illustrate how exhaustive testing works on identifying the MFS in the program.  
+Traditional MFS identifying algorithms do not consider the detail of the code. They take black-box testing of this program, i.e., feed inputs to those programs and execute them to observe the result. The basic justification behind those approaches is that the failure-inducing schema for a particular fault must only appear in those inputs that trigger this fault. As traditional MFS identifying algorithms aim at using as small number of inputs as possible to get the same or approximate result as exhaustive testing, so the results derive from a exhaustive testing set must be the best that these MFS identifying approaches can reach. Next we will illustrate how exhaustive testing works on identifying the MFS in the program.
 
 
 \begin{table}
@@ -229,9 +228,7 @@ id&test inputs & result\\\hline
 \hline\end{tabular}
 \end{table}
 
-We first generate every possible inputs as listed in the Column "test inputs" in table \ref{test-example}, and execute them to get the result listed in Column "result" in table \ref{test-example}. In this Column, "PASS" means that the program runs without any exception under the inputs in the same row. "Ex 1" indicate that the program encounter a exception corresponding to the step 1 and "Ex 2" indicate the program trigger a exception corresponding to the step 2. According to data listed in table \ref{test-example}, we can deduce that that (-, 4 , 4, -) must be the MFS of Ex 1 as all the inputs triggered Ex 1 contain this schema. Similarly, the schema (-, 2, 4, 5) and  (-, 3, 4, 5) must be the MFSs of the Ex 2. We listed the MFSs and its corresponding exception in table \ref{identify-example}.
-
-
+We first generate every possible inputs as listed in the Column "test inputs" of table \ref{test-example}, and execute them to get the result listed in Column "result" of table \ref{test-example}. In this Column, "PASS" means that the program runs without any exception under the inputs in the same row. "Ex 1" indicate that the program encounter a exception corresponding to the step 1 and "Ex 2" indicate the program trigger a exception corresponding to the step 2. According to data listed in table \ref{test-example}, we can deduce that that (-, 4 , 4, -) must be the MFS of Ex 1 as all the inputs triggered Ex 1 contain this schema. Similarly, the schema (-, 2, 4, 5) and  (-, 3, 4, 5) must be the MFSs of the Ex 2. We listed the MFSs and its corresponding exception in table \ref{identify-example}.
 
 \begin{table}
 \centering
@@ -245,13 +242,9 @@ MFS & Exception\\ \hline
 \hline\end{tabular}
 \end{table}
 
-Note that we didn't get the expected result with traditional MFS identifying approaches for this case. The MFSs we get for Ex 2 are (-,2,4,5) and (-,3,4,5) respectively instead of the expected schema (-,-,4,5). So why we can't identify the MFS (-,-,4,5)? The reason lies in the two inputs: input 6. (7,4,4,5) and input 18. (11,4,4,5). This two inputs contain the schema (-,-,4,5), but didn't trigger the Ex 1, instead, the Ex 2 was triggered. 
+Note that we didn't get the expected result with traditional MFS identifying approaches for this case. The MFSs we get for Ex 2 are (-,2,4,5) and (-,3,4,5) respectively instead of the expected schema (-,-,4,5). So why we can't identify the MFS (-,-,4,5)? The reason lies in the two inputs: input 6. (7,4,4,5) and input 18. (11,4,4,5). This two inputs contain the schema (-,-,4,5), but didn't trigger the Ex 1, instead, the Ex 2 was triggered.
 
-Now let us get back to the source code of \emph{foo}, we can find that if Ex 1 are triggered, it will stop executing the remaining code and report the exception information. In another word, Ex 1 have a higher level than Ex 2 so that Ex 1 may mask Ex 2. With this information, .
-
-
-Consider the following test scenario. We feed the input (7, 2, 4, 5) to \emph{foo}, it fails and report a exception that related to the step 2, we call this exception Ex 1. Then we feed the input (7, 4, 4, 5) to \emph{foo}, we find the Ex 1 disappears, instead, \emph{foo} reports another exception that related to step 1, we call this exception Ex 2.  For traditional MFS identifying algorithms, as they don't consider multiple faults and their masking relationship, we will think that b = 4 will be a failure-inducing factor to Ex 1 which in fact is not. Further more, if we take a deeper thinking, we can find that if we analysis this program according to the MFS identifying algorithms, we can at last get the failure-inducing schemas as 
-These results are all got according to the definition of MFS, i.e., every possible inputs contain this schema will trigger the failure. For example, all the test case contain (- , 4, 4, -) will trigger the Ex 2. (-,-,4,5) is not a MFS according to the definition for that input (7, 4, 4, 5) did not trigger the Ex 1. However, these results obviously cannot reach our requirements. The result listed at table \ref{expected-example} can give us a clearer and more accurate view.
+Now let us get back to the source code of \emph{foo}, we can find that if Ex 1 are triggered, it will stop executing the remaining code and report the exception information. In another word, Ex 1 have a higher level than Ex 2 so that Ex 1 may mask Ex 2. With this information, we can suppose that for the input (7,4,4,5) and (11,4,4,5), Ex 1 may masked Ex 2. Then we exam the schema (-,-,4,5), we can find all the test inputs contain (-,-,4,5) will trigger exception 1, except these test cases trigger Ex 2 first. So we can conclude that (-,-,4,5) should be the causing schema of the Exception 1. So the MFS information will be updated to table \ref{expected-example} which is identical to the expected result.
 
 \begin{table}
 \centering
@@ -264,20 +257,44 @@ MFS & Exception\\ \hline
 \hline\end{tabular}
 \end{table}
 
-To get the expected result, we need to understand the relationship between this two exceptions. Review the code of \emph{foo}, we can find that if Ex 2 are triggered, it will stop executing the remaining code and report the exception information. In another word, Ex 2 have a higher level than Ex 1 so that Ex 2 may mask Ex 1. With this information, when we tested the schema (-, -, 4, 5), we find all the test cases contain (-,-,4,5) will trigger exception 1, except these test cases trigger Ex 2 first. So we can conclude that (-,-,4,5) should be the causing schema of the Exception 1.
-
-\section{related works}
-combiantorial testing has may factors, Nie give a survey, at some are foucs,.
-
-Identify MFS are
-
-then consider the masking effect is , to my best knowledege, only one paper, unfortuntately, it just consider the .
-
-Ylimaz propose a work that is feedback driven combinatorial testing, different from our work, it first using CTA classify the possible MFS and then elimate them and generate new test cases to detect possible masked interaction in the next iteration. The difference is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
+So in this paper, we need to analysis the priority among the faults in the SUT and use the information to assist the MFS identifying algorithms to make the result more accurate and clearer.
 
 \section{preliminary}
+Before we talk about our approach, we will give some formal definitions and background first, which is helpful to understand the description of our approach.
 
-SUT,
+\subsection{Combinatorial testing}
+Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $c_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in .
+
+\newdef{definition}{Definition}
+\begin{definition} 
+A \emph{test configuration} of the SUT is an array of \emph{n} values, one for each parameter of the SUT, which is denoted as a \emph{n}-tuple ($v_{1}$, $v_{2}$...$v_{n}$), where $v_{1}\in V_{1}$, $v_{2} \in V_{2}$ ... $v_{n} \in V_{n}$.
+\end{definition}
+
+\begin{definition}
+We consider the fact that abnormal executing of the SUT as a \emph{fault}. It can be a exception, a compilation error, a mismatched assertion or a constraint violation.
+\end{definition}
+
+\begin{definition} 
+The \emph{priority} is a function indicate the  priority relationship between two faults. Specifically, we take $Priority(F_{a},F_{b}) = 1$ as that fault $F_{a}$ has a higher level than $F_{b}$, which means that if $F_{a}$ were triggered, it will omit the code that may trigger $F_{b}$. And $Priority(F_{a},F_{b}) = -1$ indicate that $F_{a}$ has a lower level than $F_{b}$. Finally, we take $Priority(F_{a},F_{b}) = 0$ as that there is no priority relationship between   $F_{a} $ and  $F_{b}$, in another word, neither  $F_{a}$ will mask  $F_{b}$ nor  $F_{b}$ will mask  $F_{a}$.
+\end{definition}
+
+\begin{definition}
+For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{schema} (k > 0) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". In effect a test configuration its self is a k-value \emph{schema}, which k is equal to n. Furthermore, if a test configuration contain a \emph{schema}, i.e., every fixed value in this schema is also in this test configuration, we say this configuration hit this \emph{schema}.
+\end{definition}
+
+\begin{definition}
+let $s_{l}$ be a \emph{l}-value schema, $s_{m}$ be an \emph{m}-value schema for the SUT and $l \leq m$. If all the fixed parameter values in $s_{l}$ are also in $s_{m}$, then $s_{m}$ \emph{subsumes} $s_{l}$. In this case we can also say that $s_{l}$ is a \emph{sub-schema} of $s_{m}$ and $s_{m}$ is a \emph{parent-schema} of $s_{l}$.
+\end{definition}
+
+\begin{definition}
+If all test configurations except these configurations triggered a higher level fault contain a schema, say $S_{a}$, trigger a particular fault, say $F_{a}$, then we call this schema $S_{a}$ the \emph{faulty schema} for $F_{a}$. Additionally, if none sub-schemas of $S_{a}$ is the \emph{faulty schema} for $F_{a}$, we will call the schema $S_{a}$ the \emph{minimal faulty schema} for $F_{a}$(\emph{MFS} for short).
+
+Note that, traditional MFS definition didn't consider the priority relationship among faults, so these definition will not take the schema as a MFS for some particular fault if some test configuration contain this schema doesn't trigger this fault.
+\end{definition}
+
+The target of traditional MFS identifying algorithms is to find thes MFSs for the faults of a SUT. For by doing that can help the developers reduce the scope of source code that needed to inspect to debug the software. Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
+
+\subsection{Dominate tree}
 
 fault. level.
 given this definition, we can also take the constraint as a fault, usually it will have the highest level, for that if we take a combination which is constraint, it will may didn't compile at all, so that we can't exam any code in this software.
@@ -291,9 +308,96 @@ we need to identify the minimal faulty schema, that is MFS.
 note that in our paper, we just consider the failure that is deterministic.
 
 
-\section{approach}
-We have use the static analysis tool: dominate tree to record the relationships among the code lines in the test script.
+\section{approach description}
+In this section, we will give a detail description of our approach and a simple example will be attached to illustrate this algorithm.
 
+Traditional MFS identifying algorithms all including a step: fix some parts of the original failing test configuration and then mutant other parts  to generate newly test configuration. This step is the basis of these algorithms, as it can help them to compare other configurations, to isolate the failure-inducing parts, to help rank the possible schemas and so on. Our approach is to improve the quality of generated test configuration, so that to assist these algorithm to reduce the influence of the faults masking effects.
+
+As a overview of our approach, our approach is listed as figure \ref{framework}:
+
+\begin{figure}
+\centering
+\label{framework}
+\epsfig{file=framework.eps, height=2.3in}
+\caption{the overview of our approach.}
+\end{figure}
+
+This figure tell us when given a original failing test configuration and the fixed part, our approach will repeat generating test configurations which mutant the elements in the original test configuration except contain this fixed part until the end condition is matched.
+
+
+1. Mutant other parts of the original test configurations
+
+2. Execute the SUT under the test configuration make some  according to the result.
+
+original failing test configuration.  and fixed part.
+
+generate test configurations.
+
+judge the based on reuslt
+
+end. regenerate.
+
+In a word, our approach takes a revalidation strategy when encouter different faults until we find a test case. Next we will discuss the two parts in detail.
+
+\subsection{judge the result}
+
+\subsection{regenerate}
+
+we will give simple example next to illustrate our approach. Take the fic as a example.
+
+\subsection{simple example}
+
+
+The approach, our approach is that, 
+
+if the algorithm want to get the result, we will put off the result, and generate another one.
+
+
+generate test cases:
+
+We generate as different as possible test cases for the tuple, to aviod some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases. 
+
+Five setup as follows:
+
+Another note is that:
+
+In detail, for FIC, TRT, OFOT, it can just use the original approach, that it each time test one tuple, and the we use our framework to assign this task.
+
+For CTA, we can use our framework to choose a set of test cases for it to identify the MFS, like shykara do, but different from her work, we just not one test one time, we diff the test cases for different fault.
+
+
+For SP, we can use our framework for him to generate test cases, it will test multiple tuples one time, and we just first for one fault, then another.
+
+So  our comparsion work is just compare the one fault, with a noise for the multiple faults.
+
+\section{empirical studies}
+To evaluate our approach, we take two open-source software as our subjects: HSQLDB and . HSQLDB is a pure-java data-base management software, and  is a . Both of them have a large support developers' forum. Further more as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
+
+There are three questions we want to figure our in this empirical studies:
+
+Q1: does our framework reduce the number of MFSs and the degree of MFS?
+
+Q2: does our framework can validate that MFSs exist masking effect.
+
+Q3: does our framework the result is match the result in developer's forum.
+
+\subsection{experiment set up}
+
+\subsection{evaluation metrics}
+
+\subsection{result and analysis}
+
+
+\section{related works}
+combinatorial testing has may factors, Nie give a survey, at some are focus,.
+
+Identify MFS are
+
+then consider the masking effect is , to my best knowledge, only one paper, unfortunately, it just consider the .
+
+Ylimaz propose a work that is feedback driven combinatorial testing, different from our work, it first using CTA classify the possible MFS and then elimate them and generate new test cases to detect possible masked interaction in the next iteration. The difference is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
+
+\section{conclusion}
 
 \section{The {\secit Body} of The Paper}
 Typically, the body of a paper is organized
@@ -538,7 +642,6 @@ an antiderivative for $f$ on $[a,b]$, then
 
 The other uses the \textbf{definition} environment, created
 by the \texttt{{\char'134}newdef} command:
-\newdef{definition}{Definition}
 \begin{definition}
 If $z$ is irrational, then by $e^z$ we mean the
 unique number which has
@@ -548,7 +651,7 @@ logarithm $z$: \begin{displaymath}{\log e^z = z}\end{displaymath}
 Two lists of constructs that use one of these
 forms is given in the
 \textit{Author's  Guidelines}.
- 
+
 There is one other similar construct environment, which is
 already set up
 for you; i.e. you must \textit{not} use
