@@ -266,7 +266,7 @@ Before we talk about our approach, we will give some formal definitions and back
 Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $c_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in .
 
 \newdef{definition}{Definition}
-\begin{definition} 
+\begin{definition}
 A \emph{test configuration} of the SUT is an array of \emph{n} values, one for each parameter of the SUT, which is denoted as a \emph{n}-tuple ($v_{1}$, $v_{2}$...$v_{n}$), where $v_{1}\in V_{1}$, $v_{2} \in V_{2}$ ... $v_{n} \in V_{n}$.
 \end{definition}
 
@@ -274,7 +274,7 @@ A \emph{test configuration} of the SUT is an array of \emph{n} values, one for e
 We consider the fact that abnormal executing of the SUT as a \emph{fault}. It can be a exception, a compilation error, a mismatched assertion or a constraint violation.
 \end{definition}
 
-\begin{definition} 
+\begin{definition}
 The \emph{priority} is a function indicate the  priority relationship between two faults. Specifically, we take $Priority(F_{a},F_{b}) = 1$ as that fault $F_{a}$ has a higher level than $F_{b}$, which means that if $F_{a}$ were triggered, it will omit the code that may trigger $F_{b}$. And $Priority(F_{a},F_{b}) = -1$ indicate that $F_{a}$ has a lower level than $F_{b}$. Finally, we take $Priority(F_{a},F_{b}) = 0$ as that there is no priority relationship between   $F_{a} $ and  $F_{b}$, in another word, neither  $F_{a}$ will mask  $F_{b}$ nor  $F_{b}$ will mask  $F_{a}$.
 \end{definition}
 
@@ -325,6 +325,7 @@ As a overview of our approach, our approach is listed as figure \ref{framework}:
 This figure tell us when given a original failing test configuration and the fixed part, our approach will repeat generating test configurations which mutant the elements in the original test configuration except contain this fixed part until the end condition is matched.
 
 
+
 1. Mutant other parts of the original test configurations
 
 2. Execute the SUT under the test configuration make some  according to the result.
@@ -340,22 +341,58 @@ end. regenerate.
 In a word, our approach takes a revalidation strategy when encouter different faults until we find a test case. Next we will discuss the two parts in detail.
 
 \subsection{judge the result}
+There are three condition we will end our algorithm:
+
+1. If the generated test configuration passed during testing. This means that the fixed part we validated does not contain the failure-inducing elements, so we will send a message to tell the MFS identifying algorithm that this fixed part is a healthy part, and return this passing generated test configuration to these algorithms.
+
+2.If the generated test configuration failed with the same faulty information as the original test configuration.
+
+
+3.We cannot generate anymore test configurations contained this fixed part and diff from the original test configuration.
+
+In this case, we didn't know which condition does this fixed part should be because we didn't find any test configuration that contain this part and either passed or failed with the same fault information. In this paper, we default set this fixed part as the failure-inducing . And return any test configuration generated.
+
+In fact, to be efficiency, we set the repeat times as a fixed number, say 3 to be end as soon as possible.
+
+Reversely, the only condition that we did not stop is that we encounter a different fault information as the original test configuration, for in that case we did not has enough information whether this fixed part is a failure-inducing part or not as the different fault information may be a masking effect.
 
 \subsection{regenerate}
+The regenerate step is to regenerate test configuration that contain the fixed part and does not contain any same elements in the remained part. The reason is that if so we can't not make sure the fixed part or the contained remained part is the failure-inducing part.
+
+Further more, as we having set a fixed number, we can't running all the possible test configuration, so if we did not encounter the passed or the same fault, we will take some more test configuration instead all of them to test. As similar test configuration will trigger the same fault, so we vary them as different as possible to avoid the following condition:
+
+all the regenerated test configuration trigger a fault that have a higher level that the original one.
+The method we generate the test configuration it using random method. that is, using random number to take these unfixed part.
+
+We generate as different as possible test cases for the tuple, to aviod some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases.
 
 we will give simple example next to illustrate our approach. Take the fic as a example.
 
 \subsection{simple example}
 
+\begin{table}
+\caption{Identifying MFS using OFOT}
+\label{ofot}
+\begin{tabular}{|c c c c|c|} \hline
+\bfseries test  & & cases&  & result \\
+1 & 0 & 0 & 0 & Err 1 \\
+0 & 1 & 0 & 0 & Err 2 \\
+0 & 0 & 1 & 0 & Pass \\
+0 & 0 & 0 & 1 & Pass
+\end{tabular}
+\begin{tabular}{|c|} \hline
+\bfseries Mfs identified \\
+1 - - - for Err 1
+\end{tabular}
+\end{table}
 
-The approach, our approach is that, 
+The approach, our approach is that,
 
 if the algorithm want to get the result, we will put off the result, and generate another one.
 
 
 generate test cases:
 
-We generate as different as possible test cases for the tuple, to aviod some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases. 
 
 Five setup as follows:
 
@@ -368,7 +405,7 @@ For CTA, we can use our framework to choose a set of test cases for it to identi
 
 For SP, we can use our framework for him to generate test cases, it will test multiple tuples one time, and we just first for one fault, then another.
 
-So  our comparsion work is just compare the one fault, with a noise for the multiple faults.
+So  our comparison work is just compare the one fault, with a noise for the multiple faults.
 
 \section{empirical studies}
 To evaluate our approach, we take two open-source software as our subjects: HSQLDB and . HSQLDB is a pure-java data-base management software, and  is a . Both of them have a large support developers' forum. Further more as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.

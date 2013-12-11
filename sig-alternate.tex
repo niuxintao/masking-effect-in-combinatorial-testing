@@ -46,6 +46,7 @@
 % For tracking purposes - this is V2.0 - May 2012
 
 \documentclass{sig-alternate}
+\usepackage[normalem]{ulem}
 
 \begin{document}
 %
@@ -369,15 +370,65 @@ We generate as different as possible test cases for the tuple, to aviod some mor
 we will give simple example next to illustrate our approach. Take the fic as a example.
 
 \subsection{simple example}
+Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encouter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT to identify the MFS for the "Err 1". 
+
+The process is listed in table \ref{ofot}. In this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Normally if the test configuration encounter the different condition with the Err 1, OFOT see the MFS was broken, in another word, if we change one factor and it does not trigger the same fault, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-idncuing schemas. For this case, as when we change the second factor , third factor and the fouth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed). So finally we can get the MFS --- ( - 0 0 0).
+
+Next, we will check how the ofot works with the assistance of our approach. The process is listed in table \ref{ofot-aug}. We can soon find that the process is very similar to the original ofot algorithm, except that when we change the second factor to generate a new test configuration, we first encounter a new fault Err 2 which is different from the original Err 1, accroding to our approach, we will eliminate this test configuaraiton and regenerate another one, when we find regenerated test configuration ( 0 2 0 0 ) failed with the same err -- Err 1 with the original test configuratinon, we stopped the regenerate process for the fixed factor (0 - 0 0), and finally we send this test configuration (0 2 0 0) instead of (0 1 0 0) to the OFOT algorithm, and at last ofot get the more clear and precise MFS for Err 1 --- (- - 0 0).
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using traditional OFOT}
+\label{ofot}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries original test configuration & \bfseries fault info \\ \hline
+0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+\end{tabular}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries gen test configurations   &\bfseries result \\ \hline
+1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 & Err 2 \\
+0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
+0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+(  -  \ \ \  0 \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+\hline
+\end{tabular}
+\end{table}
 
 
-The approach, our approach is that,
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using OFOT with our approach}
+\label{ofot-aug}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries original test configuration & \bfseries fault info \\ \hline
+0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+\end{tabular}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries gen test configurations   &\bfseries result \\ \hline
+1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+\sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
+0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
+0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+\hline
+\end{tabular}
+\end{table}
+
 
 if the algorithm want to get the result, we will put off the result, and generate another one.
-
-
-generate test cases:
-
 
 Five setup as follows:
 
