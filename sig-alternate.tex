@@ -308,6 +308,8 @@ we need to identify the minimal faulty schema, that is MFS.
 
 note that in our paper, we just consider the failure that is deterministic.
 
+\section{propositions}
+
 
 \section{approach description}
 In this section, we will give a detail description of our approach and a simple example will be attached to illustrate this algorithm.
@@ -365,16 +367,16 @@ Further more, as we having set a fixed number, we can't running all the possible
 all the regenerated test configuration trigger a fault that have a higher level that the original one.
 The method we generate the test configuration it using random method. that is, using random number to take these unfixed part.
 
-We generate as different as possible test cases for the tuple, to aviod some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases.
+We generate as different as possible test cases for the tuple, to avoid some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases.
 
 we will give simple example next to illustrate our approach. Take the fic as a example.
 
 \subsection{simple example}
-Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encouter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT to identify the MFS for the "Err 1". 
+Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encouter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT to identify the MFS for the "Err 1".
 
-The process is listed in table \ref{ofot}. In this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Normally if the test configuration encounter the different condition with the Err 1, OFOT see the MFS was broken, in another word, if we change one factor and it does not trigger the same fault, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-idncuing schemas. For this case, as when we change the second factor , third factor and the fouth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed). So finally we can get the MFS --- ( - 0 0 0).
+The process is listed in table \ref{ofot}. In this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Normally if the test configuration encounter the different condition with the Err 1, OFOT see the MFS was broken, in another word, if we change one factor and it does not trigger the same fault, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-inducing schemas. For this case, as when we change the second factor , third factor and the fouth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed). So finally we can get the MFS --- ( - 0 0 0).
 
-Next, we will check how the ofot works with the assistance of our approach. The process is listed in table \ref{ofot-aug}. We can soon find that the process is very similar to the original ofot algorithm, except that when we change the second factor to generate a new test configuration, we first encounter a new fault Err 2 which is different from the original Err 1, accroding to our approach, we will eliminate this test configuaraiton and regenerate another one, when we find regenerated test configuration ( 0 2 0 0 ) failed with the same err -- Err 1 with the original test configuratinon, we stopped the regenerate process for the fixed factor (0 - 0 0), and finally we send this test configuration (0 2 0 0) instead of (0 1 0 0) to the OFOT algorithm, and at last ofot get the more clear and precise MFS for Err 1 --- (- - 0 0).
+Next, we will check how the ofot works with the assistance of our approach. The process is listed in table \ref{ofot-aug}. We can soon find that the process is very similar to the original ofot algorithm, except that when we change the second factor to generate a new test configuration, we first encounter a new fault Err 2 which is different from the original Err 1, according to our approach, we will eliminate this test configuration and regenerate another one, when we find regenerated test configuration ( 0 2 0 0 ) failed with the same err -- Err 1 with the original test configuration, we stopped the regenerate process for the fixed factor (0 - 0 0), and finally we send this test configuration (0 2 0 0) instead of (0 1 0 0) to the OFOT algorithm, and at last ofot get the more clear and precise MFS for Err 1 --- (- - 0 0).
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Identifying MFS using traditional OFOT}
@@ -446,19 +448,100 @@ So  our comparison work is just compare the one fault, with a noise for the mult
 \section{empirical studies}
 To evaluate our approach, we take two open-source software as our subjects: HSQLDB and . HSQLDB is a pure-java data-base management software, and  is a . Both of them have a large support developers' forum. Further more as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
 
-There are three questions we want to figure our in this empirical studies:
+There are three questions we want to figure out from our in this empirical studies:
 
 Q1: does our framework reduce the number of MFSs and the degree of MFS?
 
-Q2: does our framework can validate that MFSs exist masking effect.
+Q2: What the real masking state in real softwares.
 
 Q3: does our framework the result is match the result in developer's forum.
 
 \subsection{experiment set up}
+We will first model the two objects so that we can use the MFS identifying algorithms. To do this, we first find real faults in the developer's forum, and then read the specification of the software to get the options and its values that can influence its behaviour. The detail of the modeling is listed in table \ref{modelHSQLDB} and table .
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+  \caption{input model of HSQLDB} \centering
+  \label{modelHSQLDB}
+  \begin{tabular}{p{0.9\columnwidth}}\hline
+  \hline
+   \bfseries  SQL  properties(TRUE/FALSE)\\
+    \hline
+    sql.enforce\_strict\_size, sql.enforce\_names,sql.enforce\_refs, sql.enforce\_size, sql.enforce\_types, sql.enforce\_tdc\_delete, sql.enforce\_tdc\_update
+  \end{tabular}
+
+  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries table properties &   \bfseries values \\
+   \hline
+   hsqldb.default\_table\_type & CACHED, MEMORY\\
+   hsqldb.tx & LOCKS, MVLOCKS, MVCC\\
+   hsqldb.tx\_level & read\_commited, SERIALIZABLE\\
+   hsqldb.tx\_level & read\_commited, SERIALIZABLE
+  \end{tabular}
+
+  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries Server properties &   \bfseries values \\
+   \hline
+   Server Type & SERVER, WEBSERVER, INPROCESS \\
+    existed form & MEM, FILE
+  \end{tabular}
+
+  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries Result Set properties &   \bfseries values \\
+   \hline
+    resultSetTypes & TYPE\_FORWARD\_ONLY,TYPE\_SCROLL\_INSENSITIVE, TYPE\_SCROLL\_SENSITIVE\\\
+    resultSetConcurrencys & CONCUR\_READ\_ONLY,CONCUR\_UPDATABLE \\
+    resultSetHoldabilitys & HOLD\_CURSORS\_OVER\_COMMIT, CLOSE\_CURSORS\_AT\_COMMIT
+  \end{tabular}
+
+  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries option in test script &   \bfseries values\\
+   \hline
+   StatementType & STATEMENT, PREPAREDSTATEMENT
+  \end{tabular}
+
+\end{table}
+
+
+Second we will write the test script that can autonomically execute the software according to a given test configuration, furthermore, the test script will collect the executing result. In this paper, we just care two kinds of result: the test script run without any exception and run with triggering exception. For the second result we will distinguish the failure with different exception information.
+
+Third we will take three group experiments, each for the question proposed in the first of this section.
+
+For the first experiment, we will compare the result got by traditional MFS identifying algorithm with the MFS identifying algorithms using our framework. For a particular algorithm, say, OFOT, we will record the number of MFS, the degree of MFSs and the number of test configurations they needed.
+
+The second experiment, we will collect the result got by the algorithms with our framework. Then we will generate a test configuration contain two MFS of the result, and execute to find if one MFS is masked by another. In specific, we will exam every possible pair MFSs, the only constraints is that this two pair MFS must get different fault information.
+
+For the third experiment, we will compare the similarity between the identified result and the result report in the developer's forum. And find whose (traditional or with our framework) result can give more help to the developer of the software.
 
 \subsection{evaluation metrics}
+To evaluate the efficiency of our framework, we will compare the results of two approaches. We will count how many MFSs is reduced by our approach and how the degree is reduced by our approach compared to traditional one. This two metric will indicate how much our approach will improve the usability of results.  Additional, we will count how many more test configurations we will generated compare to traditional one, this metric indicate the cost we need over the traditional one.
+
+Then we will exam the result of the algorithm with our framework, to see if any masking is behind them. In detail, we will record how many pair MFS can coexist in a test configuration. And count the privileges of each MFS.
+
+For the third, the similarity is listed as follows:
+the followed notation:
+Assume we get two schema $S_{A}$,$S_{B}$, the notation$S_{A} \bigcap S_{B}$ indicate the same elements between $S_{A}$ and $S_{B}$. For example $(- 1\ 2 - 3) \bigcap  (- 2\ 2 - 3) = \{ (- - 2 - -) , (- - - - 3)\}$.
+
+\begin{displaymath} Similarity(S_{A},S_{B})= \frac{|S_{A} \bigcap S_{B}|}{\max (Degree(S_{A}),Degree(S_{B})) } \end{displaymath}.
+
+In this formula, the numerator indicate the number of same elements in  $S_{A}$ and $S_{B}$. It is obviously, the bigger the value is the more similar two schemas are.  The denominator give us this information: if the the number of same elements is fixed, the bigger the degree of the schema, the more noise we will encounter to find the fault source. In a word, the bigger the formula can get the better the similarity is between the two schema.
 
 \subsection{result and analysis}
+
+For the second experiment.
+
+\begin{table}
+\centering
+\caption{Masking effect state}
+\label{mask-evluate}
+\begin{tabular}{|c|c|c|c| } \hline
+all pair & coexisted \& noexised & mask over 6 mfs & over 5 mfs \\ \hline
+10 & 5 \& 5 & 3 & 2 \\
+\hline\end{tabular}
+\end{table}
 
 
 \section{related works}
