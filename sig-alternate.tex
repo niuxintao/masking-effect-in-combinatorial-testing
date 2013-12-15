@@ -308,7 +308,81 @@ we need to identify the minimal faulty schema, that is MFS.
 
 note that in our paper, we just consider the failure that is deterministic.
 
-\section{propositions}
+\section{theory foundation}
+Before we talk about our theories, we will first give the followed operation signals:
+1.$ \neg(a,b,-,-)$  means the minimal schemas that not contain the schema $ \neg(a,b,-,-)$. For $\neg(a,b,-,-) = (a_{1},-,-,-), (a_{2},-,-,-),(-,b_{1},-,-),(-,b_{2},-,-)$.
+
+2.$ \bigcap $for two schemas, $(a,b,-,-) \bigcap (-,-,c,-) = (a,b,c,-)$. If two schemas are like that: $(a,b,-,-) ,(-,b_{1},c,-) $then they can't $\bigcap$ .
+
+3.$ \bigcup $for two schemas, $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,\{c_{1},c_{2}\},-)$. This is just a change of the form, the result still represent two schemas, but if $c = \{c_{1},c_{2}\}$, then $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ . Then it change to represent to one schema. If two schemas are like that:  $(a,b,c_{1},d_{1}) \bigcup (a,b,c_{2},d_{2}) = (a,b,\{\{c_{1},d_{1}\},\{c_{2},d_{2}\}\})$, it also means a form change. It is note that we cannot do $ \bigcup$ operation if they do not have the same elements. So,$ (a,b,-,-) \bigcup (-,-,c,d) = \{(a,b,-,-) , (-,-,c,d)\}$
+
+Then we consider the followed scenarios:
+
+1. If we do not consider masking effect(the default condition for the traditional MFS identifying algorithms), then the faulty schema for particular fault, say $F_{1} $is considered as : all the test configurations contained this schema will trigger $F_{1}$.
+
+So assume we have two mfs, $S_{1}$ for Err 1 is (a,b,-,-), $S_{2}$ for Err 2 is (-,-,c,d). The level of Err1 is higher than Err 2. Then for Err 1 we can easily get the faulty schema (a,b,-,-) as all the test configuration contain it will trigger Err1. For Err 2 we only can get the $(-,-,c,d) \bigcap \neg(a,b,-,-) = (a_{1},-,c,d),(a_{2},-,c,d),(-,b_{1},c,d),(-,b_{2},c,d)$.
+
+
+So
+
+ (1,0,-,-) err 1
+
+ (-,-,1,1) err 2
+
+ can wrongly identified as (1,0,-,-) err 1 and (0,-,1,1) (-,1,1,1)for err 2.
+
+2. If we simply consider all the faults can mask each other.
+Then the faulty schema for a  particular fault,  say $F_{1} $is considered as : all the test configurations contained this schema will trigger $F_{1}$ or other faults(this is because we defaulted think that other fault masked this fault).
+ For this definition, we will find all the faults shared the same definition, they are logically equal. So in this circumstance, all the faults is seen as one fault. In practice, this is not helpful for us to identify the source for a particular result.
+ 
+ Then we will find the followed properties:
+ So still assume we have two mfs, $S_{1}$ for Err 1 is (a,b,-,-), $S_{2}$ for Err 2 is (-,-,c,d). The level of Err1 is higher than Err 2.
+ 
+ Then we will get the MFS $ (a,b,-,-) \bigcup (-,-,c,d)$.  As we cannot do $ \bigcup$ operation if they do not have the same elements. So still this is the same as before.  We didn't change anything. 
+ 
+  But if $S_{1}$ for Err 1 is $(a,b,c_{1},-)$, $S_{2}$ for Err 2 is $(a,b,c_{2},-)$. The level of Err1 is higher than Err 2. Then we will get the MFS $ (a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ ($c = \{c_{1},c_{2}\}$). We have lost some information of the fault.
+  
+   So
+ (1,0,1,-) err 1
+
+ (1,0,2,-) err 2
+
+ (1,0,3,-) err 3 will wrongly identified as (1,0,-,-) for all the fault.
+ 
+ 
+ 3.So, we need another solution, the schema for a particular fault,say $F_{1}$, must at least have one more (two contain the original one)test configuration contain this schema and trigger the fault $F_{1}$. And does not contain a test configuration contain this schema and pass (which means it permit the test configuration contain this schema and trigger other faults.)
+
+
+So
+ 
+ (1,0,-,-) err 1
+
+ (-,-,1,1) err 2
+ 
+ can accurately identified.
+ 
+ 
+ So
+ (1,0,1,-) err 1 
+ 
+ (1,0,2,-) err 2
+ 
+ (1,0,3,-) err 3 will accurately identified.
+ 
+ 
+ But 
+
+   (1,0,1,-) err 1
+
+   (1,0,2,-) err 1
+
+   (1,0,3,-) err 2 
+ 
+   (1,0,4,-) err 2 will not accurately identified will be (1,0,-,-) err 1 and (1,0,-,-) err 2.
+ 
+  
+
+
 
 
 \section{approach description}

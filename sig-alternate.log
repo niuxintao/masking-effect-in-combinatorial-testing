@@ -1,35 +1,35 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.1.23)  12 DEC 2013 14:14
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.12.2)  16 DEC 2013 01:18
 entering extended mode
 **sig-alternate.tex
 
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.tex
+(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
+tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for loaded.
 
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.cls (C:\CTEX\MiKTeX\tex\latex\graphics\epsfig.sty
+(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
+cls (F:\CTEX\MiKTeX\tex\latex\graphics\epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+(F:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+(F:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(C:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+(F:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+(F:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(C:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
+(F:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: dvips.def on input line 91.
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\dvips.def
+(F:\CTEX\MiKTeX\tex\latex\graphics\dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen102
@@ -38,10 +38,10 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \epsfxsize=\dimen104
 \epsfysize=\dimen105
 )
-(C:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
+(F:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
-(C:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+(F:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
@@ -49,24 +49,24 @@ Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen106
 ))
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count79
@@ -137,7 +137,7 @@ Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org
 \titleboxnoteflag=\count99
 Document Class: sig-alternate 2012/05/23 - V2.5 - based on acmproc.cls V1.3 <No
 v. 30 '99>
-(C:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
+(F:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
@@ -169,17 +169,17 @@ LaTeX Info: Redefining \cite on input line 1211.
 \acmcopyr=\toks33
 \boilerplate=\toks34
 \copyrightetc=\toks35
-(C:\CTEX\MiKTeX\tex\latex\base\fontenc.sty
+(F:\CTEX\MiKTeX\tex\latex\base\fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(C:\CTEX\MiKTeX\tex\latex\base\t1enc.def
+(F:\CTEX\MiKTeX\tex\latex\base\t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
- (C:\CTEX\MiKTeX\tex\latex\ae\t1aer.fd
+ (F:\CTEX\MiKTeX\tex\latex\ae\t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-))) (C:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
+))) (F:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
 \UL@box=\box30
 \UL@hyphenbox=\box31
 \UL@skip=\skip44
@@ -191,8 +191,8 @@ File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 Package: ulem 2011/03/18
 \ULdepth=\dimen125
 )
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.aux)
+(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
+aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
 LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
@@ -206,17 +206,17 @@ LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
 LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Try loading font information for U+msa on input line 137.
- (C:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
+ (F:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 137.
 
-(C:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
+(F:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 137.
 
-(C:\CTEX\MiKTeX\tex\latex\base\ulasy.fd
+(F:\CTEX\MiKTeX\tex\latex\base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 Overfull \hbox (10.90216pt too wide) in paragraph at lines 137--137
@@ -240,7 +240,7 @@ Underfull \hbox (badness 6032) in paragraph at lines 138--138
 
 LaTeX Font Info:    Try loading font information for T1+aett on input line 138.
 
-(C:\CTEX\MiKTeX\tex\latex\ae\t1aett.fd
+(F:\CTEX\MiKTeX\tex\latex\ae\t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
 Overfull \hbox (5.89264pt too wide) in paragraph at lines 139--140
@@ -274,133 +274,179 @@ Underfull \vbox (badness 2368) has occurred while \output is active []
  [2]
 \c@definition=\count109
 
+Overfull \hbox (35.01685pt too wide) in paragraph at lines 312--314
+$\OMS/cmsy/m/n/9 :\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b; \OMS/cmsy/m/n/9  \OML/c
+mm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) = (\OML/cmm/m/it/9 a[]; \OMS/cmsy
+/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \
+OT1/cmr/m/n/9 )\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a[]; \OMS/cmsy
+/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \
+OT1/cmr/m/n/9 )\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 (\OMS/cmsy/m/n/9  \OML/cmm/m/it
+/9 ; b[]; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 )\
+OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 (\OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; b[]; \OMS/c
+msy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 )$\T1/aer/m/n/9 . 
+
+ []
+
+
+Overfull \hbox (2.59906pt too wide) in paragraph at lines 315--316
+[][]\T1/aer/m/n/9 2.$[]$for t-wo schemas, $\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b
+; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) [](\OMS/
+cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; c; \OMS/cmsy/m
+/n/9  \OT1/cmr/m/n/9 ) = (\OML/cmm/m/it/9 a; b; c; \OMS/cmsy/m/n/9  \OT1/cmr/m/
+n/9 )$\T1/aer/m/n/9 .
+ []
+
 [3]
+Overfull \hbox (27.91646pt too wide) in paragraph at lines 317--318
+[][]\T1/aer/m/n/9 3.$[]$for t-wo schemas, $\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b
+; c[]; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) [](\OML/cmm/m/it/9 a; b; c[]; \OMS/cms
+y/m/n/9  \OT1/cmr/m/n/9 ) = (\OML/cmm/m/it/9 a; b; \OMS/cmsy/m/n/9 f\OML/cmm/m/
+it/9 c[]; c[]\OMS/cmsy/m/n/9 g\OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9
+ )$\T1/aer/m/n/9 .
+ []
+
+
+Overfull \hbox (41.42319pt too wide) in paragraph at lines 317--318
+\T1/aer/m/n/9 same el-e-ments. So,$\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b; \OMS/c
+msy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) [](\OMS/cmsy/m/n
+/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; c; d\OT1/cmr/m/n/9 ) =
+ \OMS/cmsy/m/n/9 f\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b; \OMS/cmsy/m/n/9  \OML/c
+mm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 )\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 (
+\OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; c; d\OT1/
+cmr/m/n/9 )\OMS/cmsy/m/n/9 g$ 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 File: framework.eps Graphic file (type eps)
- <framework.eps> [4]
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 467--468
+
+<framework.eps> [4] [5]
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 543--544
 [][]\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 467--468
+Underfull \hbox (badness 10000) in paragraph at lines 543--544
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 476--477
+Underfull \hbox (badness 10000) in paragraph at lines 552--553
 [][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 477--478
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
 [][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 470--479
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 546--555
  [][][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 492--492
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 568--568
 [][]\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 493--494
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 569--570
 [][]\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 494--495
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 570--571
 [][]\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 494--495
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 570--571
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 488--496
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 564--572
  [][][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 501--502
+Underfull \hbox (badness 10000) in paragraph at lines 577--578
 [][]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 497--503
- [][][] 
- []
-
-[5]
-Overfull \hbox (24.01025pt too wide) in paragraph at lines 538--542
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 573--579
  [][][] 
  []
 
 
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 603.
-
-
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 618.
+Overfull \hbox (24.01025pt too wide) in paragraph at lines 614--618
+ [][][] 
+ []
 
 [6]
 
+LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
+ne 679.
+
+
+LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
+ne 694.
+
+
 LaTeX Warning: Citation `bowman:reasoning' on page \thepage  undefined on input
- line 645.
+ line 721.
 
 
-LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 6
-45.
+LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 7
+21.
 
 
 LaTeX Warning: Citation `braams:babel' on page \thepage  undefined on input lin
-e 645.
+e 721.
 
 
 LaTeX Warning: Citation `herlihy:methodology' on page \thepage  undefined on in
-put line 645.
+put line 721.
 
 
-LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 6
-46.
+LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 7
+22.
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 647.
+ine 723.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 647.
+ne 723.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 653.
+ne 729.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 664.
+ne 740.
 
+[7]
 File: fly.eps Graphic file (type eps)
-<fly.eps>
+ <fly.eps>
 File: fly.eps Graphic file (type eps)
  <fly.eps>
 
 LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 747.
+(Font)              using `T1/aett/m/n' instead on input line 823.
 
 File: flies.eps Graphic file (type eps)
 <flies.eps>
 File: rosette.ps Graphic file (type eps)
- <rosette.ps> [7]
+ <rosette.ps>
 \c@theorem=\count110
 
-Overfull \hbox (15.60826pt too wide) detected at line 827
+Overfull \hbox (15.60826pt too wide) detected at line 903
 \OML/cmm/m/it/9 l \OT1/cmr/m/n/9 = [] \OML/cmm/m/it/9 f\OT1/cmr/m/n/9 (\OML/cmm
 /m/it/9 x\OT1/cmr/m/n/9 ) = [] [] = [] \OML/cmm/m/it/9 g\OT1/cmr/m/n/9 (\OML/cm
 m/m/it/9 x\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9  [] [] \OT1/cmr/m/n/9 = 0 \OMS/cmsy
@@ -409,31 +455,32 @@ m/m/it/9 x\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9  [] [] \OT1/cmr/m/n/9 = 0 \OMS/cmsy
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 837.
+ine 913.
 
-No file sig-alternate.bbl.
 [8]
-Overfull \hbox (11.79744pt too wide) in paragraph at lines 918--922
+No file sig-alternate.bbl.
+
+Overfull \hbox (11.79744pt too wide) in paragraph at lines 994--998
 \T1/aer/m/n/9 just ad-d the names and in-for-ma-tion in the \T1/aett/bx/n/9 \ad
 ditionalauthors
  []
 
-[9
+[9] [10
 
 ]
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.aux)
+(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
+aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
  1952 strings out of 495355
- 21328 string characters out of 3183882
+ 21319 string characters out of 3183882
  84248 words of memory out of 3000000
  5101 multiletter control sequences out of 15000+200000
  45086 words of font info for 55 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  39i,10n,26p,957b,259s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (9 pages, 90440 bytes).
+Output written on sig-alternate.dvi (10 pages, 98944 bytes).
