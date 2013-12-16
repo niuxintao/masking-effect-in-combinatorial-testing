@@ -309,80 +309,115 @@ we need to identify the minimal faulty schema, that is MFS.
 note that in our paper, we just consider the failure that is deterministic.
 
 \section{theory foundation}
-Before we talk about our theories, we will first give the followed operation signals:
-1.$ \neg(a,b,-,-)$  means the minimal schemas that not contain the schema $ \neg(a,b,-,-)$. For $\neg(a,b,-,-) = (a_{1},-,-,-), (a_{2},-,-,-),(-,b_{1},-,-),(-,b_{2},-,-)$.
-
-2.$ \bigcap $for two schemas, $(a,b,-,-) \bigcap (-,-,c,-) = (a,b,c,-)$. If two schemas are like that: $(a,b,-,-) ,(-,b_{1},c,-) $then they can't $\bigcap$ .
-
-3.$ \bigcup $for two schemas, $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,\{c_{1},c_{2}\},-)$. This is just a change of the form, the result still represent two schemas, but if $c = \{c_{1},c_{2}\}$, then $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ . Then it change to represent to one schema. If two schemas are like that:  $(a,b,c_{1},d_{1}) \bigcup (a,b,c_{2},d_{2}) = (a,b,\{\{c_{1},d_{1}\},\{c_{2},d_{2}\}\})$, it also means a form change. It is note that we cannot do $ \bigcup$ operation if they do not have the same elements. So,$ (a,b,-,-) \bigcup (-,-,c,d) = \{(a,b,-,-) , (-,-,c,d)\}$
-
-Then we consider the followed scenarios:
-
-1. If we do not consider masking effect(the default condition for the traditional MFS identifying algorithms), then the faulty schema for particular fault, say $F_{1} $is considered as : all the test configurations contained this schema will trigger $F_{1}$.
-
-So assume we have two mfs, $S_{1}$ for Err 1 is (a,b,-,-), $S_{2}$ for Err 2 is (-,-,c,d). The level of Err1 is higher than Err 2. Then for Err 1 we can easily get the faulty schema (a,b,-,-) as all the test configuration contain it will trigger Err1. For Err 2 we only can get the $(-,-,c,d) \bigcap \neg(a,b,-,-) = (a_{1},-,c,d),(a_{2},-,c,d),(-,b_{1},c,d),(-,b_{2},c,d)$.
+Before we talk about our theories, we will first give the followed operation signals.
 
 
-So
+1.$ \neg$  means the minimal schemas that not contain the schema.
 
- (1,0,-,-) err 1
+For example, $ \neg(a,b,-,-)$. For $\neg(a,b,-,-)$ = $(a_{1},-,-,-)$, $(a_{2},-,-,-)$,$(-,b_{1},-,-)$,$(-,b_{2},-,-)$.
 
- (-,-,1,1) err 2
+2.$\bigcap$ ,this is a two value operation, which means the schema must contain all the elements of two schemas. It is note that this two schemas does not have conflict factor, i.e., has the same fix parameter but the value is not the same.
 
- can wrongly identified as (1,0,-,-) err 1 and (0,-,1,1) (-,1,1,1)for err 2.
+For example, $(a,b,-,-) \bigcap (-,-,c,-) = (a,b,c,-)$. If two schemas are like that: $(a,b,-,-) ,(-,b_{1},c,-) $then they can't $\bigcap$ .
 
-2. If we simply consider all the faults can mask each other.
+3.$ \bigcup $ is also a two value operation, which indicate that for two schemas, we keep the same elements of both schemas and merge the other different factor values.
+
+For example, $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,\{c_{1},c_{2}\},-)$. It is noted that this is just a change of the form, the result still represent two schemas, but if $c = \{c_{1},c_{2}\}$, then $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ which merge two schemas into a single schema.
+
+Note that Merge $\bigcup$ can only begin at a element !  So if two schemas are like that:  $(a,b,c_{1},d_{1}) \bigcup (a,b,c_{2},d_{2})$ The result can not change anything.
+
+Some properties of this operation is as follows:
+
+$(-) \bigcup (a) = (-)$,
+
+$(b_{1},-)\bigcup (b_{2},c_{1}) $= $(b_{1},-)\bigcup (b_{1},c_{1})\bigcup (b_{2},c_{1})$ =$ (b_{1},-) \bigcup (-,c_{1})$
+
+Having the defined operation, then we consider the followed scenarios:
+
+\subsection{without masking effect}
+If we do not consider masking effect(the default condition for the traditional MFS identifying algorithms), then the faulty schema for particular fault, say $F_{1} $is considered as : all the test configurations contained this schema will trigger $F_{1}$.
+
+Without losing generality, we consider there are two MFS in a SUT, $S_{1}$ for Err 1 and $S_{2}$ for Err 2 and The level of Err1 is higher than Err 2. Then if we identify the MFS according to this scenario, we will get $S_{1}$ for Err1 as all the test configurations contain this schema will trigger Err1 as this error is the highest level. And $S_{2} \bigcap \neg S_(1)$ will be the MFS for the Err 2. For the all the test configurations must contain $S_{2}$ and does not contain $S_{1}$ will trigger Err 2.
+
+For example, $S_{1}$ for Err 1 is (a,b,-,-), $S_{2}$ for Err 2 is (-,-,c,d). Then for Err 1 we can easily get the faulty schema (a,b,-,-) as all the test configuration contain it will trigger Err1. For Err 2 we only can get the $(-,-,c,d) \bigcap \neg(a,b,-,-) = (a_{1},-,c,d),(a_{2},-,c,d),(-,b_{1},c,d),(-,b_{2},c,d)$.
+
+In other words, if we have SUT(3,2) and (1,1,-) for err 1 and (-,-,0) for err 2. The test configurations and the result is shown in table \ref{example_first_scenario}. Then we will wrongly identified as (1,1,-) for err 1 and $(-,-,0)  \bigcap \neg(1,1,-)$ for err 2, i.e., (0,-,0),(-,0,0) for err 2.
+
+\begin{table}
+\centering
+\caption{example of first scenario}
+\label{example_first_scenario}
+\begin{tabular}{|c|c|c|} \hline
+id&test inputs & result\\\hline
+1&(0, 0, 0) &  Ex 2\\ \hline
+2&(0, 0, 1) &  PASS\\ \hline
+3&(0, 1, 0) &  Ex 2\\ \hline
+4&(0, 1, 1) &  PASS\\ \hline
+5&(1, 0, 0) &  Ex 2\\ \hline
+6&(1, 0, 1) &  PASS\\ \hline
+7&(1, 1, 0) &  Ex 1\\ \hline
+8&(1, 1, 1) &  Ex 1\\ \hline
+\hline\end{tabular}
+\end{table}
+
+\subsection{Simple consider all the faults mask each other}
+If we simply consider all the faults can mask each other.
 Then the faulty schema for a  particular fault,  say $F_{1} $is considered as : all the test configurations contained this schema will trigger $F_{1}$ or other faults(this is because we defaulted think that other fault masked this fault).
  For this definition, we will find all the faults shared the same definition, they are logically equal. So in this circumstance, all the faults is seen as one fault. In practice, this is not helpful for us to identify the source for a particular result.
- 
+
  Then we will find the followed properties:
  So still assume we have two mfs, $S_{1}$ for Err 1 is (a,b,-,-), $S_{2}$ for Err 2 is (-,-,c,d). The level of Err1 is higher than Err 2.
- 
- Then we will get the MFS $ (a,b,-,-) \bigcup (-,-,c,d)$.  As we cannot do $ \bigcup$ operation if they do not have the same elements. So still this is the same as before.  We didn't change anything. 
- 
-  But if $S_{1}$ for Err 1 is $(a,b,c_{1},-)$, $S_{2}$ for Err 2 is $(a,b,c_{2},-)$. The level of Err1 is higher than Err 2. Then we will get the MFS $ (a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ ($c = \{c_{1},c_{2}\}$). We have lost some information of the fault.
-  
-   So
- (1,0,1,-) err 1
 
- (1,0,2,-) err 2
+ Then we will get the MFS $ (a,b,-,-) \bigcup (-,-,c,d)$.  As we cannot do $ \bigcup$ operation if they do not have the same elements. So still this is the same as before.  We didn't change anything.
 
- (1,0,3,-) err 3 will wrongly identified as (1,0,-,-) for all the fault.
- 
- 
- 3.So, we need another solution, the schema for a particular fault,say $F_{1}$, must at least have one more (two contain the original one)test configuration contain this schema and trigger the fault $F_{1}$. And does not contain a test configuration contain this schema and pass (which means it permit the test configuration contain this schema and trigger other faults.)
+ But if $S_{1}$ for Err 1 is $(a,b,c_{1},-)$, $S_{2}$ for Err 2 is $(a,b,c_{2},-)$. The level of Err1 is higher than Err 2. Then we will get the MFS $ (a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ ($c = \{c_{1},c_{2}\}$). In this condition, we have lost some information of the fault.
 
+Still consider the first example, we will get $(1,1,-) \bigcup (-,-,0) $ As it cannot do more merge, so we will not loose any information of the fault schema.
 
-So
- 
- (1,0,-,-) err 1
+But if we consider the followed example, still for SUT(3,2). (1,1,0) err 1  (1,1,1) err 2, The test configurations and result is listed in table \
+We will wrongly identified as (1,1,-) for all the fault.
 
- (-,-,1,1) err 2
- 
- can accurately identified.
- 
- 
- So
- (1,0,1,-) err 1 
- 
- (1,0,2,-) err 2
- 
- (1,0,3,-) err 3 will accurately identified.
- 
- 
- But 
+\begin{table}
+\centering
+\caption{example of second scenario}
+\label{example_second_scenario}
+\begin{tabular}{|c|c|c|} \hline
+id&test inputs & result\\\hline
+1&(0, 0, 0) &  PASS\\ \hline
+2&(0, 0, 1) &  PASS\\ \hline
+3&(0, 1, 0) &  PASS\\ \hline
+4&(0, 1, 1) &  PASS\\ \hline
+5&(1, 0, 0) &  PASS\\ \hline
+6&(1, 0, 1) &  PASS\\ \hline
+7&(1, 1, 0) &  Ex 2\\ \hline
+8&(1, 1, 1) &  Ex 2\\ \hline
+\hline\end{tabular}
+\end{table}
 
-   (1,0,1,-) err 1
+\subsection{Augment consider masking effect}
+ 3.So, we need another solution, the schema for a particular fault,say $F_{1}$, must at least have one more (two contain the original one)test configuration contain this schema and trigger the fault $F_{1}$. And does not contain a test configuration contain this schema and pass (which means it permit the test configuration contain this schema and trigger other faults.).
 
-   (1,0,2,-) err 1
+Both the first condition and second condition can be accurately identified.
 
-   (1,0,3,-) err 2 
- 
-   (1,0,4,-) err 2 will not accurately identified will be (1,0,-,-) err 1 and (1,0,-,-) err 2.
- 
-  
+But if the MFS is (1,0,-) err 1  (1,1,-) err 2, we will wrongly identified as (1,-,-) for err 1 and (1,-,-) for err 2.  The next step will give us the probability of encountering this condition is rarely small.
 
-
+\begin{table}
+\centering
+\caption{example of second scenario}
+\label{example_second_scenario}
+\begin{tabular}{|c|c|c|} \hline
+id&test inputs & result\\\hline
+1&(0, 0, 0) &  PASS\\ \hline
+2&(0, 0, 1) &  PASS\\ \hline
+3&(0, 1, 0) &  PASS\\ \hline
+4&(0, 1, 1) &  PASS\\ \hline
+5&(1, 0, 0) &  Ex 1\\ \hline
+6&(1, 0, 1) &  Ex 1\\ \hline
+7&(1, 1, 0) &  Ex 2\\ \hline
+8&(1, 1, 1) &  Ex 2\\ \hline
+\hline\end{tabular}
+\end{table}
+   
 
 
 \section{approach description}
