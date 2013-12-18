@@ -309,115 +309,241 @@ we need to identify the minimal faulty schema, that is MFS.
 note that in our paper, we just consider the failure that is deterministic.
 
 \section{theory foundation}
-Before we talk about our theories, we will first give the followed operation signals.
+For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come with them(such as exception traces or fatal code). Without loss of generality, we assume monotonicity of the level of faults ($Level(F_{1}) \geq Level(F_{2}) \geq ... \geq Level(F_{L}) $).
+
+Let $S_{t}$ denote all the schemas in the test configuration t.  For example, If T = (1,1,1). Then $S_{T}$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
+
+Similarly, Let $S_{T}$ denote all the schemas in a suite of test configurations -- T. In fact, $S_{T} = \bigcup_{i = 1}^{n}S_{t_{i}}$.
+
+The notation $T_{F_{i}}$ denote a suite of test configurations that each test configuration in it will trigger fault $F_{i}$. Additionally, let $T_{P}$ denote the suite of test configurations that passed the testing without triggering any faults, and let $T_{F}$ indicate the suite of test configurations that each one in this set will trigger some type of fault. It is obviously that $T_{F} =  \bigcup_{i = 1}^{L}T_{F_{i}}$ and $T_{F}\bigcup T_{P} = T_{all}$
 
 
-1.$ \neg$  means the minimal schemas that not contain the schema.
+Then let $ M_{F_{i}} ( 1 \leq i \leq L) $ denote the set of MFS for $F_{i}$. It is noted that for $F_{i}$ there may be more than one MFS, so we use set of MFS instead one MFS for a fault.
 
-For example, $ \neg(a,b,-,-)$. For $\neg(a,b,-,-)$ = $(a_{1},-,-,-)$, $(a_{2},-,-,-)$,$(-,b_{1},-,-)$,$(-,b_{2},-,-)$.
+As MFS is also a schema, so we can easily find the followed properties:
+$ M_{F_{i}} \in S_{T_{F_{i}}} $
 
-2.$\bigcap$ ,this is a two value operation, which means the schema must contain all the elements of two schemas. It is note that this two schemas does not have conflict factor, i.e., has the same fix parameter but the value is not the same.
 
-For example, $(a,b,-,-) \bigcap (-,-,c,-) = (a,b,c,-)$. If two schemas are like that: $(a,b,-,-) ,(-,b_{1},c,-) $then they can't $\bigcap$ .
 
-3.$ \bigcup $ is also a two value operation, which indicate that for two schemas, we keep the same elements of both schemas and merge the other different factor values.
+\subsection{previous work}
 
-For example, $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,\{c_{1},c_{2}\},-)$. It is noted that this is just a change of the form, the result still represent two schemas, but if $c = \{c_{1},c_{2}\}$, then $(a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ which merge two schemas into a single schema.
-
-Note that Merge $\bigcup$ can only begin at a element !  So if two schemas are like that:  $(a,b,c_{1},d_{1}) \bigcup (a,b,c_{2},d_{2})$ The result can not change anything.
-
-Some properties of this operation is as follows:
-
-$(-) \bigcup (a) = (-)$,
-
-$(b_{1},-)\bigcup (b_{2},c_{1}) $= $(b_{1},-)\bigcup (b_{1},c_{1})\bigcup (b_{2},c_{1})$ =$ (b_{1},-) \bigcup (-,c_{1})$
-
-Having the defined operation, then we consider the followed scenarios:
-
-\subsection{without masking effect}
-If we do not consider masking effect(the default condition for the traditional MFS identifying algorithms), then the faulty schema for particular fault, say $F_{1} $is considered as : all the test configurations contained this schema will trigger $F_{1}$.
-
-Without losing generality, we consider there are two MFS in a SUT, $S_{1}$ for Err 1 and $S_{2}$ for Err 2 and The level of Err1 is higher than Err 2. Then if we identify the MFS according to this scenario, we will get $S_{1}$ for Err1 as all the test configurations contain this schema will trigger Err1 as this error is the highest level. And $S_{2} \bigcap \neg S_(1)$ will be the MFS for the Err 2. For the all the test configurations must contain $S_{2}$ and does not contain $S_{1}$ will trigger Err 2.
-
-For example, $S_{1}$ for Err 1 is (a,b,-,-), $S_{2}$ for Err 2 is (-,-,c,d). Then for Err 1 we can easily get the faulty schema (a,b,-,-) as all the test configuration contain it will trigger Err1. For Err 2 we only can get the $(-,-,c,d) \bigcap \neg(a,b,-,-) = (a_{1},-,c,d),(a_{2},-,c,d),(-,b_{1},c,d),(-,b_{2},c,d)$.
-
-In other words, if we have SUT(3,2) and (1,1,-) for err 1 and (-,-,0) for err 2. The test configurations and the result is shown in table \ref{example_first_scenario}. Then we will wrongly identified as (1,1,-) for err 1 and $(-,-,0)  \bigcap \neg(1,1,-)$ for err 2, i.e., (0,-,0),(-,0,0) for err 2.
+In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, our MFS identifying process can be formulated as:
+$$ M_{F} = \{s_{i} | s_{i} \in S_{T_{F}} - S_{T_{P}}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{T_{F}} - S_{T_{P}} \}$$ 
+With this formula we cannot find the MFS for a particular fault, further more, as it force to merge all the MFS of, it may get a wrongly result. For example,
+for SUT(3,2), Assume (1,1,0) is the MFS of err 1 and (1,1,1) is the MFS of err 2, The test configurations and result is listed in table \ref{example_first_scenario}.
 
 \begin{table}
 \centering
-\caption{example of first scenario}
+\caption{First example}
 \label{example_first_scenario}
 \begin{tabular}{|c|c|c|} \hline
-id&test inputs & result\\\hline
-1&(0, 0, 0) &  Ex 2\\ \hline
-2&(0, 0, 1) &  PASS\\ \hline
-3&(0, 1, 0) &  Ex 2\\ \hline
-4&(0, 1, 1) &  PASS\\ \hline
-5&(1, 0, 0) &  Ex 2\\ \hline
-6&(1, 0, 1) &  PASS\\ \hline
-7&(1, 1, 0) &  Ex 1\\ \hline
-8&(1, 1, 1) &  Ex 1\\ \hline
-\hline\end{tabular}
-\end{table}
-
-\subsection{Simple consider all the faults mask each other}
-If we simply consider all the faults can mask each other.
-Then the faulty schema for a  particular fault,  say $F_{1} $is considered as : all the test configurations contained this schema will trigger $F_{1}$ or other faults(this is because we defaulted think that other fault masked this fault).
- For this definition, we will find all the faults shared the same definition, they are logically equal. So in this circumstance, all the faults is seen as one fault. In practice, this is not helpful for us to identify the source for a particular result.
-
- Then we will find the followed properties:
- So still assume we have two mfs, $S_{1}$ for Err 1 is (a,b,-,-), $S_{2}$ for Err 2 is (-,-,c,d). The level of Err1 is higher than Err 2.
-
- Then we will get the MFS $ (a,b,-,-) \bigcup (-,-,c,d)$.  As we cannot do $ \bigcup$ operation if they do not have the same elements. So still this is the same as before.  We didn't change anything.
-
- But if $S_{1}$ for Err 1 is $(a,b,c_{1},-)$, $S_{2}$ for Err 2 is $(a,b,c_{2},-)$. The level of Err1 is higher than Err 2. Then we will get the MFS $ (a,b,c_{1},-) \bigcup (a,b,c_{2},-) = (a,b,-,-)$ ($c = \{c_{1},c_{2}\}$). In this condition, we have lost some information of the fault.
-
-Still consider the first example, we will get $(1,1,-) \bigcup (-,-,0) $ As it cannot do more merge, so we will not loose any information of the fault schema.
-
-But if we consider the followed example, still for SUT(3,2). (1,1,0) err 1  (1,1,1) err 2, The test configurations and result is listed in table \
-We will wrongly identified as (1,1,-) for all the fault.
-
-\begin{table}
-\centering
-\caption{example of second scenario}
-\label{example_second_scenario}
-\begin{tabular}{|c|c|c|} \hline
-id&test inputs & result\\\hline
+id&test inputs & result\\ \hline
 1&(0, 0, 0) &  PASS\\ \hline
 2&(0, 0, 1) &  PASS\\ \hline
 3&(0, 1, 0) &  PASS\\ \hline
 4&(0, 1, 1) &  PASS\\ \hline
 5&(1, 0, 0) &  PASS\\ \hline
 6&(1, 0, 1) &  PASS\\ \hline
-7&(1, 1, 0) &  Ex 2\\ \hline
-8&(1, 1, 1) &  Ex 2\\ \hline
+7&(1, 1, 0) &  Err 1\\ \hline
+8&(1, 1, 1) &  Err 2\\ \hline
 \hline\end{tabular}
 \end{table}
 
-\subsection{Augment consider masking effect}
- 3.So, we need another solution, the schema for a particular fault,say $F_{1}$, must at least have one more (two contain the original one)test configuration contain this schema and trigger the fault $F_{1}$. And does not contain a test configuration contain this schema and pass (which means it permit the test configuration contain this schema and trigger other faults.).
-
-Both the first condition and second condition can be accurately identified.
-
-But if the MFS is (1,0,-) err 1  (1,1,-) err 2, we will wrongly identified as (1,-,-) for err 1 and (1,-,-) for err 2.  The next step will give us the probability of encountering this condition is rarely small.
+Then using our previous work, firstly, we will treat the test result as listed in \ref{previous_work}.
 
 \begin{table}
 \centering
-\caption{example of second scenario}
-\label{example_second_scenario}
+\caption{previous work}
+\label{previous_work}
+\begin{tabular}{|c|c|c|} \hline
+id&test inputs & result\\ \hline
+1&(0, 0, 0) &  PASS\\ \hline
+2&(0, 0, 1) &  PASS\\ \hline
+3&(0, 1, 0) &  PASS\\ \hline
+4&(0, 1, 1) &  PASS\\ \hline
+5&(1, 0, 0) &  PASS\\ \hline
+6&(1, 0, 1) &  PASS\\ \hline
+7&(1, 1, 0) &  FAIL\\ \hline
+8&(1, 1, 1) &  FAIL\\ \hline
+\hline\end{tabular}
+\end{table}
+
+And then we will wrongly identified as (1,1,-) for the fault.
+
+\subsection{A simple idea : do not consider the masking effect}
+
+To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
+
+So for this idea, the identifying process for a particular fault, say, $F_{i}$ can be formulated as follows:
+
+Let $$S_{ca} = S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = 1 \& j \neq i }^{L}S_{T_{F_{j}}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+Using this we will treat the table \ref{example_first_scenario} as the following table \ref{simple_idea}, then we will get the result as : (1,1,0) for err 1 and (1,1,1) err 2 which coincide with the result as initial assumption.
+
+\begin{table}
+\centering
+\caption{simple idea}
+\label{simple_idea}
+\begin{tabular}{p{0.39\columnwidth}|p{0.4\columnwidth}} \hline
+   ERR 1 & ERR 2
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c|c} \hline
+id &test inputs & result & id&test inputs & result\\ \hline
+1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  PASS\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  PASS\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+5 &(1, 0, 0) &  PASS &5&(1, 0, 0) &  PASS\\ \hline
+6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  PASS\\ \hline
+8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
+\hline\end{tabular}
+\end{table}
+
+
+However it also didn't completely solve the problem as it didn't consider the masking problem. As for a particular fault, say $F_(i)$, we didn't know whether the test configurations trigger a higher fault than $F_{i}$, say, $F_{j}, j \leq i$ will or not trigger $F_{i}$, if the $F_{j}$ is not triggered. The only information we know is that the test configuration triggered a lower fault, say, $F_{k}, k \geq i$ will not trigger the fault $F_{i}$.
+
+So if masking effect existed in SUT, we will incorrectly get the result. For example, If we have SUT(3,2) and (1,1,-) for err 1 and (-,-,0) for err 2. And err 1 has higher level than err 2.  The test configurations and the result is shown in table \ref{example_simple}.
+\begin{table}
+\centering
+\caption{masking effect example}
+\label{example_simple}
+\begin{tabular}{|c|c|c|} \hline
+id&test inputs & result\\\hline
+1&(0, 0, 0) &  Err 2\\ \hline
+2&(0, 0, 1) &  PASS\\ \hline
+3&(0, 1, 0) &  Err 2\\ \hline
+4&(0, 1, 1) &  PASS\\ \hline
+5&(1, 0, 0) &  Err 2\\ \hline
+6&(1, 0, 1) &  PASS\\ \hline
+7&(1, 1, 0) &  Err 1\\ \hline
+8&(1, 1, 1) &  Err 1\\ \hline
+\hline\end{tabular}
+\end{table}
+
+Then if we do not consider the level of faults as the simple idea do we will treat the test configuration and result as table \ref{simple_idea_masking}. Then we will regard (1,1,-) is the MFS for err 1 and (0,-,0),(-,0,0) for err 2.
+
+We incorrectly identified the MFS for err 2 because the test configuration (1,1,0) masked the schema (-,-,0) which should trigger err 2 but as it triggered a higher fault err 1, so we defaulted consider it did not trigger err 2.
+
+\begin{table}
+\centering
+\caption{simple idea for masking effect example}
+\label{simple_idea_masking}
+\begin{tabular}{p{0.39\columnwidth}|p{0.4\columnwidth}} \hline
+   ERR 1 & ERR 2
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c|c} \hline
+id &test inputs & result & id&test inputs & result\\ \hline
+1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  FAIL\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  FAIL\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+5 &(1, 0, 0) &  PASS &5&(1, 0, 0) &  FAIL\\ \hline
+6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  PASS\\ \hline
+8 &(1, 1, 1) &  FAIL &8&(1, 1, 1) &  PASS\\ \hline
+\hline\end{tabular}
+\end{table}
+
+\subsection{Test configurations with higher level fault masked every lower level fault}
+
+So what if we just consider the configurations triggered higher fault as having triggered the lower fault, in other words, we defaulted think that for each test configurations triggering a fault, say, $F_{i}$, it has masked all the faults has a level lower than it, i.e., these faults $F_{j}, i < j \leq L $ will be triggered in these configurations if the fault $F_{i}$ does not trigger. For this idea, the identifying process for a particular fault with considering masking effect, say, $F_{i}$ can be formulated as follows:
+
+Let $$S_{ca} =\bigcup_{j = 1}^{i}S_{T_{F_{j}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+We can see the different part with the previous formula is that it just minus the schemas in these passing test configurations and these test configurations triggering a lower level than $F_{i}$. With this, we will treat the table \ref{example_simple} as : table \ref{another_idea_masking}. And we can easily get the expected result:(1,1,-) for Err 1 and (-,-,0) for Err 2.
+
+\begin{table}
+\centering
+\caption{Another idea for masking effect example}
+\label{another_idea_masking}
+\begin{tabular}{p{0.39\columnwidth}|p{0.4\columnwidth}} \hline
+   ERR 1 & ERR 2
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c|c} \hline
+id &test inputs & result & id&test inputs & result\\ \hline
+1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  FAIL\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  FAIL\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+5 &(1, 0, 0) &  PASS &5&(1, 0, 0) &  FAIL\\ \hline
+6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  FAIL\\ \hline
+8 &(1, 1, 1) &  FAIL &8&(1, 1, 1) &  PASS\\ \hline
+\hline\end{tabular}
+\end{table}
+
+
+But it still not a perfect solution, obviously not, because not all the test configurations triggering higher level fault will trigger lower level fault. Consider the following example, for SUT(3,2), Assume (1,-,-) is the MFS of err 1 and (-,1,1) is the MFS of err 2, And err 1 has higher level than err 2. The test configurations and result is listed in table \ref{partially_example}.
+
+\begin{table}
+\centering
+\caption{partially masking effect example}
+\label{partially_example}
 \begin{tabular}{|c|c|c|} \hline
 id&test inputs & result\\\hline
 1&(0, 0, 0) &  PASS\\ \hline
 2&(0, 0, 1) &  PASS\\ \hline
 3&(0, 1, 0) &  PASS\\ \hline
-4&(0, 1, 1) &  PASS\\ \hline
-5&(1, 0, 0) &  Ex 1\\ \hline
-6&(1, 0, 1) &  Ex 1\\ \hline
-7&(1, 1, 0) &  Ex 2\\ \hline
-8&(1, 1, 1) &  Ex 2\\ \hline
+4&(0, 1, 1) &  Err 2\\ \hline
+5&(1, 0, 0) &  Err 1\\ \hline
+6&(1, 0, 1) &  Err 1\\ \hline
+7&(1, 1, 0) &  Err 1\\ \hline
+8&(1, 1, 1) &  Err 1\\ \hline
 \hline\end{tabular}
 \end{table}
-   
+
+If we using the computing model listed in this subsection, we will find (1,-,-) for err 1 and then (1,-,-) and (-,1,1) for Err 2.  So why do this happened? The reason is listed in table \ref{another_idea_partially_masking}. In this table, we find that for the 5th , 6th and 7th test configuration, these should not trigger the err 2, but we defaulted set them as triggered err 2 because they have trigger a higher level fault err 1. So this lead us a wrong process to identify the MFS for err 2.
+
+\begin{table}
+\centering
+\caption{Another idea for partially masking effect example}
+\label{another_idea_partially_masking}
+\begin{tabular}{p{0.39\columnwidth}|p{0.4\columnwidth}} \hline
+   ERR 1 & ERR 2
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c|c} \hline
+id &test inputs & result & id&test inputs & result\\ \hline
+1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  PASS\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  PASS\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  FAIL\\ \hline
+5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
+6 &(1, 0, 1) &  FAIL &6&(1, 0, 1) &  FAIL\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  FAIL\\ \hline
+8 &(1, 1, 1) &  FAIL &8&(1, 1, 1) &  FAIL\\ \hline
+\hline\end{tabular}
+\end{table}
+
+\subsection{Ideal solution}
+To get an ideal solution, we should make the followed assumption: 
+
+For a particular fault, say, $F_{i}$, with ,these test configurations triggered higher fault are  $ \bigcup_{j = 1}^{i-1}T_{F_{j}}$ .Assume we have known previously that in this set some test configurations will trigger $F_{i}$ if the higher fault will not triggered, we label this set as
+
+$ T_{\neg tri-F_{i}}$ 
+
+And some test configurations in this set will trigger $F_{i}$. We label them as:
+
+$ T_{tri-F_{i}}$. (this part is needed because of if there are more than two faults in a SUT, the higher fault may even make the lower fault don't appear)
+
+Obviously,$ T_{tri-F_{i}}\bigcup T_{\neg tri-F_{i}} = \bigcup_{j = 1}^{i-1}T_{F_{j}}$.
+
+
+At last, we should do as the following to get the ideal computing formula:
+
+
+Let $$S_{ca} = S_{T_{tri-F_{i}}} S_{T_{F_{i}}} + S_{T_{F_{i}}} - S_{T_{P}} -  S_{T_{\neg tri-F_{i}}} $$
+
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+
+However this formula is impractical, because we cannot make sure these schemas will not trigger lower fault except we having removing the higher level fault and re-executing this test configurations.
 
 
 \section{approach description}
@@ -555,7 +681,7 @@ For SP, we can use our framework for him to generate test cases, it will test mu
 So  our comparison work is just compare the one fault, with a noise for the multiple faults.
 
 \section{empirical studies}
-To evaluate our approach, we take two open-source software as our subjects: HSQLDB and . HSQLDB is a pure-java data-base management software, and  is a . Both of them have a large support developers' forum. Further more as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
+To evaluate our approach, we take two open-source software as our subjects: HSQLDB and Log4j. HSQLDB is a pure-java data-base management software, and Log4j is a logger tool commonly used in java application. Both of them have a large support developers' forum. Furthermore as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
 
 There are three questions we want to figure out from our in this empirical studies:
 
@@ -662,306 +788,6 @@ then consider the masking effect is , to my best knowledge, only one paper, unfo
 
 Ylimaz propose a work that is feedback driven combinatorial testing, different from our work, it first using CTA classify the possible MFS and then elimate them and generate new test cases to detect possible masked interaction in the next iteration. The difference is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
 
-\section{conclusion}
-
-\section{The {\secit Body} of The Paper}
-Typically, the body of a paper is organized
-into a hierarchical structure, with numbered or unnumbered
-headings for sections, subsections, sub-subsections, and even
-smaller sections.  The command \texttt{{\char'134}section} that
-precedes this paragraph is part of such a
-hierarchy.\footnote{This is the second footnote.  It
-starts a series of three footnotes that add nothing
-informational, but just give an idea of how footnotes work
-and look. It is a wordy one, just so you see
-how a longish one plays out.} \LaTeX\ handles the numbering
-and placement of these headings for you, when you use
-the appropriate heading commands around the titles
-of the headings.  If you want a sub-subsection or
-smaller part to be unnumbered in your output, simply append an
-asterisk to the command name.  Examples of both
-numbered and unnumbered headings will appear throughout the
-balance of this sample document.
-
-Because the entire article is contained in
-the \textbf{document} environment, you can indicate the
-start of a new paragraph with a blank line in your
-input file; that is why this sentence forms a separate paragraph.
-
-\subsection{Type Changes and {\subsecit Special} Characters}
-We have already seen several typeface changes in this sample.  You
-can indicate italicized words or phrases in your text with
-the command \texttt{{\char'134}textit}; emboldening with the
-command \texttt{{\char'134}textbf}
-and typewriter-style (for instance, for computer code) with
-\texttt{{\char'134}texttt}.  But remember, you do not
-have to indicate typestyle changes when such changes are
-part of the \textit{structural} elements of your
-article; for instance, the heading of this subsection will
-be in a sans serif\footnote{A third footnote, here.
-Let's make this a rather short one to
-see how it looks.} typeface, but that is handled by the
-document class file. Take care with the use
-of\footnote{A fourth, and last, footnote.}
-the curly braces in typeface changes; they mark
-the beginning and end of
-the text that is to be in the different typeface.
-
-You can use whatever symbols, accented characters, or
-non-English characters you need anywhere in your document;
-you can find a complete list of what is
-available in the \textit{\LaTeX\
-User's Guide}\cite{Lamport:LaTeX}.
-
-\subsection{Math Equations}
-You may want to display math equations in three distinct styles:
-inline, numbered or non-numbered display.  Each of
-the three are discussed in the next sections.
-
-\subsubsection{Inline (In-text) Equations}
-A formula that appears in the running text is called an
-inline or in-text formula.  It is produced by the
-\textbf{math} environment, which can be
-invoked with the usual \texttt{{\char'134}begin. . .{\char'134}end}
-construction or with the short form \texttt{\$. . .\$}. You
-can use any of the symbols and structures,
-from $\alpha$ to $\omega$, available in
-\LaTeX\cite{Lamport:LaTeX}; this section will simply show a
-few examples of in-text equations in context. Notice how
-this equation: \begin{math}\lim_{n\rightarrow \infty}x=0\end{math},
-set here in in-line math style, looks slightly different when
-set in display style.  (See next section).
-
-\subsubsection{Display Equations}
-A numbered display equation -- one set off by vertical space
-from the text and centered horizontally -- is produced
-by the \textbf{equation} environment. An unnumbered display
-equation is produced by the \textbf{displaymath} environment.
-
-Again, in either environment, you can use any of the symbols
-and structures available in \LaTeX; this section will just
-give a couple of examples of display equations in context.
-First, consider the equation, shown as an inline equation above:
-\begin{equation}\lim_{n\rightarrow \infty}x=0\end{equation}
-Notice how it is formatted somewhat differently in
-the \textbf{displaymath}
-environment.  Now, we'll enter an unnumbered equation:
-\begin{displaymath}\sum_{i=0}^{\infty} x + 1\end{displaymath}
-and follow it with another numbered equation:
-\begin{equation}\sum_{i=0}^{\infty}x_i=\int_{0}^{\pi+2} f\end{equation}
-just to demonstrate \LaTeX's able handling of numbering.
-
-\subsection{Citations}
-Citations to articles \cite{bowman:reasoning,
-clark:pct, braams:babel, herlihy:methodology},
-conference proceedings \cite{clark:pct} or
-books \cite{salas:calculus, Lamport:LaTeX} listed
-in the Bibliography section of your
-article will occur throughout the text of your article.
-You should use BibTeX to automatically produce this bibliography;
-you simply need to insert one of several citation commands with
-a key of the item cited in the proper location in
-the \texttt{.tex} file \cite{Lamport:LaTeX}.
-The key is a short reference you invent to uniquely
-identify each work; in this sample document, the key is
-the first author's surname and a
-word from the title.  This identifying key is included
-with each item in the \texttt{.bib} file for your article.
-
-The details of the construction of the \texttt{.bib} file
-are beyond the scope of this sample document, but more
-information can be found in the \textit{Author's Guide},
-and exhaustive details in the \textit{\LaTeX\ User's
-Guide}\cite{Lamport:LaTeX}.
-
-This article shows only the plainest form
-of the citation command, using \texttt{{\char'134}cite}.
-This is what is stipulated in the SIGS style specifications.
-No other citation format is endorsed or supported.
-
-\subsection{Tables}
-Because tables cannot be split across pages, the best
-placement for them is typically the top of the page
-nearest their initial cite.  To
-ensure this proper ``floating'' placement of tables, use the
-environment \textbf{table} to enclose the table's contents and
-the table caption.  The contents of the table itself must go
-in the \textbf{tabular} environment, to
-be aligned properly in rows and columns, with the desired
-horizontal and vertical rules.  Again, detailed instructions
-on \textbf{tabular} material
-is found in the \textit{\LaTeX\ User's Guide}.
-
-Immediately following this sentence is the point at which
-Table 1 is included in the input file; compare the
-placement of the table here with the table in the printed
-dvi output of this document.
-
-\begin{table}
-\centering
-\caption{Frequency of Special Characters}
-\begin{tabular}{|c|c|l|} \hline
-Non-English or Math&Frequency&Comments\\ \hline
-\O & 1 in 1,000& For Swedish names\\ \hline
-$\pi$ & 1 in 5& Common in math\\ \hline
-\$ & 4 in 5 & Used in business\\ \hline
-$\Psi^2_1$ & 1 in 40,000& Unexplained usage\\
-\hline\end{tabular}
-\end{table}
-
-To set a wider table, which takes up the whole width of
-the page's live area, use the environment
-\textbf{table*} to enclose the table's contents and
-the table caption.  As with a single-column table, this wide
-table will ``float" to a location deemed more desirable.
-Immediately following this sentence is the point at which
-Table 2 is included in the input file; again, it is
-instructive to compare the placement of the
-table here with the table in the printed dvi
-output of this document.
-
-
-\begin{table*}
-\centering
-\caption{Some Typical Commands}
-\begin{tabular}{|c|c|l|} \hline
-Command&A Number&Comments\\ \hline
-\texttt{{\char'134}alignauthor} & 100& Author alignment\\ \hline
-\texttt{{\char'134}numberofauthors}& 200& Author enumeration\\ \hline
-\texttt{{\char'134}table}& 300 & For tables\\ \hline
-\texttt{{\char'134}table*}& 400& For wider tables\\ \hline\end{tabular}
-\end{table*}
-% end the environment with {table*}, NOTE not {table}!
-
-\subsection{Figures}
-Like tables, figures cannot be split across pages; the
-best placement for them
-is typically the top or the bottom of the page nearest
-their initial cite.  To ensure this proper ``floating'' placement
-of figures, use the environment
-\textbf{figure} to enclose the figure and its caption.
-
-This sample document contains examples of \textbf{.eps}
-and \textbf{.ps} files to be displayable with \LaTeX.  More
-details on each of these is found in the \textit{Author's Guide}.
-
-\begin{figure}
-\centering
-\epsfig{file=fly.eps}
-\caption{A sample black and white graphic (.eps format).}
-\end{figure}
-
-\begin{figure}
-\centering
-\epsfig{file=fly.eps, height=1in, width=1in}
-\caption{A sample black and white graphic (.eps format)
-that has been resized with the \texttt{epsfig} command.}
-\end{figure}
-
-
-As was the case with tables, you may want a figure
-that spans two columns.  To do this, and still to
-ensure proper ``floating'' placement of tables, use the environment
-\textbf{figure*} to enclose the figure and its caption.
-and don't forget to end the environment with
-{figure*}, not {figure}!
-
-\begin{figure*}
-\centering
-\epsfig{file=flies.eps}
-\caption{A sample black and white graphic (.eps format)
-that needs to span two columns of text.}
-\end{figure*}
-
-Note that either {\textbf{.ps}} or {\textbf{.eps}} formats are
-used; use
-the \texttt{{\char'134}epsfig} or \texttt{{\char'134}psfig}
-commands as appropriate for the different file types.
-
-\begin{figure}
-\centering
-\psfig{file=rosette.ps, height=1in, width=1in,}
-\caption{A sample black and white graphic (.ps format) that has
-been resized with the \texttt{psfig} command.}
-\vskip -6pt
-\end{figure}
-
-\subsection{Theorem-like Constructs}
-Other common constructs that may occur in your article are
-the forms for logical constructs like theorems, axioms,
-corollaries and proofs.  There are
-two forms, one produced by the
-command \texttt{{\char'134}newtheorem} and the
-other by the command \texttt{{\char'134}newdef}; perhaps
-the clearest and easiest way to distinguish them is
-to compare the two in the output of this sample document:
-
-This uses the \textbf{theorem} environment, created by
-the\linebreak\texttt{{\char'134}newtheorem} command:
-\newtheorem{theorem}{Theorem}
-\begin{theorem}
-Let $f$ be continuous on $[a,b]$.  If $G$ is
-an antiderivative for $f$ on $[a,b]$, then
-\begin{displaymath}\int^b_af(t)dt = G(b) - G(a).\end{displaymath}
-\end{theorem}
-
-The other uses the \textbf{definition} environment, created
-by the \texttt{{\char'134}newdef} command:
-\begin{definition}
-If $z$ is irrational, then by $e^z$ we mean the
-unique number which has
-logarithm $z$: \begin{displaymath}{\log e^z = z}\end{displaymath}
-\end{definition}
-
-Two lists of constructs that use one of these
-forms is given in the
-\textit{Author's  Guidelines}.
-
-There is one other similar construct environment, which is
-already set up
-for you; i.e. you must \textit{not} use
-a \texttt{{\char'134}newdef} command to
-create it: the \textbf{proof} environment.  Here
-is a example of its use:
-\begin{proof}
-Suppose on the contrary there exists a real number $L$ such that
-\begin{displaymath}
-\lim_{x\rightarrow\infty} \frac{f(x)}{g(x)} = L.
-\end{displaymath}
-Then
-\begin{displaymath}
-l=\lim_{x\rightarrow c} f(x)
-= \lim_{x\rightarrow c}
-\left[ g{x} \cdot \frac{f(x)}{g(x)} \right ]
-= \lim_{x\rightarrow c} g(x) \cdot \lim_{x\rightarrow c}
-\frac{f(x)}{g(x)} = 0\cdot L = 0,
-\end{displaymath}
-which contradicts our assumption that $l\neq 0$.
-\end{proof}
-
-Complete rules about using these environments and using the
-two different creation commands are in the
-\textit{Author's Guide}; please consult it for more
-detailed instructions.  If you need to use another construct,
-not listed therein, which you want to have the same
-formatting as the Theorem
-or the Definition\cite{salas:calculus} shown above,
-use the \texttt{{\char'134}newtheorem} or the
-\texttt{{\char'134}newdef} command,
-respectively, to create it.
-
-\subsection*{A {\secit Caveat} for the \TeX\ Expert}
-Because you have just been given permission to
-use the \texttt{{\char'134}newdef} command to create a
-new form, you might think you can
-use \TeX's \texttt{{\char'134}def} to create a
-new command: \textit{Please refrain from doing this!}
-Remember that your \LaTeX\ source code is primarily intended
-to create camera-ready copy, but may be converted
-to other forms -- e.g. HTML. If you inadvertently omit
-some or all of the \texttt{{\char'134}def}s recompilation will
-be, to say the least, problematic.
-
 \section{Conclusions}
 This paragraph will end the body of this sample document.
 Remember that you might still have Acknowledgments or
@@ -1005,31 +831,7 @@ The rules about hierarchical headings discussed above for
 the body of the article are different in the appendices.
 In the \textbf{appendix} environment, the command
 \textbf{section} is used to
-indicate the start of each Appendix, with alphabetic order
-designation (i.e. the first is A, the second B, etc.) and
-a title (if you include one).  So, if you need
-hierarchical structure
-\textit{within} an Appendix, start with \textbf{subsection} as the
-highest level. Here is an outline of the body of this
-document in Appendix-appropriate form:
-\subsection{Introduction}
-\subsection{The Body of the Paper}
-\subsubsection{Type Changes and  Special Characters}
-\subsubsection{Math Equations}
-\paragraph{Inline (In-text) Equations}
-\paragraph{Display Equations}
-\subsubsection{Citations}
-\subsubsection{Tables}
-\subsubsection{Figures}
-\subsubsection{Theorem-like Constructs}
-\subsubsection*{A Caveat for the \TeX\ Expert}
-\subsection{Conclusions}
-\subsection{Acknowledgments}
-\subsection{Additional Authors}
-This section is inserted by \LaTeX; you do not insert it.
-You just add the names and information in the
-\texttt{{\char'134}additionalauthors} command at the start
-of the document.
+
 \subsection{References}
 Generated by bibtex from your ~.bib file.  Run latex,
 then bibtex, then latex twice (to resolve references)

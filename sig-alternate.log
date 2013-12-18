@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.1.23)  16 DEC 2013 16:09
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.1.23)  18 DEC 2013 22:59
 entering extended mode
 **sig-alternate.tex
 
@@ -192,11 +192,7 @@ Package: ulem 2011/03/18
 \ULdepth=\dimen125
 )
 (C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.aux
-
-LaTeX Warning: Label `example_second_scenario' multiply defined.
-
-)
+.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
 LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
@@ -278,225 +274,91 @@ Underfull \vbox (badness 2368) has occurred while \output is active []
  [2]
 \c@definition=\count109
 
-Overfull \hbox (8.6405pt too wide) in paragraph at lines 315--316
-[][]\T1/aer/m/n/9 1.$\OMS/cmsy/m/n/9 :$ \T1/aer/m/n/9 mean-s the min-i-mal sche
-mas that not con-tain the schema. 
- []
-
-
-Overfull \hbox (6.30397pt too wide) in paragraph at lines 317--318
-[][]\T1/aer/m/n/9 For ex-am-ple, $\OMS/cmsy/m/n/9 :\OT1/cmr/m/n/9 (\OML/cmm/m/i
-t/9 a; b; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 )$
-\T1/aer/m/n/9 . For $\OMS/cmsy/m/n/9 :\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b; \OM
-S/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 )$ \T1/aer/m/n/
-9 = $\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a[]; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \O
-MS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 )$\T1/aer/m/n/
-9 ,
- []
-
-[3]
-Overfull \hbox (14.69293pt too wide) in paragraph at lines 325--326
-$\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b; c[]; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) [
-](\OML/cmm/m/it/9 a; b; c[]; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) = (\OML/cmm/m/it
-/9 a; b; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 )$ 
-\T1/aer/m/n/9 which merge t-wo schemas
- []
-
-
-Overfull \hbox (13.86871pt too wide) in paragraph at lines 333--334
-[][]$\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 b[]; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) [](
-\OML/cmm/m/it/9 b[]; c[]\OT1/cmr/m/n/9 )$\T1/aer/m/n/9 = $\OT1/cmr/m/n/9 (\OML/
-cmm/m/it/9 b[]; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) [](\OML/cmm/m/it/9 b[]; c[]\O
-T1/cmr/m/n/9 ) [](\OML/cmm/m/it/9 b[]; c[]\OT1/cmr/m/n/9 )$ \T1/aer/m/n/9 =$\OT
-1/cmr/m/n/9 (\OML/cmm/m/it/9 b[]; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) [](\OMS/cms
-y/m/n/9  \OML/cmm/m/it/9 ; c[]\OT1/cmr/m/n/9 )$ 
- []
-
-
-Overfull \hbox (1.5709pt too wide) in paragraph at lines 342--343
-\T1/aer/m/n/9 r1. For Er-r 2 we on-ly can get the $\OT1/cmr/m/n/9 (\OMS/cmsy/m/
-n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; c; d\OT1/cmr/m/n/9 ) 
-[] \OMS/cmsy/m/n/9 :\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 a; b; \OMS/cmsy/m/n/9  \OML
-/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT1/cmr/m/n/9 ) =$
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (12.23317pt too wide) in paragraph at lines 375--376
-[][]\T1/aer/m/n/9 Still con-sid-er the first ex-am-ple, we will get $\OT1/cmr/m
-/n/9 (1\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 1\OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OT
-1/cmr/m/n/9 ) [](\OMS/cmsy/m/n/9  \OML/cmm/m/it/9 ; \OMS/cmsy/m/n/9  \OML/cmm/m
-/it/9 ; \OT1/cmr/m/n/9 0)$
- []
-
-[4]
+[3] [4] [5]
 File: framework.eps Graphic file (type eps)
- <framework.eps> [5]
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 578--579
+ <framework.eps> [6]
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 704--705
 [][]\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 578--579
+Underfull \hbox (badness 10000) in paragraph at lines 704--705
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 587--588
+Underfull \hbox (badness 10000) in paragraph at lines 713--714
 [][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 588--589
+Underfull \hbox (badness 10000) in paragraph at lines 714--715
 [][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 581--590
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 707--716
  [][][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 603--603
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 729--729
 [][]\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 604--605
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 730--731
 [][]\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 605--606
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 731--732
 [][]\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 605--606
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 731--732
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 599--607
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 725--733
  [][][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 612--613
+Underfull \hbox (badness 10000) in paragraph at lines 738--739
 [][]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 608--614
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 734--740
  [][][] 
  []
-
-[6]
-Overfull \hbox (24.01025pt too wide) in paragraph at lines 649--653
- [][][] 
- []
-
-
-Underfull \vbox (badness 1092) has occurred while \output is active []
-
-
-
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 714.
 
 [7]
-
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 729.
-
-
-LaTeX Warning: Citation `bowman:reasoning' on page \thepage  undefined on input
- line 756.
-
-
-LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 7
-56.
-
-
-LaTeX Warning: Citation `braams:babel' on page \thepage  undefined on input lin
-e 756.
-
-
-LaTeX Warning: Citation `herlihy:methodology' on page \thepage  undefined on in
-put line 756.
-
-
-LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 7
-57.
-
-
-LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 758.
-
-
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 758.
-
-
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 764.
-
-
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 775.
-
-File: fly.eps Graphic file (type eps)
-<fly.eps>
-File: fly.eps Graphic file (type eps)
- <fly.eps>
-
-LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 858.
-
-File: flies.eps Graphic file (type eps)
-<flies.eps>
-File: rosette.ps Graphic file (type eps)
- <rosette.ps> [8]
-\c@theorem=\count110
-
-Overfull \hbox (15.60826pt too wide) detected at line 938
-\OML/cmm/m/it/9 l \OT1/cmr/m/n/9 = [] \OML/cmm/m/it/9 f\OT1/cmr/m/n/9 (\OML/cmm
-/m/it/9 x\OT1/cmr/m/n/9 ) = [] [] = [] \OML/cmm/m/it/9 g\OT1/cmr/m/n/9 (\OML/cm
-m/m/it/9 x\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9  [] [] \OT1/cmr/m/n/9 = 0 \OMS/cmsy
-/m/n/9  \OML/cmm/m/it/9 L \OT1/cmr/m/n/9 = 0\OML/cmm/m/it/9 ;
+Overfull \hbox (24.01025pt too wide) in paragraph at lines 775--779
+ [][][] 
  []
 
 
-LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 948.
-
-[9]
-No file sig-alternate.bbl.
-
-Overfull \hbox (11.79744pt too wide) in paragraph at lines 1029--1033
-\T1/aer/m/n/9 just ad-d the names and in-for-ma-tion in the \T1/aett/bx/n/9 \ad
-ditionalauthors
- []
-
-[10]
 (C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.aux)
+.bbl
+Overfull \hbox (21.02989pt too wide) in paragraph at lines 1--1
+\T1/aer/m/n/9 (The Kumquat Con-sor-tium, e-mail: \T1/aett/m/n/9 jpkumquat@conso
+rtium.net\T1/aer/m/n/9 ). 
+ []
 
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+) [8]
+(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
+.aux) ) 
 Here is how much of TeX's memory you used:
- 1954 strings out of 495355
- 21377 string characters out of 3183882
- 86477 words of memory out of 3000000
- 5103 multiletter control sequences out of 15000+200000
- 45086 words of font info for 55 fonts, out of 3000000 for 9000
+ 1940 strings out of 495355
+ 21420 string characters out of 3183882
+ 89248 words of memory out of 3000000
+ 5092 multiletter control sequences out of 15000+200000
+ 43426 words of font info for 54 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  39i,10n,26p,957b,259s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (10 pages, 105092 bytes).
+Output written on sig-alternate.dvi (8 pages, 94728 bytes).
