@@ -56,7 +56,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Identifying MFSs with considering masking effect\titlenote{(Does NOT produce the permission block, copyright information nor page numbering). For use with ACM\_PROC\_ARTICLE-SP.CLS. Supported by ACM.}}
+\title{Identifying minimal failure-inducing schemas for multiple faults\titlenote{(Does NOT produce the permission block, copyright information nor page numbering). For use with ACM\_PROC\_ARTICLE-SP.CLS. Supported by ACM.}}
 \subtitle{[Extended Abstract]
 \titlenote{A full version of this paper is available as
 \textit{Author's Guide to Preparing ACM SIG Proceedings Using
@@ -328,9 +328,7 @@ $ M_{F_{i}} \in S_{T_{F_{i}}} $
 \subsection{previous work}
 
 In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, our MFS identifying process can be formulated as:
-
-$M_{F} = \{s_{i} | s_{i} \in S_{T_{F}} - S_{T_{P}}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{T_{F}} - S_{T_{P}} \}$
-
+$$ M_{F} = \{s_{i} | s_{i} \in S_{T_{F}} - S_{T_{P}}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{T_{F}} - S_{T_{P}} \}$$
 With this formula we cannot find the MFS for a particular fault, further more, as it force to merge all the MFS of, it may get a wrongly result. For example,
 for SUT(3,2), Assume (1,1,0) is the MFS of err 1 and (1,1,1) is the MFS of err 2, The test configurations and result is listed in table \ref{example_first_scenario}.
 
@@ -372,15 +370,14 @@ id&test inputs & result\\ \hline
 
 And then we will wrongly identified as (1,1,-) for the fault.
 
-\subsection{A simple idea : do not consider the masking effect}
+\subsection{Do not consider the masking effect}
 
 To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
 
 So for this idea, the identifying process for a particular fault, say, $F_{i}$ can be formulated as follows:
 
-Let $S_{ca} = S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = 1 \& j \neq i }^{L}S_{T_{F_{j}}}$
-
-$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$
+Let $$S_{ca} = S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = 1 \& j \neq i }^{L}S_{T_{F_{j}}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 Using this we will treat the table \ref{example_first_scenario} as the following table \ref{simple_idea}, then we will get the result as : (1,1,0) for err 1 and (1,1,1) err 2 which coincide with the result as initial assumption.
 
@@ -395,13 +392,13 @@ Using this we will treat the table \ref{example_first_scenario} as the following
 \begin{tabular}{c|c|c|c|c|c} \hline
 id &test inputs & result & id&test inputs & result\\ \hline
 1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &1&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  PASS &1&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &1&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  PASS &1&(1, 0, 0) &  PASS\\ \hline
-6 &(1, 0, 1) &  PASS &1&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  FAIL &1&(1, 1, 0) &  PASS\\ \hline
-8 &(1, 1, 1) &  PASS &1&(1, 1, 1) &  FAIL\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  PASS\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+5 &(1, 0, 0) &  PASS &5&(1, 0, 0) &  PASS\\ \hline
+6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  PASS\\ \hline
+8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
 \hline\end{tabular}
 \end{table}
 
@@ -441,23 +438,22 @@ We incorrectly identified the MFS for err 2 because the test configuration (1,1,
 \begin{tabular}{c|c|c|c|c|c} \hline
 id &test inputs & result & id&test inputs & result\\ \hline
 1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  FAIL\\ \hline
-2 &(0, 0, 1) &  PASS &1&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  PASS &1&(0, 1, 0) &  FAIL\\ \hline
-4 &(0, 1, 1) &  PASS &1&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  PASS &1&(1, 0, 0) &  FAIL\\ \hline
-6 &(1, 0, 1) &  PASS &1&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  FAIL &1&(1, 1, 0) &  PASS\\ \hline
-8 &(1, 1, 1) &  FAIL &1&(1, 1, 1) &  PASS\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  FAIL\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+5 &(1, 0, 0) &  PASS &5&(1, 0, 0) &  FAIL\\ \hline
+6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  PASS\\ \hline
+8 &(1, 1, 1) &  FAIL &8&(1, 1, 1) &  PASS\\ \hline
 \hline\end{tabular}
 \end{table}
 
-\subsection{Consider the masking effect}
+\subsection{Test configurations with higher level fault masked every lower level fault}
 
 So what if we just consider the configurations triggered higher fault as having triggered the lower fault, in other words, we defaulted think that for each test configurations triggering a fault, say, $F_{i}$, it has masked all the faults has a level lower than it, i.e., these faults $F_{j}, i < j \leq L $ will be triggered in these configurations if the fault $F_{i}$ does not trigger. For this idea, the identifying process for a particular fault with considering masking effect, say, $F_{i}$ can be formulated as follows:
 
-Let $S_{ca} = S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$
-
-$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$
+Let $$S_{ca} =\bigcup_{j = 1}^{i}S_{T_{F_{j}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 We can see the different part with the previous formula is that it just minus the schemas in these passing test configurations and these test configurations triggering a lower level than $F_{i}$. With this, we will treat the table \ref{example_simple} as : table \ref{another_idea_masking}. And we can easily get the expected result:(1,1,-) for Err 1 and (-,-,0) for Err 2.
 
@@ -472,18 +468,18 @@ We can see the different part with the previous formula is that it just minus th
 \begin{tabular}{c|c|c|c|c|c} \hline
 id &test inputs & result & id&test inputs & result\\ \hline
 1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  FAIL\\ \hline
-2 &(0, 0, 1) &  PASS &1&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  PASS &1&(0, 1, 0) &  FAIL\\ \hline
-4 &(0, 1, 1) &  PASS &1&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  PASS &1&(1, 0, 0) &  FAIL\\ \hline
-6 &(1, 0, 1) &  PASS &1&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  FAIL &1&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  FAIL &1&(1, 1, 1) &  PASS\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  FAIL\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+5 &(1, 0, 0) &  PASS &5&(1, 0, 0) &  FAIL\\ \hline
+6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  FAIL\\ \hline
+8 &(1, 1, 1) &  FAIL &8&(1, 1, 1) &  PASS\\ \hline
 \hline\end{tabular}
 \end{table}
 
 
-But it still not a perfect solution, obviously not, because not all the test configurations triggering higher level fault will trigger lower level fault. Consider the following example, for SUT(3,2), Assume (1,-,-) is the MFS of err 1 and (-,1,1) and (-, 0, 1) are the MFS of err 2, And err 1 has higher level than err 2. The test configurations and result is listed in table \ref{partially_example}.
+But it still not a perfect solution, obviously not, because not all the test configurations triggering higher level fault will trigger lower level fault. Consider the following example, for SUT(3,2), Assume (1,-,-) is the MFS of err 1 and (-,1,1) is the MFS of err 2, And err 1 has higher level than err 2. The test configurations and result is listed in table \ref{partially_example}.
 
 \begin{table}
 \centering
@@ -492,7 +488,7 @@ But it still not a perfect solution, obviously not, because not all the test con
 \begin{tabular}{|c|c|c|} \hline
 id&test inputs & result\\\hline
 1&(0, 0, 0) &  PASS\\ \hline
-2&(0, 0, 1) &  Err 2\\ \hline
+2&(0, 0, 1) &  PASS\\ \hline
 3&(0, 1, 0) &  PASS\\ \hline
 4&(0, 1, 1) &  Err 2\\ \hline
 5&(1, 0, 0) &  Err 1\\ \hline
@@ -502,7 +498,7 @@ id&test inputs & result\\\hline
 \hline\end{tabular}
 \end{table}
 
-If we using the computing model listed in this subsection, we will find (1,-,-) for err 1 and (-,-,1) for Err 2.  So why do this happened? The reason is listed in table \ref{another_idea_partially_maskin}
+If we using the computing model listed in this subsection, we will find (1,-,-) for err 1 and then (1,-,-) and (-,1,1) for Err 2.  So why do this happened? The reason is listed in table \ref{another_idea_partially_masking}. In this table, we find that for the 5th , 6th and 7th test configuration, these should not trigger the err 2, but we defaulted set them as triggered err 2 because they have trigger a higher level fault err 1. So this lead us a wrong process to identify the MFS for err 2.
 
 \begin{table}
 \centering
@@ -515,35 +511,63 @@ If we using the computing model listed in this subsection, we will find (1,-,-) 
 \begin{tabular}{c|c|c|c|c|c} \hline
 id &test inputs & result & id&test inputs & result\\ \hline
 1 &(0, 0, 0) &  PASS &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &1&(0, 0, 1) &  FAIL\\ \hline
-3 &(0, 1, 0) &  PASS &1&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &1&(0, 1, 1) &  FAIL\\ \hline
-5 &(1, 0, 0) &  FAIL &1&(1, 0, 0) &  FAIL\\ \hline
-6 &(1, 0, 1) &  FAIL &1&(1, 0, 1) &  FAIL\\ \hline
-7 &(1, 1, 0) &  FAIL &1&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  FAIL &1&(1, 1, 1) &  FAIL\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  PASS &3&(0, 1, 0) &  PASS\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  FAIL\\ \hline
+5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
+6 &(1, 0, 1) &  FAIL &6&(1, 0, 1) &  FAIL\\ \hline
+7 &(1, 1, 0) &  FAIL &7&(1, 1, 0) &  FAIL\\ \hline
+8 &(1, 1, 1) &  FAIL &8&(1, 1, 1) &  FAIL\\ \hline
 \hline\end{tabular}
 \end{table}
 
 \subsection{Ideal solution}
+To get an ideal solution, we should make the followed assumption:
+
+For a particular fault, say, $F_{i}$, with ,these test configurations triggered higher fault are  $ \bigcup_{j = 1}^{i-1}T_{F_{j}}$ .Assume we have known previously that in this set some test configurations will trigger $F_{i}$ if the higher fault will not triggered, we label this set as
+
+$ T_{tri-F_{i}}$ (this part is needed because of if there are more than two faults in a SUT, the higher fault may even make the lower fault don't appear)
+
+And some test configurations in this set will not trigger $F_{i}$. We label them as:
+
+$ T_{\neg tri-F_{i}}$.
+
+Obviously,$ T_{tri-F_{i}}\bigcup T_{\neg tri-F_{i}} = \bigcup_{j = 1}^{i-1}T_{F_{j}}$.
 
 
-This is build on the information that we having got the information that the levels is known previously.
+At last, we should do as the following to get the ideal computing formula:
 
 
-At last, we should do as the following to get the perfect result.
+Let $$S_{ca} = S_{T_{tri-F_{i}}} + S_{T_{F_{i}}} - S_{T_{P}} -  S_{T_{\neg tri-F_{i}}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}} $$
 
-First, let $S'_{T_{F_{j}}}$ be the schemas that will not trigger fault $F_{i}$ (j < i).
-
-Let $S_{ca} = S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = i + 1 }^{L}S_{T_{F_{j}}} - \bigcup_{j = 1 }^{i - 1}(S'_{T_{F_{j}}})$
-
-$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 
-It is impractical, because we cannot make sure these schemas will not trigger lower fault except we having removing the higher level fault and re-executing this test configurations.
+However this formula is impractical, because we cannot make sure these schemas will not trigger lower fault except we having removing the higher level fault and re-executing this test configurations.
+
+\subsection{limitations in practice}
+In practice, we cannot use the ideal formula to compute the MFS for each fault for there are three main limitations which we will encounter:
+
+\begin{enumerate}
+ \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT.
+ 
+ \item If we find the faults, we can't decide the levels of these faults just using black-box testing method.
+ 
+ \item Even if we have known the levels of each faults, we still cannot decide the value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
+\end{enumerate}
 
 
 \section{approach description}
+
+For if we do not know the levels of each fault generate more than one:
+
+(white box method)For if we do know the levels of each fault, we use the second formula with one constraint: all the faults must appear in the fault i test configurations.
+
+(feedback driven method)For if we do know the $S_{T_{\neg tri-F_{i}}}$ and $S_{T_{tri-F_{i}}}$ it must be right, so we use them as a benchmark.
+
+
+
+
 In this section, we will give a detail description of our approach and a simple example will be attached to illustrate this algorithm.
 
 Traditional MFS identifying algorithms all including a step: fix some parts of the original failing test configuration and then mutant other parts  to generate newly test configuration. This step is the basis of these algorithms, as it can help them to compare other configurations, to isolate the failure-inducing parts, to help rank the possible schemas and so on. Our approach is to improve the quality of generated test configuration, so that to assist these algorithm to reduce the influence of the faults masking effects.
