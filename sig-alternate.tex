@@ -315,7 +315,7 @@ Let $S_{t}$ denote all the schemas in the test configuration t.  For example, If
 
 Similarly, Let $S_{T}$ denote all the schemas in a suite of test configurations -- T. In fact, $S_{T} = \bigcup_{i = 1}^{n}S_{t_{i}}$.
 
-The notation $T_{F_{i}}$ denote a suite of test configurations that each test configuration in it will trigger fault $F_{i}$. Additionally, let $T_{P}$ denote the suite of test configurations that passed the testing without triggering any faults, and let $T_{F}$ indicate the suite of test configurations that each one in this set will trigger some type of fault. It is obviously that $T_{F} =  \bigcup_{i = 1}^{L}T_{F_{i}}$ and $T_{F}\bigcup T_{P} = T_{all}$
+The notation $T_{F_{i}}$ denote a suite of test configurations that each test configuration in it will trigger fault $F_{i}$. Additionally, let $T_{P}$ denote the suite of test configurations that passed the testing without triggering any faults, and let $T_{F}$ indicate the suite of test configurations that each one in this set will trigger some type of fault. It is obviously that $T_{F} =  \bigcup_{i = 1}^{L}T_{F_{i}}$ and $T_{F}\bigcup T_{P} = T_{all}$, In which, $T_{all}$ denote all the possible test configurations that can generate to test the SUT.
 
 
 Then let $ M_{F_{i}} ( 1 \leq i \leq L) $ denote the set of MFS for $F_{i}$. It is noted that for $F_{i}$ there may be more than one MFS, so we use set of MFS instead one MFS for a fault.
@@ -411,7 +411,7 @@ So what if we just consider the configurations triggered higher fault as having 
 Let $$S_{ca} =\bigcup_{j = 1}^{i}S_{T_{F_{j}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
 $$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
-We can see the different part with the previous formula is that it just minus the schemas in these passing test configurations and these test configurations triggering a lower level than $F_{i}$. With this, we will treat the table \ref{example_first_scenario} as : table \ref{another_idea_masking}.  This time we get  (0,-,0) and  are the MFS of err 1, (1,1,-) and (-,-,0) for the err 2. Obviously it is still not the correct answer.  
+We can see the different part with the previous formula is that it just minus the schemas in these passing test configurations and these test configurations triggering a lower level than $F_{i}$. With this, we will treat the table \ref{example_first_scenario} as : table \ref{another_idea_masking}.  This time we get  (0,-,0) and  are the MFS of err 1, (1,1,-) and (-,-,0) for the err 2. Obviously it is still not the correct answer.
 
 This is because we look at 1th, 3th test configuration, actually they have trigger the err 1 which has the higher level than err 2, but it does not mask the err 2 as this two test configurations didn't contain the MFS for err 2 we set at first. So they should be regard as pass test configuration for err 2, but this approach didn't know this, they just set all the test configurations that trigger higher level fault as the fail test configuration for the under test fault.
 
@@ -490,23 +490,49 @@ id &test inputs & result & id&test inputs & result\\ \hline
 In practice, we cannot use the ideal formula to compute the MFS for each fault for there are three main limitations which we will encounter:
 
 \begin{enumerate}
- \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT.
- 
+ \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT, that is in practice, $T_{F}\bigcup T_{P} \neq T_{all}$
+
  \item If we find the faults, we can't decide the levels of these faults just using black-box testing method.
- 
+
  \item Even if we have known the levels of each faults, we still cannot decide the value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
 \end{enumerate}
 
 
 \section{approach description}
 
-For if we do not know the levels of each fault generate more than one:
+For if we do not know the levels of each fault generate more than one: 
+
+What we can do is just distinguish them, besides, we can't do anything, So the framework algorithms is shown in Algorithm 1. which is corresponding to the section "do not consider the masking effect". or a middle suan fa. 
+
+
+
+
 
 (white box method)For if we do know the levels of each fault, we use the second formula with one constraint: all the faults must appear in the fault i test configurations.
 
+We just use the second "consider all the masking effect". We will do some modication,
+
+Let $$S_{ca} =S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+
+
 (feedback driven method)For if we do know the $S_{T_{\neg tri-F_{i}}}$ and $S_{T_{tri-F_{i}}}$ it must be right, so we use them as a benchmark.
 
+We can first do 
 
+Let $$S_{ca} =S_{T_{F_{1}}} - S_{T_{P}} - \bigcup_{j = 2}^{L}S_{T_{F_{j}}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+Let $$...$$
+
+Let $$S_{ca} =S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+Let $$...$$
+
+Let $$S_{ca} =S_{T_{F_{L}}} - S_{T_{P}}$$
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 
 In this section, we will give a detail description of our approach and a simple example will be attached to illustrate this algorithm.
