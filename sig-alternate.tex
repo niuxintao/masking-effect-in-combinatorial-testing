@@ -500,9 +500,16 @@ In practice, we cannot use the ideal formula to compute the MFS for each fault f
 
 \section{approach description}
 
-For if we do not know the levels of each fault generate more than one: 
+For if we do not know the levels of each fault generate more than one:
 
-What we can do is just distinguish them, besides, we can't do anything, So the framework algorithms is shown in Algorithm 1. which is corresponding to the section "do not consider the masking effect". or a middle suan fa. 
+What we can do is just distinguish them, besides, we can't do anything, So the framework algorithms is shown in Algorithm 1.
+
+Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$ 
+
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+Then what we can do is just to improve the quality of $ S_{T'_{F_{i}}} $ and $ S_{T'_{P}} $.
+
 
 
 
@@ -512,14 +519,16 @@ What we can do is just distinguish them, besides, we can't do anything, So the f
 
 We just use the second "consider all the masking effect". We will do some modication,
 
-Let $$S_{ca} =S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
+Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}} - \bigcup_{j = i+1}^{L}S_{T'_{F_{j}}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}} - \bigcup_{j = i+1}^{L}S_{T'_{F_{j}}}$$
+
+
 $$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 
 
 (feedback driven method)For if we do know the $S_{T_{\neg tri-F_{i}}}$ and $S_{T_{tri-F_{i}}}$ it must be right, so we use them as a benchmark.
 
-We can first do 
+We can first do
 
 Let $$S_{ca} =S_{T_{F_{1}}} - S_{T_{P}} - \bigcup_{j = 2}^{L}S_{T_{F_{j}}}$$
 $$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$

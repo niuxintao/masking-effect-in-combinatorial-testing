@@ -1,35 +1,35 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.12.2)  20 DEC 2013 00:30
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.1.23)  20 DEC 2013 10:16
 entering extended mode
 **sig-alternate.tex
 
-(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
-tex
+(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
+.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for loaded.
 
-(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
-cls (F:\CTEX\MiKTeX\tex\latex\graphics\epsfig.sty
+(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
+.cls (C:\CTEX\MiKTeX\tex\latex\graphics\epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(F:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+(C:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(F:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+(C:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(F:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+(C:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(F:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+(C:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(F:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
+(C:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: dvips.def on input line 91.
 
-(F:\CTEX\MiKTeX\tex\latex\graphics\dvips.def
+(C:\CTEX\MiKTeX\tex\latex\graphics\dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen102
@@ -38,10 +38,10 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \epsfxsize=\dimen104
 \epsfysize=\dimen105
 )
-(F:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
-(F:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
@@ -49,24 +49,24 @@ Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-(F:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-(F:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(F:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen106
 ))
-(F:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-(F:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count79
@@ -137,7 +137,7 @@ Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org
 \titleboxnoteflag=\count99
 Document Class: sig-alternate 2012/05/23 - V2.5 - based on acmproc.cls V1.3 <No
 v. 30 '99>
-(F:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
+(C:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
@@ -169,17 +169,17 @@ LaTeX Info: Redefining \cite on input line 1211.
 \acmcopyr=\toks33
 \boilerplate=\toks34
 \copyrightetc=\toks35
-(F:\CTEX\MiKTeX\tex\latex\base\fontenc.sty
+(C:\CTEX\MiKTeX\tex\latex\base\fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(F:\CTEX\MiKTeX\tex\latex\base\t1enc.def
+(C:\CTEX\MiKTeX\tex\latex\base\t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
- (F:\CTEX\MiKTeX\tex\latex\ae\t1aer.fd
+ (C:\CTEX\MiKTeX\tex\latex\ae\t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-))) (F:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
+))) (C:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
 \UL@box=\box30
 \UL@hyphenbox=\box31
 \UL@skip=\skip44
@@ -191,8 +191,8 @@ File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 Package: ulem 2011/03/18
 \ULdepth=\dimen125
 )
-(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
-aux)
+(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
+.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
 LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
@@ -206,17 +206,17 @@ LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
 LaTeX Font Info:    ... okay on input line 51.
 LaTeX Font Info:    Try loading font information for U+msa on input line 137.
- (F:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
+ (C:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 137.
 
-(F:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 137.
 
-(F:\CTEX\MiKTeX\tex\latex\base\ulasy.fd
+(C:\CTEX\MiKTeX\tex\latex\base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 Overfull \hbox (10.90216pt too wide) in paragraph at lines 137--137
@@ -240,7 +240,7 @@ Underfull \hbox (badness 6032) in paragraph at lines 138--138
 
 LaTeX Font Info:    Try loading font information for T1+aett on input line 138.
 
-(F:\CTEX\MiKTeX\tex\latex\ae\t1aett.fd
+(C:\CTEX\MiKTeX\tex\latex\ae\t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
 Overfull \hbox (5.89264pt too wide) in paragraph at lines 139--140
@@ -273,90 +273,90 @@ Overfull \hbox (5.22821pt too wide) in paragraph at lines 192--192
  [3] [4] [5]
 File: framework.eps Graphic file (type eps)
  <framework.eps> [6]
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 692--693
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 701--702
 [][]\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 692--693
+Underfull \hbox (badness 10000) in paragraph at lines 701--702
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 701--702
+Underfull \hbox (badness 10000) in paragraph at lines 710--711
 [][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 702--703
+Underfull \hbox (badness 10000) in paragraph at lines 711--712
 [][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 695--704
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 704--713
  [][][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 717--717
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 726--726
 [][]\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 718--719
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 727--728
 [][]\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 719--720
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 728--729
 [][]\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 719--720
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 728--729
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 713--721
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 722--730
  [][][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 726--727
+Underfull \hbox (badness 10000) in paragraph at lines 735--736
 [][]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 722--728
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 731--737
  [][][] 
  []
 
 [7]
-Overfull \hbox (24.01025pt too wide) in paragraph at lines 763--767
+Overfull \hbox (24.01025pt too wide) in paragraph at lines 772--776
  [][][] 
  []
 
 
-(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
-bbl
+(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
+.bbl
 Overfull \hbox (21.02989pt too wide) in paragraph at lines 1--1
 \T1/aer/m/n/9 (The Kumquat Con-sor-tium, e-mail: \T1/aett/m/n/9 jpkumquat@conso
 rtium.net\T1/aer/m/n/9 ). 
  []
 
-) [8] [9
+[8]) [9
 
 ]
-(C:\Users\xintao\Desktop\masking-effect-in-combinatorial-testing\sig-alternate.
-aux) ) 
+(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
+.aux) ) 
 Here is how much of TeX's memory you used:
  1937 strings out of 495355
- 21337 string characters out of 3183882
- 87650 words of memory out of 3000000
+ 21348 string characters out of 3183882
+ 86248 words of memory out of 3000000
  5089 multiletter control sequences out of 15000+200000
  43426 words of font info for 54 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  39i,10n,26p,957b,259s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (9 pages, 93436 bytes).
+Output written on sig-alternate.dvi (9 pages, 94748 bytes).
