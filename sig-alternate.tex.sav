@@ -539,7 +539,7 @@ Alogrithms For not end algortihms:
 directly . choose these test configurations, and replace them with some test configurations that do not introduce the newly fault. The replacement must fulfil some criteria, that the coverage should not decrease. So we can just use these tuples as the fixed part.
 
 
-For example,
+For example, 
 
 For OFOT:
 
@@ -600,71 +600,20 @@ For CTA, usually it is a covering array. IF we cannot change it with pass or exp
 
 \begin{table}
 \centering
-\caption{cta example}
+\caption{OFOT example}
 \label{ofot_example}
 \begin{tabular}{|c|c|c|c|} \hline
 id&test inputs & result\\ \hline
-1&(1, 0, 0, 0) &  PASS\\ \hline
-2&(0, 1, 0, 1) &  EX 1\\ \hline
-3&(1, 0, 1, 1) &  EX 2\\ \hline
-4&(0, 1, 1, 0) &  PASS\\ \hline
+1&(0, 0, 0,0) &  FAIL\\ \hline
+2&(0, 0, 1,0) &  PASS\\ \hline
+3&(0, 1, 0,1) &  FAIL\\ \hline
+4&(0, 1, 1) &  PASS\\ \hline
 \hline\end{tabular}
 \end{table}
-
-
-\begin{table}
-\centering
-\caption{cta aug}
-\label{cta_aug}
-\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-   ERR 1 & ERR 2
-\end{tabular}
-
-\begin{tabular}{c|c|c|c|c|c} \hline
-id &test inputs & result & id&test inputs & result\\ \hline
-1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
-6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
-
-
 
 
 For FIC, as it don't generate first, instead it generate test configurations according to the last time running example.
-So we should generate test configuration after each it feed us a fixed part.
 
-For example,
-
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{Identifying MFS using FIC\_BS with our approach}
-\label{fic-aug}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries original test configuration & \bfseries fault info \\ \hline
-0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
-\end{tabular}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries gen test configurations   &\bfseries result \\ \hline
-1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-\sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
-0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
-0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|} \hline
-\bfseries Mfs identified \\ \hline
-(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
-\hline
-\end{tabular}
-\end{table}
 
 
 
@@ -778,6 +727,57 @@ Assume we have test a system with four parameters, each has three options. And w
 The process is listed in table \ref{ofot}. In this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Normally if the test configuration encounter the different condition with the Err 1, OFOT see the MFS was broken, in another word, if we change one factor and it does not trigger the same fault, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-inducing schemas. For this case, as when we change the second factor , third factor and the fouth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed). So finally we can get the MFS --- ( - 0 0 0).
 
 Next, we will check how the ofot works with the assistance of our approach. The process is listed in table \ref{ofot-aug}. We can soon find that the process is very similar to the original ofot algorithm, except that when we change the second factor to generate a new test configuration, we first encounter a new fault Err 2 which is different from the original Err 1, according to our approach, we will eliminate this test configuration and regenerate another one, when we find regenerated test configuration ( 0 2 0 0 ) failed with the same err -- Err 1 with the original test configuration, we stopped the regenerate process for the fixed factor (0 - 0 0), and finally we send this test configuration (0 2 0 0) instead of (0 1 0 0) to the OFOT algorithm, and at last ofot get the more clear and precise MFS for Err 1 --- (- - 0 0).
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using traditional OFOT}
+\label{ofot}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries original test configuration & \bfseries fault info \\ \hline
+0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+\end{tabular}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries gen test configurations   &\bfseries result \\ \hline
+1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 & Err 2 \\
+0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
+0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+(  -  \ \ \  0 \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using OFOT with our approach}
+\label{ofot-aug}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries original test configuration & \bfseries fault info \\ \hline
+0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+\end{tabular}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries gen test configurations   &\bfseries result \\ \hline
+1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+\sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
+0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
+0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+\hline
+\end{tabular}
+\end{table}
 
 
 if the algorithm want to get the result, we will put off the result, and generate another one.
