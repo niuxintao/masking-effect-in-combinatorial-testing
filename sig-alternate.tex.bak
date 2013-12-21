@@ -500,9 +500,37 @@ In practice, we cannot use the ideal formula to compute the MFS for each fault f
 
 \section{approach description}
 
-For if we do not know the levels of each fault generate more than one: 
+To get a practical solution for identifying MFS of multiple faults in SUT, we cannot omit these limitations proposed in the previous section, we want to get a result that neither too as good as possible.
 
-What we can do is just distinguish them, besides, we can't do anything, So the framework algorithms is shown in Algorithm 1. which is corresponding to the section "do not consider the masking effect". or a middle suan fa. 
+To get the target, first let's get back to the traditional MFS identifying algorithms to see how they works. In fact, they all can be represent as the following formula:
+
+Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+A noted point is that  $ T'_{F_{i}} \subseteq T_{F_{i}} $ and $ T'_{P} \subseteq T_{P} $ as that we can't execute all the possible test configurations in a SUT in practice when the scale of the configuration space is big.
+
+The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. SO what we want to do is to improve these algorithms when the SUT can have multiple faults.
+
+As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ have lost some thing, can also appear in higher fault, and also lost some pass in higher fault, This two factor we can't improve, because, we neither know the levels of these faults nor know which are pass and which are fault. What we can do is just to increase the number of $T'_{F_{i}$ and $T'_{P}$ to avoid the influence of these mutiple faults. The detailed algorithms is described as follows:
+
+Algorithms:
+
+
+
+
+
+
+For if we do not know the levels of each fault generate more than one:
+
+What we can do is just distinguish them, besides, we can't do anything, So the framework algorithms is shown in Algorithm 1.
+
+Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+
+$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+
+Then what we can do is just to improve the quality of $ S_{T'_{F_{i}}} $ and $ S_{T'_{P}} $.
+
 
 
 
@@ -512,14 +540,16 @@ What we can do is just distinguish them, besides, we can't do anything, So the f
 
 We just use the second "consider all the masking effect". We will do some modication,
 
-Let $$S_{ca} =S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
+Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}} - \bigcup_{j = i+1}^{L}S_{T'_{F_{j}}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}} - \bigcup_{j = i+1}^{L}S_{T'_{F_{j}}}$$
+
+
 $$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 
 
 (feedback driven method)For if we do know the $S_{T_{\neg tri-F_{i}}}$ and $S_{T_{tri-F_{i}}}$ it must be right, so we use them as a benchmark.
 
-We can first do 
+We can first do
 
 Let $$S_{ca} =S_{T_{F_{1}}} - S_{T_{P}} - \bigcup_{j = 2}^{L}S_{T_{F_{j}}}$$
 $$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
