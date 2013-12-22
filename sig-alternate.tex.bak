@@ -47,6 +47,13 @@
 
 \documentclass{sig-alternate}
 \usepackage[normalem]{ulem}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{amsmath}
+
+\algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
+\algrenewcommand{\algorithmicensure}{\textbf{Output:}}
+\renewcommand{\algorithmicforall}{\textbf{for each}}
 
 \begin{document}
 %
@@ -500,23 +507,221 @@ In practice, we cannot use the ideal formula to compute the MFS for each fault f
 
 \section{approach description}
 
-To get a practical solution for identifying MFS of multiple faults in SUT, we cannot omit these limitations proposed in the previous section, we want to get a result that neither too as good as possible.
+As we cannot get an ideal solution because of the three limitations proposed in the previous section, our target then is to find a practical solution to improve the efficiency for the existing MFS identifying algorithms when facing multiple faults , i.e.,lowering variance of identifying  MFS in a SUT with multiple faults as much as possible.
 
 To get the target, first let's get back to the traditional MFS identifying algorithms to see how they works. In fact, they all can be represent as the following formula:
 
-Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
 
 $$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 A noted point is that  $ T'_{F_{i}} \subseteq T_{F_{i}} $ and $ T'_{P} \subseteq T_{P} $ as that we can't execute all the possible test configurations in a SUT in practice when the scale of the configuration space is big.
 
-The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. SO what we want to do is to improve these algorithms when the SUT can have multiple faults.
+The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. So what we want to do is to improve these algorithms when the SUT can have multiple faults.
 
-As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ have lost some thing, can also appear in higher fault, and also lost some pass in higher fault, This two factor we can't improve, because, we neither know the levels of these faults nor know which are pass and which are fault. What we can do is just to increase the number of $T'_{F_{i}$ and $T'_{P}$ to avoid the influence of these mutiple faults. The detailed algorithms is described as follows:
+As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ is not completed. This is because there may be some failure-inducing schemas in some $T_{F_{j}}$ we did not add and there may be some healthy schemas in $T_{F_{j}}$ we did not minus. This two factors we can't improve, however, because we neither know the levels of these faults nor know value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$. So what we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to increase the accurately of identifying the MFS of a particular fault $F_{i}$.
+
+\subsection{Replace test configuration that trigger unexpected fault}
+ 
+The basic idea is to discard the test configurations that trigger other faults and generate other test configurations to represent them. These regenerate test configurations should either pass the executing or trigger $F_{i}$.  The replacement must fulfil some criteria, such as for CTA, the input for this algorithm is a covering array, and if we replace some test configuration in it, we should ensure that the covering rate is not changed.
+ 
+Commonly, when we replace the test configuration that trigger unexpected fault with a new test configuration, we should keep some part in the original test configuration, we call this part as \emph{fixed part}, and mutant other part with different values from the original one. For example, if a test configuration (1,1,1,1) triggered Err 2, which is not the expected Err 1, and the fixed part is (-,-,1,1), then we may regenerate a test configuration (0,0,1,1) which will pass or trigger Err 1. 
+ 
+The \emph{fixed part} can be the schemas that only appear in the original test configuration which other test configurations in the covering array did not contain(for the algorithm take covering array as the input: CTA), or the factors that should not be changed in the OFOT algorithms, or the part that should not be mutant of the test configuration in the last iteration(FIC\_BS).
+
+The process of replace a test configuration with a new one with keeping some fixed part is depicted in Algorithm 1:
+
+\begin{algorithm}
+  \caption{replace test configurations that trigger unexpected fault}
+  \begin{algorithmic}[1]
+     \Require    
+     
+     $t_{original}$ \Comment{original test configurations}
+     
+     $F_{i}$ \Comment{fault type}
+     
+     $s_{fixed}$ \Comment{fixed part}
+     
+     $Param$ \Comment{values that each option can take}
+     
+
+     \Ensure  $t_{new}$ \Comment{the regenerate test configuration}
+     
+     \While{\not MeetEndCriteria()}
+       \State $generate-test-configuratoin-contain$
+       \State $execute(testConfiugration)$
+       \If {true}
+         \State \Return test configuration
+       \Else
+         \State continue
+       \EndIf
+     \EndWhile
+  \end{algorithmic}
+\end{algorithm}
+
+
+
+There are two points we should note in this algorithms:
+
+1. regenerate:
+
+2. the end criteria.
+
+
 
 Algorithms:
 
+Input: fixed parts, fault type.
+Output: Test Configurations.
 
+
+while(true){
+  if(fulEndCriteria)
+    return null;
+
+  $T_{new}$ = GenTestConfiguration(fixed);
+
+  result = execute($T_{new}$);
+
+  If(result == pass || result == $F_{i}$)
+     return $T_{new}$
+
+ }
+
+
+Alogrithms For not end algortihms:
+
+directly . choose these test configurations, and replace them with some test configurations that do not introduce the newly fault. The replacement must fulfil some criteria, that the coverage should not decrease. So we can just use these tuples as the fixed part.
+
+
+\subsection{Examples when apply this approach into some MFS identifying algorithms}
+
+For example,
+
+For OFOT:
+
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using traditional OFOT}
+\label{ofot}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries original test configuration & \bfseries fault info \\ \hline
+0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+\end{tabular}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries gen test configurations   &\bfseries result \\ \hline
+1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 & Err 2 \\
+0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
+0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+(  -  \ \ \  0 \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using OFOT with our approach}
+\label{ofot-aug}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries original test configuration & \bfseries fault info \\ \hline
+0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+\end{tabular}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries gen test configurations   &\bfseries result \\ \hline
+1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+\sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
+0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
+0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+For CTA, usually it is a covering array. IF we cannot change it with pass or expected fault, we just dicard them as they can't be the schemas for the current fault.
+
+\begin{table}
+\centering
+\caption{cta example}
+\label{ofot_example}
+\begin{tabular}{|c|c|c|c|} \hline
+id&test inputs & result\\ \hline
+1&(1, 0, 0, 0) &  PASS\\ \hline
+2&(0, 1, 0, 1) &  EX 1\\ \hline
+3&(1, 0, 1, 1) &  EX 2\\ \hline
+4&(0, 1, 1, 0) &  PASS\\ \hline
+\hline\end{tabular}
+\end{table}
+
+
+\begin{table}
+\centering
+\caption{cta aug}
+\label{cta_aug}
+\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
+   ERR 1 & ERR 2
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c|c} \hline
+id &test inputs & result & id&test inputs & result\\ \hline
+1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
+2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
+4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
+6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
+8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
+\hline\end{tabular}
+\end{table}
+
+
+
+
+For FIC, as it don't generate first, instead it generate test configurations according to the last time running example.
+So we should generate test configuration after each it feed us a fixed part.
+
+For example,
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using FIC\_BS with our approach}
+\label{fic-aug}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries original test configuration & \bfseries fault info \\ \hline
+0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+\end{tabular}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries gen test configurations   &\bfseries result \\ \hline
+1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+\sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
+0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
+0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+\hline
+\end{tabular}
+\end{table}
 
 
 
@@ -630,57 +835,6 @@ Assume we have test a system with four parameters, each has three options. And w
 The process is listed in table \ref{ofot}. In this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Normally if the test configuration encounter the different condition with the Err 1, OFOT see the MFS was broken, in another word, if we change one factor and it does not trigger the same fault, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-inducing schemas. For this case, as when we change the second factor , third factor and the fouth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed). So finally we can get the MFS --- ( - 0 0 0).
 
 Next, we will check how the ofot works with the assistance of our approach. The process is listed in table \ref{ofot-aug}. We can soon find that the process is very similar to the original ofot algorithm, except that when we change the second factor to generate a new test configuration, we first encounter a new fault Err 2 which is different from the original Err 1, according to our approach, we will eliminate this test configuration and regenerate another one, when we find regenerated test configuration ( 0 2 0 0 ) failed with the same err -- Err 1 with the original test configuration, we stopped the regenerate process for the fixed factor (0 - 0 0), and finally we send this test configuration (0 2 0 0) instead of (0 1 0 0) to the OFOT algorithm, and at last ofot get the more clear and precise MFS for Err 1 --- (- - 0 0).
-
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{Identifying MFS using traditional OFOT}
-\label{ofot}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries original test configuration & \bfseries fault info \\ \hline
-0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
-\end{tabular}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries gen test configurations   &\bfseries result \\ \hline
-1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 & Err 2 \\
-0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
-0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|} \hline
-\bfseries Mfs identified \\ \hline
-(  -  \ \ \  0 \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
-\hline
-\end{tabular}
-\end{table}
-
-
-
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{Identifying MFS using OFOT with our approach}
-\label{ofot-aug}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries original test configuration & \bfseries fault info \\ \hline
-0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
-\end{tabular}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries gen test configurations   &\bfseries result \\ \hline
-1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-\sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
-0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
-0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|} \hline
-\bfseries Mfs identified \\ \hline
-(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
-\hline
-\end{tabular}
-\end{table}
 
 
 if the algorithm want to get the result, we will put off the result, and generate another one.

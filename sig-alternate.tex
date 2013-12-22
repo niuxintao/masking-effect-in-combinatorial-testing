@@ -47,6 +47,13 @@
 
 \documentclass{sig-alternate}
 \usepackage[normalem]{ulem}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{amsmath}
+
+\algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
+\algrenewcommand{\algorithmicensure}{\textbf{Output:}}
+\renewcommand{\algorithmicforall}{\textbf{for each}}
 
 \begin{document}
 %
@@ -500,19 +507,74 @@ In practice, we cannot use the ideal formula to compute the MFS for each fault f
 
 \section{approach description}
 
-To get a practical solution for identifying MFS of multiple faults in SUT, we cannot omit these limitations proposed in the previous section, we want to get a result that neither too as good as possible.
+As we cannot get an ideal solution because of the three limitations proposed in the previous section, our target then is to find a practical solution to improve the efficiency for the existing MFS identifying algorithms when facing multiple faults , i.e.,lowering variance of identifying  MFS in a SUT with multiple faults as much as possible.
 
 To get the target, first let's get back to the traditional MFS identifying algorithms to see how they works. In fact, they all can be represent as the following formula:
 
-Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
 
 $$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
 
 A noted point is that  $ T'_{F_{i}} \subseteq T_{F_{i}} $ and $ T'_{P} \subseteq T_{P} $ as that we can't execute all the possible test configurations in a SUT in practice when the scale of the configuration space is big.
 
-The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. SO what we want to do is to improve these algorithms when the SUT can have multiple faults.
+The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. So what we want to do is to improve these algorithms when the SUT can have multiple faults.
 
-As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ have lost some thing, can also appear in higher fault, and also lost some pass in higher fault, This two factor we can't improve, because, we neither know the levels of these faults nor know which are pass and which are fault. What we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to avoid the influence of these mutiple faults. The detailed algorithms is described as follows:
+As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ is not completed. This is because there may be some failure-inducing schemas in some $T_{F_{j}}$ we did not add and there may be some healthy schemas in $T_{F_{j}}$ we did not minus. This two factors we can't improve, however, because we neither know the levels of these faults nor know value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$. So what we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to increase the accurately of identifying the MFS of a particular fault $F_{i}$.
+
+\subsection{Replace test configuration that trigger unexpected fault}
+ 
+The basic idea is to discard the test configurations that trigger other faults and generate other test configurations to represent them. These regenerate test configurations should either pass the executing or trigger $F_{i}$.  The replacement must fulfil some criteria, such as for CTA, the input for this algorithm is a covering array, and if we replace some test configuration in it, we should ensure that the covering rate is not changed.
+ 
+Commonly, when we replace the test configuration that trigger unexpected fault with a new test configuration, we should keep some part in the original test configuration, we call this part as \emph{fixed part}, and mutant other part with different values from the original one. For example, if a test configuration (1,1,1,1) triggered Err 2, which is not the expected Err 1, and the fixed part is (-,-,1,1), then we may regenerate a test configuration (0,0,1,1) which will pass or trigger Err 1. 
+ 
+The \emph{fixed part} can be the schemas that only appear in the original test configuration which other test configurations in the covering array did not contain(for the algorithm take covering array as the input: CTA), or the factors that should not be changed in the OFOT algorithms, or the part that should not be mutant of the test configuration in the last iteration(FIC\_BS).
+
+The process of replace a test configuration with a new one with keeping some fixed part is depicted in Algorithm 1:
+
+\begin{algorithm}
+  \caption{replace test configurations that trigger unexpected fault}
+  \begin{algorithmic}[1]
+     \Require    
+     
+     $t_{original}$ \Comment{original test configurations}
+     
+     $F_{i}$ \Comment{fault type}
+     
+     $s_{fixed}$ \Comment{fixed part}
+     
+     $Param$ \Comment{values that each option can take}
+     
+
+     \Ensure  $t_{new}$ \Comment{the regenerate test configuration}
+     
+     \While{\textbf{not} MeetEndCriteria()}
+       \State $s_{mutant} \leftarrow t_{original} - s_{fixed}$
+       \ForAll {$opt \in s_{mutant}$}
+          \State $i = getIndex(Param,opt) $
+          \State $opt \leftarrow opt' \ s.t.\ o \in Param[i]\ and\ opt' != opt$
+       \EndFor
+       \State $t_{new} \leftarrow s_{fixed} \bigcup s_{mutant} $
+       \State $result \leftarrow execute(t_{new})$
+       \If {$result == PASS\ or\ result ==  F_{i}$}
+         \State \Return $t_{new}$
+       \Else
+         \State continue
+       \EndIf
+     \EndWhile
+     
+     \State \Return \emph{null}
+  \end{algorithmic}
+\end{algorithm}
+
+
+
+There are two points we should note in this algorithms:
+
+1. regenerate:
+
+2. the end criteria.
+
+
 
 Algorithms:
 
@@ -538,6 +600,8 @@ Alogrithms For not end algortihms:
 
 directly . choose these test configurations, and replace them with some test configurations that do not introduce the newly fault. The replacement must fulfil some criteria, that the coverage should not decrease. So we can just use these tuples as the fixed part.
 
+
+\subsection{Examples when apply this approach into some MFS identifying algorithms}
 
 For example,
 
