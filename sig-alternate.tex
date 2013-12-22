@@ -522,11 +522,11 @@ The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. Ho
 As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ is not completed. This is because there may be some failure-inducing schemas in some $T_{F_{j}}$ we did not add and there may be some healthy schemas in $T_{F_{j}}$ we did not minus. This two factors we can't improve, however, because we neither know the levels of these faults nor know value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$. So what we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to increase the accurately of identifying the MFS of a particular fault $F_{i}$.
 
 \subsection{Replace test configuration that trigger unexpected fault}
- 
+
 The basic idea is to discard the test configurations that trigger other faults and generate other test configurations to represent them. These regenerate test configurations should either pass the executing or trigger $F_{i}$.  The replacement must fulfil some criteria, such as for CTA, the input for this algorithm is a covering array, and if we replace some test configuration in it, we should ensure that the covering rate is not changed.
- 
-Commonly, when we replace the test configuration that trigger unexpected fault with a new test configuration, we should keep some part in the original test configuration, we call this part as \emph{fixed part}, and mutant other part with different values from the original one. For example, if a test configuration (1,1,1,1) triggered Err 2, which is not the expected Err 1, and the fixed part is (-,-,1,1), then we may regenerate a test configuration (0,0,1,1) which will pass or trigger Err 1. 
- 
+
+Commonly, when we replace the test configuration that trigger unexpected fault with a new test configuration, we should keep some part in the original test configuration, we call this part as \emph{fixed part}, and mutant other part with different values from the original one. For example, if a test configuration (1,1,1,1) triggered Err 2, which is not the expected Err 1, and the fixed part is (-,-,1,1), then we may regenerate a test configuration (0,0,1,1) which will pass or trigger Err 1.
+
 The \emph{fixed part} can be the schemas that only appear in the original test configuration which other test configurations in the covering array did not contain(for the algorithm take covering array as the input: CTA), or the factors that should not be changed in the OFOT algorithms, or the part that should not be mutant of the test configuration in the last iteration(FIC\_BS).
 
 The process of replace a test configuration with a new one with keeping some fixed part is depicted in Algorithm 1:
@@ -534,19 +534,19 @@ The process of replace a test configuration with a new one with keeping some fix
 \begin{algorithm}
   \caption{replace test configurations that trigger unexpected fault}
   \begin{algorithmic}[1]
-     \Require    
-     
+     \Require
+
      $t_{original}$ \Comment{original test configurations}
-     
+
      $F_{i}$ \Comment{fault type}
-     
+
      $s_{fixed}$ \Comment{fixed part}
-     
+
      $Param$ \Comment{values that each option can take}
-     
+
 
      \Ensure  $t_{new}$ \Comment{the regenerate test configuration}
-     
+
      \While{\textbf{not} MeetEndCriteria()}
        \State $s_{mutant} \leftarrow t_{original} - s_{fixed}$
        \ForAll {$opt \in s_{mutant}$}
@@ -561,44 +561,19 @@ The process of replace a test configuration with a new one with keeping some fix
          \State continue
        \EndIf
      \EndWhile
-     
+
      \State \Return \emph{null}
   \end{algorithmic}
 \end{algorithm}
 
+This algorithm take the a test configuration which trigger a unexpected fault, the fixed part, the fault type and the configuration paramters as input.  The loop can been part into two parts:
 
+first part(line 2 - line 7), it generate a new test configuration which different from the original one. This test configuration will keep the fixed part (line 7), and just mutant these factors are not in the fixed part(line 2). The mutant for each factor is just choose one value that is different from the original one, and at the same time must take the value that is legal(line 3 - 6). The choose process is just by random and generated test configuration must be different each iteration(can be implemented by hashing method).
 
-There are two points we should note in this algorithms:
+Second part is to validate this newly generated test configuration is fulfil our expect(line 8 - lone 13). First it should execute the SUT under the test configuration(line 8), and then check the executed result, either test configuration passed or trigger the expected fault -- $F_{i}$ will fulfil our expect.(line 9) and we will directly return this test configuration(line 10). Otherwise(line 11 -12), we will repeat the process(generate newly test configuration and check).
 
-1. regenerate:
+It is note that the loop have another end extra besides we have find a expected test configuration(line 10), that is the first line of the loop(line). That is the when function \emph{MeetEndCriteria()} return a true value. We didn't explictly show what the function \emph{MeetEndCriteria()}, This is consider the power of the computer, we can exhaustive run all the possible test configuraions, but it may depend on what your computer and what the problem like. In this paper, we just choose a number 3 to repeat this function. When it ended with this extra, we will return null(line 15), which means we cannot find a expected test configuration.
 
-2. the end criteria.
-
-
-
-Algorithms:
-
-Input: fixed parts, fault type.
-Output: Test Configurations.
-
-
-while(true){
-  if(fulEndCriteria)
-    return null;
-
-  $T_{new}$ = GenTestConfiguration(fixed);
-
-  result = execute($T_{new}$);
-
-  If(result == pass || result == $F_{i}$)
-     return $T_{new}$
-
- }
-
-
-Alogrithms For not end algortihms:
-
-directly . choose these test configurations, and replace them with some test configurations that do not introduce the newly fault. The replacement must fulfil some criteria, that the coverage should not decrease. So we can just use these tuples as the fixed part.
 
 
 \subsection{Examples when apply this approach into some MFS identifying algorithms}
@@ -731,53 +706,6 @@ For example,
 \end{table}
 
 
-
-
-For if we do not know the levels of each fault generate more than one:
-
-What we can do is just distinguish them, besides, we can't do anything, So the framework algorithms is shown in Algorithm 1.
-
-Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
-
-$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-
-Then what we can do is just to improve the quality of $ S_{T'_{F_{i}}} $ and $ S_{T'_{P}} $.
-
-
-
-
-
-
-(white box method)For if we do know the levels of each fault, we use the second formula with one constraint: all the faults must appear in the fault i test configurations.
-
-We just use the second "consider all the masking effect". We will do some modication,
-
-Let $$S_{ca} = S_{t_{F_{i}}} - S_{T'_{P}} - \bigcup_{j = i+1}^{L}S_{T'_{F_{j}}}$$  or Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}} - \bigcup_{j = i+1}^{L}S_{T'_{F_{j}}}$$
-
-
-$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-
-
-
-(feedback driven method)For if we do know the $S_{T_{\neg tri-F_{i}}}$ and $S_{T_{tri-F_{i}}}$ it must be right, so we use them as a benchmark.
-
-We can first do
-
-Let $$S_{ca} =S_{T_{F_{1}}} - S_{T_{P}} - \bigcup_{j = 2}^{L}S_{T_{F_{j}}}$$
-$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-
-Let $$...$$
-
-Let $$S_{ca} =S_{T_{F_{i}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
-$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-
-Let $$...$$
-
-Let $$S_{ca} =S_{T_{F_{L}}} - S_{T_{P}}$$
-$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-
-
-In this section, we will give a detail description of our approach and a simple example will be attached to illustrate this algorithm.
 
 Traditional MFS identifying algorithms all including a step: fix some parts of the original failing test configuration and then mutant other parts  to generate newly test configuration. This step is the basis of these algorithms, as it can help them to compare other configurations, to isolate the failure-inducing parts, to help rank the possible schemas and so on. Our approach is to improve the quality of generated test configuration, so that to assist these algorithm to reduce the influence of the faults masking effects.
 
