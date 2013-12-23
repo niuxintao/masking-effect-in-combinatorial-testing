@@ -332,7 +332,7 @@ $ M_{F_{i}} \in S_{T_{F_{i}}} $
 
 
 
-\subsection{previous work}
+\subsection{Regard as one fault}
 
 In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, our MFS identifying process can be formulated as:
 $$ M_{F} = \{s_{i} | s_{i} \in S_{T_{F}} - S_{T_{P}}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{T_{F}} - S_{T_{P}} \}$$
@@ -566,49 +566,26 @@ The process of replace a test configuration with a new one with keeping some fix
   \end{algorithmic}
 \end{algorithm}
 
-This algorithm take the a test configuration which trigger a unexpected fault, the fixed part, the fault type and the configuration paramters as input.  The loop can been part into two parts:
+The inputs for this algorithm consists of a test configuration which trigger an unexpected fault -- $t_{original}$, the fixed part which we want to keep from the original test configuration -- $s_{fixed}$ , the fault type which we current focus -- $F_{i}$. And the values sets that each option can take from respectively.  The output of this algorithm is a test configuration $t_{new}$ which either trigger the expected $F_{i}$ or passed.
 
-first part(line 2 - line 7), it generate a new test configuration which different from the original one. This test configuration will keep the fixed part (line 7), and just mutant these factors are not in the fixed part(line 2). The mutant for each factor is just choose one value that is different from the original one, and at the same time must take the value that is legal(line 3 - 6). The choose process is just by random and generated test configuration must be different each iteration(can be implemented by hashing method).
+In fact, this algorithm is a big loop(line 1 - 14) which be parted into two parts:
 
-Second part is to validate this newly generated test configuration is fulfil our expect(line 8 - lone 13). First it should execute the SUT under the test configuration(line 8), and then check the executed result, either test configuration passed or trigger the expected fault -- $F_{i}$ will fulfil our expect.(line 9) and we will directly return this test configuration(line 10). Otherwise(line 11 -12), we will repeat the process(generate newly test configuration and check).
+The first part(line 2 - line 7): generate a new test configuration which is different from the original one. This test configuration will keep the fixed part (line 7), and just mutant these factors are not in the fixed part(line 2). The mutant for each factor is just choose one legal value that is different from the original one(line 3 - 6). The choosing process is just by random and the generated test configuration must be different each iteration(can be implemented by hashing method).
 
-It is note that the loop have another end extra besides we have find a expected test configuration(line 10), that is the first line of the loop(line). That is the when function \emph{MeetEndCriteria()} return a true value. We didn't explictly show what the function \emph{MeetEndCriteria()}, This is consider the power of the computer, we can exhaustive run all the possible test configuraions, but it may depend on what your computer and what the problem like. In this paper, we just choose a number 3 to repeat this function. When it ended with this extra, we will return null(line 15), which means we cannot find a expected test configuration.
+Second part is to validate whether this newly generated test configuration matches our expect(line 8 - lone 13). First we will execute the SUT under the newly generated test configuration(line 8), and then check the executed result, either passed or trigger the expected fault -- $F_{i}$ will match our expect.(line 9) If so we will directly return this test configuration(line 10). Otherwise, we will repeat the process(generate newly test configuration and check)(line 11 -12).
 
+It is noted that the loop have another end exit besides we have find a expected test configuration(line 10), which is when function \emph{MeetEndCriteria()} return a true value(line 1). We didn't explicitly show what the function \emph{MeetEndCriteria()} is like, because this is depending the computing resource you own and the how accurate you want to the identifying result to be. In detail, if you want to your identify process be more accurate and you have enough computing resource, you can try much times to get the expected test configuration, otherwise, you may just try a relatively small times to get the expected test configuration.
 
+In this paper, we just set 3 as the biggest repeat times for function. When it ended with \emph{MeetEndCriteria()} is true, we will return null(line 15), which means we cannot find a expected test configuration.
 
 \subsection{Examples when apply this approach into some MFS identifying algorithms}
+Next we will take three MFS identifying algorithms as the subject to see how our approach works on them.
+\subsubsection{OFOT examples}
+Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encounter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT with the help of our approach to identify the MFS for the "Err 1". The process is listed in table \ref{ofot-aug}. In this table, The test configuration which are labeled with a deleted line represent the original test configuration generated by OFOT, and it will be replaced by the regenerated test configuration which are labeled with a wave line under it.
 
-For example,
+From this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Originally if the test configuration encounter the different condition with the Err 1, OFOT will make a judgement that the MFS was broken, in another word, if we change one factor and it does not trigger the same fault, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-inducing schemas. For this case, as when we change the second factor , third factor and the fourth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed). So if we do not regenerate the test configuraiton (0 2 0 0), we will get the MFS -- ( - 0 0 0) for the err 1(which are also labeled with a delete line).
 
-For OFOT:
-
-
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{Identifying MFS using traditional OFOT}
-\label{ofot}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries original test configuration & \bfseries fault info \\ \hline
-0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
-\end{tabular}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries gen test configurations   &\bfseries result \\ \hline
-1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 & Err 2 \\
-0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
-0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|} \hline
-\bfseries Mfs identified \\ \hline
-(  -  \ \ \  0 \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
-\hline
-\end{tabular}
-\end{table}
-
-
-
+However, if we replace the test configuration (0 1 0 0) with (0 2 0 0) which triggered err 1, we will find that only when we change the third and fourth factor will we broke the MFS for err 1, so with our approach, we will find the MFS for err 1 should be (- - 0 0) (labeled with a wave line under it).
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Identifying MFS using OFOT with our approach}
 \label{ofot-aug}
@@ -622,9 +599,39 @@ For OFOT:
 \bfseries gen test configurations   &\bfseries result \\ \hline
 1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
 \sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
-0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
+\uwave{0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0} & Err 1 \\
 0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
 0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+\end{tabular}
+
+\begin{tabular}{|p{0.846\columnwidth}|} \hline
+\bfseries Mfs identified \\ \hline
+\sout{(  -  \ \ \  0 \ \ \  0  \ \ \ 0 ) \ \ \ } \uwave{(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{CTA examples}
+CTA uses the covering array as its inputs and then use classification tree algorithm to characterize the MFS. For this algorithm, we still assume the SUT has 4 parameters and each one has 3 values. Then we will  For CTA, usually it is a covering array. IF we cannot change it with pass or expected fault, we just discard them as they can't be the schemas for the current fault.
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+\caption{Identifying MFS using CTA with our approach}
+\label{cta-aug-example}
+
+\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+\bfseries covering arrays   &\bfseries fault info \\ \hline
+0  \ \ \ \  0 \ \ \ \  0 \ \ \ \  0 & Err 1 \\
+\sout{0  \ \ \ \  1 \ \ \ \  1 \ \ \ \  1} & \sout{Err 2} \\
+\uwave{1  \ \ \ \  1 \ \ \ \  1 \ \ \ \  1} &  Err 1 \\
+\uwave{0  \ \ \ \  1 \ \ \ \  1 \ \ \ \  0}&  Pass \\
+\uwave{0  \ \ \ \  0 \ \ \ \  0 \ \ \ \  1}  &  Pass \\
+0  \ \ \ \  2 \ \ \ \  2 \ \ \ \  2 & Pass \\
+1  \ \ \ \  0 \ \ \ \  1 \ \ \ \  2 & Pass \\
+1  \ \ \ \  1 \ \ \ \  2 \ \ \ \  0 & Err 1 \\
+1  \ \ \ \  2 \ \ \ \  0 \ \ \ \  1 & Err 1 \\
+2  \ \ \ \  0 \ \ \ \  2 \ \ \ \  1 & Pass \\
+2  \ \ \ \  1 \ \ \ \  0 \ \ \ \  2 & Pass \\
+2  \ \ \ \  2 \ \ \ \  1 \ \ \ \  0 & Pass
 \end{tabular}
 
 \begin{tabular}{|p{0.846\columnwidth}|} \hline
@@ -635,45 +642,7 @@ For OFOT:
 \end{table}
 
 
-For CTA, usually it is a covering array. IF we cannot change it with pass or expected fault, we just dicard them as they can't be the schemas for the current fault.
-
-\begin{table}
-\centering
-\caption{cta example}
-\label{ofot_example}
-\begin{tabular}{|c|c|c|c|} \hline
-id&test inputs & result\\ \hline
-1&(1, 0, 0, 0) &  PASS\\ \hline
-2&(0, 1, 0, 1) &  EX 1\\ \hline
-3&(1, 0, 1, 1) &  EX 2\\ \hline
-4&(0, 1, 1, 0) &  PASS\\ \hline
-\hline\end{tabular}
-\end{table}
-
-
-\begin{table}
-\centering
-\caption{cta aug}
-\label{cta_aug}
-\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-   ERR 1 & ERR 2
-\end{tabular}
-
-\begin{tabular}{c|c|c|c|c|c} \hline
-id &test inputs & result & id&test inputs & result\\ \hline
-1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
-6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
-
-
-
+\subsubsection{FIC\_BS examples}
 
 For FIC, as it don't generate first, instead it generate test configurations according to the last time running example.
 So we should generate test configuration after each it feed us a fixed part.
@@ -686,104 +655,27 @@ For example,
 
 \begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
 \bfseries original test configuration & \bfseries fault info \\ \hline
-0 \ \ \ \ 0 \ \ \ \  0 \ \ \ \  0  & Err 1
+0 \ \ 0 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1
 \end{tabular}
 
 \begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
 \bfseries gen test configurations   &\bfseries result \\ \hline
-1  \ \ \ \  0 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-\sout{0  \ \ \ \  1 \ \ \ \  0  \ \ \ \  0 } & \sout{Err 2} \\
-0  \ \ \ \  2 \ \ \ \  0  \ \ \ \  0 & Err 1 \\
-0  \ \ \ \  0 \ \ \ \  1  \ \ \ \  0 & Pass \\
-0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
+1 \ \ 1 \ \ 1 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
+1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+\sout{1 \ \ 1 \ \ 1 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0 } & \sout{Err 2} \\
+\uwave{2 \ \ 2 \ \ 2 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0}  & Err 1 \\
+1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
+1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  0 \ \ 0  & PASS \\
+1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  1 \ \ 1  & Err 1 \\
 \end{tabular}
 
 \begin{tabular}{|p{0.846\columnwidth}|} \hline
 \bfseries Mfs identified \\ \hline
-(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \ \ \ for Err 1 \\
+( - \ \ - \ \ - \ \ 0 \ \  - \ \ 0 \ \ - \ \ - ) \ \ \ for Err 1 \\
 \hline
 \end{tabular}
 \end{table}
-
-
-
-Traditional MFS identifying algorithms all including a step: fix some parts of the original failing test configuration and then mutant other parts  to generate newly test configuration. This step is the basis of these algorithms, as it can help them to compare other configurations, to isolate the failure-inducing parts, to help rank the possible schemas and so on. Our approach is to improve the quality of generated test configuration, so that to assist these algorithm to reduce the influence of the faults masking effects.
-
-As a overview of our approach, our approach is listed as figure \ref{framework}:
-
-\begin{figure}
-\centering
-\label{framework}
-\epsfig{file=framework.eps, height=2.3in}
-\caption{the overview of our approach.}
-\end{figure}
-
-This figure tell us when given a original failing test configuration and the fixed part, our approach will repeat generating test configurations which mutant the elements in the original test configuration except contain this fixed part until the end condition is matched.
-
-
-
-1. Mutant other parts of the original test configurations
-
-2. Execute the SUT under the test configuration make some  according to the result.
-
-original failing test configuration.  and fixed part.
-
-generate test configurations.
-
-judge the based on reuslt
-
-end. regenerate.
-
-In a word, our approach takes a revalidation strategy when encouter different faults until we find a test case. Next we will discuss the two parts in detail.
-
-\subsection{judge the result}
-There are three condition we will end our algorithm:
-
-1. If the generated test configuration passed during testing. This means that the fixed part we validated does not contain the failure-inducing elements, so we will send a message to tell the MFS identifying algorithm that this fixed part is a healthy part, and return this passing generated test configuration to these algorithms.
-
-2.If the generated test configuration failed with the same faulty information as the original test configuration.
-
-
-3.We cannot generate anymore test configurations contained this fixed part and diff from the original test configuration.
-
-In this case, we didn't know which condition does this fixed part should be because we didn't find any test configuration that contain this part and either passed or failed with the same fault information. In this paper, we default set this fixed part as the failure-inducing . And return any test configuration generated.
-
-In fact, to be efficiency, we set the repeat times as a fixed number, say 3 to be end as soon as possible.
-
-Reversely, the only condition that we did not stop is that we encounter a different fault information as the original test configuration, for in that case we did not has enough information whether this fixed part is a failure-inducing part or not as the different fault information may be a masking effect.
-
-\subsection{regenerate}
-The regenerate step is to regenerate test configuration that contain the fixed part and does not contain any same elements in the remained part. The reason is that if so we can't not make sure the fixed part or the contained remained part is the failure-inducing part.
-
-Further more, as we having set a fixed number, we can't running all the possible test configuration, so if we did not encounter the passed or the same fault, we will take some more test configuration instead all of them to test. As similar test configuration will trigger the same fault, so we vary them as different as possible to avoid the following condition:
-
-all the regenerated test configuration trigger a fault that have a higher level that the original one.
-The method we generate the test configuration it using random method. that is, using random number to take these unfixed part.
-
-We generate as different as possible test cases for the tuple, to avoid some more MFSs that may mask this tuple. To do this we maintain a hash table to record the tuple and its corresponding test cases generated, each time we generate a random test case for this tuple, we will lookup this table to find if this test case is already generated, thus we will avoid generating redundancy test cases.
-
-we will give simple example next to illustrate our approach. Take the fic as a example.
-
-\subsection{simple example}
-Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encouter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT to identify the MFS for the "Err 1".
-
-The process is listed in table \ref{ofot}. In this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Normally if the test configuration encounter the different condition with the Err 1, OFOT see the MFS was broken, in another word, if we change one factor and it does not trigger the same fault, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-inducing schemas. For this case, as when we change the second factor , third factor and the fouth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed). So finally we can get the MFS --- ( - 0 0 0).
-
-Next, we will check how the ofot works with the assistance of our approach. The process is listed in table \ref{ofot-aug}. We can soon find that the process is very similar to the original ofot algorithm, except that when we change the second factor to generate a new test configuration, we first encounter a new fault Err 2 which is different from the original Err 1, according to our approach, we will eliminate this test configuration and regenerate another one, when we find regenerated test configuration ( 0 2 0 0 ) failed with the same err -- Err 1 with the original test configuration, we stopped the regenerate process for the fixed factor (0 - 0 0), and finally we send this test configuration (0 2 0 0) instead of (0 1 0 0) to the OFOT algorithm, and at last ofot get the more clear and precise MFS for Err 1 --- (- - 0 0).
-
-
-if the algorithm want to get the result, we will put off the result, and generate another one.
-
-Five setup as follows:
-
-Another note is that:
-
-In detail, for FIC, TRT, OFOT, it can just use the original approach, that it each time test one tuple, and the we use our framework to assign this task.
-
-For CTA, we can use our framework to choose a set of test cases for it to identify the MFS, like shykara do, but different from her work, we just not one test one time, we diff the test cases for different fault.
-
-
-For SP, we can use our framework for him to generate test cases, it will test multiple tuples one time, and we just first for one fault, then another.
 
 So  our comparison work is just compare the one fault, with a noise for the multiple faults.
 
