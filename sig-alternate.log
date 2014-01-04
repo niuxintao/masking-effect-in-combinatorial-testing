@@ -1,35 +1,33 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.1.23)  24 DEC 2013 22:50
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.11.20)  4 JAN 2014 21:28
 entering extended mode
+ %&-line parsing enabled.
 **sig-alternate.tex
-
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.tex
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for loaded.
-
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.cls (C:\CTEX\MiKTeX\tex\latex\graphics\epsfig.sty
+(./sig-alternate.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(./sig-alternate.cls (/usr/share/texmf-texlive/tex/latex/graphics/epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(C:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(C:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: dvips.def on input line 91.
 
-(C:\CTEX\MiKTeX\tex\latex\graphics\dvips.def
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen102
@@ -38,10 +36,10 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \epsfxsize=\dimen104
 \epsfysize=\dimen105
 )
-(C:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
-(C:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
@@ -49,24 +47,24 @@ Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen106
 ))
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-(C:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count79
@@ -137,7 +135,7 @@ Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org
 \titleboxnoteflag=\count99
 Document Class: sig-alternate 2012/05/23 - V2.5 - based on acmproc.cls V1.3 <No
 v. 30 '99>
-(C:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
+(/usr/share/texmf-texlive/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
@@ -169,35 +167,36 @@ LaTeX Info: Redefining \cite on input line 1211.
 \acmcopyr=\toks33
 \boilerplate=\toks34
 \copyrightetc=\toks35
-(C:\CTEX\MiKTeX\tex\latex\base\fontenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(C:\CTEX\MiKTeX\tex\latex\base\t1enc.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
- (C:\CTEX\MiKTeX\tex\latex\ae\t1aer.fd
+
+(/usr/share/texmf-texlive/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-))) (C:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
+)))
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/ulem.sty
 \UL@box=\box30
 \UL@hyphenbox=\box31
 \UL@skip=\skip44
 \UL@hook=\toks36
-\UL@height=\dimen123
 \UL@pe=\count108
-\UL@pixel=\dimen124
+\UL@pixel=\dimen123
 \ULC@box=\box32
-Package: ulem 2011/03/18
-\ULdepth=\dimen125
+Package: ulem 2000/05/26
+\ULdepth=\dimen124
 )
-(C:\CTEX\UserData\tex\latex\algorithmicx\algpseudocode.sty
+(/usr/share/texmf-texlive/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
 
-(C:\CTEX\MiKTeX\tex\latex\base\ifthen.sty
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(C:\CTEX\UserData\tex\latex\algorithmicx\algorithmicx.sty
+(/usr/share/texmf-texlive/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
@@ -213,11 +212,11 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \ALG@tmplength=\skip47
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) (C:\CTEX\UserData\tex\latex\algorithms\algorithm.sty
+) (/usr/share/texmf-texlive/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-(C:\CTEX\MiKTeX\tex\latex\float\float.sty
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count116
 \float@exts=\toks37
@@ -227,9 +226,9 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 \@float@every@algorithm=\toks39
 \c@algorithm=\count117
-)
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.aux)
+) (./sig-alternate.aux)
+\openout1 = `sig-alternate.aux'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
 LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
@@ -243,17 +242,18 @@ LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
 LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Try loading font information for U+msa on input line 144.
- (C:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 144.
 
-(C:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 144.
 
-(C:\CTEX\MiKTeX\tex\latex\base\ulasy.fd
+(/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 Overfull \hbox (10.90216pt too wide) in paragraph at lines 144--144
@@ -277,129 +277,118 @@ Underfull \hbox (badness 6032) in paragraph at lines 145--145
 
 LaTeX Font Info:    Try loading font information for T1+aett on input line 145.
 
-(C:\CTEX\MiKTeX\tex\latex\ae\t1aett.fd
+(/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Overfull \hbox (5.89264pt too wide) in paragraph at lines 146--147
-\T1/aer/m/n/9 cep-t in com-bi-na-to-ri-al test-ing that in-di-cate the failure-
-inducing
+Overfull \hbox (1.26794pt too wide) in paragraph at lines 152--153
+\T1/aer/m/n/9 H.4 [\T1/aer/bx/n/9 Information Sys-tems Ap-pli-ca-tions\T1/aer/m
+/n/9 ]: Mis-cel-la-neous;
  []
 
 
-Overfull \hbox (1.26794pt too wide) in paragraph at lines 154--155
-[]\T1/aer/m/n/9 H.4 [\T1/aer/bx/n/9 Information Sys-tem-s Ap-pli-ca-tion-s\T1/a
-er/m/n/9 ]: Mis-cel-la-neous;
- []
-
-
-Overfull \hbox (4.23705pt too wide) in paragraph at lines 165--166
-\T1/aer/m/n/9 can-not be-have as ex-pect-ed in some sub-jec-t soft-ware. Throug
-h
+Overfull \hbox (4.23705pt too wide) in paragraph at lines 163--164
+\T1/aer/m/n/9 can-not be-have as ex-pected in some sub-ject soft-ware. Through
  []
 
 [1
 
 
 ]
-Overfull \hbox (5.22821pt too wide) in paragraph at lines 199--199
-[][]\T1/aett/m/n/9 public static float foo(int a, int b, int c, int d){[] 
+Overfull \hbox (5.22821pt too wide) in paragraph at lines 197--197
+[]\T1/aett/m/n/9 public static float foo(int a, int b, int c, int d){[] 
  []
 
 [2]
 \c@definition=\count118
  [3] [4] [5]
-Underfull \hbox (badness 4096) in paragraph at lines 608--609
+Underfull \hbox (badness 4096) in paragraph at lines 606--607
 []\T1/aer/bx/n/9 identified with re-
  []
 
 [6]
-Underfull \hbox (badness 4096) in paragraph at lines 640--641
+Underfull \hbox (badness 4096) in paragraph at lines 638--639
 []\T1/aer/bx/n/9 identified with re-
  []
 
 [7]
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 739--740
-[][]\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 737--738
+[]\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 739--740
+Underfull \hbox (badness 10000) in paragraph at lines 737--738
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--749
-[][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
+Underfull \hbox (badness 10000) in paragraph at lines 746--747
+[]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 749--750
-[][]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
+Underfull \hbox (badness 10000) in paragraph at lines 747--748
+[]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 742--751
- [][][] 
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 740--749
+ [][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 764--764
-[][]\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 762--762
+[]\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 765--766
-[][]\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 763--764
+[]\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 766--767
-[][]\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 764--765
+[]\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 766--767
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 764--765
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 760--768
- [][][] 
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 758--766
+ [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 773--774
-[][]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
+Underfull \hbox (badness 10000) in paragraph at lines 771--772
+[]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 769--775
- [][][] 
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 767--773
+ [][] 
  []
 
 [8]
-Overfull \hbox (24.01025pt too wide) in paragraph at lines 810--814
- [][][] 
+Overfull \hbox (24.01025pt too wide) in paragraph at lines 808--812
+ [][] 
  []
 
-
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.bbl
+(./sig-alternate.bbl
 Overfull \hbox (21.02989pt too wide) in paragraph at lines 1--1
-\T1/aer/m/n/9 (The Kumquat Con-sor-tium, e-mail: \T1/aett/m/n/9 jpkumquat@conso
-rtium.net\T1/aer/m/n/9 ). 
+\T1/aer/m/n/9 (The Kumquat Con-sor-tium, email: \T1/aett/m/n/9 jpkumquat@consor
+tium.net\T1/aer/m/n/9 ). 
  []
 
-) [9]
-(C:\Users\Jie_Lee\Desktop\masking-effect-in-combinatorial-testing\sig-alternate
-.aux) ) 
+) [9] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 2561 strings out of 495355
- 30127 string characters out of 3183882
- 113679 words of memory out of 3000000
- 5697 multiletter control sequences out of 15000+200000
+ 2554 strings out of 495062
+ 30024 string characters out of 1182643
+ 112619 words of memory out of 3000000
+ 5697 multiletter control sequences out of 15000+50000
  43426 words of font info for 54 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 39i,11n,26p,957b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 28 hyphenation exceptions out of 8191
+ 39i,11n,26p,1733b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (9 pages, 107520 bytes).
+Output written on sig-alternate.dvi (9 pages, 83104 bytes).

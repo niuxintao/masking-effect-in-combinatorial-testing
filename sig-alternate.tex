@@ -143,9 +143,7 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 % number that will appear in the \additionalauthors section.
 \maketitle
 \begin{abstract}
-Minimal failure-inducing schema(MFS) is a important concept in combinatorial testing that indicate the failure-inducing interaction of parameters in the software under test(SUT). Identify the MFS can help developers quickly reduce the search space needed to find the buggy source. Many algorithms are proposed to find these MFSs in the failing test cases. In practice, however, we find that these algorithms cannot behave as expected in the condition that SUT has multiple faults with different levels. For if so, a fault with higher level may be triggered and leaving the code which will trigger the fault with lower level not executed. Thus we cannot observe the fault with lower level, as a result, we will omit the MFS that related to the fault with lower level. We call this a masking effect.
-
-In this paper, we propose a framework which can help the algorithms to avoid this masking effect when identify MFSs in the test cases. In this framework, we first static analysis the data flow of the test cases. Second we record fault as well as the code lines related to this fault during executing test cases. Then we will determine the levels of different faults we triggered during testing through finding the relationships of the code lines of each fault. By doing so we can judge whether a masking effect is happened during the process of identifying MFS and avoiding them by generating new test case that exposing the fault with lower level.We have applied our framework into several algorithms which focus on identifying the MFS in test cases and empirically studied the framework on two widely used open source software. Our result of the studies shows that our framework can effectively reduce the influence of masking effect.
+With the increasing complexity and size of modern systems, the interaction of many factors, such as input parameters and configuration options(we call them interaction space), can influence the behaviour of the system under test(SUT). To isolate these interactions that trigger faults in the SUT is a challenge if the interaction space is large. Combinatorial testing can systematically sample the interaction space and detect the possible failure-inducing iteration with the strength of the interaction no more than \emph{t}. Furthermore, many combinatorial-based fault location algorithms are proposed to locate the failure-inducing interaction of the SUT. However, in our recently studies in several real software, we find these methods didn't behave as expected as these software contain multiple faults. The reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. In this paper, we first analysis the problems when identify failure-inducing interactions in a SUT with multiple faults in theory, and then give a solution that can alleviate the impact of masking effect of different faults. This method separately handle each fault, and for a particular fault, it will eliminate the test cases that trigger other faults and replace them with test cases either pass or trigger the same faults as currently analysis. We evaluate our approach in several open-source gnu projects, and the result of the empirical studies shows that multiple faults do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when facing multiple faults in SUT.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -716,15 +714,15 @@ However, when apply our approach, we will replace the test configuration (1 1 1 
 \end{table}
 
 \section{empirical studies}
-To evaluate our approach, we take two open-source software as our subjects: HSQLDB and Log4j. HSQLDB is a pure-java data-base management software, and Log4j is a logger tool commonly used in java application. Both of them have a large support developers' forum. Furthermore as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
+To evaluate our approach, we take two open-source software as our subjects: GNU softwares: Grep,Sed,Make, and so on. HSQLDB and Log4j. HSQLDB is a pure-java data-base management software, and Log4j is a logger tool commonly used in java application. Both of them have a large support developers' forum. Furthermore as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
 
 There are three questions we want to figure out from our in this empirical studies:
 
-Q1: does our framework reduce the number of MFSs and the degree of MFS?
+Q1: What the real masking state in real softwares.
 
-Q2: What the real masking state in real softwares.
+Q2: What the behaviour of traditional approaches works on softwares when they have multiple faults?
 
-Q3: does our framework the result is match the result in developer's forum.
+Q3: does our framework get a better solution than traditional approaches when facing multiple faults?
 
 \subsection{experiment set up}
 We will first model the two objects so that we can use the MFS identifying algorithms. To do this, we first find real faults in the developer's forum, and then read the specification of the software to get the options and its values that can influence its behaviour. The detail of the modeling is listed in table \ref{modelHSQLDB} and table .
