@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.11.20)  5 JAN 2014 14:06
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.11.20)  11 JAN 2014 12:14
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -285,110 +285,112 @@ Overfull \hbox (1.26794pt too wide) in paragraph at lines 152--153
 /n/9 ]: Mis-cel-la-neous;
  []
 
-
-Overfull \hbox (4.23705pt too wide) in paragraph at lines 163--164
-\T1/aer/m/n/9 can-not be-have as ex-pected in some sub-ject soft-ware. Through
- []
-
 [1
 
 
 ]
-Overfull \hbox (5.22821pt too wide) in paragraph at lines 197--197
+Overfull \hbox (4.23705pt too wide) in paragraph at lines 166--167
+\T1/aer/m/n/9 can-not be-have as ex-pected in some sub-ject soft-ware. Through
+ []
+
+
+Overfull \hbox (5.22821pt too wide) in paragraph at lines 200--200
 []\T1/aett/m/n/9 public static float foo(int a, int b, int c, int d){[] 
  []
 
 [2]
 \c@definition=\count118
- [3] [4] [5]
-Underfull \hbox (badness 4096) in paragraph at lines 606--607
+ [3] [4] [5] [6]
+Underfull \hbox (badness 4096) in paragraph at lines 609--610
 []\T1/aer/bx/n/9 identified with re-
  []
 
-[6]
-Underfull \hbox (badness 4096) in paragraph at lines 638--639
+
+Underfull \hbox (badness 4096) in paragraph at lines 641--642
 []\T1/aer/bx/n/9 identified with re-
  []
 
 [7]
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 737--738
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 740--741
 []\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 737--738
+Underfull \hbox (badness 10000) in paragraph at lines 740--741
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 746--747
+Underfull \hbox (badness 10000) in paragraph at lines 749--750
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 747--748
+Underfull \hbox (badness 10000) in paragraph at lines 750--751
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 740--749
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 743--752
  [][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 762--762
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 765--765
 []\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 763--764
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 766--767
 []\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 764--765
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 767--768
 []\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 764--765
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 767--768
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 758--766
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 761--769
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 771--772
+Underfull \hbox (badness 10000) in paragraph at lines 774--775
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 767--773
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 770--776
  [][] 
  []
 
 [8]
-Overfull \hbox (24.01025pt too wide) in paragraph at lines 808--812
+Overfull \hbox (24.01025pt too wide) in paragraph at lines 811--815
  [][] 
  []
 
-(./sig-alternate.bbl
+[9] (./sig-alternate.bbl
 Overfull \hbox (21.02989pt too wide) in paragraph at lines 1--1
 \T1/aer/m/n/9 (The Kumquat Con-sor-tium, email: \T1/aett/m/n/9 jpkumquat@consor
 tium.net\T1/aer/m/n/9 ). 
  []
 
-) [9] (./sig-alternate.aux) ) 
+) [10
+
+] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
  2554 strings out of 495062
  30024 string characters out of 1182643
- 112619 words of memory out of 3000000
+ 106619 words of memory out of 3000000
  5697 multiletter control sequences out of 15000+50000
  43426 words of font info for 54 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  39i,11n,26p,1727b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (9 pages, 83124 bytes).
+Output written on sig-alternate.dvi (10 pages, 85040 bytes).
