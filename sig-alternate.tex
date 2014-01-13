@@ -157,44 +157,31 @@ Combinatorial testing(CT) is proven to be effective to reveal the potential fail
 
 \section{Introduction}
 
-With the increasing complexity and size of modern software, many factors, such as input parameters and configuration options, can influence the behaviour of the system under test(SUT). The unexpected faults caused by the interaction among these factors can make testing such software a big challenge if the interaction space is large. Combinatorial testing can systematically sample the interaction space and select a relatively small size of test cases that cover all the valid iterations with the number of factors involved in the interaction no more than \emph{t}. 
+With the increasing complexity and size of modern software, many factors, such as input parameters and configuration options, can influence the behaviour of the system under test(SUT). The unexpected faults caused by the interaction among these factors can make testing such software a big challenge if the interaction space is large. Combinatorial testing can systematically sample the interaction space and select a relatively small size of test cases that cover all the valid iterations with the number of factors involved in the interaction no more than \emph{t}.
 
 Once failures are detected by some test cases, CT then need to isolate the failure-inducing interactions. This step is important in CT as it can facilitate the debugging effort by reducing the code scope that needed to inspected.  Many algorithms has been proposed to identify the failure-inducing interactions in SUT, which ranges from using classification tree model, generating additional test cases, ranking suspicious interactions based on rules, using graphic-based deduction and so on. These methods can be partitioned into two category: for single fault and for multiple faults. The first one aims at identifying the minimal failure-inducing interactions while the later like classification based method can applied into multiple faults.
 
-There a
+Put aside the performance these approaches has exhibited in isolating failure-inducing interactions in SUT with single fault, however, in our recently studies on several real software, we find these methods didn't behave as expected when these software contain multiple faults. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. Take the linux command--Grep for example, we found that there are two different faults which submitted in the web site. Which is [] and the second is [], when put them together into one test case, we can find the only fault information of one fault. This really trouble these algorithms as it cannot judge whether the fault which are masked is triggered in this test case. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults. 
 
 In fact, there is a real related works that care the masking effect, however, it just need make sure the test cases generated should test each potential interactions. Which ignore that the identifying process itself can also be affected by the masking effect.
 
-One insight in this paper is that we cannot on earth to get away from the masking effect even if we do a exhaustive testing. And further more, both ignore the masking effect and see them as one fault are harmful for our identifying process. However, under the circumstance of sampling testing, or selecting test cases to test, we can have a for 
+One insight in this paper is that we cannot completely get away from the masking effect even if we do a exhaustive testing. And further more, both ignore the masking effect and see them as one fault are harmful for our identifying process. However, under the circumstance of sampling testing, or selecting test cases to test, we can reduce the bias of result if we select the right test cases.
 
-
-In this paper, we first find the that 
+To accomplish task, in this paper we have proposed a strategy used to select test cases. This step is to prue the test cases from these generated test cases which can trigger a masking effect. These pruned test cases will keeped for the next iteration to isolated additional interactions for these faults. And to compsented the information loss of these pruned test cases we will generated new or select some existed test cases to test the interactions which was supposed to test in these pruned test cases.
  
-However, in our recently studies on several real software, we find these methods didn't behave as expected when these software contain multiple faults. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. In this paper, we first analysis the problems when locating failure-inducing interactions of SUTs with multiple faults in theory, and then give a solution that can alleviate the impact of masking effect of different faults. This method separately handle each fault, and for a particular fault, it will eliminate the test cases that trigger other faults and replace them with test cases either pass or trigger the same fault as currently analysis.
-
-For example,
-
-One insight is that,
-
-In this paper, we propose
-
-
 We  from the bug tracker system, and find that multiple faults do exist in a software with the same version. And to evaluate the effectiveness of our approach we used the benchmark softwares from[] to take a experiment under control. The results show that our approach can get a better result than those who did not use us.
 
 The main contributions:
 
 
-
-
 We evaluate our approach in several open-source gnu projects, and the result of the empirical studies shows that multiple faults do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when facing multiple faults in SUT.
 
-In our recent studies, however, we find these algorithms cannot behave as expected in some subject software. Through a deep analysis, we find that there are multiple faults with different levels in these subject. It means that when we set up a test configuration and execute the SUT to observe the result, the high level fault will trigger first and perturb we examining the code that may trigger the low level fault. As a result we will omit some options or component in this test configuration that may be the cause of the low level fault. We call this a masking effect which make the MFS identifying algorithms not able to work properly.
+%In our recent studies, however, we find these algorithms cannot behave as expected in some subject software. Through a deep analysis, we find that there are multiple faults with different levels in these subject. It means that when we set up a test configuration and execute the SUT to observe the result, the high level fault will trigger first and perturb we examining the code that may trigger the low level fault. As a result we will omit some options or component in this test configuration that may be the cause of the low level fault. We call this a masking effect which make the MFS identifying algorithms not able to work properly.
 
-In this paper, we propose a approach that can assist these algorithms to avoid these masking effect. Our framework consists of three parts: first, it will use the statistic analysis technique--dominate tree to analysis the test script and then collect the information
-traditional identifying algorithms. of code lines in this script. Second, we will support a interface called "Record" for the MFS identifying algorithms that each time the algorithm encounter a fault should call this interface. So that we can record this fault as well as the code lines that trigger this fault. Last, this framework support these algorithms the interface "analysis" that can tell them whether the fault they encounter having masked some fault else.
+%In this paper, we propose a approach that can assist these algorithms to avoid these masking effect. Our framework consists of three parts: first, it will use the statistic analysis technique--dominate tree to analysis the test script and then collect the information traditional identifying algorithms. of code lines in this script. Second, we will support a interface called "Record" for the MFS identifying algorithms that each time the algorithm encounter a fault should call this interface. So that we can record this fault as well as the code lines that trigger this fault. Last, this framework support these algorithms the interface "analysis" that can tell them whether the fault they encounter having masked some fault else.
 
 %First we will comprehensively analysis this two programs to get the MFSs and their corresponding fault level as the basic information for the left experiment.
-To evaluate the effectiveness of our framework, we took two widely-used open source software as our experiment subject. And then we will choose five MFSs identifying  algorithms, for each algorithm, we will compare the identifying result among two versions of this algorithm, one using our framework while another one not. The result of the empirical studies shows that our framework can assist the MFS identifying algorithm in getting a more accurate result.
+%To evaluate the effectiveness of our framework, we took two widely-used open source software as our experiment subject. And then we will choose five MFSs identifying  algorithms, for each algorithm, we will compare the identifying result among two versions of this algorithm, one using our framework while another one not. The result of the empirical studies shows that our framework can assist the MFS identifying algorithm in getting a more accurate result.
 
 The main contributions of this paper are:
 \begin{enumerate}

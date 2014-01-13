@@ -143,9 +143,7 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 % number that will appear in the \additionalauthors section.
 \maketitle
 \begin{abstract}
-Minimal failure-inducing schema(MFS) is a important concept in combinatorial testing that indicate the failure-inducing interaction of parameters in the software under test(SUT). Identify the MFS can help developers quickly reduce the search space needed to find the buggy source. Many algorithms are proposed to find these MFSs in the failing test cases. In practice, however, we find that these algorithms cannot behave as expected in the condition that SUT has multiple faults with different levels. For if so, a fault with higher level may be triggered and leaving the code which will trigger the fault with lower level not executed. Thus we cannot observe the fault with lower level, as a result, we will omit the MFS that related to the fault with lower level. We call this a masking effect.
-
-In this paper, we propose a framework which can help the algorithms to avoid this masking effect when identify MFSs in the test cases. In this framework, we first static analysis the data flow of the test cases. Second we record fault as well as the code lines related to this fault during executing test cases. Then we will determine the levels of different faults we triggered during testing through finding the relationships of the code lines of each fault. By doing so we can judge whether a masking effect is happened during the process of identifying MFS and avoiding them by generating new test case that exposing the fault with lower level.We have applied our framework into several algorithms which focus on identifying the MFS in test cases and empirically studied the framework on two widely used open source software. Our result of the studies shows that our framework can effectively reduce the influence of masking effect.
+Combinatorial testing(CT) is proven to be effective to reveal the potential failures caused by the interaction of the inputs or options of the system under test(SUT). A key problem in CT is to isolate the failure-inducing interactions in SUT as it can facilitate the debugging effort by reducing the scope of code that needs to be inspected. Many algorithms has been proposed to identify the failure-inducing interactions in SUT, however, most of these studies either just consider the condition of one fault in SUT or ignore masking effects among multiple faults which can bias their identified results. In this paper, we analysed how the masking effect of multiple faults impact on the isolation of failure-inducing interactions. We further give a strategy of selecting test cases to alleviate this impact. The key to the strategy is to prune these test cases that may trigger masking effect and generate no-masking-effect ones to test the interactions supposed to be tested in these pruned test cases. The test-case selecting process repeated until we get enough information to isolate the failure-inducing interactions in SUT. We conducted some empirical studies on several open-source GNU software. The result of the studies shows that multiple faults do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when handling multiple faults in SUT.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -158,9 +156,37 @@ In this paper, we propose a framework which can help the algorithms to avoid thi
 \keywords{Minimal failure-inducing schemas, Masking effect} % NOT required for Proceedings
 
 \section{Introduction}
-With the increase of requirements for more features and customisable, modern software are designed to be configurable and modular. While it can make software portable and flexible, it also bring many challenges to the testers when testing them. The major one of these challenges is that we must make sure the components or options in the software coexistence with each other. As exhaustive testing each possible combination is not impractical when there are large amount of components or options in the SUT, we should choose some of them to test with considering the cost. There are many strategies for one to select the test configurations among all the possible configurations. Combinatorial testing is one of them that can reach the coverage of all the interactions of components with the number of component(we called interaction strength) not more than t.
 
-Which criteria we should choose or how to generate these test cases is not the point in this paper, however, we will focus on the followed problem: if we find some test configurations failed during executing, which subset of the combination of component is the source of this failure?  In another word, we want to identify the failure-inducing interactions of component rather than just detect them. Many works (as well as our previous work) are proposed to solve this problem. Most of these works focus on how to identify as more MFSs as possible while just generating small size of extra test configurations.
+With the increasing complexity and size of modern software, many factors, such as input parameters and configuration options, can influence the behaviour of the system under test(SUT). The unexpected faults caused by the interaction among these factors can make testing such software a big challenge if the interaction space is large. Combinatorial testing can systematically sample the interaction space and select a relatively small size of test cases that cover all the valid iterations with the number of factors involved in the interaction no more than \emph{t}. 
+
+Once failures are detected by some test cases, CT then need to isolate the failure-inducing interactions. This step is important in CT as it can facilitate the debugging effort by reducing the code scope that needed to inspected.  Many algorithms has been proposed to identify the failure-inducing interactions in SUT, which ranges from using classification tree model, generating additional test cases, ranking suspicious interactions based on rules, using graphic-based deduction and so on. These methods can be partitioned into two category: for single fault and for multiple faults. The first one aims at identifying the minimal failure-inducing interactions while the later like classification based method can applied into multiple faults.
+
+There a
+
+In fact, there is a real related works that care the masking effect, however, it just need make sure the test cases generated should test each potential interactions. Which ignore that the identifying process itself can also be affected by the masking effect.
+
+One insight in this paper is that we cannot on earth to get away from the masking effect even if we do a exhaustive testing. And further more, both ignore the masking effect and see them as one fault are harmful for our identifying process. However, under the circumstance of sampling testing, or selecting test cases to test, we can have a for 
+
+
+In this paper, we first find the that 
+ 
+However, in our recently studies on several real software, we find these methods didn't behave as expected when these software contain multiple faults. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. In this paper, we first analysis the problems when locating failure-inducing interactions of SUTs with multiple faults in theory, and then give a solution that can alleviate the impact of masking effect of different faults. This method separately handle each fault, and for a particular fault, it will eliminate the test cases that trigger other faults and replace them with test cases either pass or trigger the same fault as currently analysis.
+
+For example,
+
+One insight is that,
+
+In this paper, we propose
+
+
+We  from the bug tracker system, and find that multiple faults do exist in a software with the same version. And to evaluate the effectiveness of our approach we used the benchmark softwares from[] to take a experiment under control. The results show that our approach can get a better result than those who did not use us.
+
+The main contributions:
+
+
+
+
+We evaluate our approach in several open-source gnu projects, and the result of the empirical studies shows that multiple faults do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when facing multiple faults in SUT.
 
 In our recent studies, however, we find these algorithms cannot behave as expected in some subject software. Through a deep analysis, we find that there are multiple faults with different levels in these subject. It means that when we set up a test configuration and execute the SUT to observe the result, the high level fault will trigger first and perturb we examining the code that may trigger the low level fault. As a result we will omit some options or component in this test configuration that may be the cause of the low level fault. We call this a masking effect which make the MFS identifying algorithms not able to work properly.
 
@@ -638,7 +664,10 @@ Let's look at the original test configuration (0 1 1 1), it triggered the err 2 
 
 \begin{tabular}{|p{0.4\columnwidth} p{0.4\columnwidth}|} \hline
 \bfseries original identified: &  \bfseries identified with replacement\\
-(  -  \ \ \  0 \ \ \  0  \ \ \ 0 ) &(  -  \ \ \  - \ \ \  0  \ \ \ 0 ) \\
+(  0  \ \ \  0 \ \ \  -  \ \ \ - ) : err1 & (  0  \ \ \  0 \ \ \  0  \ \ \ - ):err1 \\
+(  1  \ \ \  1 \ \ \  -  \ \ \ - ) : err1 & (  1  \ \ \  1 \ \ \  -  \ \ \ - ):err1 \\
+(  1  \ \ \  2 \ \ \  -  \ \ \ - ) : err1 & (  1  \ \ \  2 \ \ \  -  \ \ \ - ):err1 \\
+(  0  \ \ \  1 \ \ \  -  \ \ \ - ) : err2 &   \\
 \hline
 \end{tabular}
 \end{table}
@@ -650,14 +679,9 @@ FIC adaptively generate test configurations according to the executing result of
 
 As the last test configuration will have a significance impact for FIC, so if we replace one test configuration of the FIC\_BS, the generated test configurations will have a big difference from traditional FIC\_BS. To clearly describe the influence of our approach on FIC\_BS, we will first give a completed example of the traditional identifying process of FIC\_BS, and then give the process with our approach. The detailed is listed in table \ref{fic-examples}.
 
-For the first part, we can easily learn that FIC\_BS use a binary search strategy to mutant the parameters in a test configuration. And which part will be mutant is based on the last test configuration. In detail, if the last test configuration passed,e.g., (1 1 1 1 0 0 0 0), it will then transfer half mutant part as the fixed part, e.g. otherwise if last configuration trigger the expected fault, it will transfer half fixed part as the mutant part. This process is repeated until it isolated a minimal failure-inducing factor. For this case, the first failure-inducing factor is (- - - 0 - - - -).  After it find a failure-inducing factor it will move to the remained part besides the failure-inducing factor to find other failure-inducing factors. At last it will get the MFS for one particular fault.  part to next, as we will do for the test configuration. If the test configuration.
+For the first part, we can easily learn that FIC\_BS use a binary search strategy to mutant the parameters in a test configuration. And which part will be mutant is based on the last test configuration. We will not going to describe the FIC\_BS algorithms in detail. Instead, we just focus on the test configuration (1 1 1 0 0 0 0 0) trigger err 2. As traditional FIC\_BS will regard it as a passing test configuration, take the previous test configurations together, it will judge that (- - 0 - - - - -) must be a failure-inducing factor. And finally it will take (- - 0 0 - 0 - -) as the MFS for err 1.
 
-So when we use our approach, the test configuration (1 1 1 0 0 0 0 0) will be discarded and replaced with another one (2 2 2 0 0 0 0 0), As the result of the newly test configuration triggered err 1 which is different from the original  the next step will be very different from the traditional one as we get a different result from the original one.
-
-and with our approach will have a big difference in the generated test configurations, so we will part to compare this two.For FIC, as it don't generate first, instead it generate test configurations according to the last time running example.
-So we should generate test configuration after each it feed us a fixed part.
-
-For example,
+However, when apply our approach, we will replace the test configuration (1 1 1 0 0 0 0 0) to be (2 2 2 0 0 0 0 0), ((- - - 0 0 0 0 0) is the fixed part). And then we will find it still trigger the err 1, which means (- - - 0 - - - -) should be failure-inducing factor rather than (- - 0 - - - - -) in the traditional approach. And this step will have a influence on the test configurations generated following, and finally we will identify the schema (- - - 0 - 0 - -) as the MFS for err 1.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Identifying MFS using FIC\_BS}
@@ -677,15 +701,19 @@ For example,
 1 \ \ 1 \ \ 1 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
 1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
 1 \ \ 1 \ \ 1 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 2 \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  0 \ \ 0  & PASS \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  1 \ \ 1  & Err 1 \\
+1 \ \ 1 \ \ 0 \ \ 1 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
+1 \ \ 1 \ \ 0 \ \ 1 \ \  1 \ \ 0 \ \  0 \ \ 0  & PASS \\
+1 \ \ 1 \ \ 0 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
+1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
+1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 1 \ \  0 \ \ 0  & PASS \\
+1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 0 \ \  1 \ \ 1  & Err 1 \\
 \end{tabular}
 
 \begin{tabular}{|p{0.846\columnwidth}|} \hline
 \bfseries Mfs identified \\ \hline
-( - \ \ - \ \ - \ \ 0 \ \  - \ \ 0 \ \ - \ \ - ) \ \ \ for Err 1 \\
+( - \ \ - \ \ 0 \ \ 0 \ \  - \ \ 0 \ \ - \ \ - ) \ \ \ for Err 1 \\
 \hline
 \end{tabular}
 
@@ -714,15 +742,15 @@ For example,
 \end{table}
 
 \section{empirical studies}
-To evaluate our approach, we take two open-source software as our subjects: HSQLDB and Log4j. HSQLDB is a pure-java data-base management software, and Log4j is a logger tool commonly used in java application. Both of them have a large support developers' forum. Furthermore as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
+To evaluate our approach, we take two open-source software as our subjects: GNU softwares: Grep,Sed,Make, and so on. HSQLDB and Log4j. HSQLDB is a pure-java data-base management software, and Log4j is a logger tool commonly used in java application. Both of them have a large support developers' forum. Furthermore as our approach is a framework that can bee seen as a for the MFS identifying algorithms, so that we afford them five algorithms: fic ofot trt cta sp.
 
 There are three questions we want to figure out from our in this empirical studies:
 
-Q1: does our framework reduce the number of MFSs and the degree of MFS?
+Q1: What the real masking state in real softwares.
 
-Q2: What the real masking state in real softwares.
+Q2: What the behaviour of traditional approaches works on softwares when they have multiple faults?
 
-Q3: does our framework the result is match the result in developer's forum.
+Q3: does our framework get a better solution than traditional approaches when facing multiple faults?
 
 \subsection{experiment set up}
 We will first model the two objects so that we can use the MFS identifying algorithms. To do this, we first find real faults in the developer's forum, and then read the specification of the software to get the options and its values that can influence its behaviour. The detail of the modeling is listed in table \ref{modelHSQLDB} and table .
