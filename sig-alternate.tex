@@ -94,7 +94,7 @@
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
 
-\numberofauthors{8} %  in this sample file, there are a *total*
+\numberofauthors{2} %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
 % reasons) and the remaining two appear in the \additionalauthors section.
 %
@@ -129,10 +129,6 @@ Changhai Nie\\
 % author on the opening page (as the 'third row') but we ask,
 % for aesthetic reasons that you place these 'additional authors'
 % in the \additional authors block, viz.
-\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
@@ -782,7 +778,7 @@ can make these two bugs existed in one test case and only one fault will be obse
 
 From table \ref{masking effect condition}, we can find for a particular version of software, multiple faults can be discovered, and these faults can easily existed in one test case which can let the masking effect triggered. So the answer to Q1 is We can see the multiple faults is a common sense and the masking effect do exist in real software.
 
-\subsection{performance of traditional algorithms}
+\subsection{study 2:performance of traditional algorithms}
 In the second study, we want to learn how they impact on the traditional approaches. To conduct this study, we need to do two group experiments, first, what the behaviour of these approaches worked on software with single fault, second what the behaviour of these approaches worked on multiple faults. So the ideal subject for this case study must be the software which can easily controlled with faults injected. To get this target, we use the SIR benchmark as our subject and one real software as the subject. We model them as myra cohen do[] to get a combinatorial testing model.  The detailed model is listed as table \ref{subject_model}. And the HSQLDB can be modeled as table \ref{modelHSQLDB}
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
@@ -840,7 +836,7 @@ HSQLDB & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\
 
 From this table, we can easily find that Traditional MFS indentifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additional, the degree of the impact that vary from algorithms. So the answer to the second question is: traditional algorithm do suffer from the multiple faults and their masking effect although the degree of impact vary in different algorithms.
 
-\subsection{performance of our approach}
+\subsection{study 3:performance of our approach}
 The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches.
 
 \subsubsection{study setup}
@@ -886,7 +882,7 @@ We[] have proposed an approach that utilize the tuple relationship tree.
 Besides works that focus on identifying the failure-inducing schemas in test cases. There are some work focus on working around the masking effects. Firstly Ylimaz proposed it in[], and using the feedback-driven approach to work around the masking effect. In specific, it first using CTA classify the possible MFS and then eliminate them and generate new test cases to detect possible masked interaction in the next iteration.  And then in[] it extend its work. The difference between his work and our work is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
 
 \section{Conclusions}
-We have presented an approach that can .
+Multiple faults in SUT can bias the result of traditional MFS identifying approaches. In this paper, we theoretically analysis the impact with the multiple faults and its masking effect. Additionally, we have presented an approach that can alleviate this impact. We further surveyed a series of software to find that multiple faults is common sense and the masking can also appear. Based on the software we have surveyed, we compare our approach and traditional ones to support the claim that our approach can help testers to effeicently find the failure-inducing schemas with less suffers from the multiple faults and its masking effect.
 
 %\end{document}  % This is where a 'short' article might terminate
 
@@ -978,12 +974,6 @@ HSQLDB &- & - &-\\
 \end{table}
 
 
-\section{Headings in Appendices}
-The rules about hierarchical headings discussed above for
-the body of the article are different in the appendices.
-In the \textbf{appendix} environment, the command
-\textbf{section} is used to
-
 \subsection{References}
 Generated by bibtex from your ~.bib file.  Run latex,
 then bibtex, then latex twice (to resolve references)
@@ -992,11 +982,6 @@ the .tex source file and comment out
 the command \texttt{{\char'134}thebibliography}.
 % This next section command marks the start of
 % Appendix B, and does not continue the present hierarchy
-\section{More Help for the Hardy}
-The sig-alternate.cls file itself is chock-full of succinct
-and helpful comments.  If you consider yourself a moderately
-experienced to expert user of \LaTeX, you may find reading
-it useful but please remember not to change it.
 %\balancecolumns % GM June 2007
 % That's all folks!
 \end{document}
