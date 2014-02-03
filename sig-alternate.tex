@@ -304,7 +304,7 @@ Note that, traditional MFS definition didn't consider the priority relationship 
 
 The target of traditional MFS identifying algorithms is to find thes MFSs for the faults of a SUT. For by doing that can help the developers reduce the scope of source code that needed to inspect to debug the software. Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
 
-\subsection{Dominate tree}
+
 
 fault. level.
 given this definition, we can also take the constraint as a fault, usually it will have the highest level, for that if we take a combination which is constraint, it will may didn't compile at all, so that we can't exam any code in this software.
@@ -657,7 +657,7 @@ As the last test configuration will have a significance impact for FIC, so if we
 
 For the first part, we can easily learn that FIC\_BS use a binary search strategy to mutant the parameters in a test configuration. And which part will be mutant is based on the last test configuration. We will not going to describe the FIC\_BS algorithms in detail. Instead, we just focus on the test configuration (1 1 1 0 0 0 0 0) trigger err 2. As traditional FIC\_BS will regard it as a passing test configuration, take the previous test configurations together, it will judge that (- - 0 - - - - -) must be a failure-inducing factor. And finally it will take (- - 0 0 - 0 - -) as the MFS for err 1.
 
-However, when apply our approach, we will replace the test configuration (1 1 1 0 0 0 0 0) to be (2 2 2 0 0 0 0 0), ((- - - 0 0 0 0 0) is the fixed part). And then we will find it still trigger the err 1, which means (- - - 0 - - - -) should be failure-inducing factor rather than (- - 0 - - - - -) in the traditional approach. And this step will have a influence on the test configurations generated following, and finally we will identify the schema (- - - 0 - 0 - -) as the MFS for err 1.
+However, when apply our approach, we will replace the test configuration (1 1 1 0 0 0 0 0) to be (2 2 2 0 0 0 0 0), ((- - - 0 0 0 0 0) is thReplacee fixed part). And then we will find it still trigger the err 1, which means (- - - 0 - - - -) should be failure-inducing factor rather than (- - 0 - - - - -) in the traditional approach. And this step will have a influence on the test configurations generated following, and finally we will identify the schema (- - - 0 - 0 - -) as the MFS for err 1.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Identifying MFS using FIC\_BS}
@@ -720,16 +720,16 @@ However, when apply our approach, we will replace the test configuration (1 1 1 
 \section{empirical studies}
 We conducted several case studies to address the following questions:
 
-Q1: What the condition of faults and their masking effect in real software.
+Q1: Do masking effects existed in real software when it contain multiple faults?
 
-Q2: What the behaviour of traditional approaches works on software when they have multiple faults?
+Q2: What is the extent to which traditional approaches suffer from these real masking effects?
 
-Q3: Does our approach get a better solution than traditional approaches when facing multiple faults?
+Q3: Can our approach do better than traditional approaches when facing these masking effects?
 
-Specifically, section 6.1 survey several open-source software to gain a insight of the condition of multiple faults and their masking effects. Section 6.2 applied three MFS-identifying programs on the faults-controllable software from the SIR benchmark. Section 6.3 apply our approach on the benchmark and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
+Specifically, section 6.1 survey several open-source software to gain a insight of the state of the existence of multiple faults and their masking effects. Section 6.2 directly applied three MFS-identifying programs on the surveyed software and analysis their results. Section 6.3 apply our approach on the software and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
 
 \subsection{study 1: multiple faults and masking effects in practice}
-In the first study, we survey several software to gain a insight of the condition of multiple faults and their effects. The software under study are four GNU software: Grep, Sed, Make, Gzip and a database management software- HSQLDB. Each of them contain different versions. The reason why we choose them as the subject is that these software are highly configurable, the options and their combination can influence their behaviour, additionally, they all have the developer community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code, number of procedures(for c software) or number of classes (for java software) and a brief description.
+In the first study, we surveyed several software to gain a insight of the state of the existence of multiple faults and their effects. The software under study are four GNU software: Grep, Sed, Make, Gzip and a database management software- HSQLDB. Each of them contain different versions. All the three subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code, number of procedures(for c software) or number of classes (for java software) and a brief description.
 
 \begin{table*}\renewcommand{\arraystretch}{1.3}
 \caption{Software under survey}
@@ -745,6 +745,8 @@ HSQLDB &2 & - &-& A database management software written with pure java\\
 \end{table*}
 
 \subsubsection{study setup}
+We first analysis the code from the information got in the bug tracker and the test case source code. And derive the practical MFS in them, then augment the options it can suffered, and scedule them in a exhaustive test suite to see whether fault information is missed. 
+
 For each software listed in the table \ref{software description}, we checked its bug tracker system and focus on the bugs related to the versions we cared. We collected the bugs to each version of the software and exam whether they can masked each other in some test cases. In detail, we will exam each pair of the bugs we collected for a particular version, and then check whether they can fulfil the following condition:
 
 1) Can they exist in one test case?  2) Does only one fault can be observed in the test case output?
@@ -760,19 +762,16 @@ Table \ref{masking effect condition} lists the results of our survey. Column "Nu
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{number of faults and their masking effect condition}
 \label{masking effect condition}
-\begin{tabular}{c|c|c|c} \hline
-software & versions & Num of faults & Num of masking\\ \hline
-Grep &- &  49  &-\\ \hline
-Sed & - & -  & - \\ \hline
-Make & - &  131 &-\\ \hline
-Gzip &- &  - &-\\ \hline
-HSQLDB &- & - &-\\
+\begin{tabular}{c|c|c|c|c} \hline
+software & versions & Num of faults & all tests & Num of masking\\ \hline
+HSQLDB & 2cr8 & 2 & 2000 & 1000\\ \hline
 \hline\end{tabular}
 \end{table}
 
+
 The detailed fault information like the fault ID, masking fault ID and its posted web site have been attached in the Appendix A, table \ref{masking effect detail}. All of these bug can be rebuilt by following the steps reported in the bug tracker. For example, Bug-\#29537 indicate that Grep incorrectly match unicode patterns with \textbackslash<\textbackslash>  and Bug-\#33080 claim that combination of --count (-c) and --only-matching (-o) will not work as expected. A simple test case liked the following command:
 
-\emph{grep --only-matching --count '\textbackslash<²ð\textbackslash>' test.txt} 
+\emph{grep --only-matching --count '\textbackslash<chai\textbackslash>' test.txt} 
 
 can make these two bugs existed in one test case and only one fault will be observed. Other faults listed in table \ref{masking effect detail} as well as their masking effect can also be easily reappeared in well-designed test cases.
 
@@ -873,11 +872,11 @@ Nie?s approach in [3] and [6] first separates the faultypossible tuples and heal
 
 Delta debugging [5] proposed by Zeller is an adaptive divide?and-conquer approach to locating interaction fault. It is very efficient and has been applied to real software environment. Zhang et al. [4] also proposed a similar approach that can identify the failure-inducing combinations that has no overlapped part efficiently.
 
-Colbourn and McClary [7] proposed a non-adaptive method. Their approach extends the covering array to the locating array to detect and locate interaction faults. C. Martínez [8-9] proposed two adaptive algorithms. The first one needs safe value as their assumption and the second one remove the assumption when the number of values of each parameter is equal to 2. Their algorithms focus on identifying the faulty tuples that have no more than 2 parameters.  
+Colbourn and McClary [7] proposed a non-adaptive method. Their approach extends the covering array to the locating array to detect and locate interaction faults. C. MartÃ­nez [8-9] proposed two adaptive algorithms. The first one needs safe value as their assumption and the second one remove the assumption when the number of values of each parameter is equal to 2. Their algorithms focus on identifying the faulty tuples that have no more than 2 parameters.  
 
 Ghandehari.etc [10] defines the suspiciousness of tuple and suspiciousness of the environment of a tuple. Based on this, they rank the possible tuples and generate the test configurations. Although their approach imposes minimal assumption, it does not ensure that the tuples ranked in the top are the faulty tuples.
 
-Yilmaz [11] proposed a machine learning method to identify inducing combinations from a combinatorial testing set. They construct a classified tree to analyze the covering arrays and detect potential faulty combinations. Beside this, Fouché [12] and Shakya [13] made some improvements in identifying failure-inducing combinations based on Yilmaz?s work.
+Yilmaz [11] proposed a machine learning method to identify inducing combinations from a combinatorial testing set. They construct a classified tree to analyze the covering arrays and detect potential faulty combinations. Beside this, FouchÃ© [12] and Shakya [13] made some improvements in identifying failure-inducing combinations based on Yilmaz?s work.
 
 We[] have proposed an approach that utilize the tuple relationship tree.
 
