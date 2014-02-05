@@ -380,7 +380,7 @@ id&test inputs & result\\ \hline
 
 And then we will wrongly identified as (1,1,-) and (-,-,0) for the fault.
 
-\subsection{Do not consider the masking effect}
+\subsection{distinguish fault}
 
 To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
 
@@ -745,65 +745,71 @@ HSQLDB &2 & - &-& A database management software written with pure java\\
 \end{table*}
 
 \subsubsection{study setup}
-We first analysis the code from the information got in the bug tracker and the test case source code. And derive the practical MFS in them, then augment the options it can suffered, and scedule them in a exhaustive test suite to see whether fault information is missed. 
+We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#123213 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered.  We call these analysed result the "perfect combinations" which will be used as the comparison benchmark in the later studies. 
 
-For each software listed in the table \ref{software description}, we checked its bug tracker system and focus on the bugs related to the versions we cared. We collected the bugs to each version of the software and exam whether they can masked each other in some test cases. In detail, we will exam each pair of the bugs we collected for a particular version, and then check whether they can fulfil the following condition:
+We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected. As for bug\#123213 and  bug\#223012 of HSQLDB, the original test file can be simply described as figure 1:, and we merged them together into a file like figure 2, we can easily find that it use a test scenario to merge the two test file. For each pair of bugs, we have posted the source code of the merging file on website.
 
-1) Can they exist in one test case?  2) Does only one fault can be observed in the test case output?
-
-The first condition will ensure that the options or inputs that trigger this two bugs is compatible. For example, if bug\_1 need the input \emph{a} = 0, and bug\_2 need the input \emph{a} = 1, then this two bug will not exist in one test case. The second condition ensure that the masking effect can appear, as if only one fault information can be observed, then another fault will be ignored in the test case.
-
-The number of masking effect among the bugs for a specific version will be quantified in the next section.
+Next we built the input model which consist of the options related to the perfect combinations and additional noise options. The detailed model information is listed in appendix. We then generated the exhaustive test suite consist of all the possible combinations of these options under which we executed the merged test file. We record the output of each test case to observe whether there are test cases contain 'perfect combination' but do not produce the corresponding bug.
 
 \subsubsection{result and discuss}
 
-Table \ref{masking effect condition} lists the results of our survey. Column "Num of faults" indicate the number of faults we collected from the bug tracker system, column "num of masking" indicate the number of fault pairs which fulfil the aforementioned two conditions. 
+Table \ref{masking effect condition} lists the results of our survey. Column "Faults ID" indicate the IDs of two bugs we collected from the bug tracker system, column "all tests" give the total number of test cases we executed and column "num of masking" indicate the number of test cases which trigger the masking effect. 
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{number of faults and their masking effect condition}
 \label{masking effect condition}
 \begin{tabular}{c|c|c|c|c} \hline
-software & versions & Num of faults & all tests & Num of masking\\ \hline
-HSQLDB & 2cr8 & 2 & 2000 & 1000\\ \hline
+software & versions & Faults ID  & all tests & Num masking\\ \hline
+HSQLDB & 2cr8 & \#2000 \&  \#3000 & 2000 & 1000\\ \hline
 \hline\end{tabular}
 \end{table}
 
+We observed that for each pair of bugs we listed in the table, we can always find some test cases, although contain perfect combinations, did not trigger expected bug, i.e., the expected bug was masked. Specifically, there are 1000 out of 2000 (20\%) test cases for HSQLDB triggered the masking effect.
 
-The detailed fault information like the fault ID, masking fault ID and its posted web site have been attached in the Appendix A, table \ref{masking effect detail}. All of these bug can be rebuilt by following the steps reported in the bug tracker. For example, Bug-\#29537 indicate that Grep incorrectly match unicode patterns with \textbackslash<\textbackslash>  and Bug-\#33080 claim that combination of --count (-c) and --only-matching (-o) will not work as expected. A simple test case liked the following command:
+So the answer to Q1 is that in practice, when SUT have multiple faults, there is a good chance that masking effect can be triggered by some test cases.
 
-\emph{grep --only-matching --count '\textbackslash<chai\textbackslash>' test.txt} 
-
-can make these two bugs existed in one test case and only one fault will be observed. Other faults listed in table \ref{masking effect detail} as well as their masking effect can also be easily reappeared in well-designed test cases.
-
-From table \ref{masking effect condition}, we can find for a particular version of software, multiple faults can be discovered, and these faults can easily existed in one test case which can let the masking effect triggered. So the answer to Q1 is We can see the multiple faults is a common sense and the masking effect do exist in real software.
+%All of these bug can be rebuilt by following the steps reported in the bug tracker. For example, Bug-\#29537 indicate that Grep incorrectly match unicode patterns with \textbackslash<\textbackslash>  and Bug-\#33080 claim that combination of --count (-c) and --only-matching (-o) will not work as expected. A simple test case liked the following command:
+%
+%\emph{grep --only-matching --count '\textbackslash<chai\textbackslash>' test.txt} 
+%
+%can make these two bugs existed in one test case and only one fault will be observed. Other faults listed in table \ref{masking effect detail} as well as their masking effect can also be easily reappeared in well-designed test cases.
 
 \subsection{study 2:performance of traditional algorithms}
-We just choose these fault has the file attached in the forum which can rebuild the fault.
+In the second study, we want to learn how the masking effect impact on the traditional approaches. To conduct this study, we need to apply the traditional failure-inducing identifying algorithms on the SUT we collect in the first study and observe their results to compare them with the perfect combinations we got aforementioned. 
 
-In the second study, we want to learn how they impact on the traditional approaches. To conduct this study, we need to do two group experiments, first, what the behaviour of these approaches worked on software with single fault, second what the behaviour of these approaches worked on multiple faults. So the ideal subject for this case study must be the software which can easily controlled with faults injected. To get this target, we use the SIR benchmark as our subject and one real software as the subject. We model them as myra cohen do[] to get a combinatorial testing model.  The detailed model is listed as table \ref{subject_model}. And the HSQLDB can be modeled as table \ref{modelHSQLDB}.
 
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{subjects model}
-\label{subject_model}
-\begin{tabular}{c|c} \hline
-software & Model  \\ \hline
-Grep & $2^{1}3^{3}4^{3}5^{1}6^{1}8^{1}$ \\ \hline
-Sed &  3*4*5 \\ \hline
-Make & 3*4*5 \\ \hline
-Gzip & 3*4*5 \\ \hline
-HSQLDB & 3*4*5 \\
-\hline\end{tabular}
-\end{table}
+%The detailed model is listed as table \ref{subject_model}. And the HSQLDB can be modeled as table \ref{modelHSQLDB}.
+%
+%\begin{table}\renewcommand{\arraystretch}{1.3}
+%\caption{subjects model}
+%\label{subject_model}
+%\begin{tabular}{c|c} \hline
+%software & Model  \\ \hline
+%Grep & $2^{1}3^{3}4^{3}5^{1}6^{1}8^{1}$ \\ \hline
+%Sed &  3*4*5 \\ \hline
+%Make & 3*4*5 \\ \hline
+%Gzip & 3*4*5 \\ \hline
+%HSQLDB & 3*4*5 \\
+%\hline\end{tabular}
+%\end{table}
 
 
 \subsubsection{study setup}
-We first started by preparing the subjects to make it feasible to test. To generate test cases for the software, we use the TSL script in SIR. The TSL script can be used to model the combinatorial inputs space as cohen do[]. And then we will mimicked two different testing scenario by the way we injecting faults. For the single fault testing, we will independently inject one fault into the source code one time and then compile the software.  The faults injected is prepared by someone else in SIR. For the multiple faults testing, we will inject all the faults one time into the source code and compile it.  After the subject is prepared, we will execute the complied software under the test cases generated before and the collect the output of each test case.
+The traditional approaches we selected are: OFOT, FIC and CTA. To make the first two approaches (OFOT and FIC) work, they need to be fed with a failing test case. While for CTA, it works with covering array along with their execute output. As the input for the traditional approaches are different, we designed two different setups, one for OFOT and FIC, the other for CTA. 
 
-Whether the test case passed or failed can be determined by comparing the result got by the fault inject software with the original software. Additionally, the fault result can be distinguished by fault we injected.
+For OFOT and FIC, our set up is as follows:
 
-After we have got the result of the test case and its faulty information, next we will apply the traditional MFS identifying algorithms to isolate the MFS in each failing test case. We have chosen three different MFS identifying algorithms-- FIC, OFOT and CTA as our testing object algorithms. We will compared the MFS got in the single fault testing scenario the the MFS got in the multiple faults. The compared metric is the number difference of MFS, and the similarity of MFS.  The distance of schema is defined as the followed notation:
+We first selected failing test cases from the exhaustive executed test cases, and for each test case, we applied OFOT and FIC to isolate the failure-inducing combinations in this test case. As the subject under test has multiple faults, the strategy we chose for this two the traditional approaches is \emph{distinguish fault} in section 4.2, i.e., distinguish fault and ignore the masking effect happened among them. At last we collected all the failure-inducing combinations they got and deleted those overlapped ones. 
+
+For CTA, our setup is as follows:
+
+We first utilize augment simulating algorithms to generate 2-way covering arrays. And for each test case in the covering array, the output of them can be fetched from the exhaustive set we have got in the first study. Then we fed the covering array along with their output to CTA approach and collected the result. As different covering array may affect the result of CTA approach, we repeated using ASA to generate 2-way covering array for 30 times and applied CTA for each of them. It is noted that ASA algorithm is a heuristic approach, which using some random factor in this algorithm, so the 30 covering array are different from each other. 
+
+After we have collected the result got by each algorithm for each version software. Next we need to compare the result with the perfect combinations to quantify the extent to which traditional approaches suffers from masking effect. To make this comparison, we first need to introduce the following notation:
+
 Assume we get two schema $S_{A}$,$S_{B}$, the notation$S_{A} \bigcap S_{B}$ indicate the same elements between $S_{A}$ and $S_{B}$. For example $(- 1\ 2 - 3) \bigcap  (- 2\ 2 - 3) = \{ (- - 2 - -) , (- - - - 3)\}$.
 
+Then the similarity between schemas is defined as the followed notation:
 \begin{displaymath} Similarity(S_{A},S_{B})= \frac{|S_{A} \bigcap S_{B}|}{\max (Degree(S_{A}),Degree(S_{B})) } \end{displaymath}.
 
 In this formula, the numerator indicate the number of same elements in  $S_{A}$ and $S_{B}$. It is obviously, the bigger the value is the more similar two schemas are.  The denominator give us this information: if the the number of same elements is fixed, the bigger the degree of the schema, the more noise we will encounter to find the fault source. In a word, the bigger the formula can get the better the similarity is between the two schema.
@@ -811,37 +817,37 @@ In this formula, the numerator indicate the number of same elements in  $S_{A}$ 
 For the set of schemas$ Set_{A}$ and $Set_{B}$, the similarity definition is :
 \begin{displaymath} Similar(Set_{A},Set_{B})= \frac{\sum _{s_{i}\in Set_{A}}\max _{s_{j}\in Set_{B}}S\left( s_{i},s_{j}\right)}{|Set_{A}|} \end{displaymath}.
 
+It is obviously the more similarity between the set of failure-inducing combinations identified by the algorithms with these perfect combinations the less impacts do these algorithms suffered from multiple faults as well as their masking effects.
 
-It is obviously less the number difference and more similarity between the MFS will indicate the multiple impacts less. Particularly, if Num = 0 and Similar = 1, means that multiple faults have no impacts on them.  
+Besides the similarity metric, another metric also need to be considered: the discrepancy between the number of identified failure-inducing combinations with these perfect combinations. If this discrepancy is too big, even though we get a good similarity metric value, we also get too many noise which make our result inaccuracy.
 
+Particularly, if the value of discrepancy number metric is 0 and the value of similarity metric is 1, it means that multiple faults as well as their masking effect have no impacts on the algorithms, which is usually not feasible in practice. 
 
 \subsubsection{result and discuss}
-Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicate the discrepancy of the number of MFS between the single and the multiple testing scenario, Column "Similarity" indicate the similar among the MFS got between this two testing scenario .
+Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicate the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" indicate the similarity between this two set of MFS. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC","OFOT","CTA", indicating  corresponding algorithms respectively. It is noted that for approach "CTA", the vale we set in the cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{traditional result}
 \label{traiditional_result}
 \begin{tabular}{p{0.16\columnwidth}|p{0.07\columnwidth}|p{0.35\columnwidth}|p{0.35\columnwidth}} \hline
-   Software & ver  &  num diff & similarity
+   Software & version  &  num diff & similarity
 \end{tabular}
 
 \begin{tabular}{c|c|c|c|c|c|c|c} \hline
-- & - & OFOT & FIC & CTA & OFOT & FIC & CTA  \\ \hline
-Grep & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-Sed & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-Make & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-Gzip & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-HSQLDB & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\
+	- & 		- &	OFOT	& FIC 	& CTA 	& OFOT 	& FIC 	& CTA  \\ \hline
+HSQLDB &	 3.14 &	3	& 4 		& 4 		& 0.65 	& 0.64	&  0.5 \\
 \hline\end{tabular}
 \end{table}
 
-From this table, we can easily find that Traditional MFS indentifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additional, the degree of the impact that vary from algorithms. So the answer to the second question is: traditional algorithm do suffer from the multiple faults and their masking effect although the degree of impact vary in different algorithms.
+From this table, we can easily find that Traditional MFS identifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additional, the extent to which the impact has affected vary from algorithms. We can find that for HSQLDB with version 3.14, the similarity of CTA was just at 4 while FIC is 3. We list these points in figure 3. From this figure, we can learn that.
+
+So the answer to the second question is: traditional algorithm do suffer from the multiple faults and their masking effect although the degree of impact vary in different algorithms.
 
 \subsection{study 3:performance of our approach}
 The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches.
 
 \subsubsection{study setup}
-The setup of this case study is almost the same as study 2. The difference is that the algorithms we choose is the one augment with our approach.  Additionally, we will the comparison of this two case study will also be quantified. 
+The setup of this case study is almost the same as study 2. The difference is that the algorithms we choose are the ones augment with our approach.  Additionally, we will the comparison of this two case study will also be quantified. 
 
 \subsubsection{result and analysis}
 Table \ref{our_result} present the result of the last case study.
@@ -864,7 +870,7 @@ HSQLDB & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\
 \end{table}
 
 \subsection{threats to validity}
-There are several threats to validity for these empirical studies. First, we have only surveyed five open-source software, four of which are medium-sized and one is large-sized. This may impact the generality of our observations. Although we believe it is quite possible a common phenomenon in most software that contain multiple faults which can mask each other, we need to investigate more software to support our conjecture.The second threats come from the comparison case study, as we need to the software under testing must be fault controllable to distinguish the result from single fault and multiple faults, we use the software come from SIR benchmark as well as its injected faults and only one software with real faults. We need to investigate the real faults. The third threats is that we just observed three MFS identifying algorithms, further works needed to exam more MFS identifying algorithms to get a more general result.
+There are several threats to validity for these empirical studies. First, we have only surveyed five open-source software, four of which are medium-sized and one is large-sized. This may impact the generality of our observations. Although we believe it is quite possible a common phenomenon in most software that contain multiple faults which can mask each other, we need to investigate more software to support our conjecture. The second threat comes from the input model we built. As we focused on the options related to the perfect combinations and only augmented it with some noise options, there is a chance we will get different result if we choose other noise options. More different options needed to be opted to see whether our result is common or just appeared in some particular input model. The third threats is that we just observed three MFS identifying algorithms, further works needed to exam more MFS identifying algorithms to get a more general result.
 
 \section{related works}
 
@@ -881,6 +887,8 @@ Yilmaz [11] proposed a machine learning method to identify inducing combinations
 We[] have proposed an approach that utilize the tuple relationship tree.
 
 Besides works that focus on identifying the failure-inducing schemas in test cases. There are some work focus on working around the masking effects. Firstly Ylimaz proposed it in[], and using the feedback-driven approach to work around the masking effect. In specific, it first using CTA classify the possible MFS and then eliminate them and generate new test cases to detect possible masked interaction in the next iteration.  And then in[] it extend its work. The difference between his work and our work is that the main focus of that work is to generate test cases that didn't omit some schemas that may be masked by other schemas. And our work is main focus on identifying the MFS and avoiding the masking effect.
+
+His masking is defined these only appeared in the masking test cases. Our masking is that any fault is masking is masking. This different definitions shows the focus different, He focus on let test cases do test these combinations, while we focus that any masking will negatively affect the performance of failure-inducing combination identifying algorithms.
 
 \section{Conclusions}
 Multiple faults in SUT can bias the result of traditional MFS identifying approaches. In this paper, we theoretically analysis the impact with the multiple faults and its masking effect. Additionally, we have presented an approach that can alleviate this impact. We further surveyed a series of software to find that multiple faults is common sense and the masking can also appear. Based on the software we have surveyed, we compare our approach and traditional ones to support the claim that our approach can help testers to effeicently find the failure-inducing schemas with less suffers from the multiple faults and its masking effect.
