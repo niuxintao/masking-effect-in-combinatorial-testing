@@ -180,7 +180,7 @@ The main contributions of this paper are:
 %To evaluate the effectiveness of our framework, we took two widely-used open source software as our experiment subject. And then we will choose five MFSs identifying  algorithms, for each algorithm, we will compare the identifying result among two versions of this algorithm, one using our framework while another one not. The result of the empirical studies shows that our framework can assist the MFS identifying algorithm in getting a more accurate result.
 
 
-Rest of paper is organised as follows:
+Rest of the paper is organised as follows:
 section 2 gives a simple example to motivate our work. Section 3 give some background of the work. Section 4 describe our approach in detail. Section 5 illustrate the experiment and reports the result. Section 6 discusses the related works. Section 7 provides some concluding remarks.
 
 \section{motivation example}
@@ -651,11 +651,13 @@ Let's look at the original test configuration (0 1 1 1), it triggered the err 2 
 
 \subsubsection{FIC\_BS examples}
 
-FIC adaptively generate test configurations according to the executing result of last test configuration. So we will observe each time it generate a test configuration to see whether should we replace the newly generated test configuration. Take the following example, that a SUT contain 8 parameters and each parameter has three values, we set the number of parameters to be 8 because it can get a better description of this algorithm.
+FIC adaptively generate test configurations according to the executing result of last test configuration. So we will observe each time it generate a test configuration to see whether should we replace the newly generWe observe that, for most cases, augment approaches have an promotion against traditional ones. In fact, there are 10 cases out of 14 outperform than traditional ones at the metric of similarity, and 9 out of 14 better than traditional ones at the metric of num diff. The extent is distingushing, the best is (0.9) , the average performance reach (+ 0.6)
 
-As the last test configuration will have a significance impact for FIC, so if we replace one test configuration of the FIC\_BS, the generated test configurations will have a big difference from traditional FIC\_BS. To clearly describe the influence of our approach on FIC\_BS, we will first give a completed example of the traditional identifying process of FIC\_BS, and then give the process with our approach. The detailed is listed in table \ref{fic-examples}.
+So the answer for Q3 is: our approach do get a better performance at identifying failure-inducing combinations when facing masking effect between multiple faults, to which the extent is not less.ated test configuration. Take the following example, that a SUT contain 8 parameters and each parameter has three values, we set the number of parameters to be 8 because it can get a better description of this algorithm.
 
-For the first part, we can easily learn that FIC\_BS use a binary search strategy to mutant the parameters in a test configuration. And which part will be mutant is based on the last test configuration. We will not going to describe the FIC\_BS algorithms in detail. Instead, we just focus on the test configuration (1 1 1 0 0 0 0 0) trigger err 2. As traditional FIC\_BS will regard it as a passing test configuration, take the previous test configurations together, it will judge that (- - 0 - - - - -) must be a failure-inducing factor. And finally it will take (- - 0 0 - 0 - -) as the MFS for err 1.
+As which is last test configuration will have a significance impact for FIC, so if we replace one test configuration during the process of the FIC\_BS, the generated test configurations will have a big difference from traditional FIC\_BS. To clearly describe the influence of our approach on FIC\_BS, we will first give a completed example of the traditional identifying process of FIC\_BS, and then give the process with our approach. The detailed is listed in table \ref{fic-examples}.
+
+For the first part, we can easily learn that FIC\_BS use a binary search strategy to mutant the parameters in a test configuration. And which part will be mutant is based on the executing result of last test configuration. We are not going to describe the FIC\_BS algorithms in detail. Instead, we just focus on the test configuration (1 1 1 0 0 0 0 0) triggering err 2. As traditional FIC\_BS will regard it as a passing test configuration, together with results of previous test configurations, it will judge that (- - 0 - - - - -) must be a failure-inducing factor. And finally it will take (- - 0 0 - 0 - -) as the MFS for err 1.
 
 However, when apply our approach, we will replace the test configuration (1 1 1 0 0 0 0 0) to be (2 2 2 0 0 0 0 0), ((- - - 0 0 0 0 0) is thReplacee fixed part). And then we will find it still trigger the err 1, which means (- - - 0 - - - -) should be failure-inducing factor rather than (- - 0 - - - - -) in the traditional approach. And this step will have a influence on the test configurations generated following, and finally we will identify the schema (- - - 0 - 0 - -) as the MFS for err 1.
 
@@ -775,7 +777,7 @@ So the answer to Q1 is that in practice, when SUT have multiple faults, there is
 %can make these two bugs existed in one test case and only one fault will be observed. Other faults listed in table \ref{masking effect detail} as well as their masking effect can also be easily reappeared in well-designed test cases.
 
 \subsection{study 2:performance of traditional algorithms}
-In the second study, we want to learn how the masking effect impact on the traditional approaches. To conduct this study, we need to apply the traditional failure-inducing identifying algorithms on the SUT we collect in the first study and observe their results to compare them with the perfect combinations we got aforementioned. 
+In the second study, we want to learn how badly the masking effect impact on the traditional approaches. To conduct this study, we need to apply the traditional failure-inducing identifying algorithms on the SUT we collected in the first study and compare them with the perfect combinations. 
 
 
 %The detailed model is listed as table \ref{subject_model}. And the HSQLDB can be modeled as table \ref{modelHSQLDB}.
@@ -795,7 +797,7 @@ In the second study, we want to learn how the masking effect impact on the tradi
 
 
 \subsubsection{study setup}
-The traditional approaches we selected are: OFOT, FIC and CTA. To make the first two approaches (OFOT and FIC) work, they need to be fed with a failing test case. While for CTA, it works with covering array along with their execute output. As the input for the traditional approaches are different, we designed two different setups, one for OFOT and FIC, the other for CTA. 
+The traditional approaches we selected are: OFOT, FIC and CTA. To make the first two approaches (OFOT and FIC) work, we need to feed them with a failing test case. And for CTA, however, it need to work with a covering array and the executing result for each test case in the covering array. As the input for the traditional approaches are different, we designed two different setups, one for OFOT and FIC, while the other for CTA. 
 
 For OFOT and FIC, our set up is as follows:
 
@@ -803,9 +805,9 @@ We first selected failing test cases from the exhaustive executed test cases, an
 
 For CTA, our setup is as follows:
 
-We first utilize augment simulating algorithms to generate 2-way covering arrays. And for each test case in the covering array, the output of them can be fetched from the exhaustive set we have got in the first study. Then we fed the covering array along with their output to CTA approach and collected the result. As different covering array may affect the result of CTA approach, we repeated using ASA to generate 2-way covering array for 30 times and applied CTA for each of them. It is noted that ASA algorithm is a heuristic approach, which using some random factor in this algorithm, so the 30 covering array are different from each other. 
+We first utilize augment simulating algorithms(ASA) to generate 2-way covering arrays. And for each test case in the covering array, the executing result of them can be fetched from the exhaustive set we have got in the first study. Then we fed CTA approach with the covering array along with the corresponding executing results. We then collected the failure-inducing combinations after running CTA. As different covering array may affect the result of CTA approach, we repeated using ASA to generate 2-way covering array for 30 times and applied CTA for each of them. It is noted that ASA algorithm is a heuristic approach, which containing some random factors, so the 30 covering arrays are different from each other. 
 
-After we have collected the result got by each algorithm for each version software. Next we need to compare the result with the perfect combinations to quantify the extent to which traditional approaches suffers from masking effect. To make this comparison, we first need to introduce the following notation:
+After we have collected the result got by each algorithm for each version software, we next need to compare the result with the perfect combinations to quantify the extent to which traditional approaches suffers from masking effect. To make this comparison, we first introduce the following notation:
 
 Assume we get two schema $S_{A}$,$S_{B}$, the notation$S_{A} \bigcap S_{B}$ indicate the same elements between $S_{A}$ and $S_{B}$. For example $(- 1\ 2 - 3) \bigcap  (- 2\ 2 - 3) = \{ (- - 2 - -) , (- - - - 3)\}$.
 
@@ -824,7 +826,7 @@ Besides the similarity metric, another metric also need to be considered: the di
 Particularly, if the value of discrepancy number metric is 0 and the value of similarity metric is 1, it means that multiple faults as well as their masking effect have no impacts on the algorithms, which is usually not feasible in practice. 
 
 \subsubsection{result and discuss}
-Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicate the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" indicate the similarity between this two set of MFS. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC","OFOT","CTA", indicating  corresponding algorithms respectively. It is noted that for approach "CTA", the vale we set in the cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
+Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicates the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" presents the similarity between this two set of combinations. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC","OFOT","CTA", indicating corresponding algorithms respectively. It is noted that for column "CTA", the vale we set in each cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{traditional result}
@@ -839,18 +841,18 @@ HSQLDB &	 3.14 &	3	& 4 		& 4 		& 0.65 	& 0.64	&  0.5 \\
 \hline\end{tabular}
 \end{table}
 
-From this table, we can easily find that Traditional MFS identifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additional, the extent to which the impact has affected vary from algorithms. We can find that for HSQLDB with version 3.14, the similarity of CTA was just at 4 while FIC is 3. We list these points in figure 3. From this figure, we can learn that.
+From this table, we can easily find that Traditional MFS identifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additionally, the extent to which the impact has affected vary from algorithms. We can find that for HSQLDB with version 3.14, the similarity of CTA was just at 4 while FIC is 3. We list these points in figure 3. From this figure, we can learn that.
 
-So the answer to the second question is: traditional algorithm do suffer from the multiple faults and their masking effect although the degree of impact vary in different algorithms.
+So the answer for Q2 is: traditional algorithm do suffer from the multiple faults and their masking effect although the extent vary in different algorithms.
 
 \subsection{study 3:performance of our approach}
-The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches.
+The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Specifically, we augmented the three traditional approaches using the method described in section 5, and then we applied these augmented approaches on identifying the failure-inducing combinations in the prepared subjects.
 
 \subsubsection{study setup}
-The setup of this case study is almost the same as study 2. The difference is that the algorithms we choose are the ones augment with our approach.  Additionally, we will the comparison of this two case study will also be quantified. 
+The setup of this case study is almost the same as the second case study. The difference is that the algorithms we choose are three augment ones. Additionally, comparisons between augment approaches with three traditional ones will be quantified. 
 
 \subsubsection{result and analysis}
-Table \ref{our_result} present the result of the last case study.
+Table \ref{our_result} presents the result of the last case study. The form of this table is similar to the second study. We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized. 
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{our approach result}
@@ -861,13 +863,13 @@ Table \ref{our_result} present the result of the last case study.
 
 \begin{tabular}{c|c|c|c|c|c|c|c} \hline
 - & - & OFOT & FIC & CTA & OFOT & FIC & CTA  \\ \hline
-Grep & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-Sed & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-Make & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-Gzip & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\ \hline
-HSQLDB & 3.14 & 3 & 4 & 4 & 0.65 & 0.64&  0.5 \\
+HSQLDB & 3.14 & 3 (+4)& 4 (+4)& 4 (-2)& 0.65 (+0.01)& 0.64(-0.05)&  0.5(+0.03) \\
 \hline\end{tabular}
 \end{table}
+
+We observe that, for most cases, augment approaches got promotions against traditional ones. In fact, there are 10 out of 14 cases that augment ones outperform traditional ones at the metric of "similarity", and 9 out of 14 cases that augment ones are better than traditional ones at the metric of "num diff". Additional, this promotion is distinct. As we can see, the best promotion for similarity is 0.9 and the best promotion for num diff is 0.7. Furthermore, the average performance promotion for similarity reached '+ 0.6' and this value reached '+ 0.5' for the num diff metric.
+
+So the answer for Q3 is: our approach do get better performance at identifying failure-inducing combinations when facing masking effect between multiple faults, to which the extent is distinct.
 
 \subsection{threats to validity}
 There are several threats to validity for these empirical studies. First, we have only surveyed five open-source software, four of which are medium-sized and one is large-sized. This may impact the generality of our observations. Although we believe it is quite possible a common phenomenon in most software that contain multiple faults which can mask each other, we need to investigate more software to support our conjecture. The second threat comes from the input model we built. As we focused on the options related to the perfect combinations and only augmented it with some noise options, there is a chance we will get different result if we choose other noise options. More different options needed to be opted to see whether our result is common or just appeared in some particular input model. The third threats is that we just observed three MFS identifying algorithms, further works needed to exam more MFS identifying algorithms to get a more general result.
