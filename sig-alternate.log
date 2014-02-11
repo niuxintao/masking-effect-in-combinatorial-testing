@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  7 FEB 2014 21:11
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  11 FEB 2014 23:34
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -279,153 +279,154 @@ Overfull \hbox (1.26794pt too wide) in paragraph at lines 143--144
 
 
 ]
-Overfull \hbox (5.22821pt too wide) in paragraph at lines 201--201
+Overfull \hbox (5.22821pt too wide) in paragraph at lines 204--204
 []\T1/aett/m/n/9 public static float foo(int a, int b, int c, int d){[] 
  []
 
 [2]
 \c@definition=\count118
  [3] [4] [5] [6]
-Underfull \hbox (badness 4096) in paragraph at lines 610--611
+Underfull \hbox (badness 4096) in paragraph at lines 613--614
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 642--643
+Underfull \hbox (badness 4096) in paragraph at lines 647--648
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Overfull \hbox (7.3947pt too wide) in paragraph at lines 654--655
+Overfull \hbox (7.3947pt too wide) in paragraph at lines 659--660
 \T1/aer/m/n/9 for most cases, aug-ment ap-proaches have an pro-mo-tion against
  []
 
 [7]
-Overfull \hbox (16.4238pt too wide) in paragraph at lines 739--747
+Overfull \hbox (16.4238pt too wide) in paragraph at lines 744--752
 [][] 
  []
 
 [8]
-Overfull \hbox (37.6911pt too wide) in paragraph at lines 763--767
+Overfull \hbox (37.6911pt too wide) in paragraph at lines 768--772
 [][] 
  []
 
 [9]
-Overfull \hbox (36.23926pt too wide) in paragraph at lines 829--830
+Overfull \hbox (36.23926pt too wide) in paragraph at lines 834--835
 \T1/aer/m/n/9 guished by the ti-tles of sub-columns, which are "FIC","OFOT","CT
 A",
  []
 
 
-Overfull \hbox (11.51166pt too wide) in paragraph at lines 835--835
+Overfull \hbox (11.51166pt too wide) in paragraph at lines 840--840
 []\T1/aer/m/n/9 version| 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 834--837
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 839--842
 [][] 
  []
 
 
-Overfull \hbox (26.62311pt too wide) in paragraph at lines 838--842
+Overfull \hbox (26.62311pt too wide) in paragraph at lines 843--847
 [][] 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 860--863
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 865--868
 [][] 
  []
 
 
-Overfull \hbox (113.50629pt too wide) in paragraph at lines 864--868
+Overfull \hbox (113.50629pt too wide) in paragraph at lines 869--873
 [][] 
  []
 
 [10]
-Overfull \hbox (6.96436pt too wide) in paragraph at lines 883--884
+Overfull \hbox (6.96436pt too wide) in paragraph at lines 888--889
 []\T1/aer/m/n/9 Colbourn and McClary [7] pro-posed a non-adaptive method.
  []
 
 
-Overfull \hbox (2.12201pt too wide) in paragraph at lines 891--892
+Overfull \hbox (2.12201pt too wide) in paragraph at lines 896--897
 []\T1/aer/m/n/9 Besides works that fo-cus on iden-ti-fy-ing the failure-inducin
 g
  []
 
 (./sig-alternate.bbl)
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 948--949
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 954--955
 []\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 948--949
+Underfull \hbox (badness 10000) in paragraph at lines 954--955
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 957--958
+Underfull \hbox (badness 10000) in paragraph at lines 963--964
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 958--959
+Underfull \hbox (badness 10000) in paragraph at lines 964--965
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 951--960
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 957--966
  [][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 973--973
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 979--979
 []\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 974--975
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 980--981
 []\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 975--976
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 981--982
 []\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 975--976
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 981--982
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 969--977
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 975--983
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 982--983
+Underfull \hbox (badness 10000) in paragraph at lines 988--989
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 978--984
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 984--990
  [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 995--996
+[]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 [11] [12
 
-] (./sig-alternate.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 2557 strings out of 495047
- 30113 string characters out of 1181961
- 99620 words of memory out of 3000000
- 5704 multiletter control sequences out of 15000+50000
+ 2563 strings out of 495047
+ 30246 string characters out of 1181961
+ 100620 words of memory out of 3000000
+ 5710 multiletter control sequences out of 15000+50000
  41923 words of font info for 53 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 39i,11n,26p,1448b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,11n,26p,1643b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (12 pages, 103032 bytes).
+Output written on sig-alternate.dvi (12 pages, 106384 bytes).

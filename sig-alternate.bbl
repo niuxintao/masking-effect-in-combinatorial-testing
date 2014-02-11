@@ -1,3 +1,45 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{colbourn2008locating}
+C.~J. Colbourn and D.~W. McClary.
+\newblock Locating and detecting arrays for interaction faults.
+\newblock {\em Journal of combinatorial optimization}, 15(1):17--48, 2008.
+
+\bibitem{dumlu2011feedback}
+E.~Dumlu, C.~Yilmaz, M.~B. Cohen, and A.~Porter.
+\newblock Feedback driven adaptive combinatorial testing.
+\newblock In {\em Proceedings of the 2011 International Symposium on Software
+  Testing and Analysis}, pages 243--253. ACM, 2011.
+
+\bibitem{ghandehari2012identifying}
+L.~S.~G. Ghandehari, Y.~Lei, T.~Xie, R.~Kuhn, and R.~Kacker.
+\newblock Identifying failure-inducing combinations in a combinatorial test
+  set.
+\newblock In {\em Software Testing, Verification and Validation (ICST), 2012
+  IEEE Fifth International Conference on}, pages 370--379. IEEE, 2012.
+
+\bibitem{martinez2008algorithms}
+C.~Mart{\'\i}nez, L.~Moura, D.~Panario, and B.~Stevens.
+\newblock Algorithms to locate errors using covering arrays.
+\newblock In {\em LATIN 2008: Theoretical Informatics}, pages 504--519.
+  Springer, 2008.
+
+\bibitem{nie2011minimal}
+C.~Nie and H.~Leung.
+\newblock The minimal failure-causing schema of combinatorial testing.
+\newblock {\em ACM Transactions on Software Engineering and Methodology
+  (TOSEM)}, 20(4):15, 2011.
+
+\bibitem{yilmaz2006covering}
+C.~Yilmaz, M.~B. Cohen, and A.~A. Porter.
+\newblock Covering arrays for efficient fault characterization in complex
+  configuration spaces.
+\newblock {\em Software Engineering, IEEE Transactions on}, 32(1):20--34, 2006.
+
+\bibitem{yilmaz2013reducing}
+C.~Yilmaz, E.~Dumlu, M.~Cohen, and A.~Porter.
+\newblock Reducing masking effects in combinatorial interaction testing: A
+  feedback driven adaptive approach.
+\newblock 2013.
 
 \end{thebibliography}

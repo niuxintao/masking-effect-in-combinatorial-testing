@@ -132,13 +132,3 @@
   year={2012},
   publisher={Springer}
 }
-@article{nie2011survey,
-  title={A survey of combinatorial testing},
-  author={Nie, Changhai and Leung, Hareton},
-  journal={ACM Computing Surveys (CSUR)},
-  volume={43},
-  number={2},
-  pages={11},
-  year={2011},
-  publisher={ACM}
-}
