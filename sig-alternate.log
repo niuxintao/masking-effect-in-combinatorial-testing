@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  12 FEB 2014 00:12
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  12 FEB 2014 22:03
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -226,51 +226,55 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 \@float@every@algorithm=\toks39
 \c@algorithm=\count117
+)
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 ) (./sig-alternate.aux)
 \openout1 = `sig-alternate.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Try loading font information for U+msa on input line 135.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Try loading font information for U+msa on input line 136.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 135.
+LaTeX Font Info:    Try loading font information for U+msb on input line 136.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 135.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 136.
 
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Underfull \hbox (badness 1418) in paragraph at lines 136--136
+Underfull \hbox (badness 1418) in paragraph at lines 137--137
 [][]\T1/aer/m/n/9 (Does NOT pro-duce the per-mis-sion block, copy-right
  []
 
 
-Underfull \hbox (badness 6032) in paragraph at lines 136--136
+Underfull \hbox (badness 6032) in paragraph at lines 137--137
 \T1/aer/m/n/9 in-for-ma-tion nor page num-ber-ing). For use with
  []
 
-LaTeX Font Info:    Try loading font information for T1+aett on input line 136.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 137.
 
 (/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Overfull \hbox (1.26794pt too wide) in paragraph at lines 143--144
+Overfull \hbox (1.26794pt too wide) in paragraph at lines 144--145
 \T1/aer/m/n/9 H.4 [\T1/aer/bx/n/9 Information Sys-tems Ap-pli-ca-tions\T1/aer/m
 /n/9 ]: Mis-cel-la-neous;
  []
@@ -279,126 +283,142 @@ Overfull \hbox (1.26794pt too wide) in paragraph at lines 143--144
 
 
 ]
-Overfull \hbox (5.22821pt too wide) in paragraph at lines 204--204
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (5.22821pt too wide) in paragraph at lines 208--208
 []\T1/aett/m/n/9 public static float foo(int a, int b, int c, int d){[] 
  []
 
 [2]
 \c@definition=\count118
- [3] [4] [5] [6]
-Underfull \hbox (badness 4096) in paragraph at lines 613--614
+ [3] [4] [5]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6]
+Underfull \hbox (badness 4096) in paragraph at lines 606--607
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 647--648
+Underfull \hbox (badness 4096) in paragraph at lines 640--641
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Overfull \hbox (7.3947pt too wide) in paragraph at lines 659--660
+Overfull \hbox (7.3947pt too wide) in paragraph at lines 652--653
 \T1/aer/m/n/9 for most cases, aug-ment ap-proaches have an pro-mo-tion against
  []
 
 [7]
-Overfull \hbox (16.4238pt too wide) in paragraph at lines 744--752
+Overfull \hbox (16.4238pt too wide) in paragraph at lines 737--745
 [][] 
  []
 
 [8]
-Overfull \hbox (37.6911pt too wide) in paragraph at lines 768--772
+Overfull \hbox (37.6911pt too wide) in paragraph at lines 761--765
 [][] 
  []
 
 [9]
-Overfull \hbox (36.23926pt too wide) in paragraph at lines 834--835
+Overfull \hbox (36.23926pt too wide) in paragraph at lines 827--828
 \T1/aer/m/n/9 guished by the ti-tles of sub-columns, which are "FIC","OFOT","CT
 A",
  []
 
 
-Overfull \hbox (11.51166pt too wide) in paragraph at lines 840--840
+Overfull \hbox (11.51166pt too wide) in paragraph at lines 833--833
 []\T1/aer/m/n/9 version| 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 839--842
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 832--835
 [][] 
  []
 
 
-Overfull \hbox (26.62311pt too wide) in paragraph at lines 843--847
+Overfull \hbox (26.62311pt too wide) in paragraph at lines 836--840
 [][] 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 865--868
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 858--861
 [][] 
  []
 
 
-Overfull \hbox (113.50629pt too wide) in paragraph at lines 869--873
+Overfull \hbox (113.50629pt too wide) in paragraph at lines 862--866
 [][] 
  []
 
-[10]
-Overfull \hbox (6.96436pt too wide) in paragraph at lines 888--889
+
+Overfull \hbox (6.96436pt too wide) in paragraph at lines 881--882
 []\T1/aer/m/n/9 Colbourn and McClary [7] pro-posed a non-adaptive method.
  []
 
-
-Overfull \hbox (2.12201pt too wide) in paragraph at lines 896--897
+[10]
+Overfull \hbox (2.12201pt too wide) in paragraph at lines 889--890
 []\T1/aer/m/n/9 Besides works that fo-cus on iden-ti-fy-ing the failure-inducin
 g
  []
 
 (./sig-alternate.bbl)
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 954--955
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 947--948
 []\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 954--955
+Underfull \hbox (badness 10000) in paragraph at lines 947--948
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 963--964
+Underfull \hbox (badness 10000) in paragraph at lines 956--957
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 964--965
+Underfull \hbox (badness 10000) in paragraph at lines 957--958
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 957--966
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 950--959
  [][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 979--979
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 972--972
 []\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 980--981
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 973--974
 []\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 981--982
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 974--975
 []\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 981--982
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 974--975
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 975--983
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 968--976
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 981--982
+[]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
+ []
+
+
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 977--983
  [][] 
  []
 
@@ -407,26 +427,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 988--989
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
-
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 984--990
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 995--996
-[]\T1/aer/m/n/9 STATEMENT, PRE-PARED-
- []
-
 [11] [12
 
 ] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 2563 strings out of 495047
- 30246 string characters out of 1181960
- 100620 words of memory out of 3000000
- 5710 multiletter control sequences out of 15000+50000
+ 2637 strings out of 495047
+ 31124 string characters out of 1181961
+ 100129 words of memory out of 3000000
+ 5781 multiletter control sequences out of 15000+50000
  41923 words of font info for 53 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 39i,11n,26p,1643b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,11n,26p,1513b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (12 pages, 106384 bytes).
+Output written on sig-alternate.dvi (12 pages, 105252 bytes).

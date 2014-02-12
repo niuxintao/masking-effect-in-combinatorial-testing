@@ -132,3 +132,22 @@
   year={2012},
   publisher={Springer}
 }
+@article{nie2011survey,
+  title={A survey of combinatorial testing},
+  author={Nie, Changhai and Leung, Hareton},
+  journal={ACM Computing Surveys (CSUR)},
+  volume={43},
+  number={2},
+  pages={11},
+  year={2011},
+  publisher={ACM}
+}
+@MISC{grepIncorrectlyMatch,
+  title = {Grep bug \# 29537},
+  howpublished = {\url{http://savannah.gnu.org/bugs/?29537}}
+}
+@MISC{grepCountAndO,
+  title = {Grep bug},
+  howpublished = {\url{http://savannah.gnu.org/bugs/?33080}}
+}
+
