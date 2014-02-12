@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  12 FEB 2014 22:03
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  13 FEB 2014 01:41
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -283,147 +283,141 @@ Overfull \hbox (1.26794pt too wide) in paragraph at lines 144--145
 
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (5.22821pt too wide) in paragraph at lines 208--208
+Overfull \hbox (5.22821pt too wide) in paragraph at lines 206--206
 []\T1/aett/m/n/9 public static float foo(int a, int b, int c, int d){[] 
  []
 
 [2]
 \c@definition=\count118
- [3] [4] [5]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [6]
-Underfull \hbox (badness 4096) in paragraph at lines 606--607
+ [3] [4] [5] [6]
+Underfull \hbox (badness 4096) in paragraph at lines 604--605
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 640--641
+Underfull \hbox (badness 4096) in paragraph at lines 638--639
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Overfull \hbox (7.3947pt too wide) in paragraph at lines 652--653
+Overfull \hbox (7.3947pt too wide) in paragraph at lines 650--651
 \T1/aer/m/n/9 for most cases, aug-ment ap-proaches have an pro-mo-tion against
  []
 
 [7]
-Overfull \hbox (16.4238pt too wide) in paragraph at lines 737--745
+Overfull \hbox (16.4238pt too wide) in paragraph at lines 735--743
 [][] 
  []
 
 [8]
-Overfull \hbox (37.6911pt too wide) in paragraph at lines 761--765
+Overfull \hbox (37.6911pt too wide) in paragraph at lines 759--763
 [][] 
  []
 
 [9]
-Overfull \hbox (36.23926pt too wide) in paragraph at lines 827--828
+Overfull \hbox (36.23926pt too wide) in paragraph at lines 825--826
 \T1/aer/m/n/9 guished by the ti-tles of sub-columns, which are "FIC","OFOT","CT
 A",
  []
 
 
-Overfull \hbox (11.51166pt too wide) in paragraph at lines 833--833
+Overfull \hbox (11.51166pt too wide) in paragraph at lines 831--831
 []\T1/aer/m/n/9 version| 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 832--835
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 830--833
 [][] 
  []
 
 
-Overfull \hbox (26.62311pt too wide) in paragraph at lines 836--840
+Overfull \hbox (26.62311pt too wide) in paragraph at lines 834--838
 [][] 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 858--861
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 856--859
 [][] 
  []
 
 
-Overfull \hbox (113.50629pt too wide) in paragraph at lines 862--866
+Overfull \hbox (113.50629pt too wide) in paragraph at lines 860--864
 [][] 
- []
-
-
-Overfull \hbox (6.96436pt too wide) in paragraph at lines 881--882
-[]\T1/aer/m/n/9 Colbourn and McClary [7] pro-posed a non-adaptive method.
  []
 
 [10]
-Overfull \hbox (2.12201pt too wide) in paragraph at lines 889--890
+Overfull \hbox (6.96436pt too wide) in paragraph at lines 879--880
+[]\T1/aer/m/n/9 Colbourn and McClary [7] pro-posed a non-adaptive method.
+ []
+
+
+Overfull \hbox (2.12201pt too wide) in paragraph at lines 887--888
 []\T1/aer/m/n/9 Besides works that fo-cus on iden-ti-fy-ing the failure-inducin
 g
  []
 
 (./sig-alternate.bbl)
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 947--948
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 945--946
 []\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 947--948
+Underfull \hbox (badness 10000) in paragraph at lines 945--946
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 956--957
+Underfull \hbox (badness 10000) in paragraph at lines 954--955
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 957--958
+Underfull \hbox (badness 10000) in paragraph at lines 955--956
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 950--959
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 948--957
  [][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 972--972
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 970--970
 []\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 973--974
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 971--972
 []\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 974--975
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 972--973
 []\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 974--975
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 972--973
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 968--976
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 966--974
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 981--982
+Underfull \hbox (badness 10000) in paragraph at lines 979--980
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 977--983
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 975--981
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 988--989
+Underfull \hbox (badness 10000) in paragraph at lines 986--987
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
@@ -432,11 +426,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 988--989
 ] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
  2637 strings out of 495047
- 31124 string characters out of 1181961
- 100129 words of memory out of 3000000
+ 31124 string characters out of 1181960
+ 101129 words of memory out of 3000000
  5781 multiletter control sequences out of 15000+50000
  41923 words of font info for 53 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 39i,11n,26p,1513b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,11n,26p,1569b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (12 pages, 105252 bytes).
+Output written on sig-alternate.dvi (12 pages, 104548 bytes).
