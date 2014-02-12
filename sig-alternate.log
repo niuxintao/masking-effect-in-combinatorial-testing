@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  11 FEB 2014 23:34
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  12 FEB 2014 00:12
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -422,7 +422,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 995--996
 ] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
  2563 strings out of 495047
- 30246 string characters out of 1181961
+ 30246 string characters out of 1181960
  100620 words of memory out of 3000000
  5710 multiletter control sequences out of 15000+50000
  41923 words of font info for 53 fonts, out of 3000000 for 9000

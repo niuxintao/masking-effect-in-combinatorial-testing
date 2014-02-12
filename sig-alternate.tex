@@ -1,4 +1,4 @@
-% This is "sig-alternate.tex" V2.0 May 2012
+%\right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right \right 	~~~~~~~~```% This is "sig-alternate.tex" V2.0 May 2012
 % This file should be compiled with V2.5 of "sig-alternate.cls" May 2012
 %
 % This example file demonstrates the use of the 'sig-alternate.cls'
@@ -155,7 +155,7 @@ Once failures are detected, it is desired to isolate the failure-inducing intera
 Recent work \cite{dumlu2011feedback} presented the masking effects . Additionally, \cite{yilmaz2013reducing} illustrated the impact on the failure-inducing identifying approaches CTA.
 In this paper, we first formulated the impact come from the masking effects, based on this we proposed a strategy to . We have 
 
-When applied these approaches on several open-source software, we found that These approaches have their tedian and can good at some changjing or assumpitions work well. In our recent studies on some open-source software, however, we found they didn't behave as expected when . Thorough a in-depth analysis, we learned the reason why they didn't behave as expected is that most of these approaches mainly consider the SUT just contain one fault, i.e., the oracle of the test case either be false or pass. Put aside the performance these approaches exhibited for single fault, however, in our recently studies on several GNU open-source software, we find these methods didn't behave as expected when these software contain multiple faults. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. Take the Linux command-- Grep for example, we noticed that there are two different faults reported in the bug tracker system. The first one claim that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one claim a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
+In our recent studies on some open-source software, however, we found they didn't behave as expected when . Thorough a in-depth analysis, we learned the reason why they didn't behave as expected is that most of these approaches mainly consider the SUT just contain one fault, i.e., the oracle of the test case either be false or pass. Put aside the performance these approaches exhibited for single fault, however, in our recently studies on several GNU open-source software, we find these methods didn't behave as expected when these software contain multiple faults. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. Take the Linux command-- Grep for example, we noticed that there are two different faults reported in the bug tracker system. The first one claim that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one claim a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
 
 One insight in this paper is that we cannot completely get away from the impact of the masking effect even if we do exhaustive testing. Furthermore, both ignoring the masking effects and regarding multiple faults as one fault is harmful for failure-inducing combinations identifying process. Based on the insight we proposed a strategy to. One remedy to alleviate this problem is to select test cases to reduce the bias, i.e., select test cases that without suffering the masking effect to get a partial but masking-avoiding result. However, most selecting strategy in CT is to cover the interactions with the number of test cases as small as possible.  So in this paper we proposed a strategy for selecting test cases with the aim to alleviate the masking effect.
 
@@ -288,10 +288,6 @@ We consider the fact that abnormal executing of the SUT as a \emph{fault}. It ca
 \end{definition}
 
 \begin{definition}
-The \emph{priority} is a function indicate the  priority relationship between two faults. Specifically, we take $Priority(F_{a},F_{b}) = 1$ as that fault $F_{a}$ has a higher level than $F_{b}$, which means that if $F_{a}$ were triggered, it will omit the code that may trigger $F_{b}$. And $Priority(F_{a},F_{b}) = -1$ indicate that $F_{a}$ has a lower level than $F_{b}$. Finally, we take $Priority(F_{a},F_{b}) = 0$ as that there is no priority relationship between   $F_{a} $ and  $F_{b}$, in another word, neither  $F_{a}$ will mask  $F_{b}$ nor  $F_{b}$ will mask  $F_{a}$.
-\end{definition}
-
-\begin{definition}
 For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{schema} (k > 0) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". In effect a test configuration its self is a k-value \emph{schema}, which k is equal to n. Furthermore, if a test configuration contain a \emph{schema}, i.e., every fixed value in this schema is also in this test configuration, we say this configuration hit this \emph{schema}.
 \end{definition}
 
@@ -305,20 +301,13 @@ If all test configurations except these configurations triggered a higher level 
 Note that, traditional MFS definition didn't consider the priority relationship among faults, so these definition will not take the schema as a MFS for some particular fault if some test configuration contain this schema doesn't trigger this fault.
 \end{definition}
 
+\begin{definition}
+masking effect
+
+\end{definition}
+
 The target of traditional MFS identifying algorithms is to find thes MFSs for the faults of a SUT. For by doing that can help the developers reduce the scope of source code that needed to inspect to debug the software. Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
 
-
-
-fault. level.
-given this definition, we can also take the constraint as a fault, usually it will have the highest level, for that if we take a combination which is constraint, it will may didn't compile at all, so that we can't exam any code in this software.
-
-test configuration?
-
-schema.
-faulty, healthy.
-we need to identify the minimal faulty schema, that is MFS.
-
-note that in our paper, we just consider the failure that is deterministic.
 
 \section{theory foundation}
 For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come with them(such as exception traces or fatal code). Without loss of generality, we assume monotonicity of the level of faults ($Level(F_{1}) \geq Level(F_{2}) \geq ... \geq Level(F_{L}) $).
