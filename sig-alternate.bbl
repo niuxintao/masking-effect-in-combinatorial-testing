@@ -19,6 +19,13 @@ E.~Dumlu, C.~Yilmaz, M.~B. Cohen, and A.~Porter.
 \newblock In {\em Proceedings of the 2011 International Symposium on Software
   Testing and Analysis}, pages 243--253. ACM, 2011.
 
+\bibitem{fouche2009incremental}
+S.~Fouch{\'e}, M.~B. Cohen, and A.~Porter.
+\newblock Incremental covering array failure characterization in large
+  configuration spaces.
+\newblock In {\em Proceedings of the eighteenth international symposium on
+  Software testing and analysis}, pages 177--188. ACM, 2009.
+
 \bibitem{ghandehari2012identifying}
 L.~S.~G. Ghandehari, Y.~Lei, T.~Xie, R.~Kuhn, and R.~Kacker.
 \newblock Identifying failure-inducing combinations in a combinatorial test
@@ -32,11 +39,31 @@ C.~Mart{\'\i}nez, L.~Moura, D.~Panario, and B.~Stevens.
 \newblock In {\em LATIN 2008: Theoretical Informatics}, pages 504--519.
   Springer, 2008.
 
+\bibitem{martinez2009locating}
+C.~Mart{\'\i}nez, L.~Moura, D.~Panario, and B.~Stevens.
+\newblock Locating errors using elas, covering arrays, and adaptive testing
+  algorithms.
+\newblock {\em SIAM Journal on Discrete Mathematics}, 23(4):1776--1799, 2009.
+
 \bibitem{nie2011minimal}
 C.~Nie and H.~Leung.
 \newblock The minimal failure-causing schema of combinatorial testing.
 \newblock {\em ACM Transactions on Software Engineering and Methodology
   (TOSEM)}, 20(4):15, 2011.
+
+\bibitem{niu2013identifying}
+X.~Niu, C.~Nie, Y.~Lei, and A.~T. Chan.
+\newblock Identifying failure-inducing combinations using tuple relationship.
+\newblock In {\em Software Testing, Verification and Validation Workshops
+  (ICSTW), 2013 IEEE Sixth International Conference on}, pages 271--280. IEEE,
+  2013.
+
+\bibitem{shakya2012isolating}
+K.~Shakya, T.~Xie, N.~Li, Y.~Lei, R.~Kacker, and R.~Kuhn.
+\newblock Isolating failure-inducing combinations in combinatorial testing
+  using test augmentation and classification.
+\newblock In {\em Software Testing, Verification and Validation (ICST), 2012
+  IEEE Fifth International Conference on}, pages 620--623. IEEE, 2012.
 
 \bibitem{yilmaz2006covering}
 C.~Yilmaz, M.~B. Cohen, and A.~A. Porter.
@@ -49,6 +76,12 @@ C.~Yilmaz, E.~Dumlu, M.~Cohen, and A.~Porter.
 \newblock Reducing masking effects in combinatorial interaction testing: A
   feedback driven adaptive approach.
 \newblock 2013.
+
+\bibitem{zeller2002simplifying}
+A.~Zeller and R.~Hildebrandt.
+\newblock Simplifying and isolating failure-inducing input.
+\newblock {\em Software Engineering, IEEE Transactions on}, 28(2):183--200,
+  2002.
 
 \bibitem{zhang2011characterizing}
 Z.~Zhang and J.~Zhang.

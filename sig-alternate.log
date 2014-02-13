@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  13 FEB 2014 23:11
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  14 FEB 2014 03:15
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -349,16 +349,28 @@ Overfull \hbox (113.50629pt too wide) in paragraph at lines 846--850
 
 
 Overfull \hbox (6.96436pt too wide) in paragraph at lines 865--866
-[]\T1/aer/m/n/9 Colbourn and McClary [7] pro-posed a non-adaptive method.
+[]\T1/aer/m/n/9 Colbourn and McClary [3] pro-posed a non-adaptive method.
  []
 
 [10]
+Overfull \hbox (6.76543pt too wide) in paragraph at lines 871--872
+\T1/aer/m/n/9 uti-lize the tu-ple re-la-tion-ship tree to iso-late the failure-
+inducing
+ []
+
+
 Overfull \hbox (2.12201pt too wide) in paragraph at lines 873--874
 []\T1/aer/m/n/9 Besides works that fo-cus on iden-ti-fy-ing the failure-inducin
 g
  []
 
-(./sig-alternate.bbl)
+
+Overfull \hbox (1.9239pt too wide) in paragraph at lines 880--881
+\T1/aer/m/n/9 three tra-di-tional ap-proaches with their vari-a-tion is con-duc
+ted
+ []
+
+(./sig-alternate.bbl [11])
 Overfull \hbox (9.8227pt too wide) in paragraph at lines 935--936
 []\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
@@ -423,16 +435,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 976--977
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
-[11] [12
+[12
 
-] (./sig-alternate.aux) ) 
+] [13] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 2640 strings out of 495047
- 31165 string characters out of 1181961
+ 2645 strings out of 495047
+ 31274 string characters out of 1181960
  113129 words of memory out of 3000000
- 5784 multiletter control sequences out of 15000+50000
+ 5789 multiletter control sequences out of 15000+50000
  41923 words of font info for 53 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  39i,11n,26p,1569b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (12 pages, 104872 bytes).
+Output written on sig-alternate.dvi (13 pages, 107824 bytes).
