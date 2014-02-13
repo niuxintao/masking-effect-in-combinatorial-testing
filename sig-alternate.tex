@@ -248,7 +248,7 @@ We first generated every possible inputs as listed in the Column "test inputs" o
 
 \begin{table}
 \centering
-\caption{Identified MFSs and their corresponding Exception}
+\caption{Identified failure-inducing combinations and their corresponding Exception}
 \label{identify-example}
 \begin{tabular}{|c|c|} \hline
 MFS & Exception\\ \hline
@@ -265,13 +265,13 @@ Now let us get back to the source code of \emph{foo}, we can find that if Ex 1 i
 However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, except we fixed the code that trigger Ex 1 and then re-executed all the test cases. So in practice, when we do not have enough resource to re-execute all the test cases again and again or can only take black-box testing, another approach to alleviate the masking effect on FCI approaches is desired.
 
 \section{preliminary}
-This section presents some formal definitions and background first, which is helpful to make our description next more clearly.
-\subsection{Combinatorial testing}
+This section presents some formal definitions and background, which is helpful to make our formally analysis in the next section more clearly.
+
 Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $c_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in .
 
 \newdef{definition}{Definition}
 \begin{definition}
-A \emph{test configuration} of the SUT is an array of \emph{n} values, one for each parameter of the SUT, which is denoted as a \emph{n}-tuple ($v_{1}$, $v_{2}$...$v_{n}$), where $v_{1}\in V_{1}$, $v_{2} \in V_{2}$ ... $v_{n} \in V_{n}$.
+A \emph{test case} of the SUT is an array of \emph{n} values, one for each parameter of the SUT, which is denoted as a \emph{n}-tuple ($v_{1}$, $v_{2}$...$v_{n}$), where $v_{1}\in V_{1}$, $v_{2} \in V_{2}$ ... $v_{n} \in V_{n}$.
 \end{definition}
 
 \begin{definition}
@@ -279,25 +279,22 @@ We consider the fact that abnormal executing of the SUT as a \emph{fault}. It ca
 \end{definition}
 
 \begin{definition}
-For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{schema} (k > 0) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". In effect a test configuration its self is a k-value \emph{schema}, which k is equal to n. Furthermore, if a test configuration contain a \emph{schema}, i.e., every fixed value in this schema is also in this test configuration, we say this configuration hit this \emph{schema}.
+For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} (k > 0) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". In effect a test case its self is a k-value \emph{combination}, which k is equal to n. Furthermore, if a test case contain a \emph{combination}, i.e., every fixed value in this schema is also in this test case, we say this test case hit this \emph{combination}.
 \end{definition}
 
 \begin{definition}
-let $s_{l}$ be a \emph{l}-value schema, $s_{m}$ be an \emph{m}-value schema for the SUT and $l \leq m$. If all the fixed parameter values in $s_{l}$ are also in $s_{m}$, then $s_{m}$ \emph{subsumes} $s_{l}$. In this case we can also say that $s_{l}$ is a \emph{sub-schema} of $s_{m}$ and $s_{m}$ is a \emph{parent-schema} of $s_{l}$.
+let $t_{l}$ be a \emph{l}-value combination, $t_{m}$ be an \emph{m}-value combination for the SUT and $l \leq m$. If all the fixed parameter values in $t_{l}$ are also in $t_{m}$, then $t_{m}$ \emph{subsumes} $t_{l}$. In this case we can also say that $t_{l}$ is a \emph{sub-combination} of $t_{m}$ and $t_{m}$ is a \emph{parent-combination} of $t_{l}$.
 \end{definition}
 
 \begin{definition}
-If all test configurations except these configurations triggered a higher level fault contain a schema, say $S_{a}$, trigger a particular fault, say $F_{a}$, then we call this schema $S_{a}$ the \emph{faulty schema} for $F_{a}$. Additionally, if none sub-schemas of $S_{a}$ is the \emph{faulty schema} for $F_{a}$, we will call the schema $S_{a}$ the \emph{minimal faulty schema} for $F_{a}$(\emph{MFS} for short).
-
-Note that, traditional MFS definition didn't consider the priority relationship among faults, so these definition will not take the schema as a MFS for some particular fault if some test configuration contain this schema doesn't trigger this fault.
+If all test cases contain a combination, say $t_{a}$, trigger a particular fault, say $F_{a}$, then we call this combination $t_{a}$ the \emph{faulty combination} for $F_{a}$. Additionally, if none sub-combination of $t_{a}$ is the \emph{faulty combination} for $F_{a}$, we will call the combination $t_{a}$ the \emph{minimal faulty combination} for $F_{a}$, which is also the failure-inducing combinations we discussed previously.
 \end{definition}
 
 \begin{definition}
-masking effect
-
+A \emph{masking effect} is the circumstance that a test case contain a failure-inducing combination, say $t_{a}$, for a particular fault, say $F_{a}$, but doesn't trigger fault $F_{a}$ because this test case triggered other fault which is different from $F_{a}$.
 \end{definition}
 
-The target of traditional MFS identifying algorithms is to find thes MFSs for the faults of a SUT. For by doing that can help the developers reduce the scope of source code that needed to inspect to debug the software. Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
+Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
 
 
 \section{Formally analysis}
