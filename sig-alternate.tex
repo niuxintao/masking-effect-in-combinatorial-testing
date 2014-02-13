@@ -157,7 +157,7 @@ While all these approaches can help developers to isolate the failure-inducing f
 
 As known that masking effects negatively affect the performance of FCI approaches, a natural question is how do this effect bias the results of FCI approaches so that they cannot get the results as accuracy as expected. In this paper, we formalized the process of identifying failure-inducing combinations under the circumstance that masking effects exist in SUT and try to answer this question. One insight from the formalized analysis is that we cannot completely get away from the impact of the masking effect even if we do exhaustive testing. Furthermore, both ignoring the masking effects and regarding multiple faults as one fault is harmful for FCI process. 
 
-To evaluate the performance of our strategy, we Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the dived and conquer framework, i.e., separately handle each fault in SUT. For a particular fault under handling, we discard these test cases that trigger faults different from the one under analysis and only keep those that either pass or trigger the expected fault. As the test cases discarding manipulation can make FCI approaches lose some information that needed to make them normally work, we will generate additional test cases to compensate for the lose. It is noted that the additional test cases generating criteria vary in different FCI approaches we chose. For example, for the CTA, we will generate more test cases to keep as the same coverage as possible after we deleting some unsatisfied test cases from original covering array. While for the one fact one time approach(OFOT for short), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
+Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the divide and conquer framework, i.e., separately handle each fault in SUT. For a particular fault under handling, we discard these test cases that trigger faults different from the one under analysis and only keep those that either pass or trigger the expected fault. As the test cases discarding manipulation can make FCI approaches lose some information that needed to make them normally work, we will generate additional test cases to compensate for the lose. It is noted that the additional test cases generating criteria vary in different FCI approaches we chose. For example, for the CTA, we will generate more test cases to keep as the same coverage as possible after we deleting some unsatisfied test cases from original covering array. While for the one fact one time approach(OFOT for short), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
 
 %In our recent studies on some open-source software, however, we found they didn't behave as expected when . Thorough a in-depth analysis, we learned the reason why they didn't behave as expected is that most of these approaches mainly consider the SUT just contain one fault, i.e., the oracle of the test case either be false or pass. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
 
@@ -165,12 +165,12 @@ To evaluate the performance of our strategy, we Based on the insight we proposed
 
 %The key to the strategy is to prune test cases that may trigger a masking effect and then select or generate other test cases to test the interactions which were supposed to be tested in these pruned ones. We will keep these pruned test cases for the next iteration to isolate the failure-inducing interactions in these test cases. The process repeated until we characterize all the interactions for each fault. A point need to be noted is that these interactions supposed to be tested in the pruned test cases for one interaction vary in different algorithms we adopted. For example, for the classified tree method, we will generate more test cases that keep the same coverage, and for the one fact one time, we will generate test cases to keep the same.
 
-We surveyed several open-source software by studying the bug reports in their bug tracker system. We further built testing model to reproduce some bugs posted in the tracker system. We augment   and find that multiple faults do exist in software of the same version.  To evaluate the effectiveness of our approach, we take software benchmark from SIR with the ability to inject bugs into the source code. Based on this controllable subject we choose three different failure-inducing interactions identifying algorithms to compare the performance between the original algorithm and its variation extended with our strategy. The results shows that the algorithm extend with our test cases selecting strategy can perform better than before.
+To evaluate the performance of our strategy, we applied our strategy on three FCI approaches, which are CTA \cite{yilmaz2006covering}, OFOT \cite{nie2011minimal}, FIC \cite{zhang2011characterizing} respectively. The subjects we used are several open-source software with the developers' forum in Source-forge net. Through studying their bug reports in the bug tracker system as well as their user's manual guide, we built the testing model which can reproduce the reported bugs with specific test cases. We then  applied the traditional FCI approaches and their variation augmented with our strategy to identify the failure-inducing combinations in the subjects respectively. The results of our empirical studies shows that approaches augmented with our strategy identified failure-inducing combinations more accurately than than traditional ones, which indicates that our strategy do assist FCI approaches to behave better under the circumstances that masking effects exist in the SUT.
 
 The main contributions of this paper are:
 \begin{enumerate}
- \item We studied the impact on the isolation of the failure-inducing interactions when the SUT contain multiple faults which can mask each other.
- \item We proposed a strategy of selecting test cases to reduce the impact of masking effect.
+ \item We formally studied the impact on the isolation of the failure-inducing interactions when the SUT contain multiple faults which can mask each other.
+ \item We proposed a divide and conquer strategy of selecting test cases to alleviate the impact of masking effect.
  \item We empirically studies our strategy and find that our approach can get a better result.
 
 \end{enumerate}
@@ -190,10 +190,10 @@ section 2 gives a simple example to motivate our work. Section 3 give some backg
 
 \section{motivation example}
 
-This section constructed aa example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: $d_{a} = \{7, 11\}, d_{b} = \{2, 4, 5\}, d_{c} = \{4, 6\}, d_{d} = \{3, 5\}$ respectively.  The detail code of this method is listed as following:
-
+This section constructed an toy program example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: $d_{a} = \{7, 11\}, d_{b} = \{2, 4, 5\}, d_{c} = \{4, 6\}, d_{d} = \{3, 5\}$ respectively.  The detail code of this method is listed in figure \ref{toy-program}.
+\begin{figure}
 \begin{verbatim}
-public static float foo(int a, int b, int c, int d){
+public float foo(int a, int b, int c, int d){
   //step 1 will cause a exception when b == c
   float x = (float)a / (b - c);
 
@@ -201,14 +201,15 @@ public static float foo(int a, int b, int c, int d){
   float y = Math.sqrt(c - d);
 
   return x+y;
-
   }
 \end{verbatim}
+\caption{a toy program with four input parameters}
+\label{toy-program}
+\end{figure}
 
-Inspecting the simple code above, we can find two faults: First, in the step 1 we can get a ArithmeticException when b is equal to c, i.e.,  b = 4 \& c = 4, that makes division by zero. Second, another ArithmeticException will be triggered in step 2 when c < d, i.e., c = 4 \& d = 5, which makes square roots of negative numbers. So the expected MFSs in this example should be (-, 4, 4, -) and (-, -, 4, 5).
+Inspecting the simple code above, we can find two faults: First, in the step 1 we can get a \emph{ArithmeticException} when b is equal to c, i.e.,  b = 4 \& c = 4, that makes division by zero. Second, another \emph{ArithmeticException} will be triggered in step 2 when c < d, i.e., c = 4 \& d = 5, which makes square roots of negative numbers. So the expected MFSs in this example should be (-, 4, 4, -) and (-, -, 4, 5).
 
-Traditional MFS identifying algorithms do not consider the detail of the code. They take black-box testing of this program, i.e., feed inputs to those programs and execute them to observe the result. The basic justification behind those approaches is that the failure-inducing schema for a particular fault must only appear in those inputs that trigger this fault. As traditional MFS identifying algorithms aim at using as small number of inputs as possible to get the same or approximate result as exhaustive testing, so the results derive from a exhaustive testing set must be the best that these MFS identifying approaches can reach. Next we will illustrate how exhaustive testing works on identifying the MFS in the program.
-
+Traditional FCI algorithms do not consider the detail of the code. They take black-box testing of this program, i.e., feed inputs to those programs and execute them to observe the result. The basic justification behind those approaches is that the failure-inducing combinations for a particular fault must only appear in those inputs that trigger this fault. As traditional FCI approaches aim at using as small number of inputs as possible to get the same or approximate result as exhaustive testing, so the results derive from a exhaustive testing set must be the best that these FCI approaches can reach. Next we will illustrate how exhaustive testing works on identifying the failure-inducing combinations in the program.
 
 \begin{table}
 \centering
@@ -243,7 +244,7 @@ id&test inputs & result\\\hline
 \hline\end{tabular}
 \end{table}
 
-We first generate every possible inputs as listed in the Column "test inputs" of table \ref{test-example}, and execute them to get the result listed in Column "result" of table \ref{test-example}. In this Column, "PASS" means that the program runs without any exception under the inputs in the same row. \emph{Ex 1} indicate that the program encounter a exception corresponding to the step 1 and \emph{Ex 2} indicate the program trigger a exception corresponding to the step 2. According to data listed in table \ref{test-example}, we can deduce that that (-, 4 , 4, -) must be the MFS of \emph{Ex 1} as all the inputs triggered \emph{Ex 1} contain this schema. Similarly, the schema (-, 2, 4, 5) and  (-, 3, 4, 5) must be the MFSs of the \emph{Ex 2}. We listed the MFSs and its corresponding exception in table \ref{identify-example}.
+We first generated every possible inputs as listed in the Column "test inputs" of table \ref{test-example}, and the execution result of are listed in Column "result" of table \ref{test-example}. In this Column, \emph{PASS} means that the program runs without any exception under the inputs in the same row. \emph{Ex 1} indicates that the program triggered a exception corresponding to the step 1 and \emph{Ex 2} indicates the program triggered a exception corresponding to the step 2. According to data listed in table \ref{test-example}, we can deduce that that (-, 4 , 4, -) must be the failure-inducing combination of Ex 1 as all the inputs triggered Ex 1 contain this schema. Similarly, the combination (-, 2, 4, 5) and  (-, 3, 4, 5) must be the failure-inducing combinations of the Ex 2. We listed this three combinations and its corresponding exception in table \ref{identify-example}.
 
 \begin{table}
 \centering
@@ -257,26 +258,14 @@ MFS & Exception\\ \hline
 \hline\end{tabular}
 \end{table}
 
-Note that we didn't get the expected result with traditional MFS identifying approaches for this case. The MFSs we get for\emph{Ex 2} are (-,2,4,5) and (-,3,4,5) respectively instead of the expected schema (-,-,4,5). So why we can't get the MFS (-,-,4,5)? The reason lies in \emph{input 6}: (7,4,4,5) and \emph{input 18}: (11,4,4,5). This two inputs contain the schema (-,-,4,5), but didn't trigger the \emph{Ex 1}, instead, the \emph{Ex 2} was triggered.
+Note that we didn't get the expected result with traditional FCI approaches in this case. The failure-inducing combinations we get for Ex 2 are (-,2,4,5) and (-,3,4,5) respectively instead of the expected combination (-,-,4,5). So why we failed getting the (-,-,4,5)? The reason lies in \emph{input 6}: (7,4,4,5) and \emph{input 18}: (11,4,4,5). This two inputs contain the combination (-,-,4,5), but didn't trigger the Ex 2, instead,  Ex 1 was triggered.
 
-Now let us get back to the source code of \emph{foo}, we can find that if \emph{Ex 1} is triggered, it will stop executing the remaining code and report the exception information. In another word, \emph{Ex 1} have a higher level than \emph{Ex 2} so that Ex 1 may mask Ex 2. With this information, we can suppose that for the input (7,4,4,5) and (11,4,4,5), Ex 1 may masked Ex 2. Then we exam the schema (-,-,4,5), we can find all the test inputs contain (-,-,4,5) will trigger exception 1, except these test cases trigger Ex 2 first. So we can conclude that (-,-,4,5) should be the causing schema of the Exception 1. So the MFS information will be updated to table \ref{expected-example} which is identical to the expected result.
+Now let us get back to the source code of \emph{foo}, we can find that if Ex 1 is triggered, it will stop executing the remaining code and report the exception information. In another word, Ex 1 have a higher faulting level than Ex 2 so that Ex 1 may mask Ex 2. Let us re-exam the combination (-,-,4,5): if we supposed that \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, then we can conclude that (-,-,4,5) should be the failure-inducing combination of the Ex 2, which is identical to the expected one.
 
-\begin{table}
-\centering
-\caption{expected MFSs and their corresponding Exception}
-\label{expected-example}
-\begin{tabular}{|c|c|} \hline
-MFS & Exception\\ \hline
-(-, 4, 4, -) &  Ex 2\\ \hline
-(-, -, 4, 5) &  Ex 1\\ \hline
-\hline\end{tabular}
-\end{table}
-
-So in this paper, we need to analysis the priority among the faults in the SUT and use the information to assist the MFS identifying algorithms to make the result more accurate and clearer.
+However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, except we fixed the code that trigger Ex 1 and then re-executed all the test cases. So in practice, when we do not have enough resource to re-execute all the test cases again and again or can only take black-box testing, another approach to alleviate the masking effect on FCI approaches is desired.
 
 \section{preliminary}
-Before we talk about our approach, we will give some formal definitions and background first, which is helpful to understand the description of our approach.
-
+This section presents some formal definitions and background first, which is helpful to make our description next more clearly.
 \subsection{Combinatorial testing}
 Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $c_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in .
 
@@ -311,7 +300,7 @@ masking effect
 The target of traditional MFS identifying algorithms is to find thes MFSs for the faults of a SUT. For by doing that can help the developers reduce the scope of source code that needed to inspect to debug the software. Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
 
 
-\section{theory foundation}
+\section{Formally analysis}
 For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come with them(such as exception traces or fatal code). Without loss of generality, we assume monotonicity of the level of faults ($Level(F_{1}) \geq Level(F_{2}) \geq ... \geq Level(F_{L}) $).
 
 Let $S_{t}$ denote all the schemas in the test configuration t.  For example, If T = (1,1,1). Then $S_{T}$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
@@ -889,7 +878,11 @@ Besides works that focus on identifying the failure-inducing schemas in test cas
 His masking is defined these only appeared in the masking test cases. Our masking is that any fault is masking is masking. This different definitions shows the focus different, He focus on let test cases do test these combinations, while we focus that any masking will negatively affect the performance of failure-inducing combination identifying algorithms.
 
 \section{Conclusions}
-Multiple faults in SUT can bias the result of traditional MFS identifying approaches. In this paper, we theoretically analysis the impact with the multiple faults and its masking effect. Additionally, we have presented an approach that can alleviate this impact. We further surveyed a series of software to find that multiple faults is common sense and the masking can also appear. Based on the software we have surveyed, we compare our approach and traditional ones to support the claim that our approach can help testers to effeicently find the failure-inducing schemas with less suffers from the multiple faults and its masking effect.
+Multiple faults in SUT can bias the result of traditional MFS identifying approaches. In this paper, we formally analysed the impact with the multiple faults and its masking effect. Additionally, we have presented an approach that can alleviate this impact. We further surveyed a series of software to find that multiple faults is common sense and the masking can also appear. Based on the software we have surveyed, we compare our approach and traditional ones to support the claim that our approach can help testers to efficiently find the failure-inducing schemas with less suffers from the multiple faults and its masking effect.
+
+As a further work, ..
+
+We apply our strategy on several open-source software, the results show that.
 
 %\end{document}  % This is where a 'short' article might terminate
 

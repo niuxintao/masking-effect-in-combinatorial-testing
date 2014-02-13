@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{grepIncorrectlyMatch}
 Grep bug \#29537.
@@ -49,5 +49,12 @@ C.~Yilmaz, E.~Dumlu, M.~Cohen, and A.~Porter.
 \newblock Reducing masking effects in combinatorial interaction testing: A
   feedback driven adaptive approach.
 \newblock 2013.
+
+\bibitem{zhang2011characterizing}
+Z.~Zhang and J.~Zhang.
+\newblock Characterizing failure-causing parameter interactions by adaptive
+  testing.
+\newblock In {\em Proceedings of the 2011 International Symposium on Software
+  Testing and Analysis}, pages 331--341. ACM, 2011.
 
 \end{thebibliography}
