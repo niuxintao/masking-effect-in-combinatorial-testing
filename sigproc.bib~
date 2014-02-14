@@ -160,4 +160,46 @@
   year={2002},
   publisher={IEEE}
 }
+@article{cohen2008constructing,
+  title={Constructing interaction test suites for highly-configurable systems in the presence of constraints: A greedy approach},
+  author={Cohen, Myra B and Dwyer, Matthew B and Shi, Jiangfan},
+  journal={Software Engineering, IEEE Transactions on},
+  volume={34},
+  number={5},
+  pages={633--650},
+  year={2008},
+  publisher={IEEE}
+}
+@article{bryce2006prioritized,
+  title={Prioritized interaction testing for pair-wise coverage with seeding and constraints},
+  author={Bryce, Ren{\'e}e C and Colbourn, Charles J},
+  journal={Information and Software Technology},
+  volume={48},
+  number={10},
+  pages={960--970},
+  year={2006},
+  publisher={Elsevier}
+}
+@inproceedings{chen2010combinatorial,
+  title={Combinatorial testing with shielding parameters},
+  author={Chen, Baiqiang and Yan, Jun and Zhang, Jian},
+  booktitle={Software Engineering Conference (APSEC), 2010 17th Asia Pacific},
+  pages={280--289},
+  year={2010},
+  organization={IEEE}
+}
+@incollection{calvagna2008logic,
+  title={A logic-based approach to combinatorial testing with constraints},
+  author={Calvagna, Andrea and Gargantini, Angelo},
+  booktitle={Tests and proofs},
+  pages={66--83},
+  year={2008},
+  publisher={Springer}
+}
+@article{grindal2006handling,
+  title={Handling constraints in the input space when using combination strategies for software testing},
+  author={Grindal, Mats and Offutt, Jeff and Mellin, Jonas},
+  year={2006},
+  publisher={Institutionen f{\"o}r kommunikation och information}
+}
 

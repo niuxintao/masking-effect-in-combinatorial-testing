@@ -8,6 +8,30 @@ Grep bug \#29537.
 Grep bug \#33080.
 \newblock \url{http://savannah.gnu.org/bugs/?33080}.
 
+\bibitem{bryce2006prioritized}
+R.~C. Bryce and C.~J. Colbourn.
+\newblock Prioritized interaction testing for pair-wise coverage with seeding
+  and constraints.
+\newblock {\em Information and Software Technology}, 48(10):960--970, 2006.
+
+\bibitem{calvagna2008logic}
+A.~Calvagna and A.~Gargantini.
+\newblock A logic-based approach to combinatorial testing with constraints.
+\newblock In {\em Tests and proofs}, pages 66--83. Springer, 2008.
+
+\bibitem{chen2010combinatorial}
+B.~Chen, J.~Yan, and J.~Zhang.
+\newblock Combinatorial testing with shielding parameters.
+\newblock In {\em Software Engineering Conference (APSEC), 2010 17th Asia
+  Pacific}, pages 280--289. IEEE, 2010.
+
+\bibitem{cohen2008constructing}
+M.~B. Cohen, M.~B. Dwyer, and J.~Shi.
+\newblock Constructing interaction test suites for highly-configurable systems
+  in the presence of constraints: A greedy approach.
+\newblock {\em Software Engineering, IEEE Transactions on}, 34(5):633--650,
+  2008.
+
 \bibitem{colbourn2008locating}
 C.~J. Colbourn and D.~W. McClary.
 \newblock Locating and detecting arrays for interaction faults.
@@ -33,6 +57,12 @@ L.~S.~G. Ghandehari, Y.~Lei, T.~Xie, R.~Kuhn, and R.~Kacker.
 \newblock In {\em Software Testing, Verification and Validation (ICST), 2012
   IEEE Fifth International Conference on}, pages 370--379. IEEE, 2012.
 
+\bibitem{grindal2006handling}
+M.~Grindal, J.~Offutt, and J.~Mellin.
+\newblock Handling constraints in the input space when using combination
+  strategies for software testing.
+\newblock 2006.
+
 \bibitem{martinez2008algorithms}
 C.~Mart{\'\i}nez, L.~Moura, D.~Panario, and B.~Stevens.
 \newblock Algorithms to locate errors using covering arrays.
@@ -51,6 +81,11 @@ C.~Nie and H.~Leung.
 \newblock {\em ACM Transactions on Software Engineering and Methodology
   (TOSEM)}, 20(4):15, 2011.
 
+\bibitem{nie2011survey}
+C.~Nie and H.~Leung.
+\newblock A survey of combinatorial testing.
+\newblock {\em ACM Computing Surveys (CSUR)}, 43(2):11, 2011.
+
 \bibitem{niu2013identifying}
 X.~Niu, C.~Nie, Y.~Lei, and A.~T. Chan.
 \newblock Identifying failure-inducing combinations using tuple relationship.
@@ -64,6 +99,12 @@ K.~Shakya, T.~Xie, N.~Li, Y.~Lei, R.~Kacker, and R.~Kuhn.
   using test augmentation and classification.
 \newblock In {\em Software Testing, Verification and Validation (ICST), 2012
   IEEE Fifth International Conference on}, pages 620--623. IEEE, 2012.
+
+\bibitem{yilmaz2013test}
+C.~Yilmaz.
+\newblock Test case-aware combinatorial interaction testing.
+\newblock {\em Software Engineering, IEEE Transactions on}, 39(5):684--706,
+  2013.
 
 \bibitem{yilmaz2006covering}
 C.~Yilmaz, M.~B. Cohen, and A.~A. Porter.

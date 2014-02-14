@@ -157,7 +157,7 @@ While all these approaches can help developers to isolate the failure-inducing f
 
 As known that masking effects negatively affect the performance of FCI approaches, a natural question is how do this effect bias the results of FCI approaches so that they cannot get the results as accuracy as expected. In this paper, we formalized the process of identifying failure-inducing combinations under the circumstance that masking effects exist in SUT and try to answer this question. One insight from the formalized analysis is that we cannot completely get away from the impact of the masking effect even if we do exhaustive testing. Furthermore, both ignoring the masking effects and regarding multiple faults as one fault is harmful for FCI process. 
 
-Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the divide and conquer framework, i.e., separately handle each fault in SUT. For a particular fault under handling, we discard these test cases that trigger faults different from the one under analysis and only keep those that either pass or trigger the expected fault. As the test cases discarding manipulation can make FCI approaches lose some information that needed to make them normally work, we will generate additional test cases to compensate for the lose. It is noted that the additional test cases generating criteria vary in different FCI approaches we chose. For example, for the CTA, we will generate more test cases to keep as the same coverage as possible after we deleting some unsatisfied test cases from original covering array. While for the one fact one time approach(OFOT for short), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
+Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the divide and conquer framework, i.e., separately handle each fault in SUT. For a particular fault under analysis, we discard these test cases that trigger faults different from the one under analysis and only keep those that either pass or trigger the expected fault. As the test cases discarding manipulation can make FCI approaches lose some information that needed to make them normally work, we will generate additional test cases to compensate for the lose. It is noted that the additional test cases generating criteria vary in different FCI approaches we chose. For example, for the CTA, we will generate more test cases to keep as the same coverage as possible after we deleting some unsatisfied test cases from original covering array. While for the one fact one time approach(OFOT for short), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
 
 %In our recent studies on some open-source software, however, we found they didn't behave as expected when . Thorough a in-depth analysis, we learned the reason why they didn't behave as expected is that most of these approaches mainly consider the SUT just contain one fault, i.e., the oracle of the test case either be false or pass. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
 
@@ -267,7 +267,7 @@ However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{inpu
 \section{preliminary}
 This section presents some formal definitions and background, which is helpful to make our formally analysis in the next section more clearly.
 
-Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $c_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in .
+Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $p_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in \cite{nie2011survey}.
 
 \newdef{definition}{Definition}
 \begin{definition}
@@ -300,13 +300,13 @@ Note that our discuss is based on the SUT is a deterministic software, i.e., SUT
 
 
 \section{Formally analysis}
-For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come with them(such as exception traces or fatal code). 
+For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code). 
 
-Let $S_{t}$ denote all the schemas in the test case $t$.  For example, If $t$ = (1,1,1). Then $S_{t}$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
+Let $\mathcal{C}_{k} = \left\{ c_{k_{i}} | i = 1,2,.., \binom{n}{k} \right\}$ denotes all the k-value combinations in a test case, and $\mathsf{C} =  \bigcup_{i = 1}^{n}\mathcal{C}_{i}$ indicate all the combinations in a test case. For example, for test case $t$ = (1,1,1) the  $\mathcal{C}$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
 
-Similarly, Let $S_{T}$ denote all the schemas in a suite of test configurations -- T. In fact, $S_{T} = \bigcup_{i = 1}^{n}S_{t_{i}}$.
+Similarly, Let $S_{\mathcal{T}}$ denote all the combinations in a suite $\mathcal{T}$ of test cases. In fact, $S_{T} = \bigcup_{i = 1}^{|T|}S_{t_{i}}$.
 
-The notation $T(F_{i})$  denote a suite of test cases that each test case in it will trigger fault $F_{i}$, i.e., $\forall t \in T(F_{i}), t\ is\ t(F_{i})$.  Additionally, let $T(P)$ denote the suite of test cases that passed the testing without triggering any faults, and let $T(F)$ indicate the suite of test cases that each one in this set will trigger some type of fault. It is obviously that $T(F) =  \bigcup_{i = 1}^{L}T(F_{i})$ and $T(F)\bigcup T(P) = T_{all}$, In which, $T_{all}$ denote all the possible test configurations that can generate to test the SUT.
+The notation $T(F_{i})$  denote a suite of test cases that each one in it will trigger fault $F_{i}$, i.e., $\forall t \in T(F_{i}), t\ is\ t(F_{i})$.  Additionally, let $T(P)$ denote the suite of test cases that passed the testing without triggering any faults, and let $T(F)$ indicate the suite of test cases that each one in this set will trigger some type of fault. It is obviously that $T(F) =  \bigcup_{i = 1}^{L}T(F_{i})$ and $T(F)\bigcup T(P) = T_{all}$, In which, $T_{all}$ denote all the possible test configurations that can generate to test the SUT.
 
 As for the failure-inducing combinations we cared, one can easily find the followed property:
 $ c(F_{i}) \in S_{T(F_{i})} $
@@ -868,7 +868,8 @@ Our previous work \cite{niu2013identifying} have proposed an approach that utili
 
 Besides works that aims at identifying the failure-inducing combinations in test cases, there are some work focus on working around the masking effects:
 
-%With know masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. 
+With having known masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. Further constraints 
+ impacts in CT were studied in works like \cite{bryce2006prioritized,chen2010combinatorial,calvagna2008logic,grindal2006handling,yilmaz2013test}. These methods all some rules or to avoid these invalidate test cases to improve the efficiency during examing the test cases. 
 
 Dumlu and Ylimaz in \cite{dumlu2011feedback} proposed a feedback-driven approach to work around the masking effects. In specific, it first use CTA classify the possible failure-inducing combinations and then eliminate them and generate new test cases to detect possible masked interaction in the next iteration. They further extended their work in \cite{yilmaz2013reducing}, in which they proposed a multiple-class CTA approach to distinguish faults in SUT. In addition, they empirically studied the impacts on both ternary-class and multiple-class CTA approaches.
 
