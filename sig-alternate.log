@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  15 FEB 2014 02:16
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  15 FEB 2014 11:53
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -282,165 +282,160 @@ Overfull \hbox (1.26794pt too wide) in paragraph at lines 144--145
 [1
 
 
-]
-Underfull \vbox (badness 7133) has occurred while \output is active []
-
- [2]
+] [2]
 \c@definition=\count118
-
-[3]
-Overfull \hbox (67.99097pt too wide) detected at line 317
-\OML/cmm/m/it/9 the set of c\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 F\OT1/cmr/m/n/9 ) =
- \OMS/cmsy/m/n/9 f\OML/cmm/m/it/9 s[]\OMS/cmsy/m/n/9 j\OML/cmm/m/it/9 s[] \OMS/
-cmsy/m/n/9 2 \OML/cmm/m/it/9 S[] \OMS/cmsy/m/n/9 ^^@ \OML/cmm/m/it/9 S[] and \O
-MS/cmsy/m/n/9 6 9\OML/cmm/m/it/9 s[] \OMS/cmsy/m/n/9 ^^^ \OML/cmm/m/it/9 s[] s:
-t: s[] \OMS/cmsy/m/n/9 2 \OML/cmm/m/it/9 S[] \OMS/cmsy/m/n/9 ^^@ \OML/cmm/m/it/
-9 S[]\OMS/cmsy/m/n/9 g
- []
-
-
-Overfull \hbox (1.34828pt too wide) in paragraph at lines 319--320
+ [3]
+Overfull \hbox (1.34828pt too wide) in paragraph at lines 321--322
 []\T1/aer/m/n/9 With this for-mula we can-not fig-ure out the failure-inducing
  []
 
-[4]
-Underfull \vbox (badness 3138) has occurred while \output is active []
 
- [5]
-Underfull \hbox (badness 4096) in paragraph at lines 586--587
+Overfull \hbox (14.267pt too wide) detected at line 443
+\OML/cmm/m/it/9 let \OMS/cmsy/m/n/9 M \OT1/cmr/m/n/9 = \OMS/cmsy/m/n/9 C\OT1/cm
+r/m/n/9 (\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OMS/cmsy/m/n/9 T\OT1/cmr/m/n/9 )) 
++ \OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 [\OMS/cmsy/m/n/9 T\OT1/cmr/m/n/9 ] \OMS/cms
+y/m/n/9 ^^@ C\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 P\OT1/cmr/m/n/9 (\OMS/cmsy/m/n/9 T
+\OT1/cmr/m/n/9 )) \OMS/cmsy/m/n/9 ^^@ \OT1/cmr/m/n/9 ([] \OMS/cmsy/m/n/9 C\OT1/
+cmr/m/n/9 (\OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 (\OMS/cmsy/m/n/9 T\OT1/cmr/m/n/9 )
+) \OMS/cmsy/m/n/9 ^^@ \OML/cmm/m/it/9 F[]\OT1/cmr/m/n/9 [\OMS/cmsy/m/n/9 T\OT1/
+cmr/m/n/9 ])
+ []
+
+[4] [5]
+Underfull \hbox (badness 4096) in paragraph at lines 591--592
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 620--621
+Underfull \hbox (badness 4096) in paragraph at lines 625--626
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Overfull \hbox (7.3947pt too wide) in paragraph at lines 632--633
+Overfull \hbox (7.3947pt too wide) in paragraph at lines 637--638
 \T1/aer/m/n/9 for most cases, aug-ment ap-proaches have an pro-mo-tion against
  []
 
 [6] [7]
-Overfull \hbox (16.4238pt too wide) in paragraph at lines 717--725
+Overfull \hbox (16.4238pt too wide) in paragraph at lines 722--730
 [][] 
  []
 
 
-Overfull \hbox (37.6911pt too wide) in paragraph at lines 741--745
+Overfull \hbox (37.6911pt too wide) in paragraph at lines 746--750
 [][] 
  []
 
 [8]
-Overfull \hbox (36.23926pt too wide) in paragraph at lines 807--808
+Overfull \hbox (36.23926pt too wide) in paragraph at lines 812--813
 \T1/aer/m/n/9 guished by the ti-tles of sub-columns, which are "FIC","OFOT","CT
 A",
  []
 
 
-Overfull \hbox (11.51166pt too wide) in paragraph at lines 813--813
+Overfull \hbox (11.51166pt too wide) in paragraph at lines 818--818
 []\T1/aer/m/n/9 version| 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 812--815
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 817--820
 [][] 
  []
 
 
-Overfull \hbox (26.62311pt too wide) in paragraph at lines 816--820
-[][] 
- []
-
-
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 838--841
-[][] 
- []
-
-
-Overfull \hbox (113.50629pt too wide) in paragraph at lines 842--846
+Overfull \hbox (26.62311pt too wide) in paragraph at lines 821--825
 [][] 
  []
 
 [9]
-Overfull \hbox (6.96436pt too wide) in paragraph at lines 861--862
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 843--846
+[][] 
+ []
+
+
+Overfull \hbox (113.50629pt too wide) in paragraph at lines 847--851
+[][] 
+ []
+
+
+Overfull \hbox (6.96436pt too wide) in paragraph at lines 866--867
 []\T1/aer/m/n/9 Colbourn and McClary [7] pro-posed a non-adaptive method.
  []
 
 
-Overfull \hbox (6.76543pt too wide) in paragraph at lines 867--868
+Overfull \hbox (6.76543pt too wide) in paragraph at lines 872--873
 \T1/aer/m/n/9 uti-lize the tu-ple re-la-tion-ship tree to iso-late the failure-
 inducing
  []
 
 
-Overfull \hbox (1.9239pt too wide) in paragraph at lines 883--884
+Overfull \hbox (1.9239pt too wide) in paragraph at lines 887--888
 \T1/aer/m/n/9 three tra-di-tional ap-proaches with their vari-a-tion is con-duc
 ted
  []
 
 [10] (./sig-alternate.bbl)
-Overfull \hbox (9.8227pt too wide) in paragraph at lines 938--939
+Overfull \hbox (9.8227pt too wide) in paragraph at lines 942--943
 []\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 938--939
+Underfull \hbox (badness 10000) in paragraph at lines 942--943
 \T1/aer/m/n/9 sql.enforce_size, sql.enforce_types,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 947--948
+Underfull \hbox (badness 10000) in paragraph at lines 951--952
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 948--949
+Underfull \hbox (badness 10000) in paragraph at lines 952--953
 []\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
  []
 
 
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 941--950
+Overfull \hbox (10.74046pt too wide) in paragraph at lines 945--954
  [][] 
  []
 
 
-Overfull \hbox (116.20267pt too wide) in paragraph at lines 963--963
+Overfull \hbox (116.20267pt too wide) in paragraph at lines 967--967
 []\T1/aer/m/n/9 TYPE_FORWARD_ONLY,TYPE_SCROLL_INSENSITIVE,
  []
 
 
-Overfull \hbox (79.39351pt too wide) in paragraph at lines 964--965
+Overfull \hbox (79.39351pt too wide) in paragraph at lines 968--969
 []\T1/aer/m/n/9 CONCUR_READ_ONLY,CONCUR_UPDATABLE| 
  []
 
 
-Overfull \hbox (25.57385pt too wide) in paragraph at lines 965--966
+Overfull \hbox (25.57385pt too wide) in paragraph at lines 969--970
 []\T1/aer/m/n/9 HOLD_CURSORS_OVER_COMMIT,
  []
 
 
-Overfull \hbox (12.99208pt too wide) in paragraph at lines 965--966
+Overfull \hbox (12.99208pt too wide) in paragraph at lines 969--970
 \T1/aer/m/n/9 CLOSE_CURSORS_AT_COMMIT| 
  []
 
 
-Overfull \hbox (8.1312pt too wide) in paragraph at lines 959--967
+Overfull \hbox (8.1312pt too wide) in paragraph at lines 963--971
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 972--973
+Underfull \hbox (badness 10000) in paragraph at lines 976--977
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
 
-Overfull \hbox (1.52512pt too wide) in paragraph at lines 968--974
+Overfull \hbox (1.52512pt too wide) in paragraph at lines 972--978
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 979--980
+Underfull \hbox (badness 10000) in paragraph at lines 983--984
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
@@ -448,12 +443,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 979--980
 
 ] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 2656 strings out of 495047
- 31443 string characters out of 1181960
- 106129 words of memory out of 3000000
- 5798 multiletter control sequences out of 15000+50000
- 42829 words of font info for 56 fonts, out of 3000000 for 9000
+ 2651 strings out of 495047
+ 31391 string characters out of 1181960
+ 104129 words of memory out of 3000000
+ 5795 multiletter control sequences out of 15000+50000
+ 41923 words of font info for 53 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  39i,11n,26p,1569b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (12 pages, 105768 bytes).
+Output written on sig-alternate.dvi (12 pages, 104084 bytes).
