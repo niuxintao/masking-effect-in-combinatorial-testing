@@ -64,7 +64,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Identifying minimal failure-inducing schemas for multiple faults\titlenote{This work was supported by the National Natural Science Foundation of China (No. 61272079), the Research Fund for the Doctoral Program of Higher Education of China (No.20130091110032), the Science Fund for Creative Research Groups of the National Natural Science Foundation of China(No. 61321491), and the Major Program of National Natural Science Foundation of China (No. 91318301)}
+\title{Identifying minimal failure-inducing combinations for multiple faults\titlenote{This work was supported by the National Natural Science Foundation of China (No. 61272079), the Research Fund for the Doctoral Program of Higher Education of China (No.20130091110032), the Science Fund for Creative Research Groups of the National Natural Science Foundation of China(No. 61321491), and the Major Program of National Natural Science Foundation of China (No. 91318301)}
 %\subtitle{[Extended Abstract]
 }
 %
@@ -208,11 +208,10 @@ Inspecting the simple code above, we can find two faults: First, in the step 1 w
 
 Traditional FCI algorithms do not consider the detail of the code. They take black-box testing of this program, i.e., feed inputs to those programs and execute them to observe the result. The basic justification behind those approaches is that the failure-inducing combinations for a particular fault must only appear in those inputs that trigger this fault. As traditional FCI approaches aim at using as small number of inputs as possible to get the same or approximate result as exhaustive testing, so the results derive from a exhaustive testing set must be the best that these FCI approaches can reach. Next we will illustrate how exhaustive testing works on identifying the failure-inducing combinations in the program.
 
-\begin{table}
-\centering
-\caption{test inputs and their corresponding result}
-\label{test-example}
-\begin{tabular}{|c|c|c|} \hline
+\begin{table}[!ht]
+  \caption{test inputs and their corresponding result}\label{test-example}
+  \centering
+  \begin{tabular}{ccc}
 id&test inputs & result\\\hline
 1&(7, 2, 4, 3) &  PASS\\ \hline
 2&(7, 2, 4, 5) &  Ex 2\\ \hline
@@ -226,20 +225,24 @@ id&test inputs & result\\\hline
 10&(7, 5, 4, 5) &  Ex 2\\ \hline
 11&(7, 5, 6, 3) &  PASS\\ \hline
 12&(7, 5, 6, 5) &  PASS\\ \hline
-13&(11, 2, 4, 3) &  PASS\\ \hline
-14&(11, 2, 4, 5) &  Ex 2\\ \hline
-15&(11, 2, 6, 3) &  PASS\\ \hline
-16&(11, 2, 6, 5) &  PASS\\ \hline
-17&(11, 4, 4, 3) &  Ex 1\\ \hline
-18&(11, 4, 4, 5) &  Ex 1\\ \hline
-19&(11, 4, 6, 3) &  PASS\\ \hline
-20&(11, 4, 6, 5) &  PASS\\ \hline
-21&(11, 5, 4, 3) &  PASS\\ \hline
-22&(11, 5, 4, 5) &  Ex 2\\ \hline
-23&(11, 5, 6, 3) &  PASS\\ \hline
-24&(11, 5, 6, 5) &  PASS\\ \hline
-\hline\end{tabular}
-\end{table}
+  \end{tabular}
+  \hspace{1em}
+  \begin{tabular}{ccc}
+id&test inputs & result\\\hline
+13&(11, 2, 4, 3)& PASS\\ \hline
+14&(11, 2, 4, 5)& Ex 2\\ \hline
+15&(11, 2, 6, 3)& PASS\\ \hline
+16&(11, 2, 6, 5)& PASS\\ \hline
+17&(11, 4, 4, 3)& Ex 1\\ \hline
+18&(11, 4, 4, 5)& Ex 1\\ \hline
+19&(11, 4, 6, 3)& PASS\\ \hline
+20&(11, 4, 6, 5)& PASS\\ \hline
+21&(11, 5, 4, 3)& PASS\\ \hline
+22&(11, 5, 4, 5)& Ex 2\\ \hline
+23&(11, 5, 6, 3)& PASS\\ \hline
+24&(11, 5, 6, 5)& PASS\\ \hline
+  \end{tabular}
+  \end{table}
 
 We first generated every possible inputs as listed in the Column "test inputs" of table \ref{test-example}, and the execution result of are listed in Column "result" of table \ref{test-example}. In this Column, \emph{PASS} means that the program runs without any exception under the inputs in the same row. \emph{Ex 1} indicates that the program triggered a exception corresponding to the step 1 and \emph{Ex 2} indicates the program triggered a exception corresponding to the step 2. According to data listed in table \ref{test-example}, we can deduce that that (-, 4 , 4, -) must be the failure-inducing combination of Ex 1 as all the inputs triggered Ex 1 contain this schema. Similarly, the combination (-, 2, 4, 5) and  (-, 3, 4, 5) must be the failure-inducing combinations of the Ex 2. We listed this three combinations and its corresponding exception in table \ref{identify-example}.
 
@@ -259,10 +262,10 @@ Note that we didn't get the expected result with traditional FCI approaches in t
 
 Now let us get back to the source code of \emph{foo}, we can find that if Ex 1 is triggered, it will stop executing the remaining code and report the exception information. In another word, Ex 1 have a higher faulting level than Ex 2 so that Ex 1 may mask Ex 2. Let us re-exam the combination (-,-,4,5): if we supposed that \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, then we can conclude that (-,-,4,5) should be the failure-inducing combination of the Ex 2, which is identical to the expected one.
 
-However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, except we fixed the code that trigger Ex 1 and then re-executed all the test cases. So in practice, when we do not have enough resource to re-execute all the test cases again and again or can only take black-box testing, another approach to alleviate the masking effect on FCI approaches is desired.
+However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, unless we fixed the code that trigger Ex 1 and then re-executed all the test cases. So in practice, when we do not have enough resource to re-execute all the test cases again and again or can only take black-box testing, another approach to alleviate the masking effect on FCI approaches is desired.
 
 \section{preliminary}
-This section presents some formal definitions and background, which is helpful to make our formally analysis in the next section more clearly.
+This section presents some formal definitions and background, which are closely related to the problem to be solved in this paper.
 
 Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $p_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in \cite{nie2011survey}.
 
@@ -272,7 +275,7 @@ A \emph{test case} of the SUT is an array of \emph{n} values, one for each param
 \end{definition}
 
 \begin{definition}
-We consider the fact that abnormal executing of the SUT as a \emph{fault}. It can be a exception, a compilation error, a mismatched assertion or a constraint violation.
+We consider the fact that the abnormally executing of the SUT as a \emph{fault}. It can be a exception, a compilation error, a mismatched assertion or a constraint violation.
 \end{definition}
 
 \begin{definition}
@@ -629,75 +632,75 @@ We use multiple-class CTA as our subject, Ylimaz in the paper has claimed that m
 \end{table}
 
 
-\subsubsection{FIC\_BS examples}
-
-FIC adaptively generate test configurations according to the executing result of last test configuration. So we will observe each time it generate a test configuration to see whether should we replace the newly generWe observe that, for most cases, augment approaches have an promotion against traditional ones. In fact, there are 10 cases out of 14 outperform than traditional ones at the metric of similarity, and 9 out of 14 better than traditional ones at the metric of num diff. The extent is distingushing, the best is (0.9) , the average performance reach (+ 0.6)
-
-So the answer for Q3 is: our approach do get a better performance at identifying failure-inducing combinations when facing masking effect between multiple faults, to which the extent is not less.ated test configuration. Take the following example, that a SUT contain 8 parameters and each parameter has three values, we set the number of parameters to be 8 because it can get a better description of this algorithm.
-
-As which is last test configuration will have a significance impact for FIC, so if we replace one test configuration during the process of the FIC\_BS, the generated test configurations will have a big difference from traditional FIC\_BS. To clearly describe the influence of our approach on FIC\_BS, we will first give a completed example of the traditional identifying process of FIC\_BS, and then give the process with our approach. The detailed is listed in table \ref{fic-examples}.
-
-For the first part, we can easily learn that FIC\_BS use a binary search strategy to mutant the parameters in a test configuration. And which part will be mutant is based on the executing result of last test configuration. We are not going to describe the FIC\_BS algorithms in detail. Instead, we just focus on the test configuration (1 1 1 0 0 0 0 0) triggering err 2. As traditional FIC\_BS will regard it as a passing test configuration, together with results of previous test configurations, it will judge that (- - 0 - - - - -) must be a failure-inducing factor. And finally it will take (- - 0 0 - 0 - -) as the MFS for err 1.
-
-However, when apply our approach, we will replace the test configuration (1 1 1 0 0 0 0 0) to be (2 2 2 0 0 0 0 0), ((- - - 0 0 0 0 0) is thReplacee fixed part). And then we will find it still trigger the err 1, which means (- - - 0 - - - -) should be failure-inducing factor rather than (- - 0 - - - - -) in the traditional approach. And this step will have a influence on the test configurations generated following, and finally we will identify the schema (- - - 0 - 0 - -) as the MFS for err 1.
-
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{Identifying MFS using FIC\_BS}
-\label{fic-examples}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries original test configuration & \bfseries fault info \\ \hline
-0 \ \ 0 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|} \hline
-\bfseries Use traditional FIC\_BS
-\end{tabular}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries gen test configurations   &\bfseries result \\ \hline
-1 \ \ 1 \ \ 1 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
-1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 2 \\
-1 \ \ 1 \ \ 0 \ \ 1 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
-1 \ \ 1 \ \ 0 \ \ 1 \ \  1 \ \ 0 \ \  0 \ \ 0  & PASS \\
-1 \ \ 1 \ \ 0 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
-1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
-1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
-1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 1 \ \  0 \ \ 0  & PASS \\
-1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
-1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 0 \ \  1 \ \ 1  & Err 1 \\
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|} \hline
-\bfseries Mfs identified \\ \hline
-( - \ \ - \ \ 0 \ \ 0 \ \  - \ \ 0 \ \ - \ \ - ) \ \ \ for Err 1 \\
-\hline
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|}
-\bfseries Use FIC\_BS with our approach
-\end{tabular}
-
-\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
-\bfseries gen test configurations   &\bfseries result \\ \hline
-1 \ \ 1 \ \ 1 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
-1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
-\sout{1 \ \ 1 \ \ 1 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0 } & \sout{Err 2} \\
-\uwave{2 \ \ 2 \ \ 2 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0}  & Err 1 \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  0 \ \ 0  & PASS \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
-1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  1 \ \ 1  & Err 1 \\
-\end{tabular}
-
-\begin{tabular}{|p{0.846\columnwidth}|} \hline
-\bfseries Mfs identified \\ \hline
-( - \ \ - \ \ - \ \ 0 \ \  - \ \ 0 \ \ - \ \ - ) \ \ \ for Err 1 \\
-\hline
-\end{tabular}
-
-\end{table}
+%\subsubsection{FIC\_BS examples}
+%
+%FIC adaptively generate test configurations according to the executing result of last test configuration. So we will observe each time it generate a test configuration to see whether should we replace the newly generWe observe that, for most cases, augment approaches have an promotion against traditional ones. In fact, there are 10 cases out of 14 outperform than traditional ones at the metric of similarity, and 9 out of 14 better than traditional ones at the metric of num diff. The extent is distingushing, the best is (0.9) , the average performance reach (+ 0.6)
+%
+%So the answer for Q3 is: our approach do get a better performance at identifying failure-inducing combinations when facing masking effect between multiple faults, to which the extent is not less.ated test configuration. Take the following example, that a SUT contain 8 parameters and each parameter has three values, we set the number of parameters to be 8 because it can get a better description of this algorithm.
+%
+%As which is last test configuration will have a significance impact for FIC, so if we replace one test configuration during the process of the FIC\_BS, the generated test configurations will have a big difference from traditional FIC\_BS. To clearly describe the influence of our approach on FIC\_BS, we will first give a completed example of the traditional identifying process of FIC\_BS, and then give the process with our approach. The detailed is listed in table \ref{fic-examples}.
+%
+%For the first part, we can easily learn that FIC\_BS use a binary search strategy to mutant the parameters in a test configuration. And which part will be mutant is based on the executing result of last test configuration. We are not going to describe the FIC\_BS algorithms in detail. Instead, we just focus on the test configuration (1 1 1 0 0 0 0 0) triggering err 2. As traditional FIC\_BS will regard it as a passing test configuration, together with results of previous test configurations, it will judge that (- - 0 - - - - -) must be a failure-inducing factor. And finally it will take (- - 0 0 - 0 - -) as the MFS for err 1.
+%
+%However, when apply our approach, we will replace the test configuration (1 1 1 0 0 0 0 0) to be (2 2 2 0 0 0 0 0), ((- - - 0 0 0 0 0) is thReplacee fixed part). And then we will find it still trigger the err 1, which means (- - - 0 - - - -) should be failure-inducing factor rather than (- - 0 - - - - -) in the traditional approach. And this step will have a influence on the test configurations generated following, and finally we will identify the schema (- - - 0 - 0 - -) as the MFS for err 1.
+%
+%\begin{table}\renewcommand{\arraystretch}{1.3}
+%\caption{Identifying MFS using FIC\_BS}
+%\label{fic-examples}
+%
+%\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+%\bfseries original test configuration & \bfseries fault info \\ \hline
+%0 \ \ 0 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1
+%\end{tabular}
+%
+%\begin{tabular}{|p{0.846\columnwidth}|} \hline
+%\bfseries Use traditional FIC\_BS
+%\end{tabular}
+%
+%\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+%\bfseries gen test configurations   &\bfseries result \\ \hline
+%1 \ \ 1 \ \ 1 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
+%1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+%1 \ \ 1 \ \ 1 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 2 \\
+%1 \ \ 1 \ \ 0 \ \ 1 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
+%1 \ \ 1 \ \ 0 \ \ 1 \ \  1 \ \ 0 \ \  0 \ \ 0  & PASS \\
+%1 \ \ 1 \ \ 0 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
+%1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+%1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
+%1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 1 \ \  0 \ \ 0  & PASS \\
+%1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+%1 \ \ 1 \ \ 0 \ \ 0 \ \  1 \ \ 0 \ \  1 \ \ 1  & Err 1 \\
+%\end{tabular}
+%
+%\begin{tabular}{|p{0.846\columnwidth}|} \hline
+%\bfseries Mfs identified \\ \hline
+%( - \ \ - \ \ 0 \ \ 0 \ \  - \ \ 0 \ \ - \ \ - ) \ \ \ for Err 1 \\
+%\hline
+%\end{tabular}
+%
+%\begin{tabular}{|p{0.846\columnwidth}|}
+%\bfseries Use FIC\_BS with our approach
+%\end{tabular}
+%
+%\begin{tabular}{|p{0.5\columnwidth}|p{0.3\columnwidth}|} \hline
+%\bfseries gen test configurations   &\bfseries result \\ \hline
+%1 \ \ 1 \ \ 1 \ \ 1 \ \  0 \ \ 0 \ \  0 \ \ 0  & PASS \\
+%1 \ \ 1 \ \ 0 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+%\sout{1 \ \ 1 \ \ 1 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0 } & \sout{Err 2} \\
+%\uwave{2 \ \ 2 \ \ 2 \ \ 0 \ \  0 \ \ 0 \ \  0 \ \ 0}  & Err 1 \\
+%1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  1 \ \ 1  & PASS \\
+%1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 1 \ \  0 \ \ 0  & PASS \\
+%1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  0 \ \ 0  & Err 1 \\
+%1 \ \ 1 \ \ 1 \ \ 0 \ \  1 \ \ 0 \ \  1 \ \ 1  & Err 1 \\
+%\end{tabular}
+%
+%\begin{tabular}{|p{0.846\columnwidth}|} \hline
+%\bfseries Mfs identified \\ \hline
+%( - \ \ - \ \ - \ \ 0 \ \  - \ \ 0 \ \ - \ \ - ) \ \ \ for Err 1 \\
+%\hline
+%\end{tabular}
+%
+%\end{table}
 
 \section{empirical studies}
 We conducted several case studies to address the following questions:
