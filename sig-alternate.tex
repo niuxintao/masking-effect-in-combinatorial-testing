@@ -64,7 +64,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Identifying minimal failure-inducing combinations for multiple faults\titlenote{This work was supported by the National Natural Science Foundation of China (No. 61272079), the Research Fund for the Doctoral Program of Higher Education of China (No.20130091110032), the Science Fund for Creative Research Groups of the National Natural Science Foundation of China(No. 61321491), and the Major Program of National Natural Science Foundation of China (No. 91318301)}
+\title{Identify failure-inducing combinations for multiple faults\titlenote{This work was supported by the National Natural Science Foundation of China (No. 61272079), the Research Fund for the Doctoral Program of Higher Education of China (No.20130091110032), the Science Fund for Creative Research Groups of the National Natural Science Foundation of China(No. 61321491), and the Major Program of National Natural Science Foundation of China (No. 91318301)}
 %\subtitle{[Extended Abstract]
 }
 %
@@ -305,7 +305,7 @@ If all test cases contain a combination, say $c$, trigger a particular fault, sa
 In fact, \emph{minimal faulty combinations} is identical to the failure-inducing combinations we discussed previously. Figuring it out can eliminate all details that are irrelevant for producing the failure, which can facilitate the debugging effort.
 
 
-We can deduce the following proposition based on the definition of \emph{minimal faulty combination}.
+We can deduce the following proposition based on these basic definitions.
 
 %\newdef{proposition}{Proposition}
 \newtheorem{proposition}{Proposition}
@@ -316,30 +316,33 @@ Let $c_{m}$ be the m-value combination, the set $P_{c_{m}}(m+l)$ = $ \{c_{m+l_{1
  
 \end{proposition}
 
-The proof of this propositions is obvious, we just use a example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1))
+The proof of this propositions is obvious, we just take an example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1)). Additional, some test cases of these parent-combinations may overlapped each other, for example, T((1,0,-)) overlap with T((1,-,1)) at the test case (1,0,1).
 
-Some test cases of parent combination may overlapped each other, for example, T((1,0,-)) may overlap with T((1,-,1)) at the test case (1,0,1).
-
-By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same \emph{fault}, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, the state of the failure-inducing combinations will be given in the following proposition:
+By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same fault, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, then we can get the following proposition.
 
 \begin{proposition}
-For combination $c_{m}$, if the set of test cases $T' \subsetneqq T(c_{m})$ do not trigger fault $F_{m}$, then there must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations. then the failure-inducing combinations for $F_{m}$ must be some parent schemas of $c_{m}$. For each $c_{m+l}$ (l = 1, 2... n-m) of these parent schemas, it must satisfy the following formula:
+For a combination $c_{m}$, if all the test cases in $c_{m}$ triggered fault $F_{m}$ except the set of test cases $T' \subsetneqq T(c_{m})$ , then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{m+l_{i}}$\} (l = 1, 2... n-m; i = 1,2 ... $|P_{c_{m}}(m+l)|$) satisfy the following formula:
 
-\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{m+l})\end{displaymath}
-
+\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{m+l_{i}})\end{displaymath}
 
 \end{proposition}
+%then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations. 
 
-\begin{proof}
-We proof this by two sides:
 
-for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+\begin{proof}  
+
+We proof this proposition by two steps:
+
+First, there must exist some parent-combination $c_{m+l}$ satisfy this formula. Let me divide the $T(c_{m})$ to pieces of $T(c_{n_{i}})$, Each set of $T(c_{n_{i}})$ just have one element, that is $c_{n_{i}}$ itself as a test case. Obviously, these set do not overlap with each other. Take an example, $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =T((1,0,0)) $\bigcup$ T((1,0,1)) $\bigcup$ T((1,1,0)) $\bigcup$ T((1,1,1)).
+
+As $T' \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m})$ trigger the fault $F_{m}$, and it must be one of $T(c_{n_{i}})$. So at least there exist one combination $c_{n_{i}}$ which can satisfy this formula.
+
+Next, some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$. %for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
 \end{proof}
 
 However, if $T' = T(c_{m})$, which means none of the test case in $T(c_{m})$ trigger the fault $F_{m}$ then neither the parent of the combination of $c_{m}$ nor $c_{m}$ its self is the failure-inducing combination of $F_{m}$. In this circumstance, we call combination $c_{m}$ is \emph{irrelevant} to $F_{m}$
 
-
-The proof of this proposition lies on the definition of \emph{faulty combination} of one fault, which declare that if any test case contain a combination that do not trigger the fault, then this combination is not the failure-inducing combination of this fault.
+%The proof of this proposition lies on the definition of \emph{faulty combination} of one fault, which declare that if any test case contain a combination that do not trigger the fault, then this combination is not the failure-inducing combination of this fault.
 
 Based on this proposition, we can easily get the following lemma:
 
