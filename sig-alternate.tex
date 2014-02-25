@@ -150,7 +150,7 @@ With the increasing complexity and size of modern software, many factors, such a
 
 Once failures are detected, it is desired to isolate the failure-inducing interactions in these failing test cases. This task is important in CT as it can facilitate the debugging effort by reducing the code scope that needed to inspected. Many algorithms has been proposed to identify the failure-inducing interactions in SUT, which include approaches such as building classification tree model \cite{yilmaz2006covering}, generating one test case one time \cite{nie2011minimal}, ranking suspicious interactions based on prior rules\cite{ghandehari2012identifying}, using graphic-based deduction \cite{martinez2008algorithms} and so on. These approaches can be partitioned into two categories \cite{colbourn2008locating}: \emph{adaptive}--tests cases are chosen based on the outcomes of the executions of prior tests or \emph{nonadaptive}--test cases are chosen independent and can be executed parallel.
 
-While all these approaches can help developers to isolate the failure-inducing factors in failing test cases, in our recently studies on several open-source software, however, we found these approaches suffered from \emph{masking effects} of multiple faults in SUT. A masking effect \cite{dumlu2011feedback,yilmaz2013reducing} is an effect that some failures prevents test cases from normally checking combinations that are supposed to be tested. Take the Linux command-- \emph{Grep} for example, we noticed that there are two different faults reported in the bug tracker system. The first one\cite{grepIncorrectlyMatch} claims that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one\cite{grepCountAndO} claims a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. This effect was firstly introduced by Dumllu and Ylimaz in \cite{dumlu2011feedback}, in which they found that the masking effects in CT can make traditional covering array failed detecting some combinations and they proposed an approach to work around them. Their recent work \cite{yilmaz2013reducing} further empirically studied the impacts on the failure-inducing combinations identifying approach (FCI approach for short):  classification tree approach(CTA for short)\cite{yilmaz2006covering}, of which CTA has two versions, i.e., ternary-class and multiple-class. 
+While all these approaches can help developers to isolate the failure-inducing factors in failing test cases, in our recently studies on several open-source software, however, we found these approaches suffered from \emph{masking effects} of multiple faults in SUT. A masking effect \cite{dumlu2011feedback,yilmaz2013reducing} is an effect that some failures prevents test cases from normally checking combinations that are supposed to be tested. Take the Linux command-- \emph{Grep} for example, we noticed that there are two different faults reported in the bug tracker system. The first one \footnote{http://savannah.gnu.org/bugs/?29537}  claims that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one \footnote{http://savannah.gnu.org/bugs/?33080} claims a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. This effect was firstly introduced by Dumllu and Ylimaz in \cite{dumlu2011feedback}, in which they found that the masking effects in CT can make traditional covering array failed detecting some combinations and they proposed an approach to work around them. Their recent work \cite{yilmaz2013reducing} further empirically studied the impacts on the failure-inducing combinations identifying approach (FCI approach for short):  classification tree approach(CTA for short)\cite{yilmaz2006covering}, of which CTA has two versions, i.e., ternary-class and multiple-class. 
 
 %Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
 
@@ -266,8 +266,10 @@ Now let us get back to the source code of \emph{foo}, we can find that if Ex 1 i
 
 However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, unless we fixed the code that trigger Ex 1 and then re-executed all the test cases. So in practice, when we do not have enough resource to re-execute all the test cases again and again or can only take black-box testing, another approach to alleviate the masking effect on FCI approaches is desired.
 
-\section{preliminary}
-This section presents some formal definitions and background, which are closely related to the problem to be solved in this paper.
+\section{formal model}
+This section presents some definitions and propositions to make the problems under discussion more formally.
+
+\subsection{failure-inducing combinations in CT}
 
 Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $p_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in \cite{nie2011survey}.
 
@@ -276,13 +278,13 @@ Assume that the SUT (software under test) is influenced by \emph{n} parameters, 
 A \emph{test case} of the SUT is an array of \emph{n} values, one for each parameter of the SUT, which is denoted as a \emph{n}-tuple ($v_{1}$, $v_{2}$...$v_{n}$), where $v_{1}\in V_{1}$, $v_{2} \in V_{2}$ ... $v_{n} \in V_{n}$.
 \end{definition}
 
-In practice, these parameters in the test case can represent various factors, such as input variables, run-time options, building options or combination of these factors. We need to execute the SUT under these test cases to ensure the correctness of the behaviour of the software.
+In practice, these parameters in the test case can represent many factors, such as input variables, run-time options, building options or various combination of them. We need to execute the SUT under these test cases to ensure the correctness of the behaviour of the software.
 
 \begin{definition}
 We consider the fact that the abnormally executing test cases as a \emph{fault}. It can be a thrown exception, compilation error, assertion failure or constraint violation.
 \end{definition}
 
-Figuring out the test case as well as the executing result is usually not enough to analyse the source of the bug, especially when there are too many parameters we need to care in this test case. In this circumstance, we need to study some subset of this test case, so we need the following definition:
+Figuring out the test case as well as the executing result is usually not enough to analyse the source of the bug, especially when there are too many parameters we need to care in this test case. In this circumstance, we need to study some subsets of this test case, so we need the following definition:
 
 \begin{definition}
 For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} (k > 0) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". In effect a test case its self is a k-value \emph{combination}, which k is equal to n. Furthermore, if a test case contain a \emph{combination}, i.e., every fixed value in this combination is also in this test case, we say this test case \emph{hit} this \emph{combination}.
@@ -300,21 +302,119 @@ If all test cases contain a combination, say $c$, trigger a particular fault, sa
 %Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
 \end{definition}
 
-In fact, \emph{minimal faulty combination} exactly means the failure-inducing combinations we discussed previously. Figuring it out can eliminate all details that are irrelevant for producing the failure, which can facilitate the debugging effort.
+In fact, \emph{minimal faulty combinations} is identical to the failure-inducing combinations we discussed previously. Figuring it out can eliminate all details that are irrelevant for producing the failure, which can facilitate the debugging effort.
 
+
+We can deduce the following proposition based on the definition of \emph{minimal faulty combination}.
+
+%\newdef{proposition}{Proposition}
+\newtheorem{proposition}{Proposition}
+\begin{proposition}
+Let $c_{m}$ be the m-value combination, the set $P_{c_{m}}(m+l)$ = $ \{c_{m+l_{1}}$,$c_{m+l_{2}}$,...,$c_{m+l_{|P_{c_{m}}(m+l)|}}\}$ be all the m+l value parent combination of $c_{m}$. Moreover, we denote all the test cases can \emph{hit} a combination \emph{c} as $T(c)$,  then we can deduce the following formula:
+
+\begin{displaymath} T(c_{m}) = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{m+l_{i}}).\end{displaymath}
+ 
+\end{proposition}
+
+The proof of this propositions is obvious, we just use a example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1))
+
+Some test cases of parent combination may overlapped each other, for example, T((1,0,-)) may overlap with T((1,-,1)) at the test case (1,0,1).
+
+By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same \emph{fault}, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, the state of the failure-inducing combinations will be given in the following proposition:
+
+\begin{proposition}
+For combination $c_{m}$, if the set of test cases $T' \subsetneqq T(c_{m})$ do not trigger fault $F_{m}$, then there must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations. then the failure-inducing combinations for $F_{m}$ must be some parent schemas of $c_{m}$. For each $c_{m+l}$ (l = 1, 2... n-m) of these parent schemas, it must satisfy the following formula:
+
+\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{m+l})\end{displaymath}
+
+
+\end{proposition}
+
+\begin{proof}
+We proof this by two sides:
+
+for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+\end{proof}
+
+However, if $T' = T(c_{m})$, which means none of the test case in $T(c_{m})$ trigger the fault $F_{m}$ then neither the parent of the combination of $c_{m}$ nor $c_{m}$ its self is the failure-inducing combination of $F_{m}$. In this circumstance, we call combination $c_{m}$ is \emph{irrelevant} to $F_{m}$
+
+
+The proof of this proposition lies on the definition of \emph{faulty combination} of one fault, which declare that if any test case contain a combination that do not trigger the fault, then this combination is not the failure-inducing combination of this fault.
+
+Based on this proposition, we can easily get the following lemma:
+
+\newtheorem{lemma}{Lemma}
+\begin{lemma}
+For two set of test cases $T_{1}$ and $T_{2}$, assume that $T_{1} \subset T_{2}$. Now let every test cases in $T_{1}$ trigger fault $F$, then we got the failure-inducing combinations set $C_{1} = \{ c_{1} \}$. And then we let every test cases in $T_{2}$ trigger fault $F$, then we got the failure-inducing combinations set $C_{2} = \{ c_{2}\}$. Then we can deduce the following properties:
+\begin{displaymath}
+\exists c_{1} \in C_{1} 1) \exists c_{2} \in C_{2} \ s.t. c_{2}\ is\ parent-combination\ of\ c_{1} \end{displaymath}
+\end{lemma}
+
+\begin{proof}
+We proof this by two sides:
+
+for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+\end{proof}
+
+\begin{table}
+\centering
+\caption{example to illustrate the}
+\label{example_three_condition}
+\begin{tabular}{|c|c|c|} \hline
+sub&parent1& parent2\\ \hline
+(0, 0, 0)&(0, 0, 0) & (0, 0, 0)\\ \hline
+(0, 0, 1)&(0, 0, 1) & (0, 0, 1)\\ \hline
+(0, 1, 0)&(0, 1, 0) & (0, 1, 0)\\ \hline
+         &(0, 1, 1) &       \\ \hline
+		 & 			& (1, 0, 0)\\ \hline
+		 & 			& (1, 0, 1)\\ \hline
+		 & 			& (1, 1, 0)\\ \hline
+		 &			& (1, 1, 1)\\ \hline
+\hline\end{tabular}
+\begin{tabular}{|c|c|c|} \hline
+combination&parent1& parent2 \\ \hline
+(0, 0, -)&(0, -, -) &  (0, 0, -)\\ \hline
+(0, 1, 0)&		 	&  (0, 1, 0)\\ \hline
+		 &		 	&  (1, -, -)\\ \hline
+\hline\end{tabular}
+\end{table}
+
+
+
+This proposition gives us a signal that, will be longer than expected. For the Set, if the subset , then the failure-inducing combinations will be larger than the original. This proposition is important when we analyse the masking effect condition.
+
+Next, is the focus point of this paper.
+
+\subsection{masking effect}
 
 \begin{definition}
-A \emph{masking effect} is the circumstance that a test case \emph{t} hit a failure-inducing combination, say $c(F_{a})$, but doesn't trigger fault $F_{a}$ as expected because this test case triggered other fault which is different from $F_{a}$, say, $F_{b}$.
+A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-inducing combination, say $c(F_{a})$, but doesn't trigger fault $F_{a}$ as expected because this test case triggered other fault which is different from $F_{a}$, say, $F_{b}$.
 
 %This masking effect can be presented as $t(F_{b})[F_{a}]$, which means test case \emph{t} should trigger $F_{a}$ if didn't trigger $F_{b}$.
 \end{definition}
 
+based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$. 
+
+So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} + T_{mask(F_{m})}$. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
+
+For traditional FCI approaches, there are two kinds of approaches, let me see what they like:
+
+\subsubsection{regard as one fault}
+This is the most common dealing approach, 
+they will find the $c_{m}$ for $T_{F} = T_{F_{1}} \bigcup T_{F_{2}}$
+
+Obviously, $T_{F_{m}} + T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, 
+
+
+\subsubsection{simply distinguish fault by buggy information}
+Some methods. 
+
+They find the $c_{m}$ for $T_{F_{m}}$. In this case, $T_{F_{m}} + T_{mask(F_{m})} \supset T_{F_{m}} $ 
+So we can .
+
+
+
 Note that our discuss is based on the SUT is a deterministic software, i.e., the random failing information of test case will be ignored. The non-deterministic problem will complex our test scenario, which will not be discussed in this paper.
-
-Based on the definitions, we can establish the following proposition.
-
-
-
 
 \section{Formally analysis}
 For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code).

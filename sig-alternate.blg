@@ -2,49 +2,47 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: sig-alternate.aux
 The style file: abbrv.bst
 Database file #1: sigproc.bib
-Warning--to sort, need author or key in grepIncorrectlyMatch
-Warning--to sort, need author or key in grepCountAndO
 Warning--empty journal in grindal2006handling
 Warning--empty journal in yilmaz2013reducing
-You've used 22 entries,
+You've used 20 entries,
             2118 wiz_defined-function locations,
-            618 strings with 7591 characters,
-and the built_in function-call counts, 8482 in all, are:
-= -- 873
-> -- 366
+            610 strings with 7411 characters,
+and the built_in function-call counts, 8164 in all, are:
+= -- 843
+> -- 364
 < -- 9
-+ -- 147
++ -- 145
 - -- 122
-* -- 575
-:= -- 1315
-add.period$ -- 73
-call.type$ -- 22
-change.case$ -- 127
+* -- 565
+:= -- 1281
+add.period$ -- 69
+call.type$ -- 20
+change.case$ -- 121
 chr.to.int$ -- 0
-cite$ -- 26
-duplicate$ -- 340
-empty$ -- 678
+cite$ -- 22
+duplicate$ -- 326
+empty$ -- 632
 format.name$ -- 122
-if$ -- 1851
+if$ -- 1771
 int.to.chr$ -- 0
-int.to.str$ -- 22
+int.to.str$ -- 20
 missing$ -- 20
-newline$ -- 111
+newline$ -- 103
 num.names$ -- 40
-pop$ -- 150
+pop$ -- 134
 preamble$ -- 1
-purify$ -- 105
+purify$ -- 101
 quote$ -- 0
-skip$ -- 258
+skip$ -- 242
 stack$ -- 0
-substring$ -- 574
-swap$ -- 106
+substring$ -- 564
+swap$ -- 104
 text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 88
-warning$ -- 4
+type$ -- 80
+warning$ -- 2
 while$ -- 83
-width$ -- 24
-write$ -- 241
-(There were 4 warnings)
+width$ -- 22
+write$ -- 227
+(There were 2 warnings)

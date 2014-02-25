@@ -1,13 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{grepIncorrectlyMatch}
-Grep bug \#29537.
-\newblock \url{http://savannah.gnu.org/bugs/?29537}.
-
-\bibitem{grepCountAndO}
-Grep bug \#33080.
-\newblock \url{http://savannah.gnu.org/bugs/?33080}.
-
 \bibitem{bryce2006prioritized}
 R.~C. Bryce and C.~J. Colbourn.
 \newblock Prioritized interaction testing for pair-wise coverage with seeding
