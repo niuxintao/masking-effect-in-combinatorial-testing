@@ -340,7 +340,7 @@ As $T' \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m
 Next, some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$. %for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
 \end{proof}
 
-However, if $T' = T(c_{m})$, which means none of the test case in $T(c_{m})$ trigger the fault $F_{m}$ then neither the parent of the combination of $c_{m}$ nor $c_{m}$ its self is the failure-inducing combination of $F_{m}$. In this circumstance, we call combination $c_{m}$ is \emph{irrelevant} to $F_{m}$
+However, if $T' = T(c_{m})$, which means none of the test case in $T(c_{m})$ trigger the fault $F_{m}$ then neither the parent of the combination of $c_{m}$ nor $c_{m}$ its self is the failure-inducing combination of $F_{m}$. In this circumstance, we call combination $c_{m}$ is \emph{irrelevant} to the failure-inducing combinations of $F_{m}$
 
 %The proof of this proposition lies on the definition of \emph{faulty combination} of one fault, which declare that if any test case contain a combination that do not trigger the fault, then this combination is not the failure-inducing combination of this fault.
 
@@ -348,45 +348,78 @@ Based on this proposition, we can easily get the following lemma:
 
 \newtheorem{lemma}{Lemma}
 \begin{lemma}
-For two set of test cases $T_{1}$ and $T_{2}$, assume that $T_{1} \subset T_{2}$. Now let every test cases in $T_{1}$ trigger fault $F$, then we got the failure-inducing combinations set $C_{1} = \{ c_{1} \}$. And then we let every test cases in $T_{2}$ trigger fault $F$, then we got the failure-inducing combinations set $C_{2} = \{ c_{2}\}$. Then we can deduce the following properties:
-\begin{displaymath}
-\exists c_{1} \in C_{1} 1) \exists c_{2} \in C_{2} \ s.t. c_{2}\ is\ parent-combination\ of\ c_{1} \end{displaymath}
+For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Suppose SUT has a  fault $F$. Now first let all the test cases that trigger $F$ to be the set $T_{k}$, the failure-inducing combinations for $F$ is the set $C_{k}= \{ c_{k}\}$. Then let all the test cases that trigger $F$ to be $T_{l}$, which we get another set failure-inducing combinations $C_{l} = \{ c_{1} \}$. Then we can deduce that $C_{l}$ and $C_{k}$ satisfy at least one of the following properties:
+
+$ 1)\ \exists c_{k} \in C_{k}\ and\ \exists c_{l} \in C_{l} \ s.t.\ c_{l}\ subsumes\ c_{k}  $
+
+$2)\ \exists c_{k} \in C_{k}\ s.t.\ c_{k}\ is\ irrelevant\ to\ C_{l} $
+
 \end{lemma}
 
-\begin{proof}
-We proof this by two sides:
+We illustrate this two scenarios in table \ref{example_three_condition}. There are two parts in this table, in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
 
-for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
-\end{proof}
+%\begin{proof}
+%We proof this by two sides:
+%
+%for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+%\end{proof}
 
 \begin{table}
 \centering
-\caption{example to illustrate the}
+\caption{example of two scenarios}
 \label{example_three_condition}
-\begin{tabular}{|c|c|c|} \hline
-sub&parent1& parent2\\ \hline
-(0, 0, 0)&(0, 0, 0) & (0, 0, 0)\\ \hline
-(0, 0, 1)&(0, 0, 1) & (0, 0, 1)\\ \hline
-(0, 1, 0)&(0, 1, 0) & (0, 1, 0)\\ \hline
-         &(0, 1, 1) &       \\ \hline
-		 & 			& (1, 0, 0)\\ \hline
-		 & 			& (1, 0, 1)\\ \hline
-		 & 			& (1, 1, 0)\\ \hline
-		 &			& (1, 1, 1)\\ \hline
-\hline\end{tabular}
-\begin{tabular}{|c|c|c|} \hline
-combination&parent1& parent2 \\ \hline
-(0, 0, -)&(0, -, -) &  (0, 0, -)\\ \hline
-(0, 1, 0)&		 	&  (0, 1, 0)\\ \hline
-		 &		 	&  (1, -, -)\\ \hline
-\hline\end{tabular}
-\end{table}
+  \begin{tabular}{cc}
+$T_{l}$&$T_{k}$ \\ \hline
+(0, 0, 0)&(0, 0, 0)\\ 
+(0, 0, 1)&(0, 0, 1) \\ 
+(0, 1, 0)&(0, 1, 0)\\ 
+         &(0, 1, 1) \\ \hline
+ $C_{l}$&$C_{k}$ \\ \hline
+(0, 0, -)&(0, -, -)\\ 
+(0, 1, 0)&		   \\ \hline
+  \end{tabular}
+  \hspace{1em}
+  \begin{tabular}{cc}
+$T_{l}$&$T_{k}$\\ \hline
+(0, 0, 0) & (0, 0, 0)\\ 
+(0, 0, 1) & (0, 0, 1)\\ 
+(0, 1, 0) & (0, 1, 0)\\
+		  & (1, 0, 0)\\ 
+		  & (1, 0, 1)\\ 
+		  & (1, 1, 0)\\ 
+		  & (1, 1, 1)\\ \hline
+$C_{l}$&$C_{k}$ \\ \hline
+(0, 0, -)&  (0, 0, -)\\ 
+(0, 1, 0)&  (0, 1, 0)\\ 
+		 &  (1, -, -)\\  \hline
+  \end{tabular}
+  \end{table}
+  
+  
+%\begin{tabular}{|c|c|c|} \hline
+%sub&parent1& parent2\\ \hline
+%(0, 0, 0)&(0, 0, 0) & (0, 0, 0)\\ \hline
+%(0, 0, 1)&(0, 0, 1) & (0, 0, 1)\\ \hline
+%(0, 1, 0)&(0, 1, 0) & (0, 1, 0)\\ \hline
+%         &(0, 1, 1) &       \\ \hline
+%		 & 			& (1, 0, 0)\\ \hline
+%		 & 			& (1, 0, 1)\\ \hline
+%		 & 			& (1, 1, 0)\\ \hline
+%		 &			& (1, 1, 1)\\ \hline
+%\hline\end{tabular}
+%\begin{tabular}{|c|c|c|} \hline
+%combination&parent1& parent2 \\ \hline
+%(0, 0, -)&(0, -, -) &  (0, 0, -)\\ \hline
+%(0, 1, 0)&		 	&  (0, 1, 0)\\ \hline
+%		 &		 	&  (1, -, -)\\ \hline
+%\hline\end{tabular}
+%\end{table}
 
 
 
-This proposition gives us a signal that, will be longer than expected. For the Set, if the subset , then the failure-inducing combinations will be larger than the original. This proposition is important when we analyse the masking effect condition.
+%This proposition gives us a signal that, will be longer than expected. For the Set, if the subset , then the failure-inducing combinations will be larger than the original. This proposition is important when we analyse the masking effect condition.
 
-Next, is the focus point of this paper.
+Next, let move to formal analysis of the masking effects.
 
 \subsection{masking effect}
 
@@ -398,116 +431,111 @@ A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-in
 
 based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$. 
 
-So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} + T_{mask(F_{m})}$. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
+So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} + T_{mask(F_{m})}$. We call the failure-indcing combinaitons with considering the masking effects the \emph{perfect failure-inducing combinations}. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
 
 For traditional FCI approaches, there are two kinds of approaches, let me see what they like:
 
 \subsubsection{regard as one fault}
-This is the most common dealing approach, 
-they will find the $c_{m}$ for $T_{F} = T_{F_{1}} \bigcup T_{F_{2}}$
+This is the most common dealing approach, they don't distinguish the faults, i.e., regard all the types of faults as one fault--\emph{failure}, others as the \emph{pass}.
 
-Obviously, $T_{F_{m}} + T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, 
+So they will find the $c_{m}$ for $T_{F} = \bigcup_{i = 1}^{L}F_{i}$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} + T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, by the proposed lemma, the failure-inducing combinations we get will have some combinations irrelevant to the perfect failure-inducing combinations , or some combinations just be the child-combinations of some of the perfect failure-inducing combinations.
 
+\subsubsection{distinguish fault by buggy information}
+Distinguish the faults by the exception traces or error code can help make FCI approaches focus on particular fault. Ylimaz in  \cite{yilmaz2013reducing} propose a \emph{multiple-class} failure characterize method instead of \emph{ternary-class} approaches to make the charactering approach more accurately. Besides, other approaches can also be easily extended to apply on SUT with multiple faults. We call this approach \emph{distinguish FCI} approaches.
 
-\subsubsection{simply distinguish fault by buggy information}
-Some methods. 
-
-They find the $c_{m}$ for $T_{F_{m}}$. In this case, $T_{F_{m}} + T_{mask(F_{m})} \supset T_{F_{m}} $ 
-So we can .
-
-
+Without no information of the masking effect, distinguish FCI approaches can only identify the $c_{m}$ for $T_{F_{m}}$. In this case, we can learn that $T_{F_{m}} + T_{mask(F_{m})} \supset T_{F_{m}} $ , consequently, the failure-inducing combinations we get in this case will have some combinations be the parent-combination of some perfect combinations or completely miss some failure-inducing combination.
 
 Note that our discuss is based on the SUT is a deterministic software, i.e., the random failing information of test case will be ignored. The non-deterministic problem will complex our test scenario, which will not be discussed in this paper.
 
-\section{Formally analysis}
-For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code).
-
-Let $\mathcal{C}(t)$ denotes all the combinations in a test case $t$. For example, for test case $t$ = (1,1,1) the  $\mathcal{C}(t)$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
-
-Similarly, Let $\mathcal{C}(\mathcal{T})$ denote all the combinations in a suite $\mathcal{T}$ of test cases. In fact, $\mathcal{C}(\mathcal{T}) = \bigcup_{i = 1}^{|\mathcal{T}|}\mathcal{C}(t_{i})$.
-
-The notation $F_{i}(\mathcal{T})$  denote the subset of test cases of the suite $\mathcal{T}$ that each one in the subset will trigger fault $F_{i}$.  Additionally, let $P(T)$ denote the subset of test cases that passed the testing without triggering any faults, and let $F(\mathcal{T})$ indicate the subset of test cases that each one in this set will trigger some type of fault. It is obviously that $F(\mathcal{T}) =  \bigcup_{i = 1}^{L}F_{i}(\mathcal{T})$ and $F(\mathcal{T})\bigcup P(\mathcal{T}) = \mathcal{T}$.
-
-Obviously, the failure-inducing combinations for a particular fault $F_{i}$ must be the subset of $\mathcal{C}(F_{i}(\mathcal{T}))$ and exclusive those in $\mathcal{C}(P(\mathcal{T}))$.
-
-\subsection{Regard as one fault}
-
-In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, the FCI process can be formulated as:
- $$let\ \mathcal{M} = \mathcal{C}(F(\mathcal{T})) - \mathcal{C}(P(\mathcal{T}))$$
-$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-
-With this formula we cannot figure out the failure-inducing combinations for a particular fault. Moreover, as it force to merge all the different faults into one fault, it may get a wrongly identified result. For example, for SUT(3,2), assume (0,-,0) and (-,0,0) are the failure-inducing combinations of \emph{err 1} and (1,1,-) and (1,-,0) is the failure-inducing combinations of \emph{err 2}. In addition, let \emph{err 1}'s faulting level higher than \emph{err 2}. The test cases and result is listed in table \ref{example_first_scenario}.
-
-\begin{table}
-\centering
-\caption{a simple example}
-\label{example_first_scenario}
-\begin{tabular}{|c|c|c|c|} \hline
-id&test inputs & result & masking \\\hline
-1&(0, 0, 0) &  Err 1 & -\\ \hline
-2&(0, 0, 1) &  PASS & -\\ \hline
-3&(0, 1, 0) &  Err 1 & -\\ \hline
-4&(0, 1, 1) &  PASS & -\\ \hline
-5&(1, 0, 0) &  Err 1 & Err 2\\ \hline
-6&(1, 0, 1) &  PASS & -\\ \hline
-7&(1, 1, 0) &  Err 2 & -\\ \hline
-8&(1, 1, 1) &  Err 2 & -\\ \hline
-\hline\end{tabular}
-\end{table}
-
-Then using our previous work, firstly, we will treat the test result as listed in \ref{previous_work}.
-
-\begin{table}
-\centering
-\caption{one fault treating}
-\label{previous_work}
-\begin{tabular}{|c|c|c|} \hline
-id&test inputs & result\\ \hline
-1&(0, 0, 0) &  FAIL\\ \hline
-2&(0, 0, 1) &  PASS\\ \hline
-3&(0, 1, 0) &  FAIL\\ \hline
-4&(0, 1, 1) &  PASS\\ \hline
-5&(1, 0, 0) &  FAIL\\ \hline
-6&(1, 0, 1) &  PASS\\ \hline
-7&(1, 1, 0) &  FAIL\\ \hline
-8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
-
-And then we will wrongly identified as (1,1,-) and (-,-,0) for the fault.
-
-\subsection{distinguish fault}
-
-To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
-
-So for this idea, the identifying process for a particular fault, say, $F_{i}$ can be formulated as follows:
-
-$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) - \mathcal{C}(P(\mathcal{T})) - \bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T}))$$
-
-$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-
-Using this we will treat the table \ref{example_first_scenario} as the following table \ref{simple_idea}, then we will get the result as : (0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) is the MFS of err 2. It is very approximate to the solution except that it loose the (1,-,0) for err 2. This is because in fact when we look at the 5th test configuration (1,0,0), it has already triggered the err 1 which have a higher level than err 2 so that err 2 is not triggered. But this approach just regard the 5th test configuration as a passed test configuration as it does not trigger err 2.
-
-\begin{table}
-\centering
-\caption{do not consider the masking effect}
-\label{simple_idea}
-\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-   ERR 1 & ERR 2
-\end{tabular}
-
-\begin{tabular}{c|c|c|c|c|c} \hline
-id &test inputs & result & id&test inputs & result\\ \hline
-1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  PASS\\ \hline
-6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
+%\section{Formally analysis}
+%For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code).
+%
+%Let $\mathcal{C}(t)$ denotes all the combinations in a test case $t$. For example, for test case $t$ = (1,1,1) the  $\mathcal{C}(t)$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
+%
+%Similarly, Let $\mathcal{C}(\mathcal{T})$ denote all the combinations in a suite $\mathcal{T}$ of test cases. In fact, $\mathcal{C}(\mathcal{T}) = \bigcup_{i = 1}^{|\mathcal{T}|}\mathcal{C}(t_{i})$.
+%
+%The notation $F_{i}(\mathcal{T})$  denote the subset of test cases of the suite $\mathcal{T}$ that each one in the subset will trigger fault $F_{i}$.  Additionally, let $P(T)$ denote the subset of test cases that passed the testing without triggering any faults, and let $F(\mathcal{T})$ indicate the subset of test cases that each one in this set will trigger some type of fault. It is obviously that $F(\mathcal{T}) =  \bigcup_{i = 1}^{L}F_{i}(\mathcal{T})$ and $F(\mathcal{T})\bigcup P(\mathcal{T}) = \mathcal{T}$.
+%
+%Obviously, the failure-inducing combinations for a particular fault $F_{i}$ must be the subset of $\mathcal{C}(F_{i}(\mathcal{T}))$ and exclusive those in $\mathcal{C}(P(\mathcal{T}))$.
+%
+%\subsection{Regard as one fault}
+%
+%In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, the FCI process can be formulated as:
+% $$let\ \mathcal{M} = \mathcal{C}(F(\mathcal{T})) - \mathcal{C}(P(\mathcal{T}))$$
+%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
+%
+%With this formula we cannot figure out the failure-inducing combinations for a particular fault. Moreover, as it force to merge all the different faults into one fault, it may get a wrongly identified result. For example, for SUT(3,2), assume (0,-,0) and (-,0,0) are the failure-inducing combinations of \emph{err 1} and (1,1,-) and (1,-,0) is the failure-inducing combinations of \emph{err 2}. In addition, let \emph{err 1}'s faulting level higher than \emph{err 2}. The test cases and result is listed in table \ref{example_first_scenario}.
+%
+%\begin{table}
+%\centering
+%\caption{a simple example}
+%\label{example_first_scenario}
+%\begin{tabular}{|c|c|c|c|} \hline
+%id&test inputs & result & masking \\\hline
+%1&(0, 0, 0) &  Err 1 & -\\ \hline
+%2&(0, 0, 1) &  PASS & -\\ \hline
+%3&(0, 1, 0) &  Err 1 & -\\ \hline
+%4&(0, 1, 1) &  PASS & -\\ \hline
+%5&(1, 0, 0) &  Err 1 & Err 2\\ \hline
+%6&(1, 0, 1) &  PASS & -\\ \hline
+%7&(1, 1, 0) &  Err 2 & -\\ \hline
+%8&(1, 1, 1) &  Err 2 & -\\ \hline
+%\hline\end{tabular}
+%\end{table}
+%
+%Then using our previous work, firstly, we will treat the test result as listed in \ref{previous_work}.
+%
+%\begin{table}
+%\centering
+%\caption{one fault treating}
+%\label{previous_work}
+%\begin{tabular}{|c|c|c|} \hline
+%id&test inputs & result\\ \hline
+%1&(0, 0, 0) &  FAIL\\ \hline
+%2&(0, 0, 1) &  PASS\\ \hline
+%3&(0, 1, 0) &  FAIL\\ \hline
+%4&(0, 1, 1) &  PASS\\ \hline
+%5&(1, 0, 0) &  FAIL\\ \hline
+%6&(1, 0, 1) &  PASS\\ \hline
+%7&(1, 1, 0) &  FAIL\\ \hline
+%8&(1, 1, 1) &  FAIL\\ \hline
+%\hline\end{tabular}
+%\end{table}
+%
+%And then we will wrongly identified as (1,1,-) and (-,-,0) for the fault.
+%
+%\subsection{distinguish fault}
+%
+%To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
+%
+%So for this idea, the identifying process for a particular fault, say, $F_{i}$ can be formulated as follows:
+%
+%$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) - \mathcal{C}(P(\mathcal{T})) - \bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T}))$$
+%
+%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
+%
+%Using this we will treat the table \ref{example_first_scenario} as the following table \ref{simple_idea}, then we will get the result as : (0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) is the MFS of err 2. It is very approximate to the solution except that it loose the (1,-,0) for err 2. This is because in fact when we look at the 5th test configuration (1,0,0), it has already triggered the err 1 which have a higher level than err 2 so that err 2 is not triggered. But this approach just regard the 5th test configuration as a passed test configuration as it does not trigger err 2.
+%
+%\begin{table}
+%\centering
+%\caption{do not consider the masking effect}
+%\label{simple_idea}
+%\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
+%   ERR 1 & ERR 2
+%\end{tabular}
+%
+%\begin{tabular}{c|c|c|c|c|c} \hline
+%id &test inputs & result & id&test inputs & result\\ \hline
+%1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
+%2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+%3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
+%4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+%5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  PASS\\ \hline
+%6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+%7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
+%8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
+%\hline\end{tabular}
+%\end{table}
 
 
 %\subsection{Test configurations with higher level fault masked every lower level fault}
@@ -542,68 +570,68 @@ id &test inputs & result & id&test inputs & result\\ \hline
 %\hline\end{tabular}
 %\end{table}
 
-\subsection{Ideal solution}
-To get an ideal solution, we should known which test case was masked by some fault so that it didn't output expected fault information. Supposed we have known these test cases, and denoted them as $F_{i}[\mathcal{T}]$
-
-%For a particular fault, say, $F_{i}$, with ,these test configurations triggered higher fault are  $ \bigcup_{j = 1}^{i-1}T_{F_{j}}$ .Assume we have known previously that in this set some test configurations will trigger $F_{i}$ if the higher fault will not triggered, we label this set as
+%\subsection{Ideal solution}
+%To get an ideal solution, we should known which test case was masked by some fault so that it didn't output expected fault information. Supposed we have known these test cases, and denoted them as $F_{i}[\mathcal{T}]$
 %
-%$ T_{tri-F_{i}}$ (this part is needed because of if there are more than two faults in a SUT, the higher fault may even make the lower fault don't appear)
+%%For a particular fault, say, $F_{i}$, with ,these test configurations triggered higher fault are  $ \bigcup_{j = 1}^{i-1}T_{F_{j}}$ .Assume we have known previously that in this set some test configurations will trigger $F_{i}$ if the higher fault will not triggered, we label this set as
+%%
+%%$ T_{tri-F_{i}}$ (this part is needed because of if there are more than two faults in a SUT, the higher fault may even make the lower fault don't appear)
+%%
+%%And some test configurations in this set will not trigger $F_{i}$. We label them as:
+%%
+%%$ T_{\neg tri-F_{i}}$.
+%%
+%%Obviously,$ T_{tri-F_{i}}\bigcup T_{\neg tri-F_{i}} = \bigcup_{j = 1}^{i-1}T_{F_{j}}$.
 %
-%And some test configurations in this set will not trigger $F_{i}$. We label them as:
 %
-%$ T_{\neg tri-F_{i}}$.
+%Then we should do as the following to get the ideal computing formula:
 %
-%Obviously,$ T_{tri-F_{i}}\bigcup T_{\neg tri-F_{i}} = \bigcup_{j = 1}^{i-1}T_{F_{j}}$.
-
-
-Then we should do as the following to get the ideal computing formula:
-
-$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) + F_{i}[\mathcal{T}]  - \mathcal{C}(P(\mathcal{T})) - (\bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T})) - F_{i}[\mathcal{T}])$$
-
-$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-
+%$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) + F_{i}[\mathcal{T}]  - \mathcal{C}(P(\mathcal{T})) - (\bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T})) - F_{i}[\mathcal{T}])$$
+%
+%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
+%
+%%So still for the example table \ref{example_first_scenario}, we will first get
+%%$ T_{tri-F_{i}}$ = \{(1,0,0)\} and $ T_{tri-F_{i}}$ = { (0, 0, 0), (0, 1, 0)}
+%
 %So still for the example table \ref{example_first_scenario}, we will first get
-%$ T_{tri-F_{i}}$ = \{(1,0,0)\} and $ T_{tri-F_{i}}$ = { (0, 0, 0), (0, 1, 0)}
-
-So still for the example table \ref{example_first_scenario}, we will first get
- $F_{err1}[\mathcal{T}]= \emptyset $ and  $F_{err2}[\mathcal{T}]$ = \{ (1, 0, 0)\}
-
-And then we will treat table \ref{example_first_scenario} as table \ref{ideal_solution}, so this time we will accurately get the expected result:
-
-(0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) and (1,-,0) is the MFS of err 2.
-
-\begin{table}
-\centering
-\caption{ideal solution}
-\label{ideal_solution}
-\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-   ERR 1 & ERR 2
-\end{tabular}
-
-\begin{tabular}{c|c|c|c|c|c} \hline
-id &test inputs & result & id&test inputs & result\\ \hline
-1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
-6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
-
-
-\subsection{limitations in practice}
-In practice, we cannot use the ideal formula to compute the MFS for each fault for there are three main limitations which we will encounter:
-
-\begin{enumerate}
- \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT, that is in practice, $T_{F}\bigcup T_{P} \neq T_{all}$
-
- \item If we find the faults, we can't judge the faulting levels of these faults just using black-box testing method.
-
- \item Even if we have known the faulting levels of each faults, we still cannot decide the value of $F_{i}[\mathcal{T}]$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
-\end{enumerate}
+% $F_{err1}[\mathcal{T}]= \emptyset $ and  $F_{err2}[\mathcal{T}]$ = \{ (1, 0, 0)\}
+%
+%And then we will treat table \ref{example_first_scenario} as table \ref{ideal_solution}, so this time we will accurately get the expected result:
+%
+%(0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) and (1,-,0) is the MFS of err 2.
+%
+%\begin{table}
+%\centering
+%\caption{ideal solution}
+%\label{ideal_solution}
+%\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
+%   ERR 1 & ERR 2
+%\end{tabular}
+%
+%\begin{tabular}{c|c|c|c|c|c} \hline
+%id &test inputs & result & id&test inputs & result\\ \hline
+%1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
+%2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+%3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
+%4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+%5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
+%6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+%7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
+%8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
+%\hline\end{tabular}
+%\end{table}
+%
+%
+%\subsection{limitations in practice}
+%In practice, we cannot use the ideal formula to compute the MFS for each fault for there are three main limitations which we will encounter:
+%
+%\begin{enumerate}
+% \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT, that is in practice, $T_{F}\bigcup T_{P} \neq T_{all}$
+%
+% \item If we find the faults, we can't judge the faulting levels of these faults just using black-box testing method.
+%
+% \item Even if we have known the faulting levels of each faults, we still cannot decide the value of $F_{i}[\mathcal{T}]$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
+%\end{enumerate}
 
 
 \section{approach description}
