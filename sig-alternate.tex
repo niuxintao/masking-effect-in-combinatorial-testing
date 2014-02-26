@@ -634,21 +634,24 @@ Note that our discuss is based on the SUT is a deterministic software, i.e., the
 %\end{enumerate}
 
 
-\section{approach description}
+\section{test case replacing strategy}
+Previous section formally studied the case that under the masking effects, neither regarding as one fault approach nor distinguishing faults approach is not accurate . The main reason is that we cannot figure out the $T(mask_{F_{m}})$.  As $T(mask_{F_{m}}) \subset \bigcup_{i = 1 \& j \neq m }^{L}T_{F_{i}}$. So to reduce the influence of $T(mask_{F_{m}})$, we need to reduce the number of test cases that trigger other faults as much as possible. 
 
-As we cannot get an ideal solution because of the three limitations proposed in the previous section, our target then is to find a practical solution to improve the efficiency for the existing MFS identifying algorithms when facing multiple faults , i.e.,lowering variance of identifying  MFS in a SUT with multiple faults as much as possible.
+In the exhaustive testing, as all the test cases will be used to identify the failure-inducing combinations, so there is no room left to improve the accurateness. However, when just choose part of the whole test cases, which is practical and sometimes the only solution for large-scale SUT, we can adjust the test cases we need to use by choosing proper ones so that we can limit the number of $T(mask_{F_{m}})$ to  be as less as possible.
 
-To get the target, first let's get back to the traditional MFS identifying algorithms to see how they works. In fact, they all can be represent as the following formula:
+%As we cannot get an ideal solution because of the three limitations proposed in the previous section, our target then is to find a practical solution to improve the efficiency for the existing MFS identifying algorithms when facing multiple faults , i.e.,lowering variance of identifying  MFS in a SUT with multiple faults as much as possible.
 
-Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+%To get the target, first let's get back to the traditional MFS identifying algorithms to see how they works. In fact, they all can be represent as the following formula:
 
-$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-
-A noted point is that  $ T'_{F_{i}} \subseteq T_{F_{i}} $ and $ T'_{P} \subseteq T_{P} $ as that we can't execute all the possible test configurations in a SUT in practice when the scale of the configuration space is big.
-
-The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. So what we want to do is to improve these algorithms when the SUT can have multiple faults.
-
-As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ is not completed. This is because there may be some failure-inducing schemas in some $T_{F_{j}}$ we did not add and there may be some healthy schemas in $T_{F_{j}}$ we did not minus. This two factors we can't improve, however, because we neither know the levels of these faults nor know value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$. So what we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to increase the accurately of identifying the MFS of a particular fault $F_{i}$.
+%Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+%
+%$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+%
+%A noted point is that  $ T'_{F_{i}} \subseteq T_{F_{i}} $ and $ T'_{P} \subseteq T_{P} $ as that we can't execute all the possible test configurations in a SUT in practice when the scale of the configuration space is big.
+%
+%The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. So what we want to do is to improve these algorithms when the SUT can have multiple faults.
+%
+%As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ is not completed. This is because there may be some failure-inducing schemas in some $T_{F_{j}}$ we did not add and there may be some healthy schemas in $T_{F_{j}}$ we did not minus. This two factors we can't improve, however, because we neither know the levels of these faults nor know value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$. So what we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to increase the accurately of identifying the MFS of a particular fault $F_{i}$.
 
 \subsection{Replace test configuration that trigger unexpected fault}
 
@@ -707,8 +710,8 @@ It is noted that the loop have another end exit besides we have find a expected 
 
 In this paper, we just set 3 as the biggest repeat times for function. When it ended with \emph{MeetEndCriteria()} is true, we will return null(line 15), which means we cannot find a expected test configuration.
 
-\subsection{Examples when apply this approach into some MFS identifying algorithms}
-Next we will take three MFS identifying algorithms as the subject to see how our approach works on them.
+\subsection{Examples of applying the strategy}
+Next we will take two MFS identifying algorithms as the subject to see how our approach works on them.
 \subsubsection{OFOT examples}
 Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encounter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT with the help of our approach to identify the MFS for the "Err 1". The process is listed in table \ref{ofot-aug}. In this table, The test configuration which are labeled with a deleted line represent the original test configuration generated by OFOT, and it will be replaced by the regenerated test configuration which are labeled with a wave line under it.
 
