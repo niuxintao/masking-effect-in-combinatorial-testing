@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  26 FEB 2014 23:37
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  27 FEB 2014 15:46
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -296,9 +296,9 @@ msy/m/n/9 g$ \T1/aer/m/n/9 =T((1,0,0)) $[]$ T((1,0,1)) $[]$ T((1,1,0))
 
 \c@lemma=\count120
 
-Overfull \hbox (5.86511pt too wide) in paragraph at lines 434--435
+Overfull \hbox (9.46231pt too wide) in paragraph at lines 434--435
 \T1/aer/m/n/9 be the com-bi-na-tion which have the test cases $\OML/cmm/m/it/9 
-T[] \OT1/cmr/m/n/9 + \OML/cmm/m/it/9 T[]$\T1/aer/m/n/9 .
+T[] [] T[]$\T1/aer/m/n/9 .
  []
 
 
@@ -317,10 +317,7 @@ Underfull \hbox (badness 4096) in paragraph at lines 774--775
 []\T1/aer/bx/n/9 identified with re-
  []
 
-
-Underfull \vbox (badness 2856) has occurred while \output is active []
-
- [6]
+[6]
 Overfull \hbox (16.4238pt too wide) in paragraph at lines 871--879
 [][] 
  []
@@ -331,12 +328,6 @@ Overfull \hbox (37.6911pt too wide) in paragraph at lines 895--899
  []
 
 [7]
-Overfull \hbox (36.23926pt too wide) in paragraph at lines 961--962
-\T1/aer/m/n/9 guished by the ti-tles of sub-columns, which are "FIC","OFOT","CT
-A",
- []
-
-
 Overfull \hbox (11.51166pt too wide) in paragraph at lines 967--967
 []\T1/aer/m/n/9 version| 
  []
@@ -378,10 +369,7 @@ Overfull \hbox (1.9239pt too wide) in paragraph at lines 1036--1037
 ted
  []
 
-(./sig-alternate.bbl [9]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-)
+(./sig-alternate.bbl [9])
 Overfull \hbox (9.8227pt too wide) in paragraph at lines 1091--1092
 []\T1/aer/m/n/9 sql.enforce_strict_size, sql.enforce_names,sql.enforce_refs,
  []
@@ -446,7 +434,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 1132--1133
 []\T1/aer/m/n/9 STATEMENT, PRE-PARED-
  []
 
-[10] [11] (./sig-alternate.aux) ) 
+[10] [11
+
+] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
  2659 strings out of 495047
  31437 string characters out of 1181961
@@ -456,4 +446,4 @@ Here is how much of TeX's memory you used:
  28 hyphenation exceptions out of 8191
  39i,11n,26p,1615b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (11 pages, 92348 bytes).
+Output written on sig-alternate.dvi (11 pages, 92512 bytes).

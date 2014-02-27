@@ -310,9 +310,9 @@ We can deduce the following proposition based on these basic definitions.
 %\newdef{proposition}{Proposition}
 \newtheorem{proposition}{Proposition}
 \begin{proposition}
-Let $c_{m}$ be the m-value combination, the set $P_{c_{m}}(m+l)$ = $ \{c_{m+l_{1}}$,$c_{m+l_{2}}$,...,$c_{m+l_{|P_{c_{m}}(m+l)|}}\}$ be all the m+l value parent combination of $c_{m}$. Moreover, we denote all the test cases can \emph{hit} a combination \emph{c} as $T(c)$,  then we can deduce the following formula:
+Let $c_{m}$ be the m-value combination, the set $P_{c_{m}}(m+l)$ = $ \{c_{(m+l)_{1}}$,$c_{(m+l)_{2}}$,...,$c_{(m+l)_{|P_{c_{m}}(m+l)|}}\}$ be all the m+l value parent combination of $c_{m}$. Moreover, we denote all the test cases can \emph{hit} a combination \emph{c} as $T(c)$,  then we have the following formula:
 
-\begin{displaymath} T(c_{m}) = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{m+l_{i}}).\end{displaymath}
+\begin{displaymath} T(c_{m}) = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{(m+l)_{i}}).\end{displaymath}
  
 \end{proposition}
 
@@ -321,9 +321,9 @@ The proof of this propositions is obvious, we just take an example to illustrate
 By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same fault, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, then we can get the following proposition.
 
 \begin{proposition}
-For a combination $c_{m}$, if all the test cases in $c_{m}$ triggered fault $F_{m}$ except the set of test cases $T' \subsetneqq T(c_{m})$ , then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{m+l_{i}}$\} (l = 1, 2... n-m; i = 1,2 ... $|P_{c_{m}}(m+l)|$) satisfy the following formula:
+For a combination $c_{m}$, if all the test cases in $T(c_{m})$ triggered fault $F_{m}$ except the set of test cases $T' \subsetneqq T(c_{m})$ , then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{(m+l)_{i}}$\} (  $l \in \{1, 2... n-m\}$;   $i \in \{1,2 ... |P_{c_{m}}(m+l)| \}$) satisfy the following formula:
 
-\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{m+l_{i}})\end{displaymath}
+\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
 
 \end{proposition}
 %then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations. 
@@ -424,26 +424,26 @@ Next, let move to formal analysis of the masking effects.
 \subsection{masking effect}
 
 \begin{definition}
-A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-inducing combination, say $c(F_{a})$, but doesn't trigger fault $F_{a}$ as expected because this test case triggered other fault which is different from $F_{a}$, say, $F_{b}$.
+A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-inducing combination for $F_{a}$, say $c$ , but doesn't trigger fault $F_{a}$ as expected because this test case triggered other fault which is different from $F_{a}$, say, $F_{b}$.
 
 %This masking effect can be presented as $t(F_{b})[F_{a}]$, which means test case \emph{t} should trigger $F_{a}$ if didn't trigger $F_{b}$.
 \end{definition}
 
-based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$. 
+based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$ for a particular fault $F_{m}$ masked by these test cases. 
 
-So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} + T_{mask(F_{m})}$. We call the failure-indcing combinaitons with considering the masking effects the \emph{perfect failure-inducing combinations}. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
+So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} \bigcup T_{mask(F_{m})}$. We call the failure-inducing combinations with considering the masking effects the \emph{perfect failure-inducing combinations}. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
 
 For traditional FCI approaches, there are two kinds of approaches, let me see what they like:
 
 \subsubsection{regard as one fault}
 This is the most common dealing approach, they don't distinguish the faults, i.e., regard all the types of faults as one fault--\emph{failure}, others as the \emph{pass}.
 
-So they will find the $c_{m}$ for $T_{F} = \bigcup_{i = 1}^{L}F_{i}$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} + T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, by the proposed lemma, the failure-inducing combinations we get will have some combinations irrelevant to the perfect failure-inducing combinations , or some combinations just be the child-combinations of some of the perfect failure-inducing combinations.
+So they will find the $c_{m}$ for $T_{F} = \bigcup_{i = 1}^{L}F_{i}$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} \bigcup T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, by the proposed lemma, the failure-inducing combinations we get will have some combinations irrelevant to the perfect failure-inducing combinations , or some combinations just be the child-combinations of some of the perfect failure-inducing combinations.
 
 \subsubsection{distinguish fault by buggy information}
 Distinguish the faults by the exception traces or error code can help make FCI approaches focus on particular fault. Ylimaz in  \cite{yilmaz2013reducing} propose a \emph{multiple-class} failure characterize method instead of \emph{ternary-class} approaches to make the charactering approach more accurately. Besides, other approaches can also be easily extended to apply on SUT with multiple faults. We call this approach \emph{distinguish FCI} approaches.
 
-Without no information of the masking effect, distinguish FCI approaches can only identify the $c_{m}$ for $T_{F_{m}}$. In this case, we can learn that $T_{F_{m}} + T_{mask(F_{m})} \supset T_{F_{m}} $ , consequently, the failure-inducing combinations we get in this case will have some combinations be the parent-combination of some perfect combinations or completely miss some failure-inducing combination.
+Without no information of the masking effect, distinguish FCI approaches can only identify the $c_{m}$ for $T_{F_{m}}$. In this case, we can learn that $T_{F_{m}} \bigcup T_{mask(F_{m})} \supset T_{F_{m}} $ , consequently, the failure-inducing combinations we get in this case will have some combinations be the parent-combination of some perfect combinations or completely miss some failure-inducing combination.
 
 Note that our discuss is based on the SUT is a deterministic software, i.e., the random failing information of test case will be ignored. The non-deterministic problem will complex our test scenario, which will not be discussed in this paper.
 
@@ -854,11 +854,11 @@ We use multiple-class CTA as our subject, Ylimaz in the paper has claimed that m
 \section{empirical studies}
 We conducted several case studies to address the following questions:
 
-Q1: Do masking effects existed in real software when it contain multiple faults?
+\textbf{Q1}: Do masking effects existed in real software when it contain multiple faults?
 
-Q2: What is the extent to which traditional approaches suffer from these real masking effects?
+\textbf{Q2}: How much do traditional approaches suffer from these real masking effects?
 
-Q3: Can our approach do better than traditional approaches when facing these masking effects?
+\textbf{Q3}: Can our approach do better than traditional approaches when facing these masking effects?
 
 Specifically, section 6.1 survey several open-source software to gain a insight of the state of the existence of multiple faults and their masking effects. Section 6.2 directly applied three MFS-identifying programs on the surveyed software and analysis their results. Section 6.3 apply our approach on the software and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
 
@@ -958,7 +958,7 @@ Besides the similarity metric, another metric also need to be considered: the di
 Particularly, if the value of discrepancy number metric is 0 and the value of similarity metric is 1, it means that multiple faults as well as their masking effect have no impacts on the algorithms, which is usually not feasible in practice.
 
 \subsubsection{result and discuss}
-Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicates the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" presents the similarity between this two set of combinations. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC","OFOT","CTA", indicating corresponding algorithms respectively. It is noted that for column "CTA", the vale we set in each cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
+Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicates the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" presents the similarity between this two set of combinations. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC", "OFOT", "CTA", indicating corresponding algorithms respectively. It is noted that for column "CTA", the vale we set in each cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{traditional result}
