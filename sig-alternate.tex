@@ -863,27 +863,100 @@ We conducted several case studies to address the following questions:
 Specifically, section 6.1 survey several open-source software to gain a insight of the state of the existence of multiple faults and their masking effects. Section 6.2 directly applied three MFS-identifying programs on the surveyed software and analysis their results. Section 6.3 apply our approach on the software and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
 
 \subsection{study 1: multiple faults and masking effects in practice}
-In the first study, we surveyed several software to gain a insight of the state of the existence of multiple faults and their effects. The software under study are four GNU software: Grep, Sed, Make, Gzip and a database management software- HSQLDB. Each of them contain different versions. All the three subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code, number of procedures(for c software) or number of classes (for java software) and a brief description.
+In the first study, we surveyed two open-source software to gain an insight of the existence of multiple faults and their effects. The software under study are: HSQLDB and JFlex, in which the former is a database management software written in pure java and the later one is a lexical analyser generator for Java. Each of them contain different versions. All the two subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code and number of classes in the project.
 
-\begin{table*}\renewcommand{\arraystretch}{1.3}
+\begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Software under survey}
 \label{software description}
-\begin{tabular}{c|c|c|c|c} \hline
-software & versions & LOC & procedur/classes & description\\ \hline
-Grep & 5 &  9493-10102 &146 &  a program to search for strings inside a file.\\ \hline
-Sed & 7 & 5503-14477  & 255& A stream editor that parses and transforms text \\ \hline
-Make & 4 &  13359-35583 &268&   a utility that automatically builds executable programs and libraries. \\ \hline
-Gzip &5 &  4604-5754 &104&  a popular data compression program \\ \hline
-HSQLDB &2 & - &-& A database management software written with pure java\\
+\begin{tabular}{c|c|c|c} \hline
+software & versions & LOC & procedur/classes \\ \hline
+JFlex &2 &  4604-5754 &104 \\ \hline
+HSQLDB &3 & - &-\\
 \hline\end{tabular}
-\end{table*}
+\end{table}
 
 \subsubsection{study setup}
-We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#123213 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered.  We call these analysed result the "perfect combinations" which will be used as the comparison benchmark in the later studies.
+We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#123213 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed result will be regarded as the "perfect combinations" later.
 
 We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected. As for bug\#123213 and  bug\#223012 of HSQLDB, the original test file can be simply described as figure 1:, and we merged them together into a file like figure 2, we can easily find that it use a test scenario to merge the two test file. For each pair of bugs, we have posted the source code of the merging file on website.
 
 Next we built the input model which consist of the options related to the perfect combinations and additional noise options. The detailed model information is listed in appendix. We then generated the exhaustive test suite consist of all the possible combinations of these options under which we executed the merged test file. We record the output of each test case to observe whether there are test cases contain 'perfect combination' but do not produce the corresponding bug.
+
+\section{masking faults statistic}
+\begin{table*}\renewcommand{\arraystretch}{1.3}
+\caption{real faults detailed}
+\label{masking effect detail}
+\begin{tabular}{c|c|c|c} \hline
+software & faults ID & masking faults ID & Web site\\ \hline
+Grep & \#29537 &  \#33080  & http://savannah.gnu.org/bugs/?group=grep\\ \hline
+- & \#29537 &  \#33080  & -\\ \hline
+Sed & - & -  & - \\ \hline
+Make & - &  - &-\\ \hline
+Gzip &- &  - &-\\ \hline
+HSQLDB &- & - &-\\
+\hline\end{tabular}
+\end{table*}
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+  \caption{input model of HSQLDB} \centering
+  \label{modelHSQLDB}
+  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries Common options &   \bfseries values \\
+   \hline
+     sql.enforce\_strict\_size & true, false \\
+      sql.enforce\_names & true, false \\
+      sql.enforce\_refs & true, false \\
+      sql.enforce\_size & true, false \\
+      sql.enforce\_types & true, false\\ 
+   hsqldb.default\_table\_type & CACHED, MEMORY \\
+   hsqldb.tx & LOCKS, MVLOCKS, MVCC\\
+   hsqldb.tx\_level & read\_commited, SERIALIZABLE\\
+   hsqldb.tx\_level & read\_commited, SERIALIZABLE \\
+%  \end{tabular}
+%
+%  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+%  \hline
+%  \bfseries Server properties &   \bfseries values \\
+%   \hline
+   Server Type & SERVER, WEBSERVER, INPROCESS \\
+    existed form & MEM, FILE \\
+%  \end{tabular}
+%
+%  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+%  \hline
+%  \bfseries Result Set properties &   \bfseries values \\
+%   \hline
+    resultSetTypes & FORWAR,INSENSITIVE, SENSITIVE\\\
+    resultSetConcurrencys & READ\_ONLY,UPDATABLE \\
+    resultSetHoldabilitys & HOLD, CLOSE\\
+%  \end{tabular}
+%
+%  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+%  \hline
+%  \bfseries option in test script &   \bfseries values\\
+%   \hline
+   StatementType & STATEMENT, PREPARED \\
+  \end{tabular}
+
+    \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries versions &   \bfseries specific options\\
+   \hline
+    2.0rc8 & aforehead(2), c \\
+    2.1rc & 2 \\
+    2.2 & 3 
+  \end{tabular}
+   \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+   \bfseries versions &   \bfseries Models\\
+   \hline
+    2.0rc8 & $2^{7} \times 3^{1}$ \\
+    2.1rc &  $2^{7} \times 3^{1}$ \\
+    2.2 & $2^{7} \times 3^{1}$ 
+  \end{tabular}
+
+\end{table}
+
 
 \subsubsection{result and discuss}
 
@@ -1064,76 +1137,23 @@ and the \textbf{.cls} and \textbf{.tex} files that it describes.
 %
 %APPENDICES are optional
 %\balancecolumns
-\appendix
-%Appendix A
-\section{masking faults statistic}
-\begin{table*}\renewcommand{\arraystretch}{1.3}
-\caption{real faults detailed}
-\label{masking effect detail}
-\begin{tabular}{c|c|c|c} \hline
-software & faults ID & masking faults ID & Web site\\ \hline
-Grep & \#29537 &  \#33080  & http://savannah.gnu.org/bugs/?group=grep\\ \hline
-- & \#29537 &  \#33080  & -\\ \hline
-Sed & - & -  & - \\ \hline
-Make & - &  - &-\\ \hline
-Gzip &- &  - &-\\ \hline
-HSQLDB &- & - &-\\
-\hline\end{tabular}
-\end{table*}
+%\appendix
+%%Appendix A
+%\section{masking faults statistic}
+%\begin{table*}\renewcommand{\arraystretch}{1.3}
+%\caption{real faults detailed}
+%\label{masking effect detail}
+%\begin{tabular}{c|c|c|c} \hline
+%software & faults ID & masking faults ID & Web site\\ \hline
+%Grep & \#29537 &  \#33080  & http://savannah.gnu.org/bugs/?group=grep\\ \hline
+%- & \#29537 &  \#33080  & -\\ \hline
+%Sed & - & -  & - \\ \hline
+%Make & - &  - &-\\ \hline
+%Gzip &- &  - &-\\ \hline
+%HSQLDB &- & - &-\\
+%\hline\end{tabular}
+%\end{table*}
 
-\begin{table}\renewcommand{\arraystretch}{1.3}
-  \caption{input model of HSQLDB} \centering
-  \label{modelHSQLDB}
-  \begin{tabular}{p{0.9\columnwidth}}\hline
-  \hline
-   \bfseries  SQL  properties(TRUE/FALSE)\\
-    \hline
-    sql.enforce\_strict\_size, sql.enforce\_names,sql.enforce\_refs, sql.enforce\_size, sql.enforce\_types, sql.enforce\_tdc\_delete, sql.enforce\_tdc\_update
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries table properties &   \bfseries values \\
-   \hline
-   hsqldb.default\_table\_type & CACHED, MEMORY\\
-   hsqldb.tx & LOCKS, MVLOCKS, MVCC\\
-   hsqldb.tx\_level & read\_commited, SERIALIZABLE\\
-   hsqldb.tx\_level & read\_commited, SERIALIZABLE
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries Server properties &   \bfseries values \\
-   \hline
-   Server Type & SERVER, WEBSERVER, INPROCESS \\
-    existed form & MEM, FILE
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries Result Set properties &   \bfseries values \\
-   \hline
-    resultSetTypes & TYPE\_FORWARD\_ONLY,TYPE\_SCROLL\_INSENSITIVE, TYPE\_SCROLL\_SENSITIVE\\\
-    resultSetConcurrencys & CONCUR\_READ\_ONLY,CONCUR\_UPDATABLE \\
-    resultSetHoldabilitys & HOLD\_CURSORS\_OVER\_COMMIT, CLOSE\_CURSORS\_AT\_COMMIT
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries option in test script &   \bfseries values\\
-   \hline
-   StatementType & STATEMENT, PREPAREDSTATEMENT
-  \end{tabular}
-
-    \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries constraints &   \bfseries values\\
-   \hline
-   StatementType & STATEMENT, PREPAREDSTATEMENT
-  \end{tabular}
-
-
-\end{table}
 
 %
 %\subsection{References}
