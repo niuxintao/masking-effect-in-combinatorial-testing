@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  3 MAR 2014 03:12
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  4 MAR 2014 14:52
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -230,32 +230,36 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 (/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+(/usr/share/texmf-texlive/tex/latex/mdwtools/footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box35
+\fn@width=\dimen125
 ) (./sig-alternate.aux)
 \openout1 = `sig-alternate.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Try loading font information for U+msa on input line 133.
-
-(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Try loading font information for U+msa on input line 137.
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 133.
+LaTeX Font Info:    Try loading font information for U+msb on input line 137.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 133.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 137.
 
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -266,7 +270,7 @@ Underfull \vbox (badness 1389) has occurred while \output is active []
 
 
 ]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 194.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 200.
 
 
 (/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
@@ -275,7 +279,7 @@ File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 \c@definition=\count118
 \c@proposition=\count119
 
-Overfull \hbox (2.81166pt too wide) in paragraph at lines 319--320
+Overfull \hbox (2.81166pt too wide) in paragraph at lines 327--328
 \T1/aer/m/n/9 = $\OMS/cmsy/m/n/9 f\OT1/cmr/m/n/9 (1\OML/cmm/m/it/9 ; \OT1/cmr/m
 /n/9 0\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 0)$ \T1/aer/m/n/9 ,$\OT1/cmr/m/n/9 (1\OM
 L/cmm/m/it/9 ; \OT1/cmr/m/n/9 0\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 1)$\T1/aer/m/n/
@@ -286,7 +290,7 @@ cmr/m/n/9 0)$\T1/aer/m/n/9 , $\OT1/cmr/m/n/9 (1\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9
  []
 
 [3]
-Overfull \hbox (17.6429pt too wide) in paragraph at lines 336--337
+Overfull \hbox (17.6429pt too wide) in paragraph at lines 344--345
 \T1/aer/m/n/9 ,$\OT1/cmr/m/n/9 (1\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 0\OML/cmm/m/i
 t/9 ; \OT1/cmr/m/n/9 1)$\T1/aer/m/n/9 , $\OT1/cmr/m/n/9 (1\OML/cmm/m/it/9 ; \OT
 1/cmr/m/n/9 1\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 0)$\T1/aer/m/n/9 , $\OT1/cmr/m/n/
@@ -296,90 +300,85 @@ msy/m/n/9 g$ \T1/aer/m/n/9 =T((1,0,0)) $[]$ T((1,0,1)) $[]$ T((1,1,0))
 
 \c@lemma=\count120
 
-Overfull \hbox (9.46231pt too wide) in paragraph at lines 434--435
+Overfull \hbox (9.46231pt too wide) in paragraph at lines 442--443
 \T1/aer/m/n/9 be the com-bi-na-tion which have the test cases $\OML/cmm/m/it/9 
 T[] [] T[]$\T1/aer/m/n/9 .
  []
 
 
-Overfull \hbox (1.04356pt too wide) in paragraph at lines 434--435
+Overfull \hbox (1.04356pt too wide) in paragraph at lines 442--443
 \T1/aer/m/n/9 the mask-ing ef-fects the \T1/aer/m/it/9 per-fect failure-inducin
 g com-bi-na-tions\T1/aer/m/n/9 .
  []
 
 [4] [5]
-Underfull \hbox (badness 4096) in paragraph at lines 740--741
+Underfull \hbox (badness 4096) in paragraph at lines 748--749
 []\T1/aer/bx/n/9 identified with re-
  []
 
 
-Underfull \hbox (badness 4096) in paragraph at lines 774--775
+Underfull \hbox (badness 4096) in paragraph at lines 782--783
 []\T1/aer/bx/n/9 identified with re-
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 914--915
-[]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
+Overfull \hbox (25.24397pt too wide) in paragraph at lines 900--908
+[][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 915--922
-[]\T1/aer/m/n/9 read_commited, SE-RI-AL-IZ-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 930--930
-[]\T1/aer/m/n/9 FORWAR,INSENSITIVE,
- []
-
-
-Overfull \hbox (10.74046pt too wide) in paragraph at lines 903--941
+Overfull \hbox (2.13652pt too wide) in paragraph at lines 917--954
  [][] 
  []
 
+
+Overfull \hbox (10.30249pt too wide) in paragraph at lines 961--962
+[]\T1/aer/m/n/9 next,previous,first,last| 
+ []
+
 [7]
-Overfull \hbox (37.6911pt too wide) in paragraph at lines 968--972
+Overfull \hbox (37.6911pt too wide) in paragraph at lines 1041--1045
 [][] 
  []
 
 [8]
-Overfull \hbox (11.51166pt too wide) in paragraph at lines 1040--1040
+Overfull \hbox (11.51166pt too wide) in paragraph at lines 1113--1113
 []\T1/aer/m/n/9 version| 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 1039--1042
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 1112--1115
 [][] 
  []
 
 
-Overfull \hbox (26.62311pt too wide) in paragraph at lines 1043--1047
+Overfull \hbox (26.62311pt too wide) in paragraph at lines 1116--1120
 [][] 
  []
 
 
-Overfull \hbox (26.40552pt too wide) in paragraph at lines 1065--1068
+Overfull \hbox (26.40552pt too wide) in paragraph at lines 1138--1141
 [][] 
  []
 
 
-Overfull \hbox (113.50629pt too wide) in paragraph at lines 1069--1073
+Overfull \hbox (113.50629pt too wide) in paragraph at lines 1142--1146
 [][] 
  []
 
 
-Overfull \hbox (6.96436pt too wide) in paragraph at lines 1088--1089
+Overfull \hbox (6.96436pt too wide) in paragraph at lines 1161--1162
 []\T1/aer/m/n/9 Colbourn and McClary [5] pro-posed a non-adaptive method.
  []
 
 [9]
-Overfull \hbox (6.76543pt too wide) in paragraph at lines 1094--1095
+Overfull \hbox (6.76543pt too wide) in paragraph at lines 1167--1168
 \T1/aer/m/n/9 uti-lize the tu-ple re-la-tion-ship tree to iso-late the failure-
 inducing
  []
 
 
-Overfull \hbox (1.9239pt too wide) in paragraph at lines 1109--1110
+Overfull \hbox (1.9239pt too wide) in paragraph at lines 1182--1183
 \T1/aer/m/n/9 three tra-di-tional ap-proaches with their vari-a-tion is con-duc
 ted
  []
@@ -388,12 +387,12 @@ ted
 
 ] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 2659 strings out of 495047
- 31437 string characters out of 1181960
- 100129 words of memory out of 3000000
- 5802 multiletter control sequences out of 15000+50000
+ 2705 strings out of 495047
+ 32121 string characters out of 1181961
+ 101309 words of memory out of 3000000
+ 5845 multiletter control sequences out of 15000+50000
  43299 words of font info for 54 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 39i,11n,26p,1615b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,14n,26p,1615b,332s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (11 pages, 91408 bytes).
+Output written on sig-alternate.dvi (11 pages, 92240 bytes).
