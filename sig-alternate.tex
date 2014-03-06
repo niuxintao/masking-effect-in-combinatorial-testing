@@ -295,7 +295,8 @@ Figuring out the test case as well as the executing result is usually not enough
 \begin{definition}
 For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} ($0 < k \leq n $) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". 
 
-In effect a test case itself is a k-value \emph{combination}, when k is equal to n. Furthermore, if a test case contain a \emph{combination}, i.e., every fixed value in this combination is also in this test case, we say this test case \emph{hit} this \emph{combination}, which can be denoted as $k-value\  combination \in T$
+In effect a test case itself is a k-value \emph{combination}, when k is equal to n. Furthermore, if a test case contain a \emph{combination}, i.e., every fixed value in this combination is also in this test case, we say this test case \emph{hit} this \emph{combination}.
+%, which can be denoted as $k-value\  combination \in T$
 \end{definition}
 
 \begin{definition}
@@ -876,36 +877,41 @@ In the first study, we surveyed two open-source software to gain an insight of t
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Software under survey}
 \label{software description}
-\begin{tabular}{c|c|c|c} \hline
-software & versions & LOC & procedur/classes \\ \hline
-JFlex \footnote{http://sourceforge.net/projects/jflex/files/jflex} &1.4.1 &  10040 &58 \\
-      &1.4.2 &  10745 &61 \\ 
-HSQLDB \footnote{http://sourceforge.net/projects/hsqldb/files/hsqldb/ }  &2.0rc8 & 139425 & 495 \\
-	   &2.2.5 & 156066 & 508 \\
-	    &2.2.9 & 162784 &525\\
+\begin{tabular}{c|c|c|c|c} \hline
+software & versions & LOC & classes & bug pairs\footnote{ http://sourceforge.net/p/hsqldb/bugs
+http://sourceforge.net/p/jflex/bugs  } \\ \hline
+
+HSQLDB  &2.0rc8 & 139425 & 495 &  \#981 \& \#1005\\
+	   &2.2.5 & 156066 & 508 & \#1173 \&  \#1179\\
+	    &2.2.9 & 162784 &525 & \#1286 \& \#1280\\
+JFlex  &1.4.1 &  10040 &58 & \#87 \& \#80 \\
+      &1.4.2 &  10745 &61 &  \#98 \& \#93  \\ 
 \hline\end{tabular}
 \end{table}
 %http://hsqldb2.0.sourcearchive.com/downloads/2.0.0$\scriptsize{\sim}$rc8/
 
+%\footnote{http://sourceforge.net/projects/jflex/files/jflex}
+
+% \footnote{http://sourceforge.net/projects/hsqldb/files/hsqldb/ } 
 
 \subsubsection{study setup}
-We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#123213 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed result will be regarded as the "perfect combinations" later.
+We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#981 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed result will be regarded as the "perfect combinations" later.
 
-We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected. As for bug\#123213 and  bug\#223012 of HSQLDB, the original test file can be simply described as figure 1:, and we merged them together into a file like figure 2, we can easily find that it use a test scenario to merge the two test file. For each pair of bugs, we have posted the source code of the merging file on website.
+We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected. As for bug\#981 and  bug\#1005 of HSQLDB, the original test file can be simply described as figure 1:, and we merged them together into a file like figure 2, we can easily find that it use a test scenario to merge the two test file. For each pair of bugs, we have posted the source code of the merging file on website.
 
-\section{masking faults statistic}
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{real faults detailed}
-\label{masking effect detail}
-\begin{tabular}{c|c|c|c} \hline
-software & version & faults ID pair & Web site\\ \hline
-HSQLDB & 2.0rc8 & \#981 \& \#1005 &  http://sourceforge.net\\ \hline
-- & 2.2.6 & \#1173 \&  \#1179  & /p/hsqldb/bugs\\ \hline
-- & 2.2.9 & \#1286 \& \#1280 & - \\ \hline
-JFlex & 1.4.1 & \#87 \& \#80 &  http://sourceforge.net\\ \hline
- - & 1.4.2 & \#98 \& \#93  & /p/jflex/bugs  \\ 
-\hline\end{tabular}
-\end{table}
+%\section{masking faults statistic}
+%\begin{table}\renewcommand{\arraystretch}{1.3}
+%\caption{real faults detailed}
+%\label{masking effect detail}
+%\begin{tabular}{c|c|c} \hline
+%software & version & faults ID pair\\ \hline
+%HSQLDB  & 2.0rc8 & \#981 \& \#1005  \\ \hline
+%- & 2.2.5 & \#1173 \&  \#1179   \\ \hline
+%- & 2.2.9 & \#1286 \& \#1280  \\ \hline
+%JFlex   & 1.4.1 & \#87 \& \#80 \\ \hline
+% - & 1.4.2 & \#98 \& \#93   \\ 
+%\hline\end{tabular}
+%\end{table}
 
 Next we built the input model which consist of the options related to the perfect combinations and additional noise options. The detailed model information is listed in appendix. We then generated the exhaustive test suite consist of all the possible combinations of these options under which we executed the merged test file. We record the output of each test case to observe whether there are test cases contain 'perfect combination' but do not produce the corresponding bug.
 
@@ -959,9 +965,9 @@ Next we built the input model which consist of the options related to the perfec
     2.0rc8 & more & true, false\\
       & placeHolder & true, false \\
       & cursorAction & next,previous,first,last\\
-    2.2.5 & multiple & single, multiple\\
+    2.2.5 & multiple & single, multiple , d\\
        & placeHolder & true, false\\
-    2.2.9 & duplicate & true, false\\
+    2.2.9 & duplicate & duplicate, single, d\\
      & default\_commit & true, false \\
     \end{tabular}
    \begin{tabular}{c*{2}{p{0.7\columnwidth}}}
@@ -969,8 +975,8 @@ Next we built the input model which consist of the options related to the perfec
    \bfseries versions &   \bfseries Config space\\
    \hline
     2.0rc8 & $2^{9} \times 3^{2} \times 4^{1}$ \\
-    2.2.5 &  $2^{9} \times 3^{2}$ \\
-    2.2.9 & $2^{9} \times 3^{2}$ 
+    2.2.5 &  $2^{8} \times 3^{3}$ \\
+    2.2.9 & $2^{8} \times 3^{3}$ 
   \end{tabular}
 \end{table}
 
@@ -1014,9 +1020,9 @@ Next we built the input model which consist of the options related to the perfec
   \hline
   \bfseries versions &   \bfseries specific options  & \bfseries values\\
    \hline
-    1.4.1 & hasReturn & true, false\\
+    1.4.1 & hasReturn & true, false, d\\
       & normal & true, false \\
-    1.4.2 & lookAhead & single, multiple\\
+    1.4.2 & lookAhead & single, multiple, d\\
        & type & true, false\\
         & standalone & true, false \\
     \end{tabular}
@@ -1024,8 +1030,8 @@ Next we built the input model which consist of the options related to the perfec
    \hline
    \bfseries versions &   \bfseries Config space\\
    \hline
-    1.4.1  & $2^{11} \times 3^{1} \times 4^{1} $ \\
-    1.4.2 &  $2^{12} \times 3^{1} \times 4^{1} $ \\
+    1.4.1  & $2^{10} \times 3^{2} \times 4^{1} $ \\
+    1.4.2 &  $2^{11} \times 3^{2} \times 4^{1} $ \\
   \end{tabular}
 
 \end{table}
@@ -1039,8 +1045,12 @@ Table \ref{masking effect condition} lists the results of our survey. Column "Fa
 \caption{number of faults and their masking effect condition}
 \label{masking effect condition}
 \begin{tabular}{c|c|c|c|c} \hline
-software & versions & Faults ID  & all tests & Num masking\\ \hline
-HSQLDB & 2cr8 & \#2000 \&  \#3000 & 2000 & 1000\\ \hline
+software & versions & all tests & failure & masking\\ \hline
+HSQLDB & 2cr8 & 18432 & 4608 & 768\\ \hline
+     - & 2.2.5 & 4608 & 2880 &1152\\ \hline
+     - & 2.2.9 & 4608 & 2880 &1344\\ \hline
+JFlex & 1.4.1 & 24576 & 18432 &6144\\ \hline
+     -& 1.4.2 & 49152 & 30720 &6144\\ \hline
 \hline\end{tabular}
 \end{table}
 
