@@ -1,12 +1,12 @@
 %!PS-Adobe-3.1 EPSF-3.0
 %ADO_DSC_Encoding: Windows Roman
 %%Title: OFOT_our.pdf
-%%Creator: Adobe Acrobat 9.0.0
-%%For: niuxintao
-%%CreationDate: 3/7/2014, 11:47:10 PM
-%%BoundingBox: 0 0 523 545
-%%HiResBoundingBox: 0 0 522.9569 544.5667
-%%CropBox: 0 0 522.9569 544.5667
+%%Creator: Adobe Acrobat 10.1.0
+%%For: xintao
+%%CreationDate: 2014/3/8, 1:35:46
+%%BoundingBox: -1 0 503 504
+%%HiResBoundingBox: 0 0 502.6932 503.5659
+%%CropBox: 0 0 502.6932 503.5659
 %%LanguageLevel: 2
 %%DocumentNeededResources: (atend)
 %%DocumentSuppliedResources: (atend)
@@ -3222,8 +3222,10 @@ def
 }def
 /set_ucrbg
 {
-	dup null eq{pop/AGMCORE_currentbg load}{/Procedure get_res}ifelse setblackgeneration
-	dup null eq{pop/AGMCORE_currentucr load}{/Procedure get_res}ifelse setundercolorremoval
+	dup null eq {pop /AGMCORE_currentbg load}{/Procedure get_res}ifelse
+	dup currentblackgeneration eq {pop}{setblackgeneration}ifelse
+	dup null eq {pop /AGMCORE_currentucr load}{/Procedure get_res}ifelse
+	dup currentundercolorremoval eq {pop}{setundercolorremoval}ifelse
 }def
 /setcolorrendering_opt
 {
@@ -3359,6 +3361,7 @@ def
 		{
 			false set_spot_alias
 			/sep_colorspace_dict AGMCORE_gget null ne
+			{/sep_colorspace_dict AGMCORE_gget/ForeignContent known not}{false}ifelse
 			3 1 roll 2 index{
 				exch pop/sep_tint AGMCORE_gget exch
 			}if
@@ -3368,7 +3371,7 @@ def
 				setsepcolor
 			}if
 			pop
-			not{/sep_tint 1.0 AGMCORE_gput}if
+			not{/sep_tint 1.0 AGMCORE_gput/sep_colorspace_dict AGMCORE_gget/ForeignContent true put}if
 			pop
 			true set_spot_alias
 		}{
@@ -7934,18 +7937,18 @@ Adobe_CoolType_Core/ds get exec
 Adobe_AGM_Image/ds gx
 [/NamespacePush pdfmark_5
 [/_objdef {Doc_Metadata} /type /stream /OBJ pdfmark_5
-[{Doc_Metadata} 722 (% &end XMP packet& %) ReadBypdfmark_5_string
+[{Doc_Metadata} 720 (% &end XMP packet& %) ReadBypdfmark_5_string
 <?xpacket begin='﻿' id='W5M0MpCehiHzreSzNTczkc9d'?>
-<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.2.1-c041 52.342996, 2008/05/07-20:48:00        ">
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.2-c001 63.139439, 2010/09/27-13:37:26        ">
  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about=""
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:xmp="http://ns.adobe.com/xap/1.0/"
     xmlns:pdf="http://ns.adobe.com/pdf/1.3/"
    dc:format="application/pdf"
-   xmp:CreateDate="2014-03-07T23:44:59+08:00"
+   xmp:CreateDate="2014-03-08T01:02:02+08:00"
    xmp:CreatorTool="Microsoft® Excel® 2013"
-   xmp:ModifyDate="2014-03-07T23:44:59+08:00"
+   xmp:ModifyDate="2014-03-08T01:02:02+08:00"
    pdf:Producer="Microsoft® Excel® 2013">
    <dc:creator>
     <rdf:Seq>
@@ -7991,23 +7994,29 @@ Adobe_AGM_Utils/capture_cpd gx
 Adobe_CoolType_Core/ps get exec
 Adobe_AGM_Image/ps gx
 %%EndPageSetup
-1 -1 scale 0 -544.567 translate
+1 -1 scale 0 -503.566 translate
 pgsv
 [1 0 0 1 0 0 ]ct
 gsave
 np
 gsave
-0 0 mo
-0 544.567 li
-522.957 544.567 li
-522.957 0 li
+-7.62939e-6 0 mo
+-7.62939e-6 503.566 li
+502.693 503.566 li
+502.693 0 li
 cp
 clp
-[1 0 0 1 -45.3806 0 ]ct
-51.229 539.724 mo
-560.939 539.724 li
-560.939 5.74432 li
-51.229 5.74432 li
+gsave
+-.127495 503.665 mo
+502.872 503.665 li
+502.872 -.335388 li
+-.127495 -.335388 li
+cp
+clp
+4.24551 498.005 mo
+497.125 498.005 li
+497.125 4.30463 li
+4.24551 4.30463 li
 cp
 false sop
 /0 
@@ -8026,195 +8035,188 @@ false sop
 1 /0 /CSD get_res sepcs
 0 sep
 ef
-1.427 lw
+1.423 lw
 0 lc
 1 lj
 10 ml
 [] 0 dsh
 true sadj
-60.251 197.584 mo
-60.251 494.374 li
-153.26 197.584 mo
-153.26 494.374 li
-246.18 197.584 mo
-246.18 494.374 li
-339.11 197.584 mo
-339.11 494.374 li
-432.03 197.584 mo
-432.03 494.374 li
-524.85 197.584 mo
-524.85 494.374 li
+11.6055 181.675 mo
+11.6055 456.085 li
+101.473 181.675 mo
+101.473 456.085 li
+191.402 181.675 mo
+191.402 456.085 li
+281.342 181.675 mo
+281.342 456.085 li
+371.272 181.675 mo
+371.272 456.085 li
+461.133 181.675 mo
+461.133 456.085 li
 1 /0 /CSD get_res sepcs
 .149 sep
 @
-98.234 261.194 mo
-115.36 261.194 li
-115.36 494.374 li
-98.234 494.374 li
+48.1955 240.415 mo
+64.8125 240.415 li
+64.8125 456.085 li
+48.1955 456.085 li
 cp
-284.08 324.894 mo
-300.98 324.894 li
-300.98 494.374 li
-284.08 494.374 li
+228.063 299.385 mo
+244.682 299.385 li
+244.682 456.085 li
+228.063 456.085 li
 cp
 /1 
 [/DeviceCMYK] /CSA add_res
 .441932 .103243 .851316 .000457771 cmyk
 f
-524.85 494.374 mo
-524.85 197.584 li
+461.133 456.085 mo
+461.133 181.675 li
 1 /0 /CSD get_res sepcs
 .149 sep
 @
-524.85 494.374 mo
-530.29 494.374 li
-524.85 452.074 mo
-530.29 452.074 li
-524.85 409.604 mo
-530.29 409.604 li
-524.85 367.134 mo
-530.29 367.134 li
-524.85 324.894 mo
-530.29 324.894 li
-524.85 282.434 mo
-530.29 282.434 li
-524.85 239.964 mo
-530.29 239.964 li
-524.85 197.584 mo
-530.29 197.584 li
+461.133 456.085 mo
+466.552 456.085 li
+461.133 416.865 mo
+466.552 416.865 li
+461.133 377.705 mo
+466.552 377.705 li
+461.133 338.545 mo
+466.552 338.545 li
+461.133 299.385 mo
+466.552 299.385 li
+461.133 259.995 mo
+466.552 259.995 li
+461.133 220.835 mo
+466.552 220.835 li
+461.133 181.675 mo
+466.552 181.675 li
 @
-60.251 494.374 mo
-524.85 494.374 li
+11.6055 456.085 mo
+461.133 456.085 li
 @
-101 288.164 mo
-112.416 288.164 li
-112.416 276.748 li
-101 276.748 li
+56.6125 213.315 mo
+64.1225 220.825 li
+56.6125 228.335 li
+49.0985 220.825 li
+cp
+.719692 .439979 .027985 0 cmyk
+f
+1.3661 lw
+56.6125 213.315 mo
+64.1225 220.825 li
+56.6125 228.335 li
+49.0985 220.825 li
+cp
+@
+146.542 213.315 mo
+154.063 220.825 li
+146.542 228.335 li
+139.033 220.825 li
+cp
+f
+146.542 213.315 mo
+154.063 220.825 li
+146.542 228.335 li
+139.033 220.825 li
+cp
+@
+236.253 389.765 mo
+243.763 397.275 li
+236.253 404.785 li
+228.742 397.275 li
+cp
+f
+236.253 389.765 mo
+243.763 397.275 li
+236.253 404.785 li
+228.742 397.275 li
+cp
+@
+326.182 448.505 mo
+333.702 456.015 li
+326.182 463.535 li
+318.672 456.015 li
+cp
+f
+326.182 448.505 mo
+333.702 456.015 li
+326.182 463.535 li
+318.672 456.015 li
+cp
+@
+416.122 370.185 mo
+423.633 377.695 li
+416.122 385.205 li
+408.603 377.695 li
+cp
+f
+416.122 370.185 mo
+423.633 377.695 li
+416.122 385.205 li
+408.603 377.695 li
+cp
+@
+50.9195 265.675 mo
+62.3035 265.675 li
+62.3035 254.291 li
+50.9195 254.291 li
 cp
 .18497 .816068 .688869 .0602731 cmyk
 f
-1.3699 lw
-101 288.164 mo
-112.416 288.164 li
-112.416 276.748 li
-101 276.748 li
+50.9195 265.675 mo
+62.3035 265.675 li
+62.3035 254.291 li
+50.9195 254.291 li
 cp
 @
-193.93 500.044 mo
-205.346 500.044 li
-205.346 488.628 li
-193.93 488.628 li
+140.852 461.705 mo
+152.236 461.705 li
+152.236 450.321 li
+140.852 450.321 li
 cp
 f
-193.93 500.044 mo
-205.346 500.044 li
-205.346 488.628 li
-193.93 488.628 li
+140.852 461.705 mo
+152.236 461.705 li
+152.236 450.321 li
+140.852 450.321 li
 cp
 @
-286.85 330.634 mo
-298.266 330.634 li
-298.266 319.218 li
-286.85 319.218 li
+230.563 305.065 mo
+241.947 305.065 li
+241.947 293.681 li
+230.563 293.681 li
 cp
 f
-286.85 330.634 mo
-298.266 330.634 li
-298.266 319.218 li
-286.85 319.218 li
+230.563 305.065 mo
+241.947 305.065 li
+241.947 293.681 li
+230.563 293.681 li
 cp
 @
-379.78 500.044 mo
-391.196 500.044 li
-391.196 488.628 li
-379.78 488.628 li
+320.492 461.705 mo
+331.876 461.705 li
+331.876 450.321 li
+320.492 450.321 li
 cp
 f
-379.78 500.044 mo
-391.196 500.044 li
-391.196 488.628 li
-379.78 488.628 li
+320.492 461.705 mo
+331.876 461.705 li
+331.876 450.321 li
+320.492 450.321 li
 cp
 @
-472.7 500.044 mo
-484.116 500.044 li
-484.116 488.628 li
-472.7 488.628 li
+410.422 461.705 mo
+421.806 461.705 li
+421.806 450.321 li
+410.422 450.321 li
 cp
 f
-472.7 500.044 mo
-484.116 500.044 li
-484.116 488.628 li
-472.7 488.628 li
+410.422 461.705 mo
+421.806 461.705 li
+421.806 450.321 li
+410.422 450.321 li
 cp
-@
-106.71 232.454 mo
-114.24 239.994 li
-106.71 247.524 li
-99.176 239.994 li
-cp
-.719692 .439979 .027985 3.0518e-5 cmyk
-f
-106.71 232.454 mo
-114.24 239.994 li
-106.71 247.524 li
-99.176 239.994 li
-cp
-@
-199.63 232.454 mo
-207.17 239.994 li
-199.63 247.524 li
-192.1 239.994 li
-cp
-f
-199.63 232.454 mo
-207.17 239.994 li
-199.63 247.524 li
-192.1 239.994 li
-cp
-@
-292.56 423.334 mo
-300.09 430.864 li
-292.56 438.394 li
-285.03 430.864 li
-cp
-f
-292.56 423.334 mo
-300.09 430.864 li
-292.56 438.394 li
-285.03 430.864 li
-cp
-@
-385.48 486.804 mo
-393.02 494.334 li
-385.48 501.874 li
-377.95 494.334 li
-cp
-f
-385.48 486.804 mo
-393.02 494.334 li
-385.48 501.874 li
-377.95 494.334 li
-cp
-@
-478.41 402.094 mo
-485.94 409.634 li
-478.41 417.164 li
-470.87 409.634 li
-cp
-f
-478.41 402.094 mo
-485.94 409.634 li
-478.41 417.164 li
-470.87 409.634 li
-cp
-@
-1.427 lw
-292.55 324.784 mo
-292.07 331.754 li
-283.46 331.754 li
-1 /0 /CSD get_res sepcs
-.349 sep
 @
 1 /0 /CSD get_res sepcs
 1 sep
@@ -9484,14 +9486,14 @@ dup 49 /one put
 pop
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri /PBAAAA+Calibri findfont ct_VMDictPut
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri /PBAAAA+Calibri findfont ct_VMDictPut
+/ALFXVL+Calibri*1 
 [49{/.notdef}rp /one 206{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-101.59 259.264 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [-6.71616e-7 -15.264 -15.264 6.71616e-7 0 0 ]msf
+51.7765 237.765 mo
 (11)
-[-7.77603 0 ]ysh
+[-7.75211 0 ]ysh
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
 systemdict /gcheck known {currentglobal PBAAAA+Calibri gcheck setglobal} if
@@ -9516,11 +9518,11 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one 206{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [-6.72672e-7 -15.288 -15.288 6.72672e-7 0 0 ]msf
-204.77 483.234 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+151.592 444.835 mo
 (0)sh
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
@@ -9555,33 +9557,33 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one 6{/.notdef}rp /eight 199{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-276.46 335.874 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+220.973 308.585 mo
 (8)sh
-VGICLC+Calibri*1 [-6.72672e-7 -15.288 -15.288 6.72672e-7 0 0 ]msf
-390.65 483.234 mo
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+331.452 444.835 mo
 (0)sh
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-483.58 483.234 mo
+ALFXVL+Calibri*1 [-6.71616e-7 -15.264 -15.264 6.71616e-7 0 0 ]msf
+421.353 444.835 mo
 (0)sh
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-135.38 290.364 mo
+ALFXVL+Calibri*1 [-6.71616e-7 -15.264 -15.264 6.71616e-7 0 0 ]msf
+85.1625 267.905 mo
 (10)
-[-7.77603 0 ]ysh
-VGICLC+Calibri*1 [-6.72672e-7 -15.288 -15.288 6.72672e-7 0 0 ]msf
-228.34 498.494 mo
+[-7.75211 0 ]ysh
+ALFXVL+Calibri*1 [-6.71616e-7 -15.264 -15.264 6.71616e-7 0 0 ]msf
+175.092 460.075 mo
 (0)sh
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-321.26 328.884 mo
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+265.013 303.255 mo
 (8)sh
-VGICLC+Calibri*1 [-6.72672e-7 -15.288 -15.288 6.72672e-7 0 0 ]msf
-414.22 498.494 mo
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+354.943 460.075 mo
 (0)sh
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-507.14 498.494 mo
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+444.872 460.075 mo
 (0)sh
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
@@ -9606,17 +9608,17 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two 5{/.notdef}rp /eight 199{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-137.28 247.964 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [-6.71616e-7 -15.264 -15.264 6.71616e-7 0 0 ]msf
+87.0525 228.715 mo
 (12)
-[-7.77603 0 ]ysh
-VGICLC+Calibri*1 [-6.72672e-7 -15.288 -15.288 6.72672e-7 0 0 ]msf
-230.23 247.964 mo
+[-7.75211 0 ]ysh
+ALFXVL+Calibri*1 [-6.71616e-7 -15.264 -15.264 6.71616e-7 0 0 ]msf
+176.982 228.715 mo
 (12)
-[-7.77606 0 ]ysh
+[-7.75211 0 ]ysh
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
 systemdict /gcheck known {currentglobal PBAAAA+Calibri gcheck setglobal} if
@@ -9646,14 +9648,14 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two /three 4{/.notdef}rp /eight 199{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-323.16 434.894 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [-6.71616e-7 -15.264 -15.264 6.71616e-7 0 0 ]msf
+266.913 401.275 mo
 (3)sh
-VGICLC+Calibri*1 [-6.72672e-7 -15.288 -15.288 6.72672e-7 0 0 ]msf
-416.11 498.494 mo
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+356.842 460.075 mo
 (0)sh
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
@@ -9681,51 +9683,51 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two /three /four 3{/.notdef}rp /eight 
 199{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [-6.73728e-7 -15.312 -15.312 6.73728e-7 0 0 ]msf
-509.04 413.704 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [-6.7056e-7 -15.24 -15.24 6.7056e-7 0 0 ]msf
+446.772 381.665 mo
 (4)sh
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
-VGICLC+Calibri*1 [17.112 0 0 -17.112 0 0 ]msf
-540.84 499.284 mo
+ALFXVL+Calibri*1 [17.064 0 0 -17.064 0 0 ]msf
+477.083 460.985 mo
 (0)sh
 grestore
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
-VGICLC+Calibri*1 [17.136 0 0 -17.136 0 0 ]msf
-540.84 456.884 mo
+ALFXVL+Calibri*1 [17.088 0 0 -17.088 0 0 ]msf
+477.083 421.765 mo
 (2)sh
 grestore
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
-VGICLC+Calibri*1 [17.136 0 0 -17.136 0 0 ]msf
-540.84 414.474 mo
+ALFXVL+Calibri*1 [17.064 0 0 -17.064 0 0 ]msf
+477.083 382.575 mo
 (4)sh
 grestore
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
@@ -9753,61 +9755,68 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two /three /four /.notdef /six 
 /.notdef /eight 199{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [17.136 0 0 -17.136 0 0 ]msf
-540.84 372.064 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [17.088 0 0 -17.088 0 0 ]msf
+477.083 343.365 mo
 (6)sh
 grestore
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
-VGICLC+Calibri*1 [17.136 0 0 -17.136 0 0 ]msf
-540.84 329.654 mo
+ALFXVL+Calibri*1 [17.088 0 0 -17.088 0 0 ]msf
+477.083 304.145 mo
 (8)sh
 grestore
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
-VGICLC+Calibri*1 [17.136 0 0 -17.136 0 0 ]msf
-540.84 287.244 mo
+ALFXVL+Calibri*1 [17.064 0 0 -17.064 0 0 ]msf
+477.083 264.955 mo
 (10)
-[8.68805 0 ]xsh
+[8.66412 0 ]xsh
 grestore
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
-VGICLC+Calibri*1 [17.112 0 0 -17.112 0 0 ]msf
-540.84 244.864 mo
+ALFXVL+Calibri*1 [17.088 0 0 -17.088 0 0 ]msf
+477.083 225.735 mo
 (12)
-[8.68805 0 ]xsh
+[8.66406 0 ]xsh
 grestore
 gsave
-51.24 539.464 mo
-560.76 539.464 li
-560.76 5.70428 li
-51.24 5.70428 li
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
 cp
 eclp
-VGICLC+Calibri*1 [17.112 0 0 -17.112 0 0 ]msf
-540.84 202.454 mo
+ALFXVL+Calibri*1 [17.064 0 0 -17.064 0 0 ]msf
+477.083 186.545 mo
 (14)
-[8.68805 0 ]xsh
+[8.66412 0 ]xsh
 grestore
+gsave
+3.9925 497.945 mo
+496.953 497.945 li
+496.953 4.0246 li
+3.9925 4.0246 li
+cp
+eclp
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
 systemdict /gcheck known {currentglobal PBAAAA+Calibri gcheck setglobal} if
@@ -9887,15 +9896,16 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two /three /four /.notdef /six 
 /.notdef /eight 8{/.notdef}rp /A /.notdef /C /.notdef /E 
 12{/.notdef}rp /R /.notdef /T /U 170{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [15.312 0 0 -15.312 0 0 ]msf
-63.768 518.514 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [15.24 0 0 -15.24 0 0 ]msf
+13.8565 480.165 mo
 (ACCURATE)
-[11.1624 10.5041 10.5041 12.0811 10.504 11.1624 9.79967 0 ]xsh
+[11.1404 10.4547 10.4547 12.0548 10.4546 11.1404 9.78408 0 ]xsh
+grestore
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
 systemdict /gcheck known {currentglobal PBAAAA+Calibri gcheck setglobal} if
@@ -9930,16 +9940,16 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two /three /four /.notdef /six 
 /.notdef /eight 8{/.notdef}rp /A /.notdef /C /.notdef /E 
 8{/.notdef}rp /N /.notdef /P /.notdef /R /.notdef /T 
 /U 170{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [15.312 0 0 -15.312 0 0 ]msf
-167.66 518.514 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [15.24 0 0 -15.24 0 0 ]msf
+114.703 480.165 mo
 (PARENT)
-[10.2743 11.193 10.504 9.8304 12.1117 0 ]xsh
+[10.226 11.1404 10.4699 9.78418 12.0548 0 ]xsh
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
 systemdict /gcheck known {currentglobal PBAAAA+Calibri gcheck setglobal} if
@@ -9989,16 +9999,16 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two /three /four /.notdef /six 
 /.notdef /eight 8{/.notdef}rp /A /.notdef /C /D /E 
 2{/.notdef}rp /H /I 2{/.notdef}rp /L /.notdef /N /.notdef 
 /P /.notdef /R /.notdef /T /U 170{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [15.312 0 0 -15.312 0 0 ]msf
-251.93 518.514 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [15.24 0 0 -15.24 0 0 ]msf
+195.753 480.165 mo
 (CHILDREN)
-[10.5041 11.8668 6.15543 8.66656 11.6219 10.504 9.79977 0 ]xsh
+[10.47 11.811 6.12646 8.65628 11.5977 10.4699 9.78418 0 ]xsh
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
 systemdict /gcheck known {currentglobal PBAAAA+Calibri gcheck setglobal} if
@@ -10040,20 +10050,20 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [48{/.notdef}rp /zero /one /two /three /four /.notdef /six 
 /.notdef /eight 8{/.notdef}rp /A /.notdef /C /D /E 
 2{/.notdef}rp /H /I 2{/.notdef}rp /L /M /N /.notdef 
 /P /.notdef /R /S /T /U 170{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [15.312 0 0 -15.312 0 0 ]msf
-365.42 518.514 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [15.24 0 0 -15.24 0 0 ]msf
+306.172 480.165 mo
 (MISS)
-[15.2966 6.1554 9.34033 0 ]xsh
-VGICLC+Calibri*1 [15.312 0 0 -15.312 0 0 ]msf
-427.99 518.514 mo
+[15.2552 6.12646 9.32684 0 ]xsh
+ALFXVL+Calibri*1 [15.24 0 0 -15.24 0 0 ]msf
+365.813 480.165 mo
 (REDUNDANT)
-[10.504 9.79977 11.6219 12.0811 12.0811 11.6219 11.1624 12.0811 0 ]xsh
+[10.4546 9.78418 11.5977 12.0548 12.0547 11.5977 11.1404 12.0548 0 ]xsh
 %ADOBeginSubsetFont: HIBBAA+Calibri,Bold Initial
 ct_T42Dict begin
 -0.516 -0.305 1.238 0.969
@@ -11223,18 +11233,18 @@ dup 84 /T put
 pop
 end
 %ADOEndSubsetFont
-/VGICLD+Calibri,Bold /HIBBAA+Calibri,Bold findfont ct_VMDictPut
-/VGICLD+Calibri,Bold*1 
+/ALFXVM+Calibri,Bold /HIBBAA+Calibri,Bold findfont ct_VMDictPut
+/ALFXVM+Calibri,Bold*1 
 [70{/.notdef}rp /F 8{/.notdef}rp /O 4{/.notdef}rp /T 171{/.notdef}rp]
-VGICLD+Calibri,Bold nf
-VGICLD+Calibri,Bold*1 [30.384 0 0 -30.384 0 0 ]msf
-266.86 49.0243 mo
+ALFXVM+Calibri,Bold nf
+ALFXVM+Calibri,Bold*1 [30.288 0 0 -30.288 0 0 ]msf
+211.592 47.4846 mo
 (OFOT)
-[22.8182 15.9516 22.1194 0 ]xsh
-90.193 92.1943 mo
-99.5983 92.1943 li
-99.5983 82.789 li
-90.193 82.789 li
+[22.7461 15.9012 22.0798 0 ]xsh
+38.8625 90.5146 mo
+48.2416 90.5146 li
+48.2416 81.1355 li
+38.8625 81.1355 li
 cp
 .441932 .103243 .851316 .000457771 cmyk
 ef
@@ -11401,7 +11411,7 @@ pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [32{/.notdef}rp /space 15{/.notdef}rp /zero /one /two /three /four 
 /.notdef /six /.notdef /eight 8{/.notdef}rp /A /.notdef /C 
 /D /E 2{/.notdef}rp /H /I 2{/.notdef}rp /L /M 
@@ -11409,23 +11419,23 @@ end
 11{/.notdef}rp /a /.notdef /c /.notdef /e /.notdef /g 
 /.notdef /i 2{/.notdef}rp /l /.notdef /n /.notdef /p 
 /.notdef /r /s /t 4{/.notdef}rp /y 134{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [17.112 0 0 -17.112 0 0 ]msf
-103.61 92.3443 mo
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [17.088 0 0 -17.088 0 0 ]msf
+52.2325 90.6646 mo
 (replacing strategy)
-[5.97207 8.60735 8.89814 3.86724 8.19672 7.28978 3.86723 8.89815 8.19652 3.86728 6.62245 5.73264 
-5.90361 8.19672 5.73264 8.64159 7.99118 0 ]xsh
-240.48 92.2443 mo
-250.069 92.2443 li
-250.069 82.655 li
-240.48 82.655 li
+[5.96369 8.61237 8.88565 3.86182 8.18523 7.29665 3.86182 8.88565 8.18503 3.86185 6.59608 5.72459 
+5.89534 8.18523 5.72458 8.62947 7.96288 0 ]xsh
+190.042 81.0346 mo
+194.822 85.8146 li
+190.042 90.5946 li
+185.262 85.8146 li
 cp
-.18497 .816068 .688869 .0602731 cmyk
+.719692 .439979 .027985 0 cmyk
 f
-240.48 92.2443 mo
-250.069 92.2443 li
-250.069 82.655 li
-240.48 82.655 li
+190.042 81.0346 mo
+194.822 85.8146 li
+190.042 90.5946 li
+185.262 85.8146 li
 cp
 @
 1 /0 /CSD get_res sepcs
@@ -11453,15 +11463,16 @@ b801f9b2302a25b8ffd040121011014c250aed36471a26ed3048204c1048
 080b0905120fc908132018182013087f101004080c087f23486d4a234224
 0c0803050f13170e05090b091833513a6207111a132420fceb080b080404
 080b0803152024131a11075d5e8756290d0f0c131b00>PBAAAA+Calibri AddT42Char 
-2 13982 346 <00010099fffa03a0057100320079b43f34012a13b8ffe8b30b014d13b8ff
-f0b40f10014c13b8fff6b30c014d13b8fff0b30d014d13b801f840171e0b
-0a0c014d0b100d014d0b180b014d0b100f10014c0bb801f8400a00400c01
-4d001e2a1910b80106b72d4a2446194c054c003f3f3f3fed1239012f2f2b
-e12b2b2b2b10e12b2b2b2b3931305d25140e0223222e023511342e022322
-060711140e0223222e023511343e0233321e021511363633321e021503a0
-0812201819201208182e49303e7c44081220191820130707132018192012
-084790495a7b4c2119080b080404080b08020f4d5e44245855fd8b080b08
-0404080b080538080c080404080c08fde54b493d66896100>PBAAAA+Calibri AddT42Char 
+2 15000 381 <0002005affed03de03ca0013002700a8401c3f2901281201291101260d01
+260c012608012607012a03012902011eb8ffe8b310014d1eb8fff0b30f01
+4d1eb8ffe0b30d014d1eb8ffeeb30c014d1eb8ffe8b30b014d1eb8020a40
+1e2f0a010a141810014d14100f014d14200d014d14120c014d14180b014d
+14ba020a0000ffc0b70f004d7000010019b80101b20f4a23b80102b1054d
+003fed3fed012f5d2be12b2b2b2b2b2f5de12b2b2b2b2b31305d5d5d5d5d
+5d5d5d5d01140e0223222e0235343e0233321e0207342e0223220e021514
+1e0233323e0203de3a73ad726fa56e363973ac736fa56e37ae1b3e6a4f49
+6944211b3f6a4f486a442001e56eb9864b427eb4726eb9864a427eb47c49
+826239345f824d4a826139345e82>PBAAAA+Calibri AddT42Char 
 3 2616 437 <00010094ffed039c03bc00320092401f3f34010b27100d014d270a0c014d
 27080b014d27100f10014c27100b014d27b801f9b6004011014d001fb8ff
 f0b30d014d1fb8fff6b30c014d1fb8fff8b40f10014c1fb8fff8b30b014d
@@ -11475,44 +11486,44 @@ f44f5f432558550275080b090303090b0800>PBAAAA+Calibri AddT42Char
 PBAAAA+Calibri /CharStrings get begin
 /d 282 def
 /f 296 def
-/h 346 def
+/o 381 def
 /u 437 def
 end
 PBAAAA+Calibri /Encoding get
 dup 100 /d put
 dup 102 /f put
-dup 104 /h put
+dup 111 /o put
 dup 117 /u put
 pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [32{/.notdef}rp /space 15{/.notdef}rp /zero /one /two /three /four 
 /.notdef /six /.notdef /eight 8{/.notdef}rp /A /.notdef /C 
 /D /E 2{/.notdef}rp /H /I 2{/.notdef}rp /L /M 
 /N /.notdef /P /.notdef /R /S /T /U 
 11{/.notdef}rp /a /.notdef /c /d /e /f /g 
-/h /i 2{/.notdef}rp /l /.notdef /n /.notdef /p 
+/.notdef /i 2{/.notdef}rp /l /.notdef /n /o /p 
 /.notdef /r /s /t /u 3{/.notdef}rp /y 134{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [17.112 0 0 -17.112 0 0 ]msf
-254.21 92.3443 mo
-(distinguish faults)
-[8.89815 4.08969 6.60535 5.73264 3.81589 9.10349 7.99118 8.89813 4.08969 6.60535 8.89813 3.86728 
-5.21902 8.19672 9.12061 3.86725 5.7326 0 ]xsh
-389.11 82.6543 mo
-393.9 87.4443 li
-389.11 92.2443 li
-384.31 87.4443 li
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [17.088 0 0 -17.088 0 0 ]msf
+198.943 90.6646 mo
+(regard as one fault)
+[5.9637 8.61235 7.96289 8.18524 5.96368 8.86856 3.86185 8.18524 6.85239 3.63971 9.07361 8.88565 
+8.64655 3.86185 5.2117 8.18524 8.97107 3.81058 0 ]xsh
+338.482 90.5946 mo
+348.045 90.5946 li
+348.045 81.0321 li
+338.482 81.0321 li
 cp
-.719692 .439979 .027985 3.0518e-5 cmyk
+.18497 .816068 .688869 .0602731 cmyk
 f
-1.3699 lw
-389.11 82.6543 mo
-393.9 87.4443 li
-389.11 92.2443 li
-384.31 87.4443 li
+1.423 lw
+338.482 90.5946 mo
+348.045 90.5946 li
+348.045 81.0321 li
+338.482 81.0321 li
 cp
 @
 1 /0 /CSD get_res sepcs
@@ -11520,26 +11531,25 @@ cp
 %ADOBeginSubsetFont: PBAAAA+Calibri AddGlyphs
 ct_T42Dict begin
 systemdict /gcheck known {currentglobal PBAAAA+Calibri gcheck setglobal} if
-2 15000 381 <0002005affed03de03ca0013002700a8401c3f2901281201291101260d01
-260c012608012607012a03012902011eb8ffe8b310014d1eb8fff0b30f01
-4d1eb8ffe0b30d014d1eb8ffeeb30c014d1eb8ffe8b30b014d1eb8020a40
-1e2f0a010a141810014d14100f014d14200d014d14120c014d14180b014d
-14ba020a0000ffc0b70f004d7000010019b80101b20f4a23b80102b1054d
-003fed3fed012f5d2be12b2b2b2b2b2f5de12b2b2b2b2b31305d5d5d5d5d
-5d5d5d5d01140e0223222e0235343e0233321e0207342e0223220e021514
-1e0233323e0203de3a73ad726fa56e363973ac736fa56e37ae1b3e6a4f49
-6944211b3f6a4f486a442001e56eb9864b427eb4726eb9864a427eb47c49
-826239345f824d4a826139345e82>PBAAAA+Calibri AddT42Char 
+2 13982 346 <00010099fffa03a0057100320079b43f34012a13b8ffe8b30b014d13b8ff
+f0b40f10014c13b8fff6b30c014d13b8fff0b30d014d13b801f840171e0b
+0a0c014d0b100d014d0b180b014d0b100f10014c0bb801f8400a00400c01
+4d001e2a1910b80106b72d4a2446194c054c003f3f3f3fed1239012f2f2b
+e12b2b2b2b10e12b2b2b2b3931305d25140e0223222e023511342e022322
+060711140e0223222e023511343e0233321e021511363633321e021503a0
+0812201819201208182e49303e7c44081220191820130707132018192012
+084790495a7b4c2119080b080404080b08020f4d5e44245855fd8b080b08
+0404080b080538080c080404080c08fde54b493d66896100>PBAAAA+Calibri AddT42Char 
 PBAAAA+Calibri /CharStrings get begin
-/o 381 def
+/h 346 def
 end
 PBAAAA+Calibri /Encoding get
-dup 111 /o put
+dup 104 /h put
 pop
 systemdict /gcheck known {setglobal} if
 end
 %ADOEndSubsetFont
-/VGICLC+Calibri*1 
+/ALFXVL+Calibri*1 
 [32{/.notdef}rp /space 15{/.notdef}rp /zero /one /two /three /four 
 /.notdef /six /.notdef /eight 8{/.notdef}rp /A /.notdef /C 
 /D /E 2{/.notdef}rp /H /I 2{/.notdef}rp /L /M 
@@ -11547,28 +11557,28 @@ end
 11{/.notdef}rp /a /.notdef /c /d /e /f /g 
 /h /i 2{/.notdef}rp /l /.notdef /n /o /p 
 /.notdef /r /s /t /u 3{/.notdef}rp /y 134{/.notdef}rp]
-VGICLC+Calibri nf
-VGICLC+Calibri*1 [17.112 0 0 -17.112 0 0 ]msf
-398.02 92.3443 mo
-(regard as one fault)
-[5.97208 8.62445 7.99121 8.19669 5.97208 8.89813 3.86728 8.23096 6.82779 3.64481 9.12057 8.89813 
-8.67581 3.86728 5.25323 8.19672 8.9837 3.85016 0 ]xsh
+ALFXVL+Calibri nf
+ALFXVL+Calibri*1 [17.088 0 0 -17.088 0 0 ]msf
+352.112 90.6646 mo
+(distinguish faults)
+[8.88565 4.08395 6.5961 5.72458 3.82764 9.10779 7.96289 8.88568 4.08395 6.59607 8.88565 3.86185 
+5.21173 8.18521 9.14197 3.86182 5.72461 0 ]xsh
 gsave
-50.4 540.544 mo
-561.6 540.544 li
-561.6 4.98431 li
-50.4 4.98431 li
+3.27251 498.785 mo
+497.792 498.785 li
+497.792 3.30463 li
+3.27251 3.30463 li
 cp
 eclp
-1.427 lw
-51.229 539.724 mo
-560.939 539.724 li
-560.939 5.74432 li
-51.229 5.74432 li
+4.24551 498.005 mo
+497.125 498.005 li
+497.125 4.30463 li
+4.24551 4.30463 li
 cp
 1 /0 /CSD get_res sepcs
 .149 sep
 @
+grestore
 grestore
 grestore
 grestore
@@ -11578,11 +11588,11 @@ pgrs
 [/CSA [/0 /1 ]]
 [/CSD [/0 ]]
 ] del_res
-/VGICLD+Calibri,Bold*1 uf
-/VGICLD+Calibri,Bold uf
+/ALFXVM+Calibri,Bold*1 uf
+/ALFXVM+Calibri,Bold uf
 /HIBBAA+Calibri,Bold uf
-/VGICLC+Calibri*1 uf
-/VGICLC+Calibri uf
+/ALFXVL+Calibri*1 uf
+/ALFXVL+Calibri uf
 /PBAAAA+Calibri uf
 Adobe_AGM_Image/pt gx
 Adobe_CoolType_Core/pt get exec
