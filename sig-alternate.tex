@@ -51,6 +51,8 @@
 \usepackage{algorithm}
 \usepackage{amsmath}
 \usepackage{url}
+\usepackage{graphicx}
+\usepackage{subfigure}
 
 \usepackage{footnote}
 \makesavenoteenv{tabular}
@@ -156,7 +158,7 @@ Once failures are detected, it is desired to isolate the failure-inducing intera
 
 %jieLi and paritiion
 
-While all these approaches can help developers to isolate the failure-inducing factors in failing test cases, in our recently studies on several open-source software, however, we found these approaches suffered from \emph{masking effects} of multiple faults in SUT. A masking effect \cite{dumlu2011feedback,yilmaz2013reducing} is an effect that some failures prevents test cases from normally checking combinations that are supposed to be tested. Take the Linux command-- \emph{Grep} for example, we noticed that there are two different faults reported in the bug tracker system. The first one \footnote{http://savannah.gnu.org/bugs/?29537}  claims that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one \footnote{http://savannah.gnu.org/bugs/?33080} claims a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. This effect was firstly introduced by Dumllu and Ylimaz in \cite{dumlu2011feedback}, in which they found that the masking effects in CT can make traditional covering array failed detecting some combinations and they proposed an approach to work around them. Their recent work \cite{yilmaz2013reducing} further empirically studied the impacts on the failure-inducing combinations identifying approach (FCI approach for short):  classification tree approach(CTA for short)\cite{yilmaz2006covering}, of which CTA has two versions, i.e., ternary-class and multiple-class. 
+While all these approaches can help developers to isolate the failure-inducing factors in failing test cases, in our recently studies on several open-source software, however, we found these approaches suffered from \emph{masking effects} of multiple faults in SUT. A masking effect \cite{dumlu2011feedback,yilmaz2013reducing} is an effect that some failures prevents test cases from normally checking combinations that are supposed to be tested. Take the Linux command-- \emph{Grep} for example, we noticed that there are two different faults reported in the bug tracker system. The first one \footnote{http://savannah.gnu.org/bugs/?29537}  claims that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one \footnote{http://savannah.gnu.org/bugs/?33080} claims a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. This effect was firstly introduced by Dumllu and Ylimaz in \cite{dumlu2011feedback}, in which they found that the masking effects in CT can make traditional covering array failed detecting some combinations and they proposed an approach to work around them. Their recent work \cite{yilmaz2013reducing} further empirically studied the impacts on the failure-inducing combinations identifying approach (FCI approach for short):  classification tree approach(CTA for short)\cite{yilmaz2006covering}, of which CTA has two versions, i.e., ternary-class and multiple-class.
 
 %Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
 
@@ -293,7 +295,7 @@ We consider the fact that the abnormally executing test cases as a \emph{failure
 Figuring out the test case as well as the executing result is usually not enough to analyse the source of the bug, especially when there are too many parameters we need to care in this test case. In this circumstance, we need to study some subsets of this test case, so we need the following definition:
 
 \begin{definition}
-For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} ($0 < k \leq n $) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". 
+For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} ($0 < k \leq n $) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-".
 
 In effect a test case itself is a k-value \emph{combination}, when k is equal to n. Furthermore, if a test case contain a \emph{combination}, i.e., every fixed value in this combination is also in this test case, we say this test case \emph{hit} this \emph{combination}.
 %, which can be denoted as $k-value\  combination \in T$
@@ -322,7 +324,7 @@ We have the following proposition based on these basic definitions.
 Let $c_{m}$ be a m-value combination, the set $P_{c_{m}}(m+l)$ = $ \{c_m+l : c_m \prec c_m+l \}$ be all the m+l value parent combination of $c_{m}$. Moreover, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$,  then we have the following formula:
 
 \begin{displaymath} T(c_{m}) = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{(m+l)_{i}}).\end{displaymath}
- 
+
 \end{proposition}
 
 The proof of this propositions is obvious, we just take an example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1)). Additional, some test cases of these parent-combinations may overlapped each other, for example, T((1,0,-)) overlap with T((1,-,1)) at the test case (1,0,1).
@@ -335,10 +337,10 @@ For a combination $c_{m}$, if all the test cases in $T(c_{m})$ triggered fault $
 \begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
 
 \end{proposition}
-%then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations. 
+%then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations.
 
 
-\begin{proof}  
+\begin{proof}
 
 We proof this proposition by two steps:
 
@@ -379,32 +381,32 @@ We illustrate this two scenarios in table \ref{example_three_condition}. There a
 \label{example_three_condition}
   \begin{tabular}{cc}
 $T_{l}$&$T_{k}$ \\ \hline
-(0, 0, 0)&(0, 0, 0)\\ 
-(0, 0, 1)&(0, 0, 1) \\ 
-(0, 1, 0)&(0, 1, 0)\\ 
+(0, 0, 0)&(0, 0, 0)\\
+(0, 0, 1)&(0, 0, 1) \\
+(0, 1, 0)&(0, 1, 0)\\
          &(0, 1, 1) \\ \hline
  $C_{l}$&$C_{k}$ \\ \hline
-(0, 0, -)&(0, -, -)\\ 
+(0, 0, -)&(0, -, -)\\
 (0, 1, 0)&		   \\ \hline
   \end{tabular}
   \hspace{1em}
   \begin{tabular}{cc}
 $T_{l}$&$T_{k}$\\ \hline
-(0, 0, 0) & (0, 0, 0)\\ 
-(0, 0, 1) & (0, 0, 1)\\ 
+(0, 0, 0) & (0, 0, 0)\\
+(0, 0, 1) & (0, 0, 1)\\
 (0, 1, 0) & (0, 1, 0)\\
-		  & (1, 0, 0)\\ 
-		  & (1, 0, 1)\\ 
-		  & (1, 1, 0)\\ 
+		  & (1, 0, 0)\\
+		  & (1, 0, 1)\\
+		  & (1, 1, 0)\\
 		  & (1, 1, 1)\\ \hline
 $C_{l}$&$C_{k}$ \\ \hline
-(0, 0, -)&  (0, 0, -)\\ 
-(0, 1, 0)&  (0, 1, 0)\\ 
+(0, 0, -)&  (0, 0, -)\\
+(0, 1, 0)&  (0, 1, 0)\\
 		 &  (1, -, -)\\  \hline
   \end{tabular}
   \end{table}
-  
-  
+
+
 %\begin{tabular}{|c|c|c|} \hline
 %sub&parent1& parent2\\ \hline
 %(0, 0, 0)&(0, 0, 0) & (0, 0, 0)\\ \hline
@@ -438,7 +440,7 @@ A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-in
 %This masking effect can be presented as $t(F_{b})[F_{a}]$, which means test case \emph{t} should trigger $F_{a}$ if didn't trigger $F_{b}$.
 \end{definition}
 
-based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$ for a particular fault $F_{m}$ masked by these test cases. 
+based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$ for a particular fault $F_{m}$ masked by these test cases.
 
 So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} \bigcup T_{mask(F_{m})}$. We call the failure-inducing combinations with considering the masking effects the \emph{perfect failure-inducing combinations}. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
 
@@ -644,7 +646,7 @@ Note that our discuss is based on the SUT is a deterministic software, i.e., the
 
 
 \section{test case replacing strategy}
-Previous section formally studied the case that under the masking effects, neither regarding as one fault approach nor distinguishing faults approach is not accurate . The main reason is that we cannot figure out the $T(mask_{F_{m}})$.  As $T(mask_{F_{m}}) \subset \bigcup_{i = 1 \& j \neq m }^{L}T_{F_{i}}$. So to reduce the influence of $T(mask_{F_{m}})$, we need to reduce the number of test cases that trigger other faults as much as possible. 
+Previous section formally studied the case that under the masking effects, neither regarding as one fault approach nor distinguishing faults approach is not accurate . The main reason is that we cannot figure out the $T(mask_{F_{m}})$.  As $T(mask_{F_{m}}) \subset \bigcup_{i = 1 \& j \neq m }^{L}T_{F_{i}}$. So to reduce the influence of $T(mask_{F_{m}})$, we need to reduce the number of test cases that trigger other faults as much as possible.
 
 In the exhaustive testing, as all the test cases will be used to identify the failure-inducing combinations, so there is no room left to improve the accurateness. However, when just choose part of the whole test cases, which is practical and sometimes the only solution for large-scale SUT, we can adjust the test cases we need to use by choosing proper ones so that we can limit the number of $T(mask_{F_{m}})$ to  be as less as possible.
 
@@ -885,14 +887,14 @@ HSQLDB  &2.0rc8 & 139425 & 495 &  \#981 \& \#1005\\
 	   &2.2.5 & 156066 & 508 & \#1173 \&  \#1179\\
 	    &2.2.9 & 162784 &525 & \#1286 \& \#1280\\
 JFlex  &1.4.1 &  10040 &58 & \#87 \& \#80 \\
-      &1.4.2 &  10745 &61 &  \#98 \& \#93  \\ 
+      &1.4.2 &  10745 &61 &  \#98 \& \#93  \\
 \hline\end{tabular}
 \end{table}
 %http://hsqldb2.0.sourcearchive.com/downloads/2.0.0$\scriptsize{\sim}$rc8/
 
 %\footnote{http://sourceforge.net/projects/jflex/files/jflex}
 
-% \footnote{http://sourceforge.net/projects/hsqldb/files/hsqldb/ } 
+% \footnote{http://sourceforge.net/projects/hsqldb/files/hsqldb/ }
 
 \subsubsection{study setup}
 We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#981 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed result will be regarded as the "perfect combinations" later.
@@ -909,7 +911,7 @@ We further selected pairs of bugs belong to the same version and merged their te
 %- & 2.2.5 & \#1173 \&  \#1179   \\ \hline
 %- & 2.2.9 & \#1286 \& \#1280  \\ \hline
 %JFlex   & 1.4.1 & \#87 \& \#80 \\ \hline
-% - & 1.4.2 & \#98 \& \#93   \\ 
+% - & 1.4.2 & \#98 \& \#93   \\
 %\hline\end{tabular}
 %\end{table}
 
@@ -928,7 +930,7 @@ Next we built the input model which consist of the options related to the perfec
       sql.enforce\_names & true, false \\
       sql.enforce\_refs & true, false \\
 %      sql.enforce\_size & true, false \\
-%      sql.enforce\_types & true, false\\ 
+%      sql.enforce\_types & true, false\\
 %   hsqldb.default\_table\_type & cached, memory \\
 %   hsqldb.tx & locks, mvlocks, mvcc\\
 %   hsqldb.tx\_level & read\_commited, serializable\\
@@ -976,7 +978,7 @@ Next we built the input model which consist of the options related to the perfec
    \hline
     2.0rc8 & $2^{9} \times 3^{2} \times 4^{1}$ \\
     2.2.5 &  $2^{8} \times 3^{3}$ \\
-    2.2.9 & $2^{8} \times 3^{3}$ 
+    2.2.9 & $2^{8} \times 3^{3}$
   \end{tabular}
 \end{table}
 
@@ -999,9 +1001,9 @@ Next we built the input model which consist of the options related to the perfec
      yyeof & true, false \\
      generation & switch, table, pack \\
      charset &default, 7bit, 8bit, 16bit\\
-      
+
 %      sql.enforce\_size & true, false \\
-%      sql.enforce\_types & true, false\\ 
+%      sql.enforce\_types & true, false\\
 %   hsqldb.default\_table\_type & cached, memory \\
 %   hsqldb.tx & locks, mvlocks, mvcc\\
 %   hsqldb.tx\_level & read\_commited, serializable\\
@@ -1011,7 +1013,7 @@ Next we built the input model which consist of the options related to the perfec
 %  \hline
 %  \bfseries Server properties &   \bfseries values \\
 %   \hline
-  
+
 %  \end{tabular}
 
   \end{tabular}
@@ -1047,10 +1049,10 @@ Table \ref{masking effect condition} lists the results of our survey. Column "Fa
 \begin{tabular}{c|c|c|c|c} \hline
 software & versions & all tests & failure & masking\\ \hline
 HSQLDB & 2cr8 & 18432 & 4608 & 768\\ \hline
-     - & 2.2.5 & 4608 & 2880 &1152\\ \hline
-     - & 2.2.9 & 4608 & 2880 &1344\\ \hline
-JFlex & 1.4.1 & 24576 & 18432 &6144\\ \hline
-     -& 1.4.2 & 49152 & 30720 &6144\\ \hline
+     - & 2.2.5 & 6912 & 3456 & 576\\ \hline
+     - & 2.2.9 & 6912 & 3456 &1728\\ \hline
+JFlex & 1.4.1 & 36864 & 24576 &6144\\ \hline
+     -& 1.4.2 & 73728 & 36864 &6144\\ \hline
 \hline\end{tabular}
 \end{table}
 
@@ -1115,19 +1117,57 @@ Particularly, if the value of discrepancy number metric is 0 and the value of si
 
 \subsubsection{result and discuss}
 Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicates the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" presents the similarity between this two set of combinations. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC", "OFOT", "CTA", indicating corresponding algorithms respectively. It is noted that for column "CTA", the vale we set in each cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
-
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{traditional result}
-\label{traiditional_result}
-\begin{tabular}{p{0.16\columnwidth}|p{0.07\columnwidth}|p{0.35\columnwidth}|p{0.35\columnwidth}} \hline
-   Software & version  &  num diff & similarity
-\end{tabular}
-
-\begin{tabular}{c|c|c|c|c|c|c|c} \hline
-	- & 		- &	OFOT	& FIC 	& CTA 	& OFOT 	& FIC 	& CTA  \\ \hline
-HSQLDB &	 3.14 &	3	& 4 		& 4 		& 0.65 	& 0.64	&  0.5 \\
-\hline\end{tabular}
-\end{table}
+%\begin{figure*}
+%
+%\centering
+%\subfigure[Small Box with a Long Caption]{
+%
+%\label{fig:subfig:a} %% label for first subfigure
+%
+%\includegraphics[width=1.5in]{FIC_BS_normal.eps}}
+%
+%\hspace{1in}
+%
+%
+%\subfigure[Small Box with a Long Caption]{
+%
+%\label{fig:subfig:a} %% label for first subfigure
+%
+%\includegraphics[width=1.5in]{OFOT_normal.eps}}
+%
+%\hspace{1in}
+%
+%\subfigure[Big Box]{
+%
+%\label{fig:subfig:b} %% label for second subfigure
+%
+%\includegraphics[width=1.5in]{CTA_normal.eps}}
+%
+%\caption{Two Subfigures}
+%
+%\label{fig:subfig} %% label for entire figure
+%
+%\end{figure*}
+\begin{figure*}[ht]
+\centering
+\subfigure[Caption of subfigure 1]{
+  %  \rule{4cm}{3cm}
+    \label{fig:subfig1}
+    \includegraphics[width=2.21in]{FIC_BS_normal.eps}
+}
+\subfigure[Caption of subfigure 2]{
+  %  \rule{4cm}{3cm}
+    \label{fig:subfig2}
+    \includegraphics[width=2.21in]{OFOT_normal.eps}
+}
+\subfigure[Caption of subfigure 3]{
+  %  \rule{4cm}{3cm}
+    \label{fig:subfig3}
+    \includegraphics[width=2.21in]{CTA_normal.eps}
+}
+\caption[Optional caption for list of figures]{Caption of subfigures \subref{fig:subfig1}, \subref{fig:subfig2} and \subref{fig:subfig3}}
+\label{fig:subfigureExample}
+\end{figure*}
 
 From this table, we can easily find that Traditional MFS identifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additionally, the extent to which the impact has affected vary from algorithms. We can find that for HSQLDB with version 3.14, the similarity of CTA was just at 4 while FIC is 3. We list these points in figure 3. From this figure, we can learn that.
 
@@ -1142,18 +1182,27 @@ The setup of this case study is almost the same as the second case study. The di
 \subsubsection{result and analysis}
 Table \ref{our_result} presents the result of the last case study. The form of this table is similar to the second study. We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized.
 
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{our approach result}
-\label{our_result}
-\begin{tabular}{p{0.16\columnwidth}|p{0.07\columnwidth}|p{0.35\columnwidth}|p{0.35\columnwidth}} \hline
-   Software & ver  &  num diff & similarity
-\end{tabular}
+\begin{figure*}[ht]
+\centering
+\subfigure[Caption of subfigure 1]{
+  %  \rule{4cm}{3cm}
+    \label{fig:subfig4}
+    \includegraphics[width=2.21in]{FIC_BS_our.eps}
+}
+\subfigure[Caption of subfigure 2]{
+  %  \rule{4cm}{3cm}
+    \label{fig:subfig5}
+    \includegraphics[width=2.21in]{OFOT_our.eps}
+}
+\subfigure[Caption of subfigure 3]{
+  %  \rule{4cm}{3cm}
+    \label{fig:subfig6}
+    \includegraphics[width=2.21in]{CTA_our.eps}
+}
+\caption[Optional caption for list of figures]{Caption of subfigures \subref{fig:subfig4}, \subref{fig:subfig5} and \subref{fig:subfig6}}
+\label{fig:subfigureExample2}
+\end{figure*}
 
-\begin{tabular}{c|c|c|c|c|c|c|c} \hline
-- & - & OFOT & FIC & CTA & OFOT & FIC & CTA  \\ \hline
-HSQLDB & 3.14 & 3 (+4)& 4 (+4)& 4 (-2)& 0.65 (+0.01)& 0.64(-0.05)&  0.5(+0.03) \\
-\hline\end{tabular}
-\end{table}
 
 We observe that, for most cases, augment approaches got promotions against traditional ones. In fact, there are 10 out of 14 cases that augment ones outperform traditional ones at the metric of "similarity", and 9 out of 14 cases that augment ones are better than traditional ones at the metric of "num diff". Additional, this promotion is distinct. As we can see, the best promotion for similarity is 0.9 and the best promotion for num diff is 0.7. Furthermore, the average performance promotion for similarity reached '+ 0.6' and this value reached '+ 0.5' for the num diff metric.
 

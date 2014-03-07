@@ -52,6 +52,10 @@
 \usepackage{amsmath}
 \usepackage{url}
 
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
+
 \algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
 \algrenewcommand{\algorithmicensure}{\textbf{Output:}}
 \renewcommand{\algorithmicforall}{\textbf{for each}}
@@ -64,7 +68,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Identifying minimal failure-inducing combinations for multiple faults\titlenote{This work was supported by the National Natural Science Foundation of China (No. 61272079), the Research Fund for the Doctoral Program of Higher Education of China (No.20130091110032), the Science Fund for Creative Research Groups of the National Natural Science Foundation of China(No. 61321491), and the Major Program of National Natural Science Foundation of China (No. 91318301)}
+\title{Identify failure-inducing combinations for multiple faults\titlenote{This work was supported by the National Natural Science Foundation of China (No. 61272079), the Research Fund for the Doctoral Program of Higher Education of China (No.20130091110032), the Science Fund for Creative Research Groups of the National Natural Science Foundation of China(No. 61321491), and the Major Program of National Natural Science Foundation of China (No. 91318301)}
 %\subtitle{[Extended Abstract]
 }
 %
@@ -132,7 +136,7 @@ Changhai Nie\\
 % number that will appear in the \additionalauthors section.
 \maketitle
 \begin{abstract}
-Combinatorial testing(CT) is proven to be effective to reveal the potential failures caused by the interaction of the inputs or options of the system under test(SUT). A key problem in CT is to isolate the failure-inducing interactions in SUT as it can facilitate the debugging effort by reducing the scope of code that needs to be inspected. Many algorithms has been proposed to identify the failure-inducing interactions in SUT, however, most of these studies either just consider the condition of one fault in SUT or ignore masking effects among multiple faults which can bias their identified results. In this paper, we analysed how the masking effect of multiple faults affect on the isolation of failure-inducing interactions. We further give a strategy of selecting test cases to alleviate this impact. The key to the strategy is to prune these test cases that may trigger masking effect and generate no-masking-effect ones to test the interactions supposed to be tested in these pruned test cases. The test-case selecting process repeated until we get enough information to isolate the failure-inducing interactions in SUT. We conducted some empirical studies on several open-source GNU software. The result of the studies shows that multiple faults do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when handling multiple faults in SUT.
+Combinatorial testing(CT) is proven to be effective to reveal the potential failures caused by the interaction of the inputs or options of the system under test(SUT). A key problem in CT is to isolate the failure-inducing interactions of the related failure as it can facilitate the debugging effort by reducing the scope of code that needs to be inspected. Many algorithms has been proposed to identify the failure-inducing interactions, however, most of these studies either just consider the condition of one fault or ignore masking effects among multiple faults which can bias their identified results. In this paper, we analysed how the masking effect of multiple faults affect on the isolation of failure-inducing interactions. We further give a strategy of selecting test cases to alleviate this impact. The key to the strategy is to prune these test cases that may trigger masking effect and generate no-masking-effect ones to test the interactions supposed to be tested in these pruned test cases. The test-case selecting process repeated until we get enough information to isolate the failure-inducing interactions. We conducted some empirical studies on several open-source GNU software. The result of the studies shows that multiple faults do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when handling multiple faults in SUT.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -150,11 +154,15 @@ With the increasing complexity and size of modern software, many factors, such a
 
 Once failures are detected, it is desired to isolate the failure-inducing interactions in these failing test cases. This task is important in CT as it can facilitate the debugging effort by reducing the code scope that needed to inspected. Many algorithms has been proposed to identify the failure-inducing interactions in SUT, which include approaches such as building classification tree model \cite{yilmaz2006covering}, generating one test case one time \cite{nie2011minimal}, ranking suspicious interactions based on prior rules\cite{ghandehari2012identifying}, using graphic-based deduction \cite{martinez2008algorithms} and so on. These approaches can be partitioned into two categories \cite{colbourn2008locating}: \emph{adaptive}--tests cases are chosen based on the outcomes of the executions of prior tests or \emph{nonadaptive}--test cases are chosen independent and can be executed parallel.
 
-While all these approaches can help developers to isolate the failure-inducing factors in failing test cases, in our recently studies on several open-source software, however, we found these approaches suffered from \emph{masking effects} of multiple faults in SUT. A masking effect \cite{dumlu2011feedback,yilmaz2013reducing} is an effect that some failures prevents test cases from normally checking combinations that are supposed to be tested. Take the Linux command-- \emph{Grep} for example, we noticed that there are two different faults reported in the bug tracker system. The first one\cite{grepIncorrectlyMatch} claims that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one\cite{grepCountAndO} claims a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. This effect was firstly introduced by Dumllu and Ylimaz in \cite{dumlu2011feedback}, in which they found that the masking effects in CT can make traditional covering array failed detecting some combinations and they proposed an approach to work around them. Their recent work \cite{yilmaz2013reducing} further empirically studied the impacts on the failure-inducing combinations identifying approach (FCI approach for short):  classification tree approach(CTA for short)\cite{yilmaz2006covering}, of which CTA has two versions, i.e., ternary-class and multiple-class.
+%jieLi and paritiion
 
-As known that masking effects negatively affect the performance of FCI approaches, a natural question is how do this effect bias the results of FCI approaches so that they cannot get the results as accuracy as expected. In this paper, we formalized the process of identifying failure-inducing combinations under the circumstance that masking effects exist in SUT and try to answer this question. One insight from the formalized analysis is that we cannot completely get away from the impact of the masking effect even if we do exhaustive testing. Furthermore, both ignoring the masking effects and regarding multiple faults as one fault is harmful for FCI process. 
+While all these approaches can help developers to isolate the failure-inducing factors in failing test cases, in our recently studies on several open-source software, however, we found these approaches suffered from \emph{masking effects} of multiple faults in SUT. A masking effect \cite{dumlu2011feedback,yilmaz2013reducing} is an effect that some failures prevents test cases from normally checking combinations that are supposed to be tested. Take the Linux command-- \emph{Grep} for example, we noticed that there are two different faults reported in the bug tracker system. The first one \footnote{http://savannah.gnu.org/bugs/?29537}  claims that Grep incorrectly match unicode patterns with '\textbackslash<\textbackslash>', while the second one \footnote{http://savannah.gnu.org/bugs/?33080} claims a incompatibility between option '-c' and '-o'. When we put this two scenario into one test case only one fault information will be observed, which means another fault is masked by the observed one. This effect was firstly introduced by Dumllu and Ylimaz in \cite{dumlu2011feedback}, in which they found that the masking effects in CT can make traditional covering array failed detecting some combinations and they proposed an approach to work around them. Their recent work \cite{yilmaz2013reducing} further empirically studied the impacts on the failure-inducing combinations identifying approach (FCI approach for short):  classification tree approach(CTA for short)\cite{yilmaz2006covering}, of which CTA has two versions, i.e., ternary-class and multiple-class.
 
-Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the divide and conquer framework, i.e., separately handle each fault in SUT. For a particular fault under analysis, we discard these test cases that trigger faults different from the one under analysis and only keep those that either pass or trigger the expected fault. As the test cases discarding manipulation can make FCI approaches lose some information that needed to make them normally work, we will generate additional test cases to compensate for the lose. It is noted that the additional test cases generating criteria vary in different FCI approaches we chose. For example, for the CTA, we will generate more test cases to keep as the same coverage as possible after we deleting some unsatisfied test cases from original covering array. While for the one fact one time approach(OFOT for short), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
+%Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
+
+As known that masking effects negatively affect the performance of FCI approaches, a natural question is how do this effect bias the results of FCI approaches so that they cannot get the results as accuracy as expected. In this paper, we formalized the process of identifying failure-inducing combinations under the circumstance that masking effects exist in SUT and try to answer this question. One insight from the formalized analysis is that we cannot completely get away from the impact of the masking effect even if we do exhaustive testing. Furthermore, both ignoring the masking effects and regarding multiple faults as one fault is harmful for FCI process.
+
+Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the divide and conquer framework, i.e., separately handle each fault in SUT. For a particular fault under analysis, we discard the test cases that trigger faults different from the one under analysis and only keep those that either pass or trigger the expected fault. As the test cases discarding manipulation can make FCI approaches lose some information that needed to make them normally work, we will generate additional test cases to compensate for the loss. It is noted that the additional test cases generating criteria vary in different FCI approaches we chose. For example, for the CTA, we will generate more test cases to keep as the same coverage as possible after we deleting some unsatisfied test cases from original covering array. While for the one fact one time approach(OFOT for short), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
 
 %In our recent studies on some open-source software, however, we found they didn't behave as expected when . Thorough a in-depth analysis, we learned the reason why they didn't behave as expected is that most of these approaches mainly consider the SUT just contain one fault, i.e., the oracle of the test case either be false or pass. The main reason why these methods fails to behave normally is that they didn't consider the masking effect that may happens among different faults. Obviously this fact do trouble these algorithms as it make them unable to judge whether the test case under testing trigger only the fault observed or triggered both two faults. As a result, it will make wrong analysis in the failure-inducing interactions for these masked faults.
 
@@ -182,12 +190,12 @@ The main contributions of this paper are:
 %To evaluate the effectiveness of our framework, we took two widely-used open source software as our experiment subject. And then we will choose five MFSs identifying  algorithms, for each algorithm, we will compare the identifying result among two versions of this algorithm, one using our framework while another one not. The result of the empirical studies shows that our framework can assist the MFS identifying algorithm in getting a more accurate result.
 
 
-The rest of this paper is organised as follows:
-section 2 gives a simple example to motivate our work. Section 3 give some background of the work. Section 4 describe our approach in detail. Section 5 illustrate the experiment and reports the result. Section 6 discusses the related works. Section 7 provides some concluding remarks.
+%The rest of this paper is organised as follows:
+%section 2 gives a simple example to motivate our work. Section 3 give some background of the work. Section 4 describe our approach in detail. Section 5 illustrate the experiment and reports the result. Section 6 discusses the related works. Section 7 provides some concluding remarks.
 
 \section{motivation example}
 
-This section constructed an toy program example to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: $d_{a} = \{7, 11\}, d_{b} = \{2, 4, 5\}, d_{c} = \{4, 6\}, d_{d} = \{3, 5\}$ respectively.  The detail code of this method is listed in figure \ref{toy-program}.
+This section constructed a small program example for convenience to illustrate the motivation of our approach. Assume we have a method \emph{foo} which has four input parameters : \emph{a, b, c, d}. The types of these four parameters are all integers and the values that they can take are: $v_{a} = \{7, 11\}, v_{b} = \{2, 4, 5\}, v_{c} = \{4, 6\}, v_{d} = \{3, 5\}$ respectively.  The detail code of this method is listed in figure \ref{toy-program}.
 \begin{figure}
 \begin{verbatim}
 public float foo(int a, int b, int c, int d){
@@ -244,14 +252,14 @@ id&test inputs & result\\\hline
   \end{tabular}
   \end{table}
 
-We first generated every possible inputs as listed in the Column "test inputs" of table \ref{test-example}, and the execution result of are listed in Column "result" of table \ref{test-example}. In this Column, \emph{PASS} means that the program runs without any exception under the inputs in the same row. \emph{Ex 1} indicates that the program triggered a exception corresponding to the step 1 and \emph{Ex 2} indicates the program triggered a exception corresponding to the step 2. According to data listed in table \ref{test-example}, we can deduce that that (-, 4 , 4, -) must be the failure-inducing combination of Ex 1 as all the inputs triggered Ex 1 contain this schema. Similarly, the combination (-, 2, 4, 5) and  (-, 3, 4, 5) must be the failure-inducing combinations of the Ex 2. We listed this three combinations and its corresponding exception in table \ref{identify-example}.
+We first generated every possible inputs as listed in the Column "test inputs" of Table \ref{test-example}, and the execution result of are listed in Column "result" of Table \ref{test-example}. In this Column, \emph{PASS} means that the program runs without any exception under the inputs in the same row. \emph{Ex 1} indicates that the program triggered a exception corresponding to the step 1 and \emph{Ex 2} indicates the program triggered a exception corresponding to the step 2. According to data listed in table \ref{test-example}, we can deduce that that (-, 4 , 4, -) must be the failure-inducing combination of Ex 1 as all the inputs triggered Ex 1 contain this schema. Similarly, the combination (-, 2, 4, 5) and  (-, 3, 4, 5) must be the failure-inducing combinations of the Ex 2. We listed this three combinations and its corresponding exception in Table \ref{identify-example}.
 
 \begin{table}
 \centering
 \caption{Identified failure-inducing combinations and their corresponding Exception}
 \label{identify-example}
 \begin{tabular}{|c|c|} \hline
-MFS & Exception\\ \hline
+failure-inducing combinations & Exception\\ \hline
 (-, 4, 4, -) &  Ex 1\\ \hline
 (-, 2, 4, 5) &  Ex 2\\ \hline
 (-, 3, 4, 5) &  Ex 2\\ \hline
@@ -262,10 +270,12 @@ Note that we didn't get the expected result with traditional FCI approaches in t
 
 Now let us get back to the source code of \emph{foo}, we can find that if Ex 1 is triggered, it will stop executing the remaining code and report the exception information. In another word, Ex 1 have a higher faulting level than Ex 2 so that Ex 1 may mask Ex 2. Let us re-exam the combination (-,-,4,5): if we supposed that \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, then we can conclude that (-,-,4,5) should be the failure-inducing combination of the Ex 2, which is identical to the expected one.
 
-However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, unless we fixed the code that trigger Ex 1 and then re-executed all the test cases. So in practice, when we do not have enough resource to re-execute all the test cases again and again or can only take black-box testing, another approach to alleviate the masking effect on FCI approaches is desired.
+However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{input 18} should trigger Ex 2 if they didn't trigger Ex 1, unless we have fixed the code that trigger Ex 1 and then re-executed all the test cases. So in practice, when we do not have enough resource to re-execute all the test cases again and again or can only take black-box testing, the more economic and efficient approach to alleviate the masking effect on FCI approaches is desired.
 
-\section{preliminary}
-This section presents some formal definitions and background, which are closely related to the problem to be solved in this paper.
+\section{formal model}
+This section presents some definitions and propositions to give a formal model for the FCI problem.
+
+\subsection{failure-inducing combinations in CT}
 
 Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $p_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in \cite{nie2011survey}.
 
@@ -274,122 +284,267 @@ Assume that the SUT (software under test) is influenced by \emph{n} parameters, 
 A \emph{test case} of the SUT is an array of \emph{n} values, one for each parameter of the SUT, which is denoted as a \emph{n}-tuple ($v_{1}$, $v_{2}$...$v_{n}$), where $v_{1}\in V_{1}$, $v_{2} \in V_{2}$ ... $v_{n} \in V_{n}$.
 \end{definition}
 
+In practice, these parameters in the test case can represent many factors, such as input variables, run-time options, building options or various combination of them. We need to execute the SUT under these test cases to ensure the correctness of the behaviour of the software.
+
+%\begin{definition}
+We consider the fact that the abnormally executing test cases as a \emph{failure}. It can be a thrown exception, compilation error, assertion failure or constraint violation.
+%\end{definition}
+
+Figuring out the test case as well as the executing result is usually not enough to analyse the source of the bug, especially when there are too many parameters we need to care in this test case. In this circumstance, we need to study some subsets of this test case, so we need the following definition:
+
 \begin{definition}
-We consider the fact that the abnormally executing of the SUT as a \emph{fault}. It can be a exception, a compilation error, a mismatched assertion or a constraint violation.
+For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} ($0 < k \leq n $) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-".
+
+In effect a test case itself is a k-value \emph{combination}, when k is equal to n. Furthermore, if a test case contain a \emph{combination}, i.e., every fixed value in this combination is also in this test case, we say this test case \emph{hit} this \emph{combination}.
+%, which can be denoted as $k-value\  combination \in T$
 \end{definition}
 
 \begin{definition}
-For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} (k > 0) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-". In effect a test case its self is a k-value \emph{combination}, which k is equal to n. Furthermore, if a test case contain a \emph{combination}, i.e., every fixed value in this combination is also in this test case, we say this test case hit this \emph{combination}.
+let $c_{l}$ be a \emph{l}-value combination, $c_{m}$ be an \emph{m}-value combination in SUT and $l < m$. If all the fixed parameter values in $c_{l}$ are also in $c_{m}$, then $c_{m}$ \emph{subsumes} $c_{l}$. In this case we can also say that $c_{l}$ is a \emph{sub-combination} of $c_{m}$ and $c_{m}$ is a \emph{parent-combination} of $c_{l}$, which can be denoted as $c_{l} \prec  c_{m}$
 \end{definition}
 
-\begin{definition}
-let $c_{l}$ be a \emph{l}-value combination, $c_{m}$ be an \emph{m}-value combination for the SUT and $l \leq m$. If all the fixed parameter values in $c_{l}$ are also in $c_{m}$, then $c_{m}$ \emph{subsumes} $c_{l}$. In this case we can also say that $c_{l}$ is a \emph{sub-combination} of $c_{m}$ and $c_{m}$ is a \emph{parent-combination} of $c_{l}$.
-\end{definition}
+For example, in the motivation example section, the 2-value combination (-, 4, 4, -) is a sub-combination of the 3-value combination (-, 4, 4, 5).
 
 \begin{definition}
-If all test cases contain a combination, say $c$, trigger a particular fault, say $F$, then we call this combination $c$ the \emph{faulty combination} for $F$. Additionally, if none sub-combination of $c$ is the \emph{faulty combination} for $F$, we will call the combination $c$ the \emph{minimal faulty combination} for $F$, which exactly means the failure-inducing combinations we discussed previously.
+If all test cases contain a combination, say $c$, trigger a particular fault, say $F$, then we call this combination $c$ the \emph{faulty combination} for $F$. Additionally, if none sub-combination of $c$ is the \emph{faulty combination} for $F$, we will call the combination $c$ the \emph{minimal faulty combination} for $F$.
 
 %Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
 \end{definition}
 
+In fact, \emph{minimal faulty combinations} is identical to the failure-inducing combinations we discussed previously. Figuring it out can eliminate all details that are irrelevant for producing the failure, which can facilitate the debugging effort.
+
+
+We have the following proposition based on these basic definitions.
+
+%\newdef{proposition}{Proposition}
+\newtheorem{proposition}{Proposition}
+\begin{proposition}
+Let $c_{m}$ be a m-value combination, the set $P_{c_{m}}(m+l)$ = $ \{c_m+l : c_m \prec c_m+l \}$ be all the m+l value parent combination of $c_{m}$. Moreover, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$,  then we have the following formula:
+
+\begin{displaymath} T(c_{m}) = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{(m+l)_{i}}).\end{displaymath}
+
+\end{proposition}
+
+The proof of this propositions is obvious, we just take an example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1)). Additional, some test cases of these parent-combinations may overlapped each other, for example, T((1,0,-)) overlap with T((1,-,1)) at the test case (1,0,1).
+
+By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same fault, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, then we can get the following proposition.
+
+\begin{proposition}
+For a combination $c_{m}$, if all the test cases in $T(c_{m})$ triggered fault $F_{m}$ except the set of test cases $T' \subsetneqq T(c_{m})$ , then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{(m+l)_{i}}$\} (  $l \in \{1, 2... n-m\}$;   $i \in \{1,2 ... |P_{c_{m}}(m+l)| \}$) satisfy the following formula:
+
+\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
+
+\end{proposition}
+%then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations.
+
+
+\begin{proof}
+
+We proof this proposition by two steps:
+
+First, there must exist some parent-combination $c_{m+l}$ satisfy this formula. Let me divide the $T(c_{m})$ to pieces of $T(c_{n_{i}})$, Each set of $T(c_{n_{i}})$ just have one element, that is $c_{n_{i}}$ itself as a test case. Obviously, these set do not overlap with each other. Take an example, $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =T((1,0,0)) $\bigcup$ T((1,0,1)) $\bigcup$ T((1,1,0)) $\bigcup$ T((1,1,1)).
+
+As $T' \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m})$ trigger the fault $F_{m}$, and it must be one of $T(c_{n_{i}})$. So at least there exist one combination $c_{n_{i}}$ which can satisfy this formula.
+
+Next, some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$. %for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+\end{proof}
+
+However, if $T' = T(c_{m})$, which means none of the test case in $T(c_{m})$ trigger the fault $F_{m}$ then neither the parent of the combination of $c_{m}$ nor $c_{m}$ its self is the failure-inducing combination of $F_{m}$. In this circumstance, we call combination $c_{m}$ is \emph{irrelevant} to the failure-inducing combinations of $F_{m}$
+
+%The proof of this proposition lies on the definition of \emph{faulty combination} of one fault, which declare that if any test case contain a combination that do not trigger the fault, then this combination is not the failure-inducing combination of this fault.
+
+Based on this proposition, we can easily get the following lemma:
+
+\newtheorem{lemma}{Lemma}
+\begin{lemma}
+For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Suppose SUT has a  fault $F$. Now first let all the test cases that trigger $F$ to be the set $T_{k}$, the failure-inducing combinations for $F$ is the set $C_{k}= \{ c_{k}\}$. Then let all the test cases that trigger $F$ to be $T_{l}$, which we get another set failure-inducing combinations $C_{l} = \{ c_{1} \}$. Then we can deduce that $C_{l}$ and $C_{k}$ satisfy at least one of the following properties:
+
+$ 1)\ \exists c_{k} \in C_{k}\ and\ \exists c_{l} \in C_{l} \ s.t.\ c_{l}\ subsumes\ c_{k}  $
+
+$2)\ \exists c_{k} \in C_{k}\ s.t.\ c_{k}\ is\ irrelevant\ to\ C_{l} $
+
+\end{lemma}
+
+We illustrate this two scenarios in table \ref{example_three_condition}. There are two parts in this table, in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
+
+%\begin{proof}
+%We proof this by two sides:
+%
+%for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+%\end{proof}
+
+\begin{table}
+\centering
+\caption{example of two scenarios}
+\label{example_three_condition}
+  \begin{tabular}{cc}
+$T_{l}$&$T_{k}$ \\ \hline
+(0, 0, 0)&(0, 0, 0)\\
+(0, 0, 1)&(0, 0, 1) \\
+(0, 1, 0)&(0, 1, 0)\\
+         &(0, 1, 1) \\ \hline
+ $C_{l}$&$C_{k}$ \\ \hline
+(0, 0, -)&(0, -, -)\\
+(0, 1, 0)&		   \\ \hline
+  \end{tabular}
+  \hspace{1em}
+  \begin{tabular}{cc}
+$T_{l}$&$T_{k}$\\ \hline
+(0, 0, 0) & (0, 0, 0)\\
+(0, 0, 1) & (0, 0, 1)\\
+(0, 1, 0) & (0, 1, 0)\\
+		  & (1, 0, 0)\\
+		  & (1, 0, 1)\\
+		  & (1, 1, 0)\\
+		  & (1, 1, 1)\\ \hline
+$C_{l}$&$C_{k}$ \\ \hline
+(0, 0, -)&  (0, 0, -)\\
+(0, 1, 0)&  (0, 1, 0)\\
+		 &  (1, -, -)\\  \hline
+  \end{tabular}
+  \end{table}
+
+
+%\begin{tabular}{|c|c|c|} \hline
+%sub&parent1& parent2\\ \hline
+%(0, 0, 0)&(0, 0, 0) & (0, 0, 0)\\ \hline
+%(0, 0, 1)&(0, 0, 1) & (0, 0, 1)\\ \hline
+%(0, 1, 0)&(0, 1, 0) & (0, 1, 0)\\ \hline
+%         &(0, 1, 1) &       \\ \hline
+%		 & 			& (1, 0, 0)\\ \hline
+%		 & 			& (1, 0, 1)\\ \hline
+%		 & 			& (1, 1, 0)\\ \hline
+%		 &			& (1, 1, 1)\\ \hline
+%\hline\end{tabular}
+%\begin{tabular}{|c|c|c|} \hline
+%combination&parent1& parent2 \\ \hline
+%(0, 0, -)&(0, -, -) &  (0, 0, -)\\ \hline
+%(0, 1, 0)&		 	&  (0, 1, 0)\\ \hline
+%		 &		 	&  (1, -, -)\\ \hline
+%\hline\end{tabular}
+%\end{table}
+
+
+
+%This proposition gives us a signal that, will be longer than expected. For the Set, if the subset , then the failure-inducing combinations will be larger than the original. This proposition is important when we analyse the masking effect condition.
+
+Next, let move to formal analysis of the masking effects.
+
+\subsection{masking effect}
+
 \begin{definition}
-A \emph{masking effect} is the circumstance that a test case \emph{t} hit a failure-inducing combination, say $c(F_{a})$, but doesn't trigger fault $F_{a}$ as expected because this test case triggered other fault which is different from $F_{a}$, say $F_{b}$. 
+A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-inducing combination for $F_{a}$, say $c$ , but doesn't trigger fault $F_{a}$ as expected because this test case triggered other fault which is different from $F_{a}$, say, $F_{b}$.
 
 %This masking effect can be presented as $t(F_{b})[F_{a}]$, which means test case \emph{t} should trigger $F_{a}$ if didn't trigger $F_{b}$.
 \end{definition}
 
-Note that our discuss is based on the SUT is a deterministic software, i.e., SUT execute under a test configuration will not pass one time and fail another time. The non-deterministic problem will complex our test scenario, which, however is beyond the scope of this paper.
+based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$ for a particular fault $F_{m}$ masked by these test cases.
 
+So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} \bigcup T_{mask(F_{m})}$. We call the failure-inducing combinations with considering the masking effects the \emph{perfect failure-inducing combinations}. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
 
-\section{Formally analysis}
-For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code). 
+For traditional FCI approaches, there are two kinds of approaches, let me see what they like:
 
-Let $\mathcal{C}(t)$ denotes all the combinations in a test case $t$. For example, for test case $t$ = (1,1,1) the  $\mathcal{C}(t)$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
+\subsubsection{regard as one fault}
+This is the most common dealing approach, they don't distinguish the faults, i.e., regard all the types of faults as one fault--\emph{failure}, others as the \emph{pass}.
 
-Similarly, Let $\mathcal{C}(\mathcal{T})$ denote all the combinations in a suite $\mathcal{T}$ of test cases. In fact, $\mathcal{C}(\mathcal{T}) = \bigcup_{i = 1}^{|\mathcal{T}|}\mathcal{C}(t_{i})$. 
+So they will find the $c_{m}$ for $T_{F} = \bigcup_{i = 1}^{L}F_{i}$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} \bigcup T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, by the proposed lemma, the failure-inducing combinations we get will have some combinations irrelevant to the perfect failure-inducing combinations , or some combinations just be the child-combinations of some of the perfect failure-inducing combinations.
 
-The notation $F_{i}(\mathcal{T})$  denote the subset of test cases of the suite $\mathcal{T}$ that each one in the subset will trigger fault $F_{i}$.  Additionally, let $P(T)$ denote the subset of test cases that passed the testing without triggering any faults, and let $F(\mathcal{T})$ indicate the subset of test cases that each one in this set will trigger some type of fault. It is obviously that $F(\mathcal{T}) =  \bigcup_{i = 1}^{L}F_{i}(\mathcal{T})$ and $F(\mathcal{T})\bigcup P(\mathcal{T}) = \mathcal{T}$.
+\subsubsection{distinguish fault by buggy information}
+Distinguish the faults by the exception traces or error code can help make FCI approaches focus on particular fault. Ylimaz in  \cite{yilmaz2013reducing} propose a \emph{multiple-class} failure characterize method instead of \emph{ternary-class} approaches to make the charactering approach more accurately. Besides, other approaches can also be easily extended to apply on SUT with multiple faults. We call this approach \emph{distinguish FCI} approaches.
 
-Obviously, the failure-inducing combinations for a particular fault $F_{i}$ must be the subset of $\mathcal{C}(F_{i}(\mathcal{T}))$ and exclusive those in $\mathcal{C}(P(\mathcal{T}))$.
+Without no information of the masking effect, distinguish FCI approaches can only identify the $c_{m}$ for $T_{F_{m}}$. In this case, we can learn that $T_{F_{m}} \bigcup T_{mask(F_{m})} \supset T_{F_{m}} $ , consequently, the failure-inducing combinations we get in this case will have some combinations be the parent-combination of some perfect combinations or completely miss some failure-inducing combination.
 
-\subsection{Regard as one fault}
+Note that our discuss is based on the SUT is a deterministic software, i.e., the random failing information of test case will be ignored. The non-deterministic problem will complex our test scenario, which will not be discussed in this paper.
 
-In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, the FCI process can be formulated as:
- $$let\ \mathcal{M} = \mathcal{C}(F(\mathcal{T})) - \mathcal{C}(P(\mathcal{T}))$$
-$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-
-With this formula we cannot figure out the failure-inducing combinations for a particular fault. Moreover, as it force to merge all the different faults into one fault, it may get a wrongly identified result. For example, for SUT(3,2), assume (0,-,0) and (-,0,0) are the failure-inducing combinations of \emph{err 1} and (1,1,-) and (1,-,0) is the failure-inducing combinations of \emph{err 2}. In addition, let \emph{err 1}'s faulting level higher than \emph{err 2}. The test cases and result is listed in table \ref{example_first_scenario}.
-
-\begin{table}
-\centering
-\caption{a simple example}
-\label{example_first_scenario}
-\begin{tabular}{|c|c|c|c|} \hline
-id&test inputs & result & masking \\\hline
-1&(0, 0, 0) &  Err 1 & -\\ \hline
-2&(0, 0, 1) &  PASS & -\\ \hline
-3&(0, 1, 0) &  Err 1 & -\\ \hline
-4&(0, 1, 1) &  PASS & -\\ \hline
-5&(1, 0, 0) &  Err 1 & Err 2\\ \hline
-6&(1, 0, 1) &  PASS & -\\ \hline
-7&(1, 1, 0) &  Err 2 & -\\ \hline
-8&(1, 1, 1) &  Err 2 & -\\ \hline
-\hline\end{tabular}
-\end{table}
-
-Then using our previous work, firstly, we will treat the test result as listed in \ref{previous_work}.
-
-\begin{table}
-\centering
-\caption{one fault treating}
-\label{previous_work}
-\begin{tabular}{|c|c|c|} \hline
-id&test inputs & result\\ \hline
-1&(0, 0, 0) &  FAIL\\ \hline
-2&(0, 0, 1) &  PASS\\ \hline
-3&(0, 1, 0) &  FAIL\\ \hline
-4&(0, 1, 1) &  PASS\\ \hline
-5&(1, 0, 0) &  FAIL\\ \hline
-6&(1, 0, 1) &  PASS\\ \hline
-7&(1, 1, 0) &  FAIL\\ \hline
-8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
-
-And then we will wrongly identified as (1,1,-) and (-,-,0) for the fault.
-
-\subsection{distinguish fault}
-
-To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
-
-So for this idea, the identifying process for a particular fault, say, $F_{i}$ can be formulated as follows:
-
-$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) - \mathcal{C}(P(\mathcal{T})) - \bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T}))$$
-
-$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-
-Using this we will treat the table \ref{example_first_scenario} as the following table \ref{simple_idea}, then we will get the result as : (0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) is the MFS of err 2. It is very approximate to the solution except that it loose the (1,-,0) for err 2. This is because in fact when we look at the 5th test configuration (1,0,0), it has already triggered the err 1 which have a higher level than err 2 so that err 2 is not triggered. But this approach just regard the 5th test configuration as a passed test configuration as it does not trigger err 2.
-
-\begin{table}
-\centering
-\caption{do not consider the masking effect}
-\label{simple_idea}
-\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-   ERR 1 & ERR 2
-\end{tabular}
-
-\begin{tabular}{c|c|c|c|c|c} \hline
-id &test inputs & result & id&test inputs & result\\ \hline
-1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  PASS\\ \hline
-6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
+%\section{Formally analysis}
+%For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code).
+%
+%Let $\mathcal{C}(t)$ denotes all the combinations in a test case $t$. For example, for test case $t$ = (1,1,1) the  $\mathcal{C}(t)$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
+%
+%Similarly, Let $\mathcal{C}(\mathcal{T})$ denote all the combinations in a suite $\mathcal{T}$ of test cases. In fact, $\mathcal{C}(\mathcal{T}) = \bigcup_{i = 1}^{|\mathcal{T}|}\mathcal{C}(t_{i})$.
+%
+%The notation $F_{i}(\mathcal{T})$  denote the subset of test cases of the suite $\mathcal{T}$ that each one in the subset will trigger fault $F_{i}$.  Additionally, let $P(T)$ denote the subset of test cases that passed the testing without triggering any faults, and let $F(\mathcal{T})$ indicate the subset of test cases that each one in this set will trigger some type of fault. It is obviously that $F(\mathcal{T}) =  \bigcup_{i = 1}^{L}F_{i}(\mathcal{T})$ and $F(\mathcal{T})\bigcup P(\mathcal{T}) = \mathcal{T}$.
+%
+%Obviously, the failure-inducing combinations for a particular fault $F_{i}$ must be the subset of $\mathcal{C}(F_{i}(\mathcal{T}))$ and exclusive those in $\mathcal{C}(P(\mathcal{T}))$.
+%
+%\subsection{Regard as one fault}
+%
+%In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, the FCI process can be formulated as:
+% $$let\ \mathcal{M} = \mathcal{C}(F(\mathcal{T})) - \mathcal{C}(P(\mathcal{T}))$$
+%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
+%
+%With this formula we cannot figure out the failure-inducing combinations for a particular fault. Moreover, as it force to merge all the different faults into one fault, it may get a wrongly identified result. For example, for SUT(3,2), assume (0,-,0) and (-,0,0) are the failure-inducing combinations of \emph{err 1} and (1,1,-) and (1,-,0) is the failure-inducing combinations of \emph{err 2}. In addition, let \emph{err 1}'s faulting level higher than \emph{err 2}. The test cases and result is listed in table \ref{example_first_scenario}.
+%
+%\begin{table}
+%\centering
+%\caption{a simple example}
+%\label{example_first_scenario}
+%\begin{tabular}{|c|c|c|c|} \hline
+%id&test inputs & result & masking \\\hline
+%1&(0, 0, 0) &  Err 1 & -\\ \hline
+%2&(0, 0, 1) &  PASS & -\\ \hline
+%3&(0, 1, 0) &  Err 1 & -\\ \hline
+%4&(0, 1, 1) &  PASS & -\\ \hline
+%5&(1, 0, 0) &  Err 1 & Err 2\\ \hline
+%6&(1, 0, 1) &  PASS & -\\ \hline
+%7&(1, 1, 0) &  Err 2 & -\\ \hline
+%8&(1, 1, 1) &  Err 2 & -\\ \hline
+%\hline\end{tabular}
+%\end{table}
+%
+%Then using our previous work, firstly, we will treat the test result as listed in \ref{previous_work}.
+%
+%\begin{table}
+%\centering
+%\caption{one fault treating}
+%\label{previous_work}
+%\begin{tabular}{|c|c|c|} \hline
+%id&test inputs & result\\ \hline
+%1&(0, 0, 0) &  FAIL\\ \hline
+%2&(0, 0, 1) &  PASS\\ \hline
+%3&(0, 1, 0) &  FAIL\\ \hline
+%4&(0, 1, 1) &  PASS\\ \hline
+%5&(1, 0, 0) &  FAIL\\ \hline
+%6&(1, 0, 1) &  PASS\\ \hline
+%7&(1, 1, 0) &  FAIL\\ \hline
+%8&(1, 1, 1) &  FAIL\\ \hline
+%\hline\end{tabular}
+%\end{table}
+%
+%And then we will wrongly identified as (1,1,-) and (-,-,0) for the fault.
+%
+%\subsection{distinguish fault}
+%
+%To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
+%
+%So for this idea, the identifying process for a particular fault, say, $F_{i}$ can be formulated as follows:
+%
+%$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) - \mathcal{C}(P(\mathcal{T})) - \bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T}))$$
+%
+%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
+%
+%Using this we will treat the table \ref{example_first_scenario} as the following table \ref{simple_idea}, then we will get the result as : (0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) is the MFS of err 2. It is very approximate to the solution except that it loose the (1,-,0) for err 2. This is because in fact when we look at the 5th test configuration (1,0,0), it has already triggered the err 1 which have a higher level than err 2 so that err 2 is not triggered. But this approach just regard the 5th test configuration as a passed test configuration as it does not trigger err 2.
+%
+%\begin{table}
+%\centering
+%\caption{do not consider the masking effect}
+%\label{simple_idea}
+%\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
+%   ERR 1 & ERR 2
+%\end{tabular}
+%
+%\begin{tabular}{c|c|c|c|c|c} \hline
+%id &test inputs & result & id&test inputs & result\\ \hline
+%1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
+%2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+%3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
+%4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+%5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  PASS\\ \hline
+%6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+%7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
+%8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
+%\hline\end{tabular}
+%\end{table}
 
 
 %\subsection{Test configurations with higher level fault masked every lower level fault}
@@ -424,85 +579,88 @@ id &test inputs & result & id&test inputs & result\\ \hline
 %\hline\end{tabular}
 %\end{table}
 
-\subsection{Ideal solution}
-To get an ideal solution, we should known which test case was masked by some fault so that it didn't output expected fault information. Supposed we have known these test cases, and denoted them as $F_{i}[\mathcal{T}]$
-
-%For a particular fault, say, $F_{i}$, with ,these test configurations triggered higher fault are  $ \bigcup_{j = 1}^{i-1}T_{F_{j}}$ .Assume we have known previously that in this set some test configurations will trigger $F_{i}$ if the higher fault will not triggered, we label this set as
+%\subsection{Ideal solution}
+%To get an ideal solution, we should known which test case was masked by some fault so that it didn't output expected fault information. Supposed we have known these test cases, and denoted them as $F_{i}[\mathcal{T}]$
 %
-%$ T_{tri-F_{i}}$ (this part is needed because of if there are more than two faults in a SUT, the higher fault may even make the lower fault don't appear)
+%%For a particular fault, say, $F_{i}$, with ,these test configurations triggered higher fault are  $ \bigcup_{j = 1}^{i-1}T_{F_{j}}$ .Assume we have known previously that in this set some test configurations will trigger $F_{i}$ if the higher fault will not triggered, we label this set as
+%%
+%%$ T_{tri-F_{i}}$ (this part is needed because of if there are more than two faults in a SUT, the higher fault may even make the lower fault don't appear)
+%%
+%%And some test configurations in this set will not trigger $F_{i}$. We label them as:
+%%
+%%$ T_{\neg tri-F_{i}}$.
+%%
+%%Obviously,$ T_{tri-F_{i}}\bigcup T_{\neg tri-F_{i}} = \bigcup_{j = 1}^{i-1}T_{F_{j}}$.
 %
-%And some test configurations in this set will not trigger $F_{i}$. We label them as:
 %
-%$ T_{\neg tri-F_{i}}$.
+%Then we should do as the following to get the ideal computing formula:
 %
-%Obviously,$ T_{tri-F_{i}}\bigcup T_{\neg tri-F_{i}} = \bigcup_{j = 1}^{i-1}T_{F_{j}}$.
-
-
-Then we should do as the following to get the ideal computing formula:
-
-$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) + F_{i}[\mathcal{T}]  - \mathcal{C}(P(\mathcal{T})) - (\bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T})) - F_{i}[\mathcal{T}])$$
-
-$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-
+%$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) + F_{i}[\mathcal{T}]  - \mathcal{C}(P(\mathcal{T})) - (\bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T})) - F_{i}[\mathcal{T}])$$
+%
+%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
+%
+%%So still for the example table \ref{example_first_scenario}, we will first get
+%%$ T_{tri-F_{i}}$ = \{(1,0,0)\} and $ T_{tri-F_{i}}$ = { (0, 0, 0), (0, 1, 0)}
+%
 %So still for the example table \ref{example_first_scenario}, we will first get
-%$ T_{tri-F_{i}}$ = \{(1,0,0)\} and $ T_{tri-F_{i}}$ = { (0, 0, 0), (0, 1, 0)}
-
-So still for the example table \ref{example_first_scenario}, we will first get
- $F_{err1}[\mathcal{T}]= \emptyset $ and  $F_{err2}[\mathcal{T}]$ = \{ (1, 0, 0)\}
-
-And then we will treat table \ref{example_first_scenario} as table \ref{ideal_solution}, so this time we will accurately get the expected result:
-
-(0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) and (1,-,0) is the MFS of err 2.
-
-\begin{table}
-\centering
-\caption{ideal solution}
-\label{ideal_solution}
-\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-   ERR 1 & ERR 2
-\end{tabular}
-
-\begin{tabular}{c|c|c|c|c|c} \hline
-id &test inputs & result & id&test inputs & result\\ \hline
-1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
-6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-\hline\end{tabular}
-\end{table}
-
-
-\subsection{limitations in practice}
-In practice, we cannot use the ideal formula to compute the MFS for each fault for there are three main limitations which we will encounter:
-
-\begin{enumerate}
- \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT, that is in practice, $T_{F}\bigcup T_{P} \neq T_{all}$
-
- \item If we find the faults, we can't judge the faulting levels of these faults just using black-box testing method.
-
- \item Even if we have known the faulting levels of each faults, we still cannot decide the value of $F_{i}[\mathcal{T}]$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
-\end{enumerate}
+% $F_{err1}[\mathcal{T}]= \emptyset $ and  $F_{err2}[\mathcal{T}]$ = \{ (1, 0, 0)\}
+%
+%And then we will treat table \ref{example_first_scenario} as table \ref{ideal_solution}, so this time we will accurately get the expected result:
+%
+%(0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) and (1,-,0) is the MFS of err 2.
+%
+%\begin{table}
+%\centering
+%\caption{ideal solution}
+%\label{ideal_solution}
+%\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
+%   ERR 1 & ERR 2
+%\end{tabular}
+%
+%\begin{tabular}{c|c|c|c|c|c} \hline
+%id &test inputs & result & id&test inputs & result\\ \hline
+%1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
+%2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
+%3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
+%4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
+%5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
+%6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
+%7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
+%8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
+%\hline\end{tabular}
+%\end{table}
+%
+%
+%\subsection{limitations in practice}
+%In practice, we cannot use the ideal formula to compute the MFS for each fault for there are three main limitations which we will encounter:
+%
+%\begin{enumerate}
+% \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT, that is in practice, $T_{F}\bigcup T_{P} \neq T_{all}$
+%
+% \item If we find the faults, we can't judge the faulting levels of these faults just using black-box testing method.
+%
+% \item Even if we have known the faulting levels of each faults, we still cannot decide the value of $F_{i}[\mathcal{T}]$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
+%\end{enumerate}
 
 
-\section{approach description}
+\section{test case replacing strategy}
+Previous section formally studied the case that under the masking effects, neither regarding as one fault approach nor distinguishing faults approach is not accurate . The main reason is that we cannot figure out the $T(mask_{F_{m}})$.  As $T(mask_{F_{m}}) \subset \bigcup_{i = 1 \& j \neq m }^{L}T_{F_{i}}$. So to reduce the influence of $T(mask_{F_{m}})$, we need to reduce the number of test cases that trigger other faults as much as possible.
 
-As we cannot get an ideal solution because of the three limitations proposed in the previous section, our target then is to find a practical solution to improve the efficiency for the existing MFS identifying algorithms when facing multiple faults , i.e.,lowering variance of identifying  MFS in a SUT with multiple faults as much as possible.
+In the exhaustive testing, as all the test cases will be used to identify the failure-inducing combinations, so there is no room left to improve the accurateness. However, when just choose part of the whole test cases, which is practical and sometimes the only solution for large-scale SUT, we can adjust the test cases we need to use by choosing proper ones so that we can limit the number of $T(mask_{F_{m}})$ to  be as less as possible.
 
-To get the target, first let's get back to the traditional MFS identifying algorithms to see how they works. In fact, they all can be represent as the following formula:
+%As we cannot get an ideal solution because of the three limitations proposed in the previous section, our target then is to find a practical solution to improve the efficiency for the existing MFS identifying algorithms when facing multiple faults , i.e.,lowering variance of identifying  MFS in a SUT with multiple faults as much as possible.
 
-Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+%To get the target, first let's get back to the traditional MFS identifying algorithms to see how they works. In fact, they all can be represent as the following formula:
 
-$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-
-A noted point is that  $ T'_{F_{i}} \subseteq T_{F_{i}} $ and $ T'_{P} \subseteq T_{P} $ as that we can't execute all the possible test configurations in a SUT in practice when the scale of the configuration space is big.
-
-The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. So what we want to do is to improve these algorithms when the SUT can have multiple faults.
-
-As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ is not completed. This is because there may be some failure-inducing schemas in some $T_{F_{j}}$ we did not add and there may be some healthy schemas in $T_{F_{j}}$ we did not minus. This two factors we can't improve, however, because we neither know the levels of these faults nor know value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$. So what we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to increase the accurately of identifying the MFS of a particular fault $F_{i}$.
+%Let $$S_{ca} = S_{T'_{F_{i}}} - S_{T'_{P}}$$
+%
+%$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
+%
+%A noted point is that  $ T'_{F_{i}} \subseteq T_{F_{i}} $ and $ T'_{P} \subseteq T_{P} $ as that we can't execute all the possible test configurations in a SUT in practice when the scale of the configuration space is big.
+%
+%The difference among these algorithms are just at $T'_{F_{i}}$ and  $T'_{P}$. However, what the difference in detail is not the point in this paper. We should also note that when the SUT just have one fault, these algorithms all can get a good result. So what we want to do is to improve these algorithms when the SUT can have multiple faults.
+%
+%As we have mentioned in the previous section, the $S_{T'_{F_{i}}} - S_{T'_{P}}$ is not completed. This is because there may be some failure-inducing schemas in some $T_{F_{j}}$ we did not add and there may be some healthy schemas in $T_{F_{j}}$ we did not minus. This two factors we can't improve, however, because we neither know the levels of these faults nor know value of $S_{T_{tri-F_{i}}}$ and  $S_{T_{\neg tri-F_{i}}}$. So what we can do is just to increase the number of $T'_{F_{i}}$ and $T'_{P}$ to increase the accurately of identifying the MFS of a particular fault $F_{i}$.
 
 \subsection{Replace test configuration that trigger unexpected fault}
 
@@ -561,8 +719,8 @@ It is noted that the loop have another end exit besides we have find a expected 
 
 In this paper, we just set 3 as the biggest repeat times for function. When it ended with \emph{MeetEndCriteria()} is true, we will return null(line 15), which means we cannot find a expected test configuration.
 
-\subsection{Examples when apply this approach into some MFS identifying algorithms}
-Next we will take three MFS identifying algorithms as the subject to see how our approach works on them.
+\subsection{Examples of applying the strategy}
+Next we will take two MFS identifying algorithms as the subject to see how our approach works on them.
 \subsubsection{OFOT examples}
 Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encounter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT with the help of our approach to identify the MFS for the "Err 1". The process is listed in table \ref{ofot-aug}. In this table, The test configuration which are labeled with a deleted line represent the original test configuration generated by OFOT, and it will be replaced by the regenerated test configuration which are labeled with a wave line under it.
 
@@ -705,47 +863,194 @@ We use multiple-class CTA as our subject, Ylimaz in the paper has claimed that m
 \section{empirical studies}
 We conducted several case studies to address the following questions:
 
-Q1: Do masking effects existed in real software when it contain multiple faults?
+\textbf{Q1}: Do masking effects existed in real software when it contain multiple faults?
 
-Q2: What is the extent to which traditional approaches suffer from these real masking effects?
+\textbf{Q2}: How much do traditional approaches suffer from these real masking effects?
 
-Q3: Can our approach do better than traditional approaches when facing these masking effects?
+\textbf{Q3}: Can our approach do better than traditional approaches when facing these masking effects?
 
 Specifically, section 6.1 survey several open-source software to gain a insight of the state of the existence of multiple faults and their masking effects. Section 6.2 directly applied three MFS-identifying programs on the surveyed software and analysis their results. Section 6.3 apply our approach on the software and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
 
 \subsection{study 1: multiple faults and masking effects in practice}
-In the first study, we surveyed several software to gain a insight of the state of the existence of multiple faults and their effects. The software under study are four GNU software: Grep, Sed, Make, Gzip and a database management software- HSQLDB. Each of them contain different versions. All the three subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code, number of procedures(for c software) or number of classes (for java software) and a brief description.
+In the first study, we surveyed two open-source software to gain an insight of the existence of multiple faults and their effects. The software under study are: HSQLDB and JFlex, in which the former is a database management software written in pure java and the later one is a lexical analyser generator for Java. Each of them contain different versions. All the two subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code and number of classes in the project.
 
-\begin{table*}\renewcommand{\arraystretch}{1.3}
+\begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Software under survey}
 \label{software description}
 \begin{tabular}{c|c|c|c|c} \hline
-software & versions & LOC & procedur/classes & description\\ \hline
-Grep & 5 &  9493-10102 &146 &  a program to search for strings inside a file.\\ \hline
-Sed & 7 & 5503-14477  & 255& A stream editor that parses and transforms text \\ \hline
-Make & 4 &  13359-35583 &268&   a utility that automatically builds executable programs and libraries. \\ \hline
-Gzip &5 &  4604-5754 &104&  a popular data compression program \\ \hline
-HSQLDB &2 & - &-& A database management software written with pure java\\
+software & versions & LOC & classes & bug pairs\footnote{ http://sourceforge.net/p/hsqldb/bugs
+http://sourceforge.net/p/jflex/bugs  } \\ \hline
+
+HSQLDB  &2.0rc8 & 139425 & 495 &  \#981 \& \#1005\\
+	   &2.2.5 & 156066 & 508 & \#1173 \&  \#1179\\
+	    &2.2.9 & 162784 &525 & \#1286 \& \#1280\\
+JFlex  &1.4.1 &  10040 &58 & \#87 \& \#80 \\
+      &1.4.2 &  10745 &61 &  \#98 \& \#93  \\
 \hline\end{tabular}
-\end{table*}
+\end{table}
+%http://hsqldb2.0.sourcearchive.com/downloads/2.0.0$\scriptsize{\sim}$rc8/
+
+%\footnote{http://sourceforge.net/projects/jflex/files/jflex}
+
+% \footnote{http://sourceforge.net/projects/hsqldb/files/hsqldb/ }
 
 \subsubsection{study setup}
-We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#123213 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered.  We call these analysed result the "perfect combinations" which will be used as the comparison benchmark in the later studies. 
+We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#981 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed result will be regarded as the "perfect combinations" later.
 
-We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected. As for bug\#123213 and  bug\#223012 of HSQLDB, the original test file can be simply described as figure 1:, and we merged them together into a file like figure 2, we can easily find that it use a test scenario to merge the two test file. For each pair of bugs, we have posted the source code of the merging file on website.
+We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected. As for bug\#981 and  bug\#1005 of HSQLDB, the original test file can be simply described as figure 1:, and we merged them together into a file like figure 2, we can easily find that it use a test scenario to merge the two test file. For each pair of bugs, we have posted the source code of the merging file on website.
+
+%\section{masking faults statistic}
+%\begin{table}\renewcommand{\arraystretch}{1.3}
+%\caption{real faults detailed}
+%\label{masking effect detail}
+%\begin{tabular}{c|c|c} \hline
+%software & version & faults ID pair\\ \hline
+%HSQLDB  & 2.0rc8 & \#981 \& \#1005  \\ \hline
+%- & 2.2.5 & \#1173 \&  \#1179   \\ \hline
+%- & 2.2.9 & \#1286 \& \#1280  \\ \hline
+%JFlex   & 1.4.1 & \#87 \& \#80 \\ \hline
+% - & 1.4.2 & \#98 \& \#93   \\
+%\hline\end{tabular}
+%\end{table}
 
 Next we built the input model which consist of the options related to the perfect combinations and additional noise options. The detailed model information is listed in appendix. We then generated the exhaustive test suite consist of all the possible combinations of these options under which we executed the merged test file. We record the output of each test case to observe whether there are test cases contain 'perfect combination' but do not produce the corresponding bug.
 
+
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+  \caption{input model of HSQLDB} \centering
+  \label{modelHSQLDB}
+  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries Common options &   \bfseries values \\
+   \hline
+     sql.enforce\_strict\_size & true, false \\
+      sql.enforce\_names & true, false \\
+      sql.enforce\_refs & true, false \\
+%      sql.enforce\_size & true, false \\
+%      sql.enforce\_types & true, false\\
+%   hsqldb.default\_table\_type & cached, memory \\
+%   hsqldb.tx & locks, mvlocks, mvcc\\
+%   hsqldb.tx\_level & read\_commited, serializable\\
+%  \end{tabular}
+%
+%  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+%  \hline
+%  \bfseries Server properties &   \bfseries values \\
+%   \hline
+   Server Type & server, webserver, inprocess \\
+    existed form & mem, file \\
+%  \end{tabular}
+%
+%  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+%  \hline
+%  \bfseries Result Set properties &   \bfseries values \\
+%   \hline
+    resultSetTypes & forwad, insensitive, sensitive\\\
+    resultSetConcurrencys & read\_only, updatable \\
+    resultSetHoldabilitys & hold, close\\
+%  \end{tabular}
+%
+%  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+%  \hline
+%  \bfseries option in test script &   \bfseries values\\
+%   \hline
+   StatementType & statement, prepared \\
+  \end{tabular}
+
+    \begin{tabular}{c*{3}{p{0.33\columnwidth}}}
+  \hline
+  \bfseries versions &   \bfseries specific options  & \bfseries values\\
+   \hline
+    2.0rc8 & more & true, false\\
+      & placeHolder & true, false \\
+      & cursorAction & next,previous,first,last\\
+    2.2.5 & multiple & single, multiple , d\\
+       & placeHolder & true, false\\
+    2.2.9 & duplicate & duplicate, single, d\\
+     & default\_commit & true, false \\
+    \end{tabular}
+   \begin{tabular}{c*{2}{p{0.7\columnwidth}}}
+   \hline
+   \bfseries versions &   \bfseries Config space\\
+   \hline
+    2.0rc8 & $2^{9} \times 3^{2} \times 4^{1}$ \\
+    2.2.5 &  $2^{8} \times 3^{3}$ \\
+    2.2.9 & $2^{8} \times 3^{3}$
+  \end{tabular}
+\end{table}
+
+
+\begin{table}\renewcommand{\arraystretch}{1.3}
+  \caption{input model of JFlex} \centering
+  \label{modelJFlex}
+  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+  \hline
+  \bfseries Common options &   \bfseries values \\
+   \hline
+     public & true, false \\
+     apiprivate & true, false \\
+     cup & true, false \\
+     caseless & true, false \\
+     char & true, false \\
+     line & true, false\\
+     column & true, false \\
+     notunix & true, false \\
+     yyeof & true, false \\
+     generation & switch, table, pack \\
+     charset &default, 7bit, 8bit, 16bit\\
+
+%      sql.enforce\_size & true, false \\
+%      sql.enforce\_types & true, false\\
+%   hsqldb.default\_table\_type & cached, memory \\
+%   hsqldb.tx & locks, mvlocks, mvcc\\
+%   hsqldb.tx\_level & read\_commited, serializable\\
+%  \end{tabular}
+%
+%  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
+%  \hline
+%  \bfseries Server properties &   \bfseries values \\
+%   \hline
+
+%  \end{tabular}
+
+  \end{tabular}
+
+    \begin{tabular}{c*{3}{p{0.33\columnwidth}}}
+  \hline
+  \bfseries versions &   \bfseries specific options  & \bfseries values\\
+   \hline
+    1.4.1 & hasReturn & true, false, d\\
+      & normal & true, false \\
+    1.4.2 & lookAhead & single, multiple, d\\
+       & type & true, false\\
+        & standalone & true, false \\
+    \end{tabular}
+   \begin{tabular}{c*{2}{p{0.7\columnwidth}}}
+   \hline
+   \bfseries versions &   \bfseries Config space\\
+   \hline
+    1.4.1  & $2^{10} \times 3^{2} \times 4^{1} $ \\
+    1.4.2 &  $2^{11} \times 3^{2} \times 4^{1} $ \\
+  \end{tabular}
+
+\end{table}
+
+
 \subsubsection{result and discuss}
 
-Table \ref{masking effect condition} lists the results of our survey. Column "Faults ID" indicate the IDs of two bugs we collected from the bug tracker system, column "all tests" give the total number of test cases we executed and column "num of masking" indicate the number of test cases which trigger the masking effect. 
+Table \ref{masking effect condition} lists the results of our survey. Column "Faults ID" indicate the IDs of two bugs we collected from the bug tracker system, column "all tests" give the total number of test cases we executed and column "num of masking" indicate the number of test cases which trigger the masking effect.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{number of faults and their masking effect condition}
 \label{masking effect condition}
 \begin{tabular}{c|c|c|c|c} \hline
-software & versions & Faults ID  & all tests & Num masking\\ \hline
-HSQLDB & 2cr8 & \#2000 \&  \#3000 & 2000 & 1000\\ \hline
+software & versions & all tests & failure & masking\\ \hline
+HSQLDB & 2cr8 & 18432 & 4608 & 768\\ \hline
+     - & 2.2.5 & 6912 & 3456 & 576\\ \hline
+     - & 2.2.9 & 6912 & 3456 &1728\\ \hline
+JFlex & 1.4.1 & 36864 & 24576 &6144\\ \hline
+     -& 1.4.2 & 73728 & 36864 &6144\\ \hline
 \hline\end{tabular}
 \end{table}
 
@@ -755,12 +1060,12 @@ So the answer to Q1 is that in practice, when SUT have multiple faults, there is
 
 %All of these bug can be rebuilt by following the steps reported in the bug tracker. For example, Bug-\#29537 indicate that Grep incorrectly match unicode patterns with \textbackslash<\textbackslash>  and Bug-\#33080 claim that combination of --count (-c) and --only-matching (-o) will not work as expected. A simple test case liked the following command:
 %
-%\emph{grep --only-matching --count '\textbackslash<chai\textbackslash>' test.txt} 
+%\emph{grep --only-matching --count '\textbackslash<chai\textbackslash>' test.txt}
 %
 %can make these two bugs existed in one test case and only one fault will be observed. Other faults listed in table \ref{masking effect detail} as well as their masking effect can also be easily reappeared in well-designed test cases.
 
 \subsection{study 2:performance of traditional algorithms}
-In the second study, we want to learn how badly the masking effect impact on the traditional approaches. To conduct this study, we need to apply the traditional failure-inducing identifying algorithms on the SUT we collected in the first study and compare them with the perfect combinations. 
+In the second study, we want to learn how badly the masking effect impact on the traditional approaches. To conduct this study, we need to apply the traditional failure-inducing identifying algorithms on the SUT we collected in the first study and compare them with the perfect combinations.
 
 
 %The detailed model is listed as table \ref{subject_model}. And the HSQLDB can be modeled as table \ref{modelHSQLDB}.
@@ -780,15 +1085,15 @@ In the second study, we want to learn how badly the masking effect impact on the
 
 
 \subsubsection{study setup}
-The traditional approaches we selected are: OFOT, FIC and CTA. To make the first two approaches (OFOT and FIC) work, we need to feed them with a failing test case. And for CTA, however, it need to work with a covering array and the executing result for each test case in the covering array. As the input for the traditional approaches are different, we designed two different setups, one for OFOT and FIC, while the other for CTA. 
+The traditional approaches we selected are: OFOT, FIC and CTA. To make the first two approaches (OFOT and FIC) work, we need to feed them with a failing test case. And for CTA, however, it need to work with a covering array and the executing result for each test case in the covering array. As the input for the traditional approaches are different, we designed two different setups, one for OFOT and FIC, while the other for CTA.
 
 For OFOT and FIC, our set up is as follows:
 
-We first selected failing test cases from the exhaustive executed test cases, and for each test case, we applied OFOT and FIC to isolate the failure-inducing combinations in this test case. As the subject under test has multiple faults, the strategy we chose for this two the traditional approaches is \emph{distinguish fault} in section 4.2, i.e., distinguish fault and ignore the masking effect happened among them. At last we collected all the failure-inducing combinations they got and deleted those overlapped ones. 
+We first selected failing test cases from the exhaustive executed test cases, and for each test case, we applied OFOT and FIC to isolate the failure-inducing combinations in this test case. As the subject under test has multiple faults, the strategy we chose for this two the traditional approaches is \emph{distinguish fault} in section 4.2, i.e., distinguish fault and ignore the masking effect happened among them. At last we collected all the failure-inducing combinations they got and deleted those overlapped ones.
 
 For CTA, our setup is as follows:
 
-We first utilize augment simulating algorithms(ASA) to generate 2-way covering arrays. And for each test case in the covering array, the executing result of them can be fetched from the exhaustive set we have got in the first study. Then we fed CTA approach with the covering array along with the corresponding executing results. We then collected the failure-inducing combinations after running CTA. As different covering array may affect the result of CTA approach, we repeated using ASA to generate 2-way covering array for 30 times and applied CTA for each of them. It is noted that ASA algorithm is a heuristic approach, which containing some random factors, so the 30 covering arrays are different from each other. 
+We first utilize augment simulating algorithms(ASA) to generate 2-way covering arrays. And for each test case in the covering array, the executing result of them can be fetched from the exhaustive set we have got in the first study. Then we fed CTA approach with the covering array along with the corresponding executing results. We then collected the failure-inducing combinations after running CTA. As different covering array may affect the result of CTA approach, we repeated using ASA to generate 2-way covering array for 30 times and applied CTA for each of them. It is noted that ASA algorithm is a heuristic approach, which containing some random factors, so the 30 covering arrays are different from each other.
 
 After we have collected the result got by each algorithm for each version software, we next need to compare the result with the perfect combinations to quantify the extent to which traditional approaches suffers from masking effect. To make this comparison, we first introduce the following notation:
 
@@ -806,24 +1111,33 @@ It is obviously the more similarity between the set of failure-inducing combinat
 
 Besides the similarity metric, another metric also need to be considered: the discrepancy between the number of identified failure-inducing combinations with these perfect combinations. If this discrepancy is too big, even though we get a good similarity metric value, we also get too many noise which make our result inaccuracy.
 
-Particularly, if the value of discrepancy number metric is 0 and the value of similarity metric is 1, it means that multiple faults as well as their masking effect have no impacts on the algorithms, which is usually not feasible in practice. 
+Particularly, if the value of discrepancy number metric is 0 and the value of similarity metric is 1, it means that multiple faults as well as their masking effect have no impacts on the algorithms, which is usually not feasible in practice.
 
 \subsubsection{result and discuss}
-Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicates the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" presents the similarity between this two set of combinations. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC","OFOT","CTA", indicating corresponding algorithms respectively. It is noted that for column "CTA", the vale we set in each cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
+Table \ref{traiditional_result} depicts the result of the second case study. Column "Num Diff" indicates the discrepancy of the number of MFS between the ones got through traditional approaches with the perfect combinations. Column "Similarity" presents the similarity between this two set of combinations. Additionally, the results of different algorithms can be distinguished by the titles of sub-columns, which are "FIC", "OFOT", "CTA", indicating corresponding algorithms respectively. It is noted that for column "CTA", the vale we set in each cell are the average value of the result we collected from 30 repeated experiments' result for a particular subject.
+\begin{figure}
 
-\begin{table}\renewcommand{\arraystretch}{1.3}
-\caption{traditional result}
-\label{traiditional_result}
-\begin{tabular}{p{0.16\columnwidth}|p{0.07\columnwidth}|p{0.35\columnwidth}|p{0.35\columnwidth}} \hline
-   Software & version  &  num diff & similarity
-\end{tabular}
+\centering
 
-\begin{tabular}{c|c|c|c|c|c|c|c} \hline
-	- & 		- &	OFOT	& FIC 	& CTA 	& OFOT 	& FIC 	& CTA  \\ \hline
-HSQLDB &	 3.14 &	3	& 4 		& 4 		& 0.65 	& 0.64	&  0.5 \\
-\hline\end{tabular}
-\end{table}
+\subfigure[Small Box with a Long Caption]{
 
+\label{fig:subfig:a} %% label for first subfigure
+
+\includegraphics[width=1.0in]{graphic.eps}}
+
+\hspace{1in}
+
+\subfigure[Big Box]{
+
+\label{fig:subfig:b} %% label for second subfigure
+
+\includegraphics[width=1.5in]{graphic.eps}}
+
+\caption{Two Subfigures}
+
+\label{fig:subfig} %% label for entire figure
+
+\end{figure}
 From this table, we can easily find that Traditional MFS identifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additionally, the extent to which the impact has affected vary from algorithms. We can find that for HSQLDB with version 3.14, the similarity of CTA was just at 4 while FIC is 3. We list these points in figure 3. From this figure, we can learn that.
 
 So the answer for Q2 is: traditional algorithm do suffer from the multiple faults and their masking effect although the extent vary in different algorithms.
@@ -832,10 +1146,10 @@ So the answer for Q2 is: traditional algorithm do suffer from the multiple fault
 The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Specifically, we augmented the three traditional approaches using the method described in section 5, and then we applied these augmented approaches on identifying the failure-inducing combinations in the prepared subjects.
 
 \subsubsection{study setup}
-The setup of this case study is almost the same as the second case study. The difference is that the algorithms we choose are three augment ones. Additionally, comparisons between augment approaches with three traditional ones will be quantified. 
+The setup of this case study is almost the same as the second case study. The difference is that the algorithms we choose are three augment ones. Additionally, comparisons between augment approaches with three traditional ones will be quantified.
 
 \subsubsection{result and analysis}
-Table \ref{our_result} presents the result of the last case study. The form of this table is similar to the second study. We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized. 
+Table \ref{our_result} presents the result of the last case study. The form of this table is similar to the second study. We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{our approach result}
@@ -863,7 +1177,7 @@ Nie's approach in \cite{nie2011minimal} first separates the faulty possible tupl
 
 Delta debugging \cite{zeller2002simplifying} proposed by Zeller is an adaptive divide-and-conquer approach to locate interaction fault. It is very efficient and has been applied to real software environment. Zhang et al. \cite{zhang2011characterizing} also proposed a similar approach that can identify the failure-inducing combinations that has no overlapped part efficiently.
 
-Colbourn and McClary \cite{colbourn2008locating} proposed a non-adaptive method. Their approach extends the covering array to the locating array to detect and locate interaction faults. C. Martinez \cite{martinez2008algorithms,martinez2009locating} proposed two adaptive algorithms. The first one needs safe value as their assumption and the second one remove the assumption when the number of values of each parameter is equal to 2. Their algorithms focus on identifying the faulty tuples that have no more than 2 parameters.  
+Colbourn and McClary \cite{colbourn2008locating} proposed a non-adaptive method. Their approach extends the covering array to the locating array to detect and locate interaction faults. C. Martinez \cite{martinez2008algorithms,martinez2009locating} proposed two adaptive algorithms. The first one needs safe value as their assumption and the second one remove the assumption when the number of values of each parameter is equal to 2. Their algorithms focus on identifying the faulty tuples that have no more than 2 parameters.
 
 Ghandehari.etc \cite{ghandehari2012identifying} defines the suspiciousness of tuple and suspiciousness of the environment of a tuple. Based on this, they rank the possible tuples and generate the test configurations. Although their approach imposes minimal assumption, it does not ensure that the tuples ranked in the top are the faulty tuples.
 
@@ -873,31 +1187,31 @@ Our previous work \cite{niu2013identifying} have proposed an approach that utili
 
 Besides works that aims at identifying the failure-inducing combinations in test cases, there are some work focus on working around the masking effects:
 
-With having known masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. Additional constraints impacts in CT were studied in works like \cite{bryce2006prioritized,chen2010combinatorial,calvagna2008logic,grindal2006handling,yilmaz2013test}. These approaches use some rules or to avoid these invalidated test cases to improve the efficiency when examine the test cases. 
+With having known masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. Additional constraints impacts in CT were studied in works like \cite{bryce2006prioritized,chen2010combinatorial,calvagna2008logic,grindal2006handling,yilmaz2013test}. These approaches use some rules or to avoid these invalidated test cases to improve the efficiency when examine the test cases.
 
 Dumlu and Ylimaz in \cite{dumlu2011feedback} proposed a feedback-driven approach to work around the masking effects. In specific, it first use CTA classify the possible failure-inducing combinations and then eliminate them and generate new test cases to detect possible masked interaction in the next iteration. They further extended their work in \cite{yilmaz2013reducing}, in which they proposed a multiple-class CTA approach to distinguish faults in SUT. In addition, they empirically studied the impacts on both ternary-class and multiple-class CTA approaches.
 
 Our work differs from these ones mainly in the fact that we formally studied the masking effects on FCI approaches and further proposed a divide-and-conquer strategy to alleviate this impact.
 
 \section{Conclusions}
-Masking effects of multiple faults in SUT can bias the result of traditional failure-inducing combinations identifying approaches. In this paper, we formalized the process of identifying failure-inducing combinations under the circumstance that masking effects exist in SUT and try to understand how do this impacts brought by masking effect. Furthermore, we have presented a divide and conquer strategy to assist traditional FCI approaches to alleviate this impact. 
+Masking effects of multiple faults in SUT can bias the result of traditional failure-inducing combinations identifying approaches. In this paper, we formalized the process of identifying failure-inducing combinations under the circumstance that masking effects exist in SUT and try to understand how do this impacts brought by masking effect. Furthermore, we have presented a divide and conquer strategy to assist traditional FCI approaches to alleviate this impact.
 
 %This strategy separately handle each fault in SUT, and for a particular fault, it will discard these test cases that trigger faults different from the one under analysis and only keep those that either pass or trigger the expected fault. Additional test cases for compensation will be generated after discarding unsatisfied test cases.
 
 In the empirically studies, we extended three FCI approaches with our strategy. The comparison between this three traditional approaches with their variation is conducted on on several open-source software. The results shows that our strategy do assist traditional FCI approaches get a better performance when facing masking effects in SUT.
 
-As a future work, we need to do more empirical studies to make our conclusion more general. Our current experimental subjects are several middle-sized software, we would like to extend our approach into more complicated and large-scaled testing scenarios. Another promising work in the future is to combine white-box testing technique to make the FCI approaches get more accurate results when handling masking effects. We believe that figuring out the faulting levels of different bugs through white-box testing technique is helpful to reduce misjudgements in the failure-inducing combinations identifying process. 
+As a future work, we need to do more empirical studies to make our conclusion more general. Our current experimental subjects are several middle-sized software, we would like to extend our approach into more complicated and large-scaled testing scenarios. Another promising work in the future is to combine white-box testing technique to make the FCI approaches get more accurate results when handling masking effects. We believe that figuring out the faulting levels of different bugs through white-box testing technique is helpful to reduce misjudgements in the failure-inducing combinations identifying process.
 
 %\end{document}  % This is where a 'short' article might terminate
 
 %ACKNOWLEDGMENTS are optional
-\section{Acknowledgments}
-This section is optional; it is a location for you
-to acknowledge grants, funding, editing assistance and
-what have you.  In the present case, for example, the
-authors would like to thank Gerald Murray of ACM for
-his help in codifying this \textit{Author's Guide}
-and the \textbf{.cls} and \textbf{.tex} files that it describes.
+%\section{Acknowledgments}
+%This section is optional; it is a location for you
+%to acknowledge grants, funding, editing assistance and
+%what have you.  In the present case, for example, the
+%authors would like to thank Gerald Murray of ACM for
+%his help in codifying this \textit{Author's Guide}
+%and the \textbf{.cls} and \textbf{.tex} files that it describes.
 
 %
 % The following two commands are all you need in the
@@ -915,76 +1229,23 @@ and the \textbf{.cls} and \textbf{.tex} files that it describes.
 %
 %APPENDICES are optional
 %\balancecolumns
-\appendix
-%Appendix A
-\section{masking faults statistic}
-\begin{table*}\renewcommand{\arraystretch}{1.3}
-\caption{real faults detailed}
-\label{masking effect detail}
-\begin{tabular}{c|c|c|c} \hline
-software & faults ID & masking faults ID & Web site\\ \hline
-Grep & \#29537 &  \#33080  & http://savannah.gnu.org/bugs/?group=grep\\ \hline
-- & \#29537 &  \#33080  & -\\ \hline
-Sed & - & -  & - \\ \hline
-Make & - &  - &-\\ \hline
-Gzip &- &  - &-\\ \hline
-HSQLDB &- & - &-\\
-\hline\end{tabular}
-\end{table*}
+%\appendix
+%%Appendix A
+%\section{masking faults statistic}
+%\begin{table*}\renewcommand{\arraystretch}{1.3}
+%\caption{real faults detailed}
+%\label{masking effect detail}
+%\begin{tabular}{c|c|c|c} \hline
+%software & faults ID & masking faults ID & Web site\\ \hline
+%Grep & \#29537 &  \#33080  & http://savannah.gnu.org/bugs/?group=grep\\ \hline
+%- & \#29537 &  \#33080  & -\\ \hline
+%Sed & - & -  & - \\ \hline
+%Make & - &  - &-\\ \hline
+%Gzip &- &  - &-\\ \hline
+%HSQLDB &- & - &-\\
+%\hline\end{tabular}
+%\end{table*}
 
-\begin{table}\renewcommand{\arraystretch}{1.3}
-  \caption{input model of HSQLDB} \centering
-  \label{modelHSQLDB}
-  \begin{tabular}{p{0.9\columnwidth}}\hline
-  \hline
-   \bfseries  SQL  properties(TRUE/FALSE)\\
-    \hline
-    sql.enforce\_strict\_size, sql.enforce\_names,sql.enforce\_refs, sql.enforce\_size, sql.enforce\_types, sql.enforce\_tdc\_delete, sql.enforce\_tdc\_update
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries table properties &   \bfseries values \\
-   \hline
-   hsqldb.default\_table\_type & CACHED, MEMORY\\
-   hsqldb.tx & LOCKS, MVLOCKS, MVCC\\
-   hsqldb.tx\_level & read\_commited, SERIALIZABLE\\
-   hsqldb.tx\_level & read\_commited, SERIALIZABLE
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries Server properties &   \bfseries values \\
-   \hline
-   Server Type & SERVER, WEBSERVER, INPROCESS \\
-    existed form & MEM, FILE
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries Result Set properties &   \bfseries values \\
-   \hline
-    resultSetTypes & TYPE\_FORWARD\_ONLY,TYPE\_SCROLL\_INSENSITIVE, TYPE\_SCROLL\_SENSITIVE\\\
-    resultSetConcurrencys & CONCUR\_READ\_ONLY,CONCUR\_UPDATABLE \\
-    resultSetHoldabilitys & HOLD\_CURSORS\_OVER\_COMMIT, CLOSE\_CURSORS\_AT\_COMMIT
-  \end{tabular}
-
-  \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries option in test script &   \bfseries values\\
-   \hline
-   StatementType & STATEMENT, PREPAREDSTATEMENT
-  \end{tabular}
-  
-    \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
-  \hline
-  \bfseries constraints &   \bfseries values\\
-   \hline
-   StatementType & STATEMENT, PREPAREDSTATEMENT
-  \end{tabular}
-
-
-\end{table}
 
 %
 %\subsection{References}
