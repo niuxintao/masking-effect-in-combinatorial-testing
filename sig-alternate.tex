@@ -291,7 +291,7 @@ A \emph{test case} of the SUT is an array of \emph{n} values, one for each param
 In practice, these parameters in the test case can represent many factors, such as input variables, run-time options, building options or various combination of them. We need to execute the SUT under these test cases to ensure the correctness of the behaviour of the software.
 
 %\begin{definition}
-We consider the fact that the abnormally executing test cases as a \emph{failure}. It can be a thrown exception, compilation error, assertion failure or constraint violation.
+We consider the fact that the abnormally executing test cases as a \emph{fault}. It can be a thrown exception, compilation error, assertion failure or constraint violation.
 %\end{definition}
 
 Figuring out the test case as well as the executing result is usually not enough to analyse the source of the bug, especially when there are too many parameters we need to care in this test case. In this circumstance, we need to study some subsets of this test case, so we need the following definition:
@@ -334,9 +334,11 @@ The proof of this propositions is obvious, we just take an example to illustrate
 By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same fault, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, then we can get the following proposition.
 
 \begin{proposition}
-For a combination $c_{m}$, if all the test cases in $T(c_{m})$ triggered fault $F_{m}$ except the set of test cases $T' \subsetneqq T(c_{m})$ , then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{(m+l)_{i}}$\} (  $l \in \{1, 2... n-m\}$;   $i \in \{1,2 ... |P_{c_{m}}(m+l)| \}$) satisfy the following formula:
+For a combination $c_{m}$, if all the test cases triggered fault $F_{m}$, denoted as $T_{F_{m}}$, is the subset of $T(c_{m})$, i.e.,  $T_{F_{m}} \subsetneqq T(c_{m})$, then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{(m+l)_{i}}$\} (  $l \in \{1, 2... n-m\}$;   $i \in \{1,2 ... |P_{c_{m}}(m+l)| \}$).
 
-\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
+% satisfy the following formula:
+%
+%\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
 
 \end{proposition}
 %then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations.
@@ -344,16 +346,52 @@ For a combination $c_{m}$, if all the test cases in $T(c_{m})$ triggered fault $
 
 \begin{proof}
 
+To proof this proposition, we must proof that there must exist at least one parent combination $c_{m+l}$, that satisfy: 
+\begin{displaymath}
+1. T(c_{m+l}) \subset T_{F_{m}} 
+\end{displaymath}
+
+\begin{displaymath}
+2.\forall c_{m+l-h} \prec c_{m+l}, s.t. T(c_{m+l-h}) \not\subset T_{F_{m}} \end{displaymath}
+
 We proof this proposition by two steps:
 
-First, there must exist some parent-combination $c_{m+l}$ satisfy this formula. Let me divide the $T(c_{m})$ to pieces of $T(c_{n_{i}})$, Each set of $T(c_{n_{i}})$ just have one element, that is $c_{n_{i}}$ itself as a test case. Obviously, these set do not overlap with each other. Take an example, $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =T((1,0,0)) $\bigcup$ T((1,0,1)) $\bigcup$ T((1,1,0)) $\bigcup$ T((1,1,1)).
+First, we proof that there must exist some parent-combination $c_{m+l}$ satisfy the first formula. Let me divide the $T(c_{m})$ to pieces of $T(c_{n_{i}})$, Each set of $T(c_{n_{i}})$ just have one element, that is $c_{n_{i}}$ itself as a test case. Obviously, these set do not overlap with each other. Take an example, $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =T((1,0,0)) $\bigcup$ T((1,0,1)) $\bigcup$ T((1,1,0)) $\bigcup$ T((1,1,1)).
 
-As $T' \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m})$ trigger the fault $F_{m}$, and it must be one of $T(c_{n_{i}})$. So at least there exist one combination $c_{n_{i}}$ which can satisfy this formula.
+As $T_{F_{m}} \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m})$ trigger the fault $F_{m}$, and it must be one of $T(c_{n_{i}})$. So at least there exist one combination $c_{n_{i}}$ which can satisfy the first formula.
 
-Next, some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$. %for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+Next, we proof that there must be at least one parent-combination $c_{m+l}$ simultaneity satisfied this two formula. We proof by contradiction.
+
+Assume that all the $c_{m+l}$ satisfy the first formula, don't satisfy the second formula.
+For a particular $c_{m+l}$, then at least one child combination $c_{m+l-h}$ must satisfy $T(c_{m+l-h}) \subset T_{F_{m}}$,(h>0). Furthermore, it must have $c_{m} \prec c_{m+l-h}$, for $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$, which indicate that all the test cases contain $c_{m+l-h}$ must contain $c_{m}$. 
+
+Then as $c_{m} \prec c_{m+l-h} $ and $T(c_{m+l-h}) \subset T_{F_{m}}$, similarly, there must exist $c_{m} \prec c_{m+l-h-h_{1}}$ s.t. $T(c_{m+l-h-h_{1}}) \subset T_{F_{m}}$, $c_{m} \prec c_{m+l-h-h_{1}-h_{2}}$ s.t. $T(c_{m+l-h-h_{1}-h_{2}}) \subset T_{F_{m}}$.... 
+
+At last we can get  $c_{m} \prec c_{m} $ and $T(c_{m}) \subset T_{F_{m}}$. In this circumstance, $c_{m}$ is identical to the original one. As in fact $T_{F_{m}} \subsetneqq T(c_{m})$ which contradict $T(c_{m}) \subset T_{F_{m}}$, so the assumption is invalid, which indicate there must exist at least one parent combination of $c_{m}$ simultaneity satisfied this two formula.
+
+%some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$. 
+
+%for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
 \end{proof}
 
-However, if $T' = T(c_{m})$, which means none of the test case in $T(c_{m})$ trigger the fault $F_{m}$ then neither the parent of the combination of $c_{m}$ nor $c_{m}$ its self is the failure-inducing combination of $F_{m}$. In this circumstance, we call combination $c_{m}$ is \emph{irrelevant} to the failure-inducing combinations of $F_{m}$
+However, if $T_{F_{m}} \not\subsetneqq T(c_{m})$, This proposition will not hold. In this circumstance, there are three possibilities of the failure-inducing combinations:
+
+1. if $T(c_{m}) \subset T_{F_{m}})$, the the failure-inducing combinations must be the child combinations of $c_{m}$ by definition. Or.
+
+2. if $T(c_{m}) \not\subset T_{F_{m}})$, which can also divide into two possibilities:
+  
+  2.1 if $T(c_{m}) \cap T_{F_{m}} = \emptyset$, which means that $c_{m}$ is the health combination. We cannot get any information of failure-inducing combinations. In this circumstance, neither its parent and child combinations is the failure-inducing combinations,  we call $c_{m}$ is irrelevant to the failure-inducing combinations.
+  
+  2.2 if $T(c_{m}) \cap T_{F_{m}} \neq \emptyset$. In this time we can still have the conclusion that, some parent-combination $c_{m+l}$ satisfy the following formula
+ \begin{displaymath}
+  T(c_{m+l}) \subset T_{F_{m}} 
+\end{displaymath}
+However, it do not hold the next formula, the key is that we can not get the following deduction:
+ $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$. So in this time, if this formula holds, 2.2.1we can learn that some failure-inducing combination must be the parent combinations which proofed in the second proposition.
+ 
+ 2.2.2 If not, then the failure-inducing combination must not be the parent combination of $c_{m}$, and obviously, they will not also be the child combinations of $c_{m}$, as  $T(c_{m}) \not\subset T_{F_{m}})$, so in this circumstance, we can also have $c_{m}$ is irrelevant to failure-inducing combinations.
+  
+  
 
 %The proof of this proposition lies on the definition of \emph{faulty combination} of one fault, which declare that if any test case contain a combination that do not trigger the fault, then this combination is not the failure-inducing combination of this fault.
 
@@ -369,6 +407,17 @@ $2)\ \exists c_{k} \in C_{k}\ s.t.\ c_{k}\ is\ irrelevant\ to\ C_{l} $
 
 \end{lemma}
 
+\begin{proof}
+ Easily we can get that $\bigcup T(c_{k}) = T_{k}$ and $\bigcup T(c_{l}) = T_{l}$.  As $T_{l} \subset T_{k}$. So there exist $T(c_{l}) \subset T_{k}$. If $T_{k} = T(c_{k})$. Then the failure-inducing combinations of $c_{l}$ must be the parent-combinations of $c_{k}$ which proofed in the previous section. 
+ 
+For multiple,  $T(c_{k_{i}) \cap  (\cup T(c_{k_{i}})) \neq \emptyset } $So in this time there are several circumstances:
+if there exist $T_{l} \subset T(c_{k})$, the conclusion holds.
+
+ do there exist $T(c_{k}) \subset T_{l}$ ? it is not hold, for that 
+
+%So the failure-inducing combinations of $T_{k}$ = $c_{k}$, must satisfy that  $c_{k}$ must be the child or $c_{l} = c_{k}$. If there is no child, then there must be the father.
+
+\end{proof}. 
 We illustrate this two scenarios in table \ref{example_three_condition}. There are two parts in this table, in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
 
 %\begin{proof}
@@ -1109,11 +1158,13 @@ We next compared the result with the perfect combinations to quantify the degree
  \item The number of combinations  identified by FCI approaches that is the child combinations of some perfect combinations, which is refer to \emph{identified child combinations}.
      
  \item The number of ignored failure-inducing combinations. This metric counts these combinations in perfect ones, which satisfy that neither these combinations nor their parent and child combinations are in those identified by FCI approaches. We label them as \emph{ignored combinations}.
- \item The number of wrongly identified combinations. This metric counts these combinations in these identified by FCI approaches, of which neither themselves nor their child and parent combinations is in these perfect ones. It is referred to the \emph{irrelative combinations}.
+ \item The number of wrongly identified combinations. This metric counts these combinations in these identified by FCI approaches, of which neither themselves nor their child and parent combinations is in these perfect ones. It is referred to the \emph{irrelevant combinations}.
 
 \end{enumerate}
 
-Among these five metrics, the more the "accurate combinations" the better the FCI approaches performed, which indicate the less impact do on the FCI approaches. In the reverse, "ignored combinations" and "irrelative combinations" indicate . For "parent combination" and "child combinations"
+Among these five metrics, the more the "accurate combinations" the better the FCI approaches performed, which indicate the less impact do on the FCI approaches. In the reverse, "ignored combinations" and "irrelevant combinations" indicate the FCI approaches performs badly if this two metrics is too big. For "parent combination" and "child combinations" this two metrics, they can help us , but with some noisy.
+
+Besides, as we discussed in the formal model, \emph{regards as one fault} will, while \emph{distingush} will. So the four metric will to some extent validate this formal analysis.
 
 %
 %To make this comparison, we first introduce the following notation:
