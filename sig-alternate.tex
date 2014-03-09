@@ -1222,7 +1222,7 @@ Another interesting observations is that for the \emph{regard as one fault} and 
 
 %\emph{regard as one fault} would get more \emph{} except the following case,  An exception is for the FIC\_BS, which we think when consider the regard as one fault faults strategy, it increase the possibility that import newly bugs so that bais the result. it always that . fahter and parent. which are accordant with the analysis in the formal model.
 
-We further observed that, for different algorithms, the extent to what they suffered from masking effects varied. For instance, for FIC\_BS approach, the identified they just , while  for OFOT, the.
+We further observed that, for different algorithms, the extent to what they suffered from masking effects varied. For instance, for FIC\_BS approach, under the masking effects, they  identified the 61 and 2 irrelevant combinations for two strategies, while for OFOT and CTA, this value is 0 and 4, 5 and 19 respectively. There are two factors caused this difference: the chosen test cases and the analysis method. For FIC\_BS and OFOT this two methods, the test cases they chosen for isolating failure-inducing combinations is different, which consequently changed the masking effects they may encountered. For OFOT an CTA, while the test cases we chosen is the same, the difference lies at the way they charactering the failure-inducing combinations in the test cases(OFOT directly identify the parameter in the passed test cases while CTA used classified tree analysis).
 
 %
 %From this figure, we can easily find that Traditional MFS identifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additionally, the extent to which the impact has affected vary from algorithms. We can find that for HSQLDB with version 3.14, the similarity of CTA was just at 4 while FIC is 3. We list these points in figure 3. From this figure, we can learn that.
@@ -1230,13 +1230,15 @@ We further observed that, for different algorithms, the extent to what they suff
 Above all, the answer we got for \textbf{Q2} is: traditional algorithm do suffer from the multiple faults and their masking effect although the extent vary in different algorithms.
 
 \subsection{study 3:performance of our approach}
-The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Specifically, we augmented the three traditional approaches using the method described in section 4, and then we applied these augmented approaches on identifying the failure-inducing combinations in the prepared subjects.
+The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Specifically, we augmented the three traditional approaches with replacing test cases strategy described in section 4, and then we applied these augmented approaches on identifying the failure-inducing combinations in the prepared subjects.
 
 \subsubsection{study setup}
 The setup of this case study is almost the same as the second case study. The difference is that the algorithms we choose are three augment ones. Additionally, comparisons between augment approaches with three traditional ones will be quantified.
 
 \subsubsection{result and analysis}
-Figure \ref{fig:subfigureExample2} presents the result of the last case study. The form of this table is similar to the second study. We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized.
+Figure \ref{fig:subfigureExample2} presents the result of the last case study. The organization of this figure is similar to the second study. The bar in each column depeicet the results the augment approaches, which labelled as "replacing strategy". We marked two additional points in each column which represent the result of \emph{regard as one fault} and \emph{distinguish faults} strategy to get a comparison with the augment approaches.
+
+% We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized.
 
 \begin{figure*}[ht]
 \centering
