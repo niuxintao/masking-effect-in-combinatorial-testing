@@ -325,6 +325,14 @@ Let $c_{m}$ be a m-value combination, we denote all the test cases can \emph{hit
 %\newdef{proposition}{Proposition}
 \newtheorem{proposition}{Proposition}
 \begin{proposition}
+if $c_{l} \prec c_{k}$, then $T(c_{k}) \subset T(c_{l})$
+\end{proposition}
+
+\begin{proof}
+For$ \forall t \in T_{k}$, we have $t$ hit $c_{k}$, as $c_{l} \prec c_{k}$, so $t$ must also hit $c_{l}$, as all the element in $c_{l}$ must in $c_{k}$, which also in the test case $t$. So we get $t \in T_{l}$, which proof that $T(c_{k}) \subset T(c_{l})$. 
+\end{proof}
+
+\begin{proposition}
 For any set $T$ of test cases of a SUT, we can always get a set of combinations $\mathcal{C}(T) = \{c_{m_{1}},c_{m_{2}}...\}$, so that,
 
 \begin{displaymath} T  = T(c_{m_{1}})\bigcup T(c_{m_{2}}) \bigcup ...\end{displaymath} and
@@ -334,80 +342,27 @@ For any set $T$ of test cases of a SUT, we can always get a set of combinations 
 \end{proposition}
 
 \begin{proof}
+We give a assume the exhaustive test cases for SUT is $T^{*}$. Then the combinations in a test case t is denoted as c(t), so that the   $t(T) - t(T^{*} - T)$
+
+we just use the following loop computation:
+
+$ for test case t \in t(T^{*}) - t(T)$,
+ S = $ {t, if t is not have t in }$
+
+
 \end{proof}.
 
 In fact, for all the test cases for fault $F_{m}$ which denoted as $T_{F_{m}}$, $\mathcal{C}(T_{F_{m}})$ is the set of failure-inducing combinations of $F_{m}$.
 
+And obviously $\mathcal{C}(T(c_{m})) = c_{m}$
 
-%\begin{displaymath} T  = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{(m+l)_{i}}).\end{displaymath}
-%
-%\end{proposition}
-%
-%The proof of this propositions is obvious, we just take an example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1)). Additional, some test cases of these parent-combinations may overlapped each other, for example, T((1,0,-)) overlap with T((1,-,1)) at the test case (1,0,1).
-%
-%By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same fault, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, then we can get the following proposition.
+From the construction process of $\mathcal{C}(T)$, we can find that, the combinations in $t(T) - t(T^{*} - T)$ either be the one in $\mathcal{C}(T)$, either be the father combinations of one of them. 
 
-%\begin{proposition}
-%For a combination $c_{m}$, if all the test cases triggered fault $F_{m}$, denoted as $T_{F_{m}}$, is the subset of $T(c_{m})$, i.e.,  $T_{F_{m}} \subsetneqq T(c_{m})$, then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{(m+l)_{i}}$\} (  $l \in \{1, 2... n-m\}$;   $i \in \{1,2 ... |P_{c_{m}}(m+l)| \}$).
-%
-%% satisfy the following formula:
-%%
-%%\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
-%
-%\end{proposition}
-%%then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations.
-%
-%
-%\begin{proof}
-%
-%To proof this proposition, we must proof that there must exist at least one parent combination $c_{m+l}$, that satisfy:
-%\begin{displaymath}
-%1. T(c_{m+l}) \subset T_{F_{m}}
-%\end{displaymath}
-%
-%\begin{displaymath}
-%2.\forall c_{m+l-h} \prec c_{m+l}, s.t. T(c_{m+l-h}) \not\subset T_{F_{m}} \end{displaymath}
-%
-%We proof this proposition by two steps:
-%
-%First, we proof that there must exist some parent-combination $c_{m+l}$ satisfy the first formula. Let me divide the $T(c_{m})$ to pieces of $T(c_{n_{i}})$, Each set of $T(c_{n_{i}})$ just have one element, that is $c_{n_{i}}$ itself as a test case. Obviously, these set do not overlap with each other. Take an example, $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =T((1,0,0)) $\bigcup$ T((1,0,1)) $\bigcup$ T((1,1,0)) $\bigcup$ T((1,1,1)).
-%
-%As $T_{F_{m}} \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m})$ trigger the fault $F_{m}$, and it must be one of $T(c_{n_{i}})$. So at least there exist one combination $c_{n_{i}}$ which can satisfy the first formula.
-%
-%Next, we proof that there must be at least one parent-combination $c_{m+l}$ simultaneity satisfied this two formula. We proof by contradiction.
-%
-%Assume that all the $c_{m+l}$ satisfy the first formula, don't satisfy the second formula.
-%For a particular $c_{m+l}$, then at least one child combination $c_{m+l-h}$ must satisfy $T(c_{m+l-h}) \subset T_{F_{m}}$,(h>0). Furthermore, it must have $c_{m} \prec c_{m+l-h}$, for $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$, which indicate that all the test cases contain $c_{m+l-h}$ must contain $c_{m}$.
-%
-%Then as $c_{m} \prec c_{m+l-h} $ and $T(c_{m+l-h}) \subset T_{F_{m}}$, similarly, there must exist $c_{m} \prec c_{m+l-h-h_{1}}$ s.t. $T(c_{m+l-h-h_{1}}) \subset T_{F_{m}}$, $c_{m} \prec c_{m+l-h-h_{1}-h_{2}}$ s.t. $T(c_{m+l-h-h_{1}-h_{2}}) \subset T_{F_{m}}$....
-%
-%At last we can get  $c_{m} \prec c_{m} $ and $T(c_{m}) \subset T_{F_{m}}$. In this circumstance, $c_{m}$ is identical to the original one. As in fact $T_{F_{m}} \subsetneqq T(c_{m})$ which contradict $T(c_{m}) \subset T_{F_{m}}$, so the assumption is invalid, which indicate there must exist at least one parent combination of $c_{m}$ simultaneity satisfied this two formula.
-%
-%%some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$.
-%
-%%for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
-%\end{proof}
+Another observation is that for any combination c in $t(T) - t(T^{*} - T) $, we can have $T(c) \subset T$, as if not so, there is must be any test case $t \in T(c)$, such that $t \not\in T$, then it must be $t \in T^{*} - T$, this is not according with  $c \in t(T) - t(T^{*} - T)$. 
 
-%However, if $T_{F_{m}} \not\subsetneqq T(c_{m})$, This proposition will not hold. In this circumstance, there are three possibilities of the failure-inducing combinations:
-%
-%1. if $T(c_{m}) \subset T_{F_{m}})$, the the failure-inducing combinations must be the child combinations of $c_{m}$ by definition. Or.
-%
-%2. if $T(c_{m}) \not\subset T_{F_{m}})$, which can also divide into two possibilities:
-%
-%  2.1 if $T(c_{m}) \cap T_{F_{m}} = \emptyset$, which means that $c_{m}$ is the health combination. We cannot get any information of failure-inducing combinations. In this circumstance, neither its parent and child combinations is the failure-inducing combinations,  we call $c_{m}$ is irrelevant to the failure-inducing combinations.
-%
-%  2.2 if $T(c_{m}) \cap T_{F_{m}} \neq \emptyset$. In this time we can still have the conclusion that, some parent-combination $c_{m+l}$ satisfy the following formula
-% \begin{displaymath}
-%  T(c_{m+l}) \subset T_{F_{m}}
-%\end{displaymath}
-%However, it do not hold the next formula, the key is that we can not get the following deduction:
-% $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$. So in this time, if this formula holds, 2.2.1we can learn that some failure-inducing combination must be the parent combinations which proofed in the second proposition.
-%
-% 2.2.2 If not, then the failure-inducing combination must not be the parent combination of $c_{m}$, and obviously, they will not also be the child combinations of $c_{m}$, as  $T(c_{m}) \not\subset T_{F_{m}})$, so in this circumstance, we can also have $c_{m}$ is irrelevant to failure-inducing combinations.
+Further observation, if $T(c) \subset T$, then it must be that $c \in t(T) - t(T^{*} - T) $.  In fact, $c = \mathcal{C}(T(c)) \in t(T(c)) - t(T^{*} - T(c)) \in t(T) - t(T^{*} - T(c)) \in t(T) - t(T^{*} - T) $
 
-
-
-%The proof of this proposition lies on the definition of \emph{faulty combination} of one fault, which declare that if any test case contain a combination that do not trigger the fault, then this combination is not the failure-inducing combination of this fault.
+From this two observation, we can have the following lemma:
 
 Based on this proposition, we can easily get the following lemma:
 
@@ -415,8 +370,12 @@ Based on this proposition, we can easily get the following lemma:
 \begin{lemma}
 For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
 
- \begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l})\ and\ c_{k} \in  \mathcal{C}(T_{k}), s.t., c_{l} \prec c_{k}
+ \begin{displaymath} \forall c_{l} \in \mathcal{C}(T_{l})\,  either\ c_{l} \in \mathcal{C}(T_{k})\ or \exists c_{k} \in \mathcal{C}(T_{k}), s.t., c_{k} \prec c_{l}.
  \end{displaymath}
+%
+%
+% \begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l})\ and\ c_{k} \in  \mathcal{C}(T_{k}), s.t., c_{l} \prec c_{k}
+% \end{displaymath}
 
 %Suppose SUT has a  fault $F$. Now first let all the test cases that trigger $F$ to be the set $T_{k}$, the failure-inducing combinations for $F$ is the set $C_{k}= \{ c_{k}\}$. Then let all the test cases that trigger $F$ to be $T_{l}$, which we get another set failure-inducing combinations $C_{l} = \{ c_{1} \}$. Then we can deduce that $C_{l}$ and $C_{k}$ satisfy at least one of the following properties:
 %
@@ -427,31 +386,33 @@ For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$
 \end{lemma}
 
 \begin{proof}
- %Easily we can get that $\bigcup T(c_{k}) = T_{k}$ and $\bigcup T(c_{l}) = T_{l}$.  As $T_{l} \subset T_{k}$. So there exist $T(c_{l}) \subset T_{k}$. If $T_{k} = T(c_{k})$. Then the failure-inducing combinations of $c_{l}$ must be the parent-combinations of $c_{k}$ which proofed in the previous section.
-%
-%For multiple,  $T(c_{k_{i}) \cap  (\cup T(c_{k_{i}})) \neq \emptyset } $So in this time there are several circumstances:
-%if there exist $T_{l} \subset T(c_{k})$, the conclusion holds.
-%
-% do there exist $T(c_{k}) \subset T_{l}$ ? it is not hold, for that
 
-%So the failure-inducing combinations of $T_{k}$ = $c_{k}$, must satisfy that  $c_{k}$ must be the child or $c_{l} = c_{k}$. If there is no child, then there must be the father.
+Obviously for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. 
+
+As $T(c_{l}) \subset T_{k}$, so $c_{l} \in  t(T) - t(T^{*} - T)$. As all the combinations in $t(T) - t(T^{*} - T)$ either it or the parent. So $c_{l}$.
+
+%
+%So, $c_{l} \in t(T_{k}) - t(T^{*} - T_{k})$, as that if not, $c_{l} \in t(T^{*} - T_{k})$,  which means that some test case $t \in T(c_{l})$ must have t in $T^{*} - T_{k}$, 
+%According to the construction of $\mathcal{C}(T_{k})$, we can learn that 
+%By definition, for $c_{k} \in \mathcal{C}(T_{k})$, there exist no $c_{k'} \prec c_{k}$ such that $T(c_{k'}) \subset T_{k}$. So we can conclude that $c_{l} \not\prec c_{k}$.
 
 \end{proof}.
 
-\begin{definition}
-for combination $c_{m}$, and a set of combinations $C = {c_{1}, c_{2}...}$, if $\not\exists c_{l} \in\ C$ so that either $c_{m}$ is the same of $c_{l}$, or $c_{m}$ is the parent combination or child combination of $c_{l}$, we called $c_{m}$ is irrelevant to set $C$
-%Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
-\end{definition}
-
-So we can get the following lemma:
-\begin{lemma}
-For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
-
-\begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l}) , s.t., c_{l}\ is\ irrelevant\ to\  \mathcal{C}(T_{k}) \end{displaymath}
-\end{lemma}
-\begin{proof}
-
-\end{proof}.
+%\begin{definition}
+%for combination $c_{m}$, and a set of combinations $C = \{c_{1}, c_{2}...\}$, if $\not\exists c_{l} \in\ C$ so that either $c_{m}$ is the same of $c_{l}$, or $c_{m}$ is the parent combination or child combination of $c_{l}$, we called $c_{m}$ is \emph{irrelevant} to set $C$
+%%Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
+%\end{definition}
+%
+%So we can get the following lemma:
+%\begin{lemma}
+%For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
+%
+%\begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l}) , s.t., c_{l}\ is\ irrelevant\ to\  \mathcal{C}(T_{k}) \end{displaymath}
+%\end{lemma}
+%
+%\begin{proof}
+%As for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. If $c_{l}$ is irrelevant of $\mathcal{C}(T_{k})$. 
+%\end{proof}.
 
 
 We illustrate this two scenarios in table \ref{example_three_condition}. There are two parts in this table, in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
