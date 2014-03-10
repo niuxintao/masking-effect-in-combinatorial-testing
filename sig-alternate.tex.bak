@@ -1113,9 +1113,9 @@ JFlex & 1.4.1 & 36864 & 24576 &6144\\ \hline
 \hline\end{tabular}
 \end{table}
 
-We observed that for each pair of bugs we listed in the table, we can always find some test cases, although contain failure inducing combinations, did not trigger the corresponding bug, i.e., the expected bug was masked. Specifically, there are 1000 out of 2000 (20\%) test cases for HSQLDB triggered the masking effect.
+We observed that for each version of the software under analysis we listed in the table, the test cases with masking effects exist, i.e., test cases containing failure inducing combinations did not trigger the corresponding bug. In effect, there is about 768 out of 4608 test cases (16.7\%) in hsqldb with 2rc8 version. This rate is about 16.7\%, 50\%, 25\%, 16.7\% respectively for the remained software, which is not trivial.
 
-So the answer to Q1 is that in practice, when SUT have multiple faults, there is a good chance that masking effect can be triggered by some test cases.
+So the answer to \textbf{Q1} is that in practice, when SUT have multiple faults, there is a good chance that masking effect can be triggered by some test cases.
 
 %All of these bug can be rebuilt by following the steps reported in the bug tracker. For example, Bug-\#29537 indicate that Grep incorrectly match unicode patterns with \textbackslash<\textbackslash>  and Bug-\#33080 claim that combination of --count (-c) and --only-matching (-o) will not work as expected. A simple test case liked the following command:
 %
@@ -1165,11 +1165,11 @@ We next compared the result with the perfect combinations to quantify the degree
 
 \end{enumerate}
 
-Among these five metrics, the more the "accurate combinations" the better the FCI approaches performed. In the reverse, "ignored combinations" and "irrelevant combinations" indicate the FCI approaches performs badly if this two metrics is too big. For "parent combination" and "child combinations" this two metrics, they can help us determine some useful information, but with some noisy.
+Among these five metrics, the more the "accurate combinations" the better the FCI approaches perform. In the contrast, "ignored combinations" and "irrelevant combinations" indicate the FCI approaches performs badly when this two metrics have a high value. For "parent combination" and "child combinations" this two metrics, however, they can help us determine some part parameter values about the failure-inducing combinations, but either with additional noisy parameter values or losing some of them.
 
-Besides, as we discussed in the formal model, \emph{regards as one fault} will, while \emph{distingush} will. So the four metric will to some extent validate this formal analysis.
+%Besides, as we discussed in the formal model, \emph{regards as one fault} will, while \emph{distingush} will. So the four metric will to some extent validate this formal analysis.
 
-For these five software : hsqldb 2rc8, hsqldb 2.2.5 and hsqldb 2.2.9, Jflex 1.4.1 and JFlex 1.4.2 we will collet them together.
+This case study is conducted on the five subjects: HSQLDB with version 2rc8, 2.2.5 and 2.2.9, JFlex with versions 1.4.1 and 1.4.2. We summed up these metrics for each subject and illustrate them together for analysis.
 
 %, which indicate the less impact do on the FCI approaches.
 
@@ -1218,49 +1218,61 @@ Figure \ref{fig:normalexperiment} depicts the result of the second case study. T
 
 We first observed that, traditional approaches do suffer from the masking effect to some extent. Specifically, in the figure \ref{fig:subfig1}, FIC\_BS approach only correctly identified 12 and 10 accurate combinations for the two traditional strategies respectively, while wrongly identified 14 and 69 combinations, in which for the identified parent combinations, identified child combinations, identified irreverent combinations are 9,3,2 and 0,8,61 respectively. This is similar to the result illustrated in figure \ref{fig:subfig2} and figure \ref{fig:subfig3} for approach OFOT and CTA .
 
-Another interesting observations is that for the \emph{regard as one fault} and \emph{distinguish faults} strategy, the former get more \emph{child combinations} than later, while \emph{distinguish faults} strategy get more \emph{parent combinations} than \emph{regard as one}. This result accorded with our formal analysis in section 3.2. With respect to the metrics \emph{ignore combinations} and \emph{irrelevant combinations}, however, we didn't get as expected as in the formal analysis.  i.e., \emph{regard as one fault} would get more \emph{} except the following case,  An exception is for the FIC\_BS, which we think when consider the regard as one fault faults strategy, it increase the possibility that import newly bugs so that bais the result. it always that . fahter and parent. which are accordant with the analysis in the formal model.
+Another interesting observations is that for the \emph{regard as one fault} and \emph{distinguish faults} strategy, the former get more \emph{child combinations} than later, while \emph{distinguish faults} strategy get more \emph{parent combinations} than \emph{regard as one}. This result accorded with our formal analysis in section 3.2. With respect to the metrics \emph{irrelevant combinations}, however, we didn't get as expected as in the formal analysis. In fact, both the case that \emph{regard as one fault} has more \emph{irrelevant combinations} ( see figure \ref{fig:subfig1}) and the case that \emph{distinguish faults} has more (see figure \ref{fig:subfig2} and \ref{fig:subfig3}) exist. With checking the executing process and the combinations they got, we believed one possible main reason for this result is that the algorithm encountered the problem of importing newly faults which bias their identifying process.
 
-We further observed that, for different algorithms, the extent to what suffered varied. For example.
+%\emph{regard as one fault} would get more \emph{} except the following case,  An exception is for the FIC\_BS, which we think when consider the regard as one fault faults strategy, it increase the possibility that import newly bugs so that bais the result. it always that . fahter and parent. which are accordant with the analysis in the formal model.
+
+We further observed that, for different algorithms, the extent to what they suffered from masking effects varied. For instance, for FIC\_BS approach, under the masking effects, they  identified the 61 and 2 irrelevant combinations for two strategies, while for OFOT and CTA, this value is 0 and 4, 5 and 19 respectively. There are two factors caused this difference: the chosen test cases and the analysis method. For FIC\_BS and OFOT this two methods, the test cases they chosen for isolating failure-inducing combinations is different, which consequently changed the masking effects they may encountered. For OFOT an CTA, while the test cases we chosen is the same, the difference lies at the way they charactering the failure-inducing combinations in the test cases(OFOT directly identify the parameter in the passed test cases while CTA used classified tree analysis).
 
 %
 %From this figure, we can easily find that Traditional MFS identifying approaches do suffer from the multiple faults and their masking effect. For example, for the Grep, version 3.14, all these three algorithm will lost some information. Additionally, the extent to which the impact has affected vary from algorithms. We can find that for HSQLDB with version 3.14, the similarity of CTA was just at 4 while FIC is 3. We list these points in figure 3. From this figure, we can learn that.
 
-Above all, the answer for Q2 is: traditional algorithm do suffer from the multiple faults and their masking effect although the extent vary in different algorithms.
+Therefore, the answer we got for \textbf{Q2} is: traditional algorithm do suffer from the multiple faults and their masking effect although the extent vary in different algorithms.
 
 \subsection{study 3:performance of our approach}
-The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Specifically, we augmented the three traditional approaches using the method described in section 5, and then we applied these augmented approaches on identifying the failure-inducing combinations in the prepared subjects.
+The last case study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Specifically, we augmented the three traditional approaches with replacing test cases strategy described in section 4, and then we applied these augmented approaches on identifying the failure-inducing combinations in the prepared subjects.
 
 \subsubsection{study setup}
 The setup of this case study is almost the same as the second case study. The difference is that the algorithms we choose are three augment ones. Additionally, comparisons between augment approaches with three traditional ones will be quantified.
 
 \subsubsection{result and analysis}
-Table   presents the result of the last case study. The form of this table is similar to the second study. We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized.
+Figure \ref{fig:subfigureExample2} presents the result of the last case study. The organization of this figure is similar to the second study. The bar in each column depicts the results the augment approaches, which labelled as "replacing strategy". We marked two additional points in each column which represent the result of \emph{regard as one fault} and \emph{distinguish faults} strategy to get a comparison with the augment approaches.
+
+% We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized.
 
 \begin{figure*}[ht]
 \centering
-\subfigure[Caption of subfigure 1]{
+\subfigure[]{
   %  \rule{4cm}{3cm}
     \label{fig:subfig4}
     \includegraphics[width=2.21in]{FIC_BS_our.eps}
 }
-\subfigure[Caption of subfigure 2]{
+\subfigure[]{
   %  \rule{4cm}{3cm}
     \label{fig:subfig5}
     \includegraphics[width=2.21in]{OFOT_our.eps}
 }
-\subfigure[Caption of subfigure 3]{
+\subfigure[]{
   %  \rule{4cm}{3cm}
     \label{fig:subfig6}
     \includegraphics[width=2.21in]{CTA_our.eps}
 }
-\caption[Optional caption for list of figures]{Caption of subfigures \subref{fig:subfig4}, \subref{fig:subfig5} and \subref{fig:subfig6}}
+\caption[Optional caption for list of figures]{Three approaches augmented with replacing strategy}
 \label{fig:subfigureExample2}
 \end{figure*}
 
 
-We observe that, for most cases, augment approaches got promotions against traditional ones. In fact, there are 10 out of 14 cases that augment ones outperform traditional ones at the metric of "similarity", and 9 out of 14 cases that augment ones are better than traditional ones at the metric of "num diff". Additional, this promotion is distinct. As we can see, the best promotion for similarity is 0.9 and the best promotion for num diff is 0.7. Furthermore, the average performance promotion for similarity reached '+ 0.6' and this value reached '+ 0.5' for the num diff metric.
+Comparing the augment approach with two traditional strategies in figure \ref{fig:subfigureExample2}, we observed that there is significant improvement for augment approach in reducing the wrongly identified combinations. For instance, CTA approach in figure \ref{fig:subfig6} only got 2 irrelevant combinations with replacing strategy, while the traditional two strategy get 5 and 19 irrelevant combinations respectively. And for FIC\_BS in figure \ref{fig:subfig4} this comparison is 2 for replacing strategy, and 2 , 61 for two traditional strategies.
 
-So the answer for Q3 is: our approach do get better performance at identifying failure-inducing combinations when facing masking effect between multiple faults, to which the extent is distinct.
+Besides, the augment approach also get a good performance at limiting the number of identified child combinations and parent combination. In effect, compared with \emph{distinguish faults} which good at limiting child combinations while producing more parent combinations and \emph{regard as one fault} which is the other way around, the augment ones get a more balanced result. Specifically, for instance, in figure \ref{fig:subfig4} for approach FIC\_BS, distinguish faults get 9 parent combinations while get 3 children parents. And for 
+
+Apart from these improvement, there is some slight decline for the augment approach. We observed that for accurate combinations, it 2 less than traditional approach, and it ignored some combinations.
+
+ Further more it also that number of correctly identified combinations with replacing strategy slightly declines than traditional ones(about 2 less in average).
+
+As a compensation, however, We noted that the augment approaches got slightly . But promotions against traditional ones. In fact, there are 10 out of 14 cases that augment ones outperform traditional ones at the metric of "similarity", and 9 out of 14 cases that augment ones are better than traditional ones at the metric of "num diff". Additional, this promotion is distinct. As we can see, the best promotion for similarity is 0.9 and the best promotion for num diff is 0.7. Furthermore, the average performance promotion for similarity reached '+ 0.6' and this value reached '+ 0.5' for the num diff metric.
+
+In summary, the answer for \textbf{Q3} is: our approach do get make the FCI approaches get more accurate results but may lost some information. better performance at identifying failure-inducing combinations when facing masking effect between multiple faults, to which the extent is distinct.
 
 \subsection{threats to validity}
 There are several threats to validity for these empirical studies. First, we have only surveyed five open-source software, four of which are medium-sized and one is large-sized. This may impact the generality of our observations. Although we believe it is quite possible a common phenomenon in most software that contain multiple faults which can mask each other, we need to investigate more software to support our conjecture. The second threat comes from the input model we built. As we focused on the options related to the perfect combinations and only augmented it with some noise options, there is a chance we will get different result if we choose other noise options. More different options needed to be opted to see whether our result is common or just appeared in some particular input model. The third threats is that we just observed three MFS identifying algorithms, further works needed to exam more MFS identifying algorithms to get a more general result.
