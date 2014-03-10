@@ -318,78 +318,92 @@ If all test cases contain a combination, say $c$, trigger a particular fault, sa
 In fact, \emph{minimal faulty combinations} is identical to the failure-inducing combinations we discussed previously. Figuring it out can eliminate all details that are irrelevant for producing the failure, which can facilitate the debugging effort.
 
 
-We have the following proposition based on these basic definitions.
+%We have the following proposition based on these basic definitions.
+%
 
+Let $c_{m}$ be a m-value combination, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$,  then we have the following proposition :
 %\newdef{proposition}{Proposition}
 \newtheorem{proposition}{Proposition}
 \begin{proposition}
-Let $c_{m}$ be a m-value combination, the set $P_{c_{m}}(m+l)$ = $ \{c_m+l : c_m \prec c_m+l \}$ be all the m+l value parent combination of $c_{m}$. Moreover, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$,  then we have the following formula:
+For any set $T$ of test cases of a SUT, we can always get a set of combinations $\mathcal{C}(T) = \{c_{m_{1}},c_{m_{2}}...\}$, so that,
 
-\begin{displaymath} T(c_{m}) = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{(m+l)_{i}}).\end{displaymath}
+\begin{displaymath} T  = T(c_{m_{1}})\bigcup T(c_{m_{2}}) \bigcup ...\end{displaymath} and
 
-\end{proposition}
-
-The proof of this propositions is obvious, we just take an example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1)). Additional, some test cases of these parent-combinations may overlapped each other, for example, T((1,0,-)) overlap with T((1,-,1)) at the test case (1,0,1).
-
-By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same fault, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, then we can get the following proposition.
-
-\begin{proposition}
-For a combination $c_{m}$, if all the test cases triggered fault $F_{m}$, denoted as $T_{F_{m}}$, is the subset of $T(c_{m})$, i.e.,  $T_{F_{m}} \subsetneqq T(c_{m})$, then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{(m+l)_{i}}$\} (  $l \in \{1, 2... n-m\}$;   $i \in \{1,2 ... |P_{c_{m}}(m+l)| \}$).
-
-% satisfy the following formula:
-%
-%\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
+\begin{displaymath} \not\exists c_{j} \prec  c_{m_{1}} or\  c_{j} \prec c_{m_{2}}... s.t.\  T(c_{j}) \subset T\end{displaymath}
 
 \end{proposition}
-%then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations.
-
 
 \begin{proof}
+\end{proof}.
 
-To proof this proposition, we must proof that there must exist at least one parent combination $c_{m+l}$, that satisfy:
-\begin{displaymath}
-1. T(c_{m+l}) \subset T_{F_{m}}
-\end{displaymath}
+In fact, for all the test cases for fault $F_{m}$ which denoted as $T_{F_{m}}$, $\mathcal{C}(T_{F_{m}})$ is the set of failure-inducing combinations of $F_{m}$.
 
-\begin{displaymath}
-2.\forall c_{m+l-h} \prec c_{m+l}, s.t. T(c_{m+l-h}) \not\subset T_{F_{m}} \end{displaymath}
 
-We proof this proposition by two steps:
+%\begin{displaymath} T  = \bigcup_{i = 1}^{|P_{c_{m}}(m+l)|} T(c_{(m+l)_{i}}).\end{displaymath}
+%
+%\end{proposition}
+%
+%The proof of this propositions is obvious, we just take an example to illustrate this. For SUT(2,2,2), the $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =  T((1,0,-)) $\bigcup$ T((1,1,-)) $\bigcup$ T((1,-,0)) $\bigcup$ T((1,-,1)). Additional, some test cases of these parent-combinations may overlapped each other, for example, T((1,0,-)) overlap with T((1,-,1)) at the test case (1,0,1).
+%
+%By definition, if all the test cases in $T(c_{m})$ are failing test cases with the same fault, say,  $F_{m}$, then combination $c_{m}$ is the failure-inducing combination of $F_{m}$. However, if some test cases in $T(c_{m})$ does not trigger $F_{m}$, then we can get the following proposition.
 
-First, we proof that there must exist some parent-combination $c_{m+l}$ satisfy the first formula. Let me divide the $T(c_{m})$ to pieces of $T(c_{n_{i}})$, Each set of $T(c_{n_{i}})$ just have one element, that is $c_{n_{i}}$ itself as a test case. Obviously, these set do not overlap with each other. Take an example, $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =T((1,0,0)) $\bigcup$ T((1,0,1)) $\bigcup$ T((1,1,0)) $\bigcup$ T((1,1,1)).
+%\begin{proposition}
+%For a combination $c_{m}$, if all the test cases triggered fault $F_{m}$, denoted as $T_{F_{m}}$, is the subset of $T(c_{m})$, i.e.,  $T_{F_{m}} \subsetneqq T(c_{m})$, then the failure-inducing combinations for $F_{m}$ must be some parent-combinations of $c_{m}$, i.e., \{$c_{(m+l)_{i}}$\} (  $l \in \{1, 2... n-m\}$;   $i \in \{1,2 ... |P_{c_{m}}(m+l)| \}$).
+%
+%% satisfy the following formula:
+%%
+%%\begin{displaymath}  \forall t \in T'\ s.t.\ t \notin T(c_{(m+l)_{i}})\end{displaymath}
+%
+%\end{proposition}
+%%then the failure-inducing combinations re must exist some parent-combinations of $c_{m}$ which satisfy the following formula must be the failure-inducing combinations.
+%
+%
+%\begin{proof}
+%
+%To proof this proposition, we must proof that there must exist at least one parent combination $c_{m+l}$, that satisfy:
+%\begin{displaymath}
+%1. T(c_{m+l}) \subset T_{F_{m}}
+%\end{displaymath}
+%
+%\begin{displaymath}
+%2.\forall c_{m+l-h} \prec c_{m+l}, s.t. T(c_{m+l-h}) \not\subset T_{F_{m}} \end{displaymath}
+%
+%We proof this proposition by two steps:
+%
+%First, we proof that there must exist some parent-combination $c_{m+l}$ satisfy the first formula. Let me divide the $T(c_{m})$ to pieces of $T(c_{n_{i}})$, Each set of $T(c_{n_{i}})$ just have one element, that is $c_{n_{i}}$ itself as a test case. Obviously, these set do not overlap with each other. Take an example, $T((1,-,-))$ = $\{(1,0,0)$ ,$(1,0,1)$, $(1,1,0)$, $(1,1,1)\}$ =T((1,0,0)) $\bigcup$ T((1,0,1)) $\bigcup$ T((1,1,0)) $\bigcup$ T((1,1,1)).
+%
+%As $T_{F_{m}} \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m})$ trigger the fault $F_{m}$, and it must be one of $T(c_{n_{i}})$. So at least there exist one combination $c_{n_{i}}$ which can satisfy the first formula.
+%
+%Next, we proof that there must be at least one parent-combination $c_{m+l}$ simultaneity satisfied this two formula. We proof by contradiction.
+%
+%Assume that all the $c_{m+l}$ satisfy the first formula, don't satisfy the second formula.
+%For a particular $c_{m+l}$, then at least one child combination $c_{m+l-h}$ must satisfy $T(c_{m+l-h}) \subset T_{F_{m}}$,(h>0). Furthermore, it must have $c_{m} \prec c_{m+l-h}$, for $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$, which indicate that all the test cases contain $c_{m+l-h}$ must contain $c_{m}$.
+%
+%Then as $c_{m} \prec c_{m+l-h} $ and $T(c_{m+l-h}) \subset T_{F_{m}}$, similarly, there must exist $c_{m} \prec c_{m+l-h-h_{1}}$ s.t. $T(c_{m+l-h-h_{1}}) \subset T_{F_{m}}$, $c_{m} \prec c_{m+l-h-h_{1}-h_{2}}$ s.t. $T(c_{m+l-h-h_{1}-h_{2}}) \subset T_{F_{m}}$....
+%
+%At last we can get  $c_{m} \prec c_{m} $ and $T(c_{m}) \subset T_{F_{m}}$. In this circumstance, $c_{m}$ is identical to the original one. As in fact $T_{F_{m}} \subsetneqq T(c_{m})$ which contradict $T(c_{m}) \subset T_{F_{m}}$, so the assumption is invalid, which indicate there must exist at least one parent combination of $c_{m}$ simultaneity satisfied this two formula.
+%
+%%some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$.
+%
+%%for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
+%\end{proof}
 
-As $T_{F_{m}} \subsetneqq T(c_{m})$, which means that at least one test case in $T(c_{m})$ trigger the fault $F_{m}$, and it must be one of $T(c_{n_{i}})$. So at least there exist one combination $c_{n_{i}}$ which can satisfy the first formula.
-
-Next, we proof that there must be at least one parent-combination $c_{m+l}$ simultaneity satisfied this two formula. We proof by contradiction.
-
-Assume that all the $c_{m+l}$ satisfy the first formula, don't satisfy the second formula.
-For a particular $c_{m+l}$, then at least one child combination $c_{m+l-h}$ must satisfy $T(c_{m+l-h}) \subset T_{F_{m}}$,(h>0). Furthermore, it must have $c_{m} \prec c_{m+l-h}$, for $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$, which indicate that all the test cases contain $c_{m+l-h}$ must contain $c_{m}$.
-
-Then as $c_{m} \prec c_{m+l-h} $ and $T(c_{m+l-h}) \subset T_{F_{m}}$, similarly, there must exist $c_{m} \prec c_{m+l-h-h_{1}}$ s.t. $T(c_{m+l-h-h_{1}}) \subset T_{F_{m}}$, $c_{m} \prec c_{m+l-h-h_{1}-h_{2}}$ s.t. $T(c_{m+l-h-h_{1}-h_{2}}) \subset T_{F_{m}}$....
-
-At last we can get  $c_{m} \prec c_{m} $ and $T(c_{m}) \subset T_{F_{m}}$. In this circumstance, $c_{m}$ is identical to the original one. As in fact $T_{F_{m}} \subsetneqq T(c_{m})$ which contradict $T(c_{m}) \subset T_{F_{m}}$, so the assumption is invalid, which indicate there must exist at least one parent combination of $c_{m}$ simultaneity satisfied this two formula.
-
-%some satisfied parent-combination $c_{m+l}$ must be the failure-inducing combination of $F_{m}$. In fact, when $c_{m+l}$ satisfy this formula, it is the \emph{fault combination} of $F_{m}$ by definition. And there must be at least one child-combination is not the \emph{fault combination} of $F_{m}$, which is $c_{m}$. So some parent-combinations must be the failure-inducing combinations of $F_{m}$.
-
-%for there is one failure-inducing combination is this set, then this condition is similar to proposition 1, and For there is multiple failure-inducing combinations. We can easily find it must exist one failure-inducing combination.
-\end{proof}
-
-However, if $T_{F_{m}} \not\subsetneqq T(c_{m})$, This proposition will not hold. In this circumstance, there are three possibilities of the failure-inducing combinations:
-
-1. if $T(c_{m}) \subset T_{F_{m}})$, the the failure-inducing combinations must be the child combinations of $c_{m}$ by definition. Or.
-
-2. if $T(c_{m}) \not\subset T_{F_{m}})$, which can also divide into two possibilities:
-
-  2.1 if $T(c_{m}) \cap T_{F_{m}} = \emptyset$, which means that $c_{m}$ is the health combination. We cannot get any information of failure-inducing combinations. In this circumstance, neither its parent and child combinations is the failure-inducing combinations,  we call $c_{m}$ is irrelevant to the failure-inducing combinations.
-
-  2.2 if $T(c_{m}) \cap T_{F_{m}} \neq \emptyset$. In this time we can still have the conclusion that, some parent-combination $c_{m+l}$ satisfy the following formula
- \begin{displaymath}
-  T(c_{m+l}) \subset T_{F_{m}}
-\end{displaymath}
-However, it do not hold the next formula, the key is that we can not get the following deduction:
- $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$. So in this time, if this formula holds, 2.2.1we can learn that some failure-inducing combination must be the parent combinations which proofed in the second proposition.
-
- 2.2.2 If not, then the failure-inducing combination must not be the parent combination of $c_{m}$, and obviously, they will not also be the child combinations of $c_{m}$, as  $T(c_{m}) \not\subset T_{F_{m}})$, so in this circumstance, we can also have $c_{m}$ is irrelevant to failure-inducing combinations.
+%However, if $T_{F_{m}} \not\subsetneqq T(c_{m})$, This proposition will not hold. In this circumstance, there are three possibilities of the failure-inducing combinations:
+%
+%1. if $T(c_{m}) \subset T_{F_{m}})$, the the failure-inducing combinations must be the child combinations of $c_{m}$ by definition. Or.
+%
+%2. if $T(c_{m}) \not\subset T_{F_{m}})$, which can also divide into two possibilities:
+%
+%  2.1 if $T(c_{m}) \cap T_{F_{m}} = \emptyset$, which means that $c_{m}$ is the health combination. We cannot get any information of failure-inducing combinations. In this circumstance, neither its parent and child combinations is the failure-inducing combinations,  we call $c_{m}$ is irrelevant to the failure-inducing combinations.
+%
+%  2.2 if $T(c_{m}) \cap T_{F_{m}} \neq \emptyset$. In this time we can still have the conclusion that, some parent-combination $c_{m+l}$ satisfy the following formula
+% \begin{displaymath}
+%  T(c_{m+l}) \subset T_{F_{m}}
+%\end{displaymath}
+%However, it do not hold the next formula, the key is that we can not get the following deduction:
+% $T(c_{m+l-h}) \subset T_{F_{m}} \subset T(c_{m})$. So in this time, if this formula holds, 2.2.1we can learn that some failure-inducing combination must be the parent combinations which proofed in the second proposition.
+%
+% 2.2.2 If not, then the failure-inducing combination must not be the parent combination of $c_{m}$, and obviously, they will not also be the child combinations of $c_{m}$, as  $T(c_{m}) \not\subset T_{F_{m}})$, so in this circumstance, we can also have $c_{m}$ is irrelevant to failure-inducing combinations.
 
 
 
@@ -399,25 +413,47 @@ Based on this proposition, we can easily get the following lemma:
 
 \newtheorem{lemma}{Lemma}
 \begin{lemma}
-For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Suppose SUT has a  fault $F$. Now first let all the test cases that trigger $F$ to be the set $T_{k}$, the failure-inducing combinations for $F$ is the set $C_{k}= \{ c_{k}\}$. Then let all the test cases that trigger $F$ to be $T_{l}$, which we get another set failure-inducing combinations $C_{l} = \{ c_{1} \}$. Then we can deduce that $C_{l}$ and $C_{k}$ satisfy at least one of the following properties:
+For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
 
-$ 1)\ \exists c_{k} \in C_{k}\ and\ \exists c_{l} \in C_{l} \ s.t.\ c_{l}\ subsumes\ c_{k}  $
+ \begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l})\ and\ c_{k} \in  \mathcal{C}(T_{k}), s.t., c_{l} \prec c_{k}
+ \end{displaymath}
 
-$2)\ \exists c_{k} \in C_{k}\ s.t.\ c_{k}\ is\ irrelevant\ to\ C_{l} $
+%Suppose SUT has a  fault $F$. Now first let all the test cases that trigger $F$ to be the set $T_{k}$, the failure-inducing combinations for $F$ is the set $C_{k}= \{ c_{k}\}$. Then let all the test cases that trigger $F$ to be $T_{l}$, which we get another set failure-inducing combinations $C_{l} = \{ c_{1} \}$. Then we can deduce that $C_{l}$ and $C_{k}$ satisfy at least one of the following properties:
+%
+%$ 1)\ \exists c_{k} \in C_{k}\ and\ \exists c_{l} \in C_{l} \ s.t.\ c_{l}\ subsumes\ c_{k}  $
+%
+%$2)\ \exists c_{k} \in C_{k}\ s.t.\ c_{k}\ is\ irrelevant\ to\ C_{l} $
 
 \end{lemma}
 
 \begin{proof}
- Easily we can get that $\bigcup T(c_{k}) = T_{k}$ and $\bigcup T(c_{l}) = T_{l}$.  As $T_{l} \subset T_{k}$. So there exist $T(c_{l}) \subset T_{k}$. If $T_{k} = T(c_{k})$. Then the failure-inducing combinations of $c_{l}$ must be the parent-combinations of $c_{k}$ which proofed in the previous section.
-
-For multiple,  $T(c_{k_{i}) \cap  (\cup T(c_{k_{i}})) \neq \emptyset } $So in this time there are several circumstances:
-if there exist $T_{l} \subset T(c_{k})$, the conclusion holds.
-
- do there exist $T(c_{k}) \subset T_{l}$ ? it is not hold, for that
+ %Easily we can get that $\bigcup T(c_{k}) = T_{k}$ and $\bigcup T(c_{l}) = T_{l}$.  As $T_{l} \subset T_{k}$. So there exist $T(c_{l}) \subset T_{k}$. If $T_{k} = T(c_{k})$. Then the failure-inducing combinations of $c_{l}$ must be the parent-combinations of $c_{k}$ which proofed in the previous section.
+%
+%For multiple,  $T(c_{k_{i}) \cap  (\cup T(c_{k_{i}})) \neq \emptyset } $So in this time there are several circumstances:
+%if there exist $T_{l} \subset T(c_{k})$, the conclusion holds.
+%
+% do there exist $T(c_{k}) \subset T_{l}$ ? it is not hold, for that
 
 %So the failure-inducing combinations of $T_{k}$ = $c_{k}$, must satisfy that  $c_{k}$ must be the child or $c_{l} = c_{k}$. If there is no child, then there must be the father.
 
 \end{proof}.
+
+\begin{definition}
+for combination $c_{m}$, and a set of combinations $C = {c_{1}, c_{2}...}$, if $\not\exists c_{l} \in\ C$ so that either $c_{m}$ is the same of $c_{l}$, or $c_{m}$ is the parent combination or child combination of $c_{l}$, we called $c_{m}$ is irrelevant to set $C$
+%Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
+\end{definition}
+
+So we can get the following lemma:
+\begin{lemma}
+For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
+
+\begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l}) , s.t., c_{l}\ is\ irrelevant\ to\  \mathcal{C}(T_{k}) \end{displaymath}
+\end{lemma}
+\begin{proof}
+
+\end{proof}.
+
+
 We illustrate this two scenarios in table \ref{example_three_condition}. There are two parts in this table, in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
 
 %\begin{proof}
@@ -502,14 +538,14 @@ This is the most common dealing approach, they don't distinguish the faults, i.e
 
 So they will find the $c_{m}$ for $T_{F} = \bigcup_{i = 1}^{L}F_{i}$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} \bigcup T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, by the proposed lemma, the failure-inducing combinations we get will have some combinations irrelevant to the perfect failure-inducing combinations , or some combinations just be the child-combinations of some of the perfect failure-inducing combinations.
 
-Suppose we take this stragegy in the movtivation example. then.
+Suppose we take this strategy in the motivation example, then the failure-inducing combinations we get will be (- 4 4 -) and (- - 4 5).
 
 \subsubsection{distinguish fault by buggy information}
-Distinguish the faults by the exception traces or error code can help make FCI approaches focus on particular fault. Ylimaz in  \cite{yilmaz2013reducing} propose a \emph{multiple-class} failure characterize method instead of \emph{ternary-class} approaches to make the charactering approach more accurately. Besides, other approaches can also be easily extended to apply on SUT with multiple faults. We call this approach \emph{distinguish FCI} approaches.
+Distinguish the faults by the exception traces or error code can help make FCI approaches focus on particular fault. Ylimaz in  \cite{yilmaz2013reducing} propose a \emph{multiple-class} failure characterize method instead of \emph{ternary-class} approaches to make the characterizing approach more accurately. Besides, other approaches can also be easily extended to apply on SUT with multiple faults. We call this approach \emph{distinguish FCI} approaches.
 
 Without no information of the masking effect, distinguish FCI approaches can only identify the $c_{m}$ for $T_{F_{m}}$. In this case, we can learn that $T_{F_{m}} \bigcup T_{mask(F_{m})} \supset T_{F_{m}} $ , consequently, the failure-inducing combinations we get in this case will have some combinations be the parent-combination of some perfect combinations or completely miss some failure-inducing combination.
 
-It is noted that, the motivation example list the approach which adopt this strategy, and we can easily see that do make failure-combinations bigger.
+It is noted that, the motivation example list the approach which adopt this strategy, and we in fact identified the parent combinations of the failure-inducing combinations of Ex 2.
 
 %\section{Formally analysis}
 %For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code).
@@ -697,6 +733,8 @@ It is noted that, the motivation example list the approach which adopt this stra
 % \item Even if we have known the faulting levels of each faults, we still cannot decide the value of $F_{i}[\mathcal{T}]$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
 %\end{enumerate}
 \subsection{summary of formal model}
+From the formal model of the analysis, we can learn that masking effects do influence the FCI approaches, worse more, both strategies \emph{regard as one fault} and \emph{distinguish faults} do harmful effects, which the former may get the child combinations of the failure-inducing combinations and may get more irreverent combinations, while the later may get the parent combinations of the failure-inducing combinations and may ignore some failure-inducing combinations.
+
 Note that our discuss is based on the SUT is a deterministic software, i.e., the random failing information of test case will be ignored. The non-deterministic problem will complex our test scenario, which will not be discussed in this paper.
 
 
@@ -782,7 +820,7 @@ In this paper, we just set 3 as the biggest repeat times for function. When it e
 Assume we have test a system with four parameters, each has three options. And we take the test configuration (0 0 0 0) we find the system encounter a failure called "Err 1". Next we will take the MFS identifying algorithms -- OFOT with the help of our approach to identify the MFS for the "Err 1". The process is listed in table \ref{ofot-aug}. In this table, The test configuration which are labeled with a deleted line represent the original test configuration generated by OFOT, and it will be replaced by the regenerated test configuration which are labeled with a wave line under it.
 
 From this table, we can find the algorithm mutant one factor to take the different value from the original test configuration on time. Originally if the test configuration encounter the result different from expected error, OFOT will make a judgement that the MFS was broken, in another word, if we change one factor and it does not trigger the expect error, we will label them as one failure-inducing factor, after we changed all the elements, we will get the failure-inducing combinations. For this case, if we take the \emph{regard as one fault} strategy, then the failure-inducing combination we got is (- - - 0) as only the last case passed test case while the remained test cases triggered either err1 or err 2(regard as one fault).  Additionally when we take the \emph{distinguish faults} strategy, we will get the failure-inducing combinations is (- 0 0 0 0) as when we change the second factor , third factor and the fourth factor, it doesn't trigger the Err 1 ( for second factor, it trigger Err 2 and for the third and fourth, it passed).
- 
+
 % So if we do not regenerate the test configuration (0 2 0 0), we will get the MFS -- ( - 0 0 0) for the err 1(which are also labeled with a delete line).
 
 However, if we replace the test configuration (0 1 0 0) with (0 2 0 0) which triggered err 1 (in this case, the fixed part of the test configuration is (0, - - -)), and replace the test configuration (0 0 1 0) with (0 0 2 0) which passed, we will find that only when we change the third and fourth factor will we broke the MFS for err 1, so with our approach, we will find the MFS for err 1 should be (- - 0 0).
