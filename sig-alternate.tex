@@ -321,34 +321,50 @@ In fact, \emph{minimal faulty combinations} is identical to the failure-inducing
 %We have the following proposition based on these basic definitions.
 %
 
-Let $c_{m}$ be a m-value combination, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$,  then we have the following proposition :
-%\newdef{proposition}{Proposition}
+Let $c_{m}$ be a m-value combination, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$. Further, for the test case $t$, we use $\mathcal{I}(t)$ to denote all the combinations that $t$ hits, and for the set of test cases $T$, we let $\mathcal{I}(T) = $ to denote all the combinations that be hit by any test case in this set. then we have the following proposition :
+
+
 \newtheorem{proposition}{Proposition}
 \begin{proposition}
 if $c_{l} \prec c_{k}$, then $T(c_{k}) \subset T(c_{l})$
 \end{proposition}
 
 \begin{proof}
-For$ \forall t \in T_{k}$, we have $t$ hit $c_{k}$, as $c_{l} \prec c_{k}$, so $t$ must also hit $c_{l}$, as all the element in $c_{l}$ must in $c_{k}$, which also in the test case $t$. So we get $t \in T_{l}$, which proof that $T(c_{k}) \subset T(c_{l})$. 
+For$ \forall t \in T_{k}$, we have $t$ hit $c_{k}$, as $c_{l} \prec c_{k}$, so $t$ must also hit $c_{l}$, as all the element in $c_{l}$ must in $c_{k}$, which also in the test case $t$. So we get $t \in T_{l}$, which proof that $T(c_{k}) \subset T(c_{l})$.
 \end{proof}
 
+%\newdef{proposition}{Proposition}
+
 \begin{proposition}
+
 For any set $T$ of test cases of a SUT, we can always get a set of combinations $\mathcal{C}(T) = \{c_{m_{1}},c_{m_{2}}...\}$, so that,
 
 \begin{displaymath} T  = T(c_{m_{1}})\bigcup T(c_{m_{2}}) \bigcup ...\end{displaymath} and
 
-\begin{displaymath} \not\exists c_{j} \prec  c_{m_{1}} or\  c_{j} \prec c_{m_{2}}... s.t.\  T(c_{j}) \subset T\end{displaymath}
+\begin{displaymath} \not\exists c_{j} \prec  c_{m_{1}} or\  c_{j} \prec c_{m_{2}}... s.t.\  T(c_{j}) \subset T \end{displaymath}
 
 \end{proposition}
 
 \begin{proof}
-We give a assume the exhaustive test cases for SUT is $T^{*}$. Then the combinations in a test case t is denoted as c(t), so that the   $t(T) - t(T^{*} - T)$
+We prove by producing this set of combinations.
 
-we just use the following loop computation:
+We denote the exhaustive test cases for SUT as $T^{*}$. And let $T^{*} \backslash T$ be the test cases that in $T^{*}$ but not in $T$. It is obviously $\forall t \in T $, we can always find at least one combination $c \in \mathcal{I}(t)$, such that $c \not\in \mathcal{I}(T^{*} \backslash T)$. Specifically, at least the test case $t$ itself as combination holds.
+%as  $t \not\in T^{*} \backslash T$
 
-$ for test case t \in t(T^{*}) - t(T)$,
- S = $ {t, if t is not have t in }$
+Then we collect all the satisfied combinations($c \in \mathcal{I}(t)\ and\ c \not\in \mathcal{I}(T^{*} \backslash T)$) in each test case $t$ of $T$, which can be denoted as:
+$S(T) = \{ \mathcal{I}(T)\ - \mathcal{I}(T^{*} \backslash T) \}$.
 
+For the set $S(T)$, we can have $ \bigcup_{c \in S(T)} T(c) = T$. This is because first, any test case $t$ in $\bigcup_{c \in S(T)} T(c)$, it must have $ \exists  T(c) \subset \bigcup_{c \in S(T)}T(c)$, such that $t \in T(c)$. Then it is clearly $T(c) \subset T$, as if not so, some test case of $T(c)$ will in $T^{*} \backslash T$, which contradict with the definition of $S(T)$. So $t \in T$.
+
+Then second, for any test case t in $T$, as we have proved that we can at least find a $c$ in $\mathcal{I}(t)$, such that $c$ in $S(T)$. Then for $T(c) \subset \bigcup_{c \in S(T)} T(c)$ and $t \in T(c)$, so $t \in \bigcup_{c \in S(T)} T(c)$.
+
+Through the two points above, we can have  $\bigcup_{c \in S(T)} T(c) = T$.
+
+Then we filter minimal combinations of $S(T)$ by  $M(S(T)) = \{c | c \in S(T)\ and\ \not\exists c' \prec c, s.t., c' \in S(T)\}$. For this set, we can still have $ \bigcup_{c \in M(S(T))} T(c) = T$. We also proof this by two steps, first and obviously, $\bigcup_{c \in M(S(T))} T(c) \subset \bigcup_{c \in S(T)} T(c)$. Then we just need to proof that $\bigcup_{c \in S(T)} T(c) \subset \bigcup_{c \in M(S(T))} T(c)$.
+
+In fact for any combination $c'$ we filtered from $S(T)$,i.t., $c'\in S(T) \backslash M(S(T))$,  we can have some $c \in M(S(T))$, such that $c \prec c'$. According to the proposition1, $T(c') \subset T(c)$. So for any test case $t \in \bigcup_{c \in S(T)} T(c) $, as we have either $\exists c'\in S(T) \backslash M(S(T)), s.t., t \in T(c')$ or $\exists c \in M(S(T)), s.t., t \in T(c)$. Under the both cases, we can get $\exists c \in M(S(T)), s.t., t \in T(c)$. As $T(c) \subset \bigcup_{c \in M(S(T))} T(c)$, So $t \in \bigcup_{c \in M(S(T))} T(c)$.
+
+Above all, the set $M(S(T))$ holds this proposition.
 
 \end{proof}.
 
@@ -356,13 +372,31 @@ In fact, for all the test cases for fault $F_{m}$ which denoted as $T_{F_{m}}$, 
 
 And obviously $\mathcal{C}(T(c_{m})) = c_{m}$
 
-From the construction process of $\mathcal{C}(T)$, we can find that, the combinations in $t(T) - t(T^{*} - T)$ either be the one in $\mathcal{C}(T)$, either be the father combinations of one of them. 
+From the construction process of $\mathcal{C}(T)$, we can find that, the combinations in $S(T)$ either be the one in $\mathcal{C}(T)$, either be the parent combination of one of them.
 
-Another observation is that for any combination c in $t(T) - t(T^{*} - T) $, we can have $T(c) \subset T$, as if not so, there is must be any test case $t \in T(c)$, such that $t \not\in T$, then it must be $t \in T^{*} - T$, this is not according with  $c \in t(T) - t(T^{*} - T)$. 
+Another observation is as follows:
 
-Further observation, if $T(c) \subset T$, then it must be that $c \in t(T) - t(T^{*} - T) $.  In fact, $c = \mathcal{C}(T(c)) \in t(T(c)) - t(T^{*} - T(c)) \in t(T) - t(T^{*} - T(c)) \in t(T) - t(T^{*} - T) $
+\begin{proposition}
+ For any $T(c) \subset T$, then it must be that $c \in S(T) $.
+\end{proposition}
 
-From this two observation, we can have the following lemma:
+\begin{proof}
+
+ In fact, $c = \mathcal{C}(T(c))$.
+ then $ \mathcal{C}(T(c)) \subset S(T(c)) $, and $T(c) \subset T$ so that, $S(T(c)) \subset S(T) $ ,
+ Then we can get $\mathcal{C}(T(c)) \subset S(T) $, so, $c \in S(T)$
+
+\end{proof}
+
+%\newdef{proposition}{Proposition}
+
+%\begin{proposition}
+
+% is that for any combination c in $t(T) - t(T^{*} - T) $, we can have $T(c) \subset T$, as if not so, there is must be any test case $t \in T(c)$, such that $t \not\in T$, then it must be $t \in T^{*} - T$, this is not according with  $c \in t(T) - t(T^{*} - T)$.
+
+%Further observation,
+%
+%From this two observation, we can have the following lemma:
 
 Based on this proposition, we can easily get the following lemma:
 
@@ -372,32 +406,28 @@ For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$
 
  \begin{displaymath} \forall c_{l} \in \mathcal{C}(T_{l})\,  either\ c_{l} \in \mathcal{C}(T_{k})\ or \exists c_{k} \in \mathcal{C}(T_{k}), s.t., c_{k} \prec c_{l}.
  \end{displaymath}
-%
-%
-% \begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l})\ and\ c_{k} \in  \mathcal{C}(T_{k}), s.t., c_{l} \prec c_{k}
-% \end{displaymath}
 
-%Suppose SUT has a  fault $F$. Now first let all the test cases that trigger $F$ to be the set $T_{k}$, the failure-inducing combinations for $F$ is the set $C_{k}= \{ c_{k}\}$. Then let all the test cases that trigger $F$ to be $T_{l}$, which we get another set failure-inducing combinations $C_{l} = \{ c_{1} \}$. Then we can deduce that $C_{l}$ and $C_{k}$ satisfy at least one of the following properties:
-%
-%$ 1)\ \exists c_{k} \in C_{k}\ and\ \exists c_{l} \in C_{l} \ s.t.\ c_{l}\ subsumes\ c_{k}  $
-%
-%$2)\ \exists c_{k} \in C_{k}\ s.t.\ c_{k}\ is\ irrelevant\ to\ C_{l} $
 
 \end{lemma}
 
 \begin{proof}
 
-Obviously for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. 
+Obviously for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$.
 
-As $T(c_{l}) \subset T_{k}$, so $c_{l} \in  t(T) - t(T^{*} - T)$. As all the combinations in $t(T) - t(T^{*} - T)$ either it or the parent. So $c_{l}$.
-
-%
-%So, $c_{l} \in t(T_{k}) - t(T^{*} - T_{k})$, as that if not, $c_{l} \in t(T^{*} - T_{k})$,  which means that some test case $t \in T(c_{l})$ must have t in $T^{*} - T_{k}$, 
-%According to the construction of $\mathcal{C}(T_{k})$, we can learn that 
-%By definition, for $c_{k} \in \mathcal{C}(T_{k})$, there exist no $c_{k'} \prec c_{k}$ such that $T(c_{k'}) \subset T_{k}$. So we can conclude that $c_{l} \not\prec c_{k}$.
+According to the proposition 3, we can that $c_{l} \in S(T_{k})$. As we have known that the combinations in $S(T_{k})$ either is also in $\mathcal{C}(T_{k})$, or must be the parent of some combination in $\mathcal{C}(T_{k})$. So this lemma holds.
 
 \end{proof}.
 
+Based on this lemma, we can get the following lemma:
+\begin{lemma}
+For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
+
+ \begin{displaymath} \forall c_{k} \in \mathcal{C}(T_{k}),\  \not\exists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{l} \prec c_{k}.
+ \end{displaymath}
+
+\end{lemma}
+
+In fact, in this circumstance, $c_{k}$ either in $\mathcal{C}(T_{l})$, or be child combinations of some combinations in  $\mathcal{C}(T_{l})$, or $\not\exists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{k} \prec c_{l} or c_{k} = c_{l}$. For the third circumstance, we call $c_{k}$ is \emph{irrelevant} to $\mathcal{C}(T_{l})$
 %\begin{definition}
 %for combination $c_{m}$, and a set of combinations $C = \{c_{1}, c_{2}...\}$, if $\not\exists c_{l} \in\ C$ so that either $c_{m}$ is the same of $c_{l}$, or $c_{m}$ is the parent combination or child combination of $c_{l}$, we called $c_{m}$ is \emph{irrelevant} to set $C$
 %%Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
@@ -411,11 +441,13 @@ As $T(c_{l}) \subset T_{k}$, so $c_{l} \in  t(T) - t(T^{*} - T)$. As all the com
 %\end{lemma}
 %
 %\begin{proof}
-%As for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. If $c_{l}$ is irrelevant of $\mathcal{C}(T_{k})$. 
+%As for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. If $c_{l}$ is irrelevant of $\mathcal{C}(T_{k})$.
 %\end{proof}.
 
 
-We illustrate this two scenarios in table \ref{example_three_condition}. There are two parts in this table, in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
+We illustrate this these scenarios in table \ref{example_three_condition}. There are two parts in this table, each part shows two set of test cases: $T_{l}$ and $T_{k}$, which have $T_{l} \subset T_{k}$. For the left part, we can see that the combination in $\mathcal{C}(T_{l})$: (0, 0, -) and (0, 1, 0) both the parent of the combination in $\mathcal{C}(T_{k})$:(0,-,-). While for the right part, the combinations in $\mathcal{C}(T_{l})$: (0, 0, -) and (0, 1, 0) are both also in $\mathcal{C}(T_{k})$. Furthermore, one combination in $\mathcal{C}(T_{k})$: (1,-,-) is irreverent to $\mathcal{C}(T_{l})$. 
+
+%in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
 
 %\begin{proof}
 %We proof this by two sides:
@@ -433,7 +465,7 @@ $T_{l}$&$T_{k}$ \\ \hline
 (0, 0, 1)&(0, 0, 1) \\
 (0, 1, 0)&(0, 1, 0)\\
          &(0, 1, 1) \\ \hline
- $C_{l}$&$C_{k}$ \\ \hline
+ $\mathcal{C}(T_{l})$& $\mathcal{C}(T_{k})$ \\ \hline
 (0, 0, -)&(0, -, -)\\
 (0, 1, 0)&		   \\ \hline
   \end{tabular}
@@ -447,7 +479,7 @@ $T_{l}$&$T_{k}$\\ \hline
 		  & (1, 0, 1)\\
 		  & (1, 1, 0)\\
 		  & (1, 1, 1)\\ \hline
-$C_{l}$&$C_{k}$ \\ \hline
+$\mathcal{C}(T_{l})$& $\mathcal{C}(T_{k})$ \\ \hline
 (0, 0, -)&  (0, 0, -)\\
 (0, 1, 0)&  (0, 1, 0)\\
 		 &  (1, -, -)\\  \hline
@@ -473,7 +505,6 @@ $C_{l}$&$C_{k}$ \\ \hline
 %		 &		 	&  (1, -, -)\\ \hline
 %\hline\end{tabular}
 %\end{table}
-
 
 
 %This proposition gives us a signal that, will be longer than expected. For the Set, if the subset , then the failure-inducing combinations will be larger than the original. This proposition is important when we analyse the masking effect condition.
