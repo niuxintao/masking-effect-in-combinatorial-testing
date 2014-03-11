@@ -4,45 +4,45 @@ The style file: abbrv.bst
 Database file #1: sigproc.bib
 Warning--empty journal in grindal2006handling
 Warning--empty journal in yilmaz2013reducing
-You've used 20 entries,
+You've used 24 entries,
             2118 wiz_defined-function locations,
-            610 strings with 7411 characters,
-and the built_in function-call counts, 8164 in all, are:
-= -- 843
-> -- 364
-< -- 9
-+ -- 145
-- -- 122
-* -- 565
-:= -- 1281
-add.period$ -- 69
-call.type$ -- 20
-change.case$ -- 121
+            631 strings with 8200 characters,
+and the built_in function-call counts, 10282 in all, are:
+= -- 1070
+> -- 451
+< -- 13
++ -- 180
+- -- 152
+* -- 699
+:= -- 1583
+add.period$ -- 85
+call.type$ -- 24
+change.case$ -- 148
 chr.to.int$ -- 0
-cite$ -- 22
-duplicate$ -- 326
-empty$ -- 632
-format.name$ -- 122
-if$ -- 1771
+cite$ -- 26
+duplicate$ -- 421
+empty$ -- 799
+format.name$ -- 152
+if$ -- 2260
 int.to.chr$ -- 0
-int.to.str$ -- 20
-missing$ -- 20
-newline$ -- 103
-num.names$ -- 40
-pop$ -- 134
+int.to.str$ -- 24
+missing$ -- 24
+newline$ -- 123
+num.names$ -- 48
+pop$ -- 173
 preamble$ -- 1
-purify$ -- 101
+purify$ -- 124
 quote$ -- 0
-skip$ -- 242
+skip$ -- 317
 stack$ -- 0
-substring$ -- 564
-swap$ -- 104
-text.length$ -- 9
+substring$ -- 721
+swap$ -- 149
+text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 80
+type$ -- 96
 warning$ -- 2
-while$ -- 83
-width$ -- 22
-write$ -- 227
+while$ -- 103
+width$ -- 26
+write$ -- 275
 (There were 2 warnings)

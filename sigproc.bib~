@@ -202,4 +202,29 @@
   year={2006},
   publisher={Institutionen f{\"o}r kommunikation och information}
 }
-
+@article{yilmaz2013test,
+  title={Test case-aware combinatorial interaction testing},
+  author={Yilmaz, Cemal},
+  journal={Software Engineering, IEEE Transactions on},
+  volume={39},
+  number={5},
+  pages={684--706},
+  year={2013},
+  publisher={IEEE}
+}
+@incollection{shi2005software,
+  title={A software debugging method based on pairwise testing},
+  author={Shi, Liang and Nie, Changhai and Xu, Baowen},
+  booktitle={Computational Science--ICCS 2005},
+  pages={1088--1091},
+  year={2005},
+  publisher={Springer}
+}
+@inproceedings{chen2010combinatorial,
+  title={Combinatorial testing with shielding parameters},
+  author={Chen, Baiqiang and Yan, Jun and Zhang, Jian},
+  booktitle={Software Engineering Conference (APSEC), 2010 17th Asia Pacific},
+  pages={280--289},
+  year={2010},
+  organization={IEEE}
+}
