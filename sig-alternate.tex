@@ -480,7 +480,7 @@ A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-in
 %This masking effect can be presented as $t(F_{b})[F_{a}]$, which means test case \emph{t} should trigger $F_{a}$ if didn't trigger $F_{b}$.
 \end{definition}
 
-Taking the masking effects into account, when identifying the failure-inducing combinations for a specific fault, say, $F_{m}$, we should not ignore these test cases which do not trigger $F_{m}$ because they trigger other faults. We call these test cases $T_{mask(F_{m})}$. Hence, the failure-inducing combinations for fault $F_{m}$ should be $\mathcal{C}(T_{F_{m}} \bigcup T_{mask(F_{m})})$
+Taking the masking effects into account, when identifying the failure-inducing combinations for a specific fault, say, $F_{m}$, we should not ignore these test cases which should have triggered $F_{m}$ if they didn't trigger other faults. We call these test cases $T_{mask(F_{m})}$. Hence, the failure-inducing combinations for fault $F_{m}$ should be $\mathcal{C}(T_{F_{m}} \bigcup T_{mask(F_{m})})$
 
 %So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} \bigcup T_{mask(F_{m})}$. We call the failure-inducing combinations with considering the masking effects the \emph{perfect failure-inducing combinations}.
 
@@ -494,26 +494,26 @@ In effect for traditional FCI approaches, without knowledge of  $T_{mask(F_{m})}
 \subsubsection{regard as one fault}
 The first one is the most common strategy, it doesn't distinguish the faults, i.e., regard all the types of faults as one fault--\emph{failure}, others as the \emph{pass}.
 
-So they will find the $c_{m}$ for $T_{F} = \bigcup_{i = 1}^{L}F_{i}$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} \bigcup T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, by the proposed lemma, the failure-inducing combinations we get will have some combinations irrelevant to the perfect failure-inducing combinations , or some combinations just be the sub-combinations of some of the correct failure-inducing combinations.
+With this strategy, the FCI process turns into identifying the set $\mathcal{C}(\bigcup_{i = 1}^{L}T_{F_{i}})$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} \bigcup T_{mask(F_{m})} \subset T_{F}$ . So in case, by Lemma 1, some combinations we get may be the sub-combination of some of the failure-inducing combination, or irrelevant to the failure-inducing combinations.
 
-Suppose we take this strategy in the motivation example, then the failure-inducing combinations we get will be (- 4 4 -) and (- - 4 5).
+As an example, Suppose we take this strategy in the motivation example, then the failure-inducing combinations we get will be (- 4 4 -) and (- - 4 5). In this example, with \emph{regard as one fault strategy} we consider that combination (- 4 4 -) and (- - 4 5) should be the cause of both Ex 1 and Ex 2, which in fact, (- 4 4 -) is irrelevant to the combinations of Ex 2 and (- - 4 5) is irrelevant to the failure-inducing combinations of Ex 1.
 
-\subsubsection{distinguish fault by buggy information}
-Distinguish the faults by the exception traces or error code can help make FCI approaches focus on particular fault. Ylimaz in  \cite{yilmaz2013reducing} propose a \emph{multiple-class} failure characterize method instead of \emph{ternary-class} approaches to make the characterizing approach more accurately. Besides, other approaches can also be easily extended to apply on SUT with multiple faults. We call this approach \emph{distinguish FCI} approaches.
+\subsubsection{distinguish faults}
+Distinguishing the faults by the exception traces or error code can help make FCI approaches focus on particular fault. Ylimaz in  \cite{yilmaz2013reducing} proposed the \emph{multiple-class} failure characterize method instead of \emph{ternary-class} approach to make the characterizing process more accurately. Besides, other approaches can also be easily extended with this strategy to be applied on SUT with multiple faults. 
+%We call this strategy \emph{distinguish faults}.
 
-Without no information of the masking effect, distinguish FCI approaches can only identify the $c_{m}$ for $T_{F_{m}}$. In this case, we can learn that $T_{F_{m}} \bigcup T_{mask(F_{m})} \supset T_{F_{m}} $ , consequently, the failure-inducing combinations we get in this case will have some combinations be the parent-combination of some perfect combinations or completely miss some failure-inducing combination.
+This strategy in fact identifies the set of $\mathcal{C}(T_{F_{m}})$, and as $T_{F_{m}} \bigcup T_{mask(F_{m})} \supset T_{F_{m}} $, consequently, some combinations get through this strategy may be the parent-combination of some failure-inducing combinations. Moreover, some failure-inducing combinations may be irrelevant to the combinations get with this strategy, which means that this combinations set ignore some failure-inducing combinations.
 
-It is noted that, the motivation example list the approach which adopt this strategy, and we in fact identified the parent combinations of the failure-inducing combinations of Ex 2.
-
+It is noted that, the FCI approach listed in motivation example in section 2 actually adopted this strategy, which made the combinations identified for Ex 2: (-,2,4,5), (-,3,4,5) are the parent combinations of the correct failure-inducing combinations(-,-,4,5).
 
 \subsection{summary of formal model}
-From the formal model of the analysis, we can learn that masking effects do influence the FCI approaches, worse more, both strategies \emph{regard as one fault} and \emph{distinguish faults} do harmful effects, which the former may get the child combinations of the failure-inducing combinations and may get more irreverent combinations, while the later may get the parent combinations of the failure-inducing combinations and may ignore some failure-inducing combinations.
+From the analysis of formal model, we can learn that masking effects do influence the FCI approaches, worse more, both strategies \emph{regard as one fault} and \emph{distinguish faults} are harmful, which specifically the former may get the sub combinations of the failure-inducing combinations and may get irreverent combinations, while the later one may get the parent combinations of the failure-inducing combinations and may ignore some failure-inducing combinations.
 
 Note that our discuss is based on the SUT is a deterministic software, i.e., the random failing information of test case will be ignored. The non-deterministic problem will complex our test scenario, which will not be discussed in this paper.
 
-
 \section{test case replacing strategy}
-Previous section formally studied the case that under the masking effects, neither regarding as one fault approach nor distinguishing faults approach is not accurate . The main reason is that we cannot figure out the $T(mask_{F_{m}})$.  As $T(mask_{F_{m}}) \subset \bigcup_{i = 1 \& j \neq m }^{L}T_{F_{i}}$. So to reduce the influence of $T(mask_{F_{m}})$, we need to reduce the number of test cases that trigger other faults as much as possible.
+%Previous section formally studied the case that under the masking effects, neither regarding as one fault approach nor distinguishing faults approach is not accurate . 
+The main reason why both strategies cannot accurately identify the failure-inducing combinations is that we cannot figure out the $T(mask_{F_{m}})$.  As $T(mask_{F_{m}}) \subset \bigcup_{i = 1 \& j \neq m }^{L}T_{F_{i}}$. So to reduce the influence of $T(mask_{F_{m}})$, we need to reduce the number of test cases that trigger other faults as much as possible.
 
 In the exhaustive testing, as all the test cases will be used to identify the failure-inducing combinations, so there is no room left to improve the accurateness. However, when just choose part of the whole test cases, which is practical and sometimes the only solution for large-scale SUT, we can adjust the test cases we need to use by choosing proper ones so that we can limit the number of $T(mask_{F_{m}})$ to  be as less as possible.
 
@@ -1101,7 +1101,7 @@ otherwise, a further test suite based on SOFOT is developed for each failed test
 testing is repeated, and the schema set is then further reduced, until no more failure
 is found or the fault has been located. Based on this work, Wang in \cite{wang2010adaptive} proposed an AIFL approach which extended the SOFOT process by mutating the changing strength in each iteration of characterizing failure-inducing combinations.
 
-Nie's approach in \cite{nie2011minimal} first separates the faulty possible tuples and healthy-possible tuples into two sets. Subsequently, by changing a parameter value at a time of the original test configuration, this approach generates extra test configurations. After executing the configurations, the approach converges by reducing the number of tuples in the faulty-possible sets.
+Nie's in \cite{nie2011minimal} introduced the notion of minimal failure-causing schema(MFS) and proposed the OFOT approach which extended from SOFOT that can isolate the MFS in SUT. The approach mutants one value with different values for that parameter, hence generating a group of additional test cases each time to be executed. Compared with SOFOT, this approach  strengthen the validation of the factor under analysis and also can detect the newly imported faulty combinations.
 
 Delta debugging \cite{zeller2002simplifying} proposed by Zeller is an adaptive divide-and-conquer approach to locate interaction fault. It is very efficient and has been applied to real software environment. Zhang et al. \cite{zhang2011characterizing} also proposed a similar approach that can identify the failure-inducing combinations that has no overlapped part efficiently. Later Li in \cite{li2012improved} improved the delta-debugging based failure-inducing combination by exploiting the useful information in the executed covering array.
 
@@ -1118,7 +1118,7 @@ Besides works that aims at identifying the failure-inducing combinations in test
 
 With having known masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. Additional constraints impacts in CT were studied in works like \cite{bryce2006prioritized,calvagna2008logic,grindal2006handling,yilmaz2013test}. These approaches use some rules or to avoid these invalidated test cases to improve the efficiency when examine the test cases.
 
-Zhang etc. in \cite{chen2010combinatorial} proposed an approach with considering the shielding parameter problem.
+Chen etc. in \cite{chen2010combinatorial} addressed the issues of shielding parameters in combinatorial testing  and proposed the Mixed Covering Array with Shielding Parameters (MCAS) to explain the problem caused by shielding parameters. The shielding parameters can disable other parameters in certain conditions, which, can be considered to be a special case of masking effects. 
 
 Dumlu and Ylimaz in \cite{dumlu2011feedback} proposed a feedback-driven approach to work around the masking effects. In specific, it first use CTA classify the possible failure-inducing combinations and then eliminate them and generate new test cases to detect possible masked interaction in the next iteration. They further extended their work in \cite{yilmaz2013reducing}, in which they proposed a multiple-class CTA approach to distinguish faults in SUT. In addition, they empirically studied the impacts on both ternary-class and multiple-class CTA approaches.
 
