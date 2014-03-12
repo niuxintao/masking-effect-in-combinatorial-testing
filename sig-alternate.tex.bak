@@ -71,7 +71,6 @@
 % --- End of Author Metadata ---
 
 \title{Identify failure-inducing combinations for multiple faults\titlenote{This work was supported by the National Natural Science Foundation of China (No. 61272079), the Research Fund for the Doctoral Program of Higher Education of China (No.20130091110032), the Science Fund for Creative Research Groups of the National Natural Science Foundation of China(No. 61321491), and the Major Program of National Natural Science Foundation of China (No. 91318301)}
-%\subtitle{[Extended Abstract]
 }
 %
 % You need the command \numberofauthors to handle the 'placement
@@ -279,7 +278,7 @@ However, we cannot validate the supposition, i.e., \emph{input 6} and \emph{inpu
 \section{formal model}
 This section presents some definitions and propositions to give a formal model for the FCI problem.
 
-\subsection{failure-inducing combinations in CT}
+\subsection{Failure-inducing combinations in CT}
 
 Assume that the SUT (software under test) is influenced by \emph{n} parameters, and each parameter $p_{i}$ has $a_{i}$ discrete values from the finite set $V_{i}$, i.e., $a_{i}$ = $|V_{i}|$ ($i$ = 1,2,..n). Some of the definitions below are originally defined in \cite{nie2011survey}.
 
@@ -291,10 +290,12 @@ A \emph{test case} of the SUT is an array of \emph{n} values, one for each param
 In practice, these parameters in the test case can represent many factors, such as input variables, run-time options, building options or various combination of them. We need to execute the SUT under these test cases to ensure the correctness of the behaviour of the software.
 
 %\begin{definition}
-We consider the fact that the abnormally executing test cases as a \emph{fault}. It can be a thrown exception, compilation error, assertion failure or constraint violation.
+We consider the fact that the abnormally executing test cases as a \emph{fault}. It can be a thrown exception, compilation error, assertion failure or constraint violation. When faults is triggered in some test cases, what is desired is to figure out the cause of these faults, which, some subsets of this test case should be analysed.
 %\end{definition}
 
-Figuring out the test case as well as the executing result is usually not enough to analyse the source of the bug, especially when there are too many parameters we need to care in this test case. In this circumstance, we need to study some subsets of this test case, so we need the following definition:
+%Figuring out the test case as well as the executing result is usually not enough to analyse the source of the bug, especially when there are too many parameters we need to care in this test case. In this circumstance, we need to study some subsets of this test case, so we need the following definition:
+
+%Figuring out the execution outcomes of test cases must reveal the presence of faulty interactions among those considered. However, the location and magnitude of the fault is still far from clear, especially when there are too many parameters we need to care in this test case. Hence, we need to study some subsets of this test case, which can help isolate the cause of failures.
 
 \begin{definition}
 For the SUT, the \emph{n}-tuple (-,$v_{n_{1}}$,...,$v_{n_{k}}$,...)is called a \emph{k}-value \emph{combination} ($0 < k \leq n $) when some k parameters have fixed values and the others can take on their respective allowable values, represented as "-".
@@ -315,13 +316,13 @@ If all test cases contain a combination, say $c$, trigger a particular fault, sa
 %Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
 \end{definition}
 
-In fact, \emph{minimal faulty combinations} is identical to the failure-inducing combinations we discussed previously. Figuring it out can eliminate all details that are irrelevant for producing the failure, which can facilitate the debugging effort.
+In fact, \emph{minimal faulty combinations} is identical to the failure-inducing combinations we discussed previously. Figuring it out can eliminate all details that are irrelevant for producing the failure and hence facilitate the debugging effort.
 
 
 %We have the following proposition based on these basic definitions.
 %
 
-Let $c_{m}$ be a m-value combination, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$. Further, for the test case $t$, we use $\mathcal{I}(t)$ to denote all the combinations that $t$ hits, and for the set of test cases $T$, we let $\mathcal{I}(T) = $ to denote all the combinations that be hit by any test case in this set. then we have the following proposition :
+Let $c_{m}$ be a m-value combination, we denote all the test cases can \emph{hit} the combination $c_{m}$ as $T(c_{m})$. Further, for the test case $t$, let $\mathcal{I}(t)$ to denote all the combinations that are hit by $t$, and for the set of test cases $T$, we let $\mathcal{I}(T) = \bigcup_{t\in T} \mathcal{I}(t)$. Then we have the following propositions.
 
 
 \newtheorem{proposition}{Proposition}
@@ -330,18 +331,16 @@ if $c_{l} \prec c_{k}$, then $T(c_{k}) \subset T(c_{l})$
 \end{proposition}
 
 \begin{proof}
-For$ \forall t \in T_{k}$, we have $t$ hit $c_{k}$, as $c_{l} \prec c_{k}$, so $t$ must also hit $c_{l}$, as all the element in $c_{l}$ must in $c_{k}$, which also in the test case $t$. So we get $t \in T_{l}$, which proof that $T(c_{k}) \subset T(c_{l})$.
+Suppose $ \forall t \in T(c_{k})$, we have $t$ hit $c_{k}$. Then as $c_{l} \prec c_{k}$, so $t$ must also hit $c_{l}$, as all the element in $c_{l}$ must in $c_{k}$, which also in the test case $t$. Therefore we get $t \in T(c_{l})$. Thus $t \in T(c_{k})$ implies $t \in T(c_{l})$, so it follows that $T(c_{k}) \subset T(c_{l})$.
 \end{proof}
 
 %\newdef{proposition}{Proposition}
 
 \begin{proposition}
 
-For any set $T$ of test cases of a SUT, we can always get a set of combinations $\mathcal{C}(T) = \{c_{m_{1}},c_{m_{2}}...\}$, so that,
+For any set $T$ of test cases of a SUT, we can always get a set of minimal combinations $\mathcal{C}(T) = \{c \}$, ( $\not\exists c', c \in \mathcal{C}(T), s.t. c' \prec  c $),  such that,
 
-\begin{displaymath} T  = T(c_{m_{1}})\bigcup T(c_{m_{2}}) \bigcup ...\end{displaymath} and
-
-\begin{displaymath} \not\exists c_{j} \prec  c_{m_{1}} or\  c_{j} \prec c_{m_{2}}... s.t.\  T(c_{j}) \subset T \end{displaymath}
+\begin{displaymath} T  =  \bigcup_{c \in \mathcal{C}(T)} T(c) \end{displaymath}
 
 \end{proposition}
 
@@ -351,41 +350,29 @@ We prove by producing this set of combinations.
 We denote the exhaustive test cases for SUT as $T^{*}$. And let $T^{*} \backslash T$ be the test cases that in $T^{*}$ but not in $T$. It is obviously $\forall t \in T $, we can always find at least one combination $c \in \mathcal{I}(t)$, such that $c \not\in \mathcal{I}(T^{*} \backslash T)$. Specifically, at least the test case $t$ itself as combination holds.
 %as  $t \not\in T^{*} \backslash T$
 
-Then we collect all the satisfied combinations($c \in \mathcal{I}(t)\ and\ c \not\in \mathcal{I}(T^{*} \backslash T)$) in each test case $t$ of $T$, which can be denoted as:
+Then we collect all the satisfied combinations($c \in \mathcal{I}(t)$  and $c \not\in \mathcal{I}(T^{*} \backslash T)$) in each test case $t$ of $T$, which can be denoted as:
 $S(T) = \{ \mathcal{I}(T)\ - \mathcal{I}(T^{*} \backslash T) \}$.
 
-For the set $S(T)$, we can have $ \bigcup_{c \in S(T)} T(c) = T$. This is because first, any test case $t$ in $\bigcup_{c \in S(T)} T(c)$, it must have $ \exists  T(c) \subset \bigcup_{c \in S(T)}T(c)$, such that $t \in T(c)$. Then it is clearly $T(c) \subset T$, as if not so, some test case of $T(c)$ will in $T^{*} \backslash T$, which contradict with the definition of $S(T)$. So $t \in T$.
- 
-Then second, for any test case t in $T$, as we have proved that we can at least find a $c$ in $\mathcal{I}(t)$, such that $c$ in $S(T)$. Then for $T(c) \subset \bigcup_{c \in S(T)} T(c)$ and $t \in T(c)$, so $t \in \bigcup_{c \in S(T)} T(c)$. 
+For the set $S(T)$, we can have $ \bigcup_{c \in S(T)}T(c) = T$. This is because first, for $\forall t \in T(c), (T(c) \subset \bigcup_{c \in S(T)}T(c))$. it must have $t \in T$, as if not so, then $t \in T^{*} \backslash T$, which contradict with the definition of $S(T)$. So $t \in T$. Hence, $\bigcup_{c \in S(T)}T(c) \subset T$.
 
-Through the two points above, we can have  $\bigcup_{c \in S(T)} T(c) = T$.
+Then second, for any test case t in $T$, as we have learned at least find one $c$ in $\mathcal{I}(t)$, such that $c$ in $S(T)$. Then for $T(c) \subset \bigcup_{c \in S(T)} T(c)$ and $t \in T(c)$, so $t \in \bigcup_{c \in S(T)} T(c)$, therefore,  $ T \subset \bigcup_{c \in S(T)}T(c)$.
 
-Then we filter minimal combinations of $S(T)$ by  $M(S(T)) = \{c | c \in S(T)\ and\ \not\exists c' \prec c, s.t., c' \in S(T)\}$. For this set, we can still have $ \bigcup_{c \in M(S(T))} T(c) = T$. We also proof this by two steps, first and obviously, $\bigcup_{c \in M(S(T))} T(c) \subset \bigcup_{c \in S(T)} T(c)$. Then we just need to proof that $\bigcup_{c \in S(T)} T(c) \subset \bigcup_{c \in M(S(T))} T(c)$.
+Since, $\bigcup_{c \in S(T)}T(c) \subset T$ and $ T \subset \bigcup_{c \in S(T)}T(c)$, so it follows $\bigcup_{c \in S(T)}T(c) = T$.
 
-In fact for any combination $c'$ we filtered from $S(T)$,i.t., $c'\in S(T) \backslash M(S(T))$,  we can have some $c \in M(S(T))$, such that $c \prec c'$. According to the proposition1, $T(c') \subset T(c)$. So for any test case $t \in \bigcup_{c \in S(T)} T(c) $, as we have either $\exists c'\in S(T) \backslash M(S(T)), s.t., t \in T(c')$ or $\exists c \in M(S(T)), s.t., t \in T(c)$. Under the both cases, we can get $\exists c \in M(S(T)), s.t., t \in T(c)$. As $T(c) \subset \bigcup_{c \in M(S(T))} T(c)$, So $t \in \bigcup_{c \in M(S(T))} T(c)$.
+Then we denote the minimal combinations of $S(T)$ as $M(S(T)) = \{c | c \in S(T)\ and\ \not\exists c' \prec c, s.t., c' \in S(T)\}$. For this set, we can still have $ \bigcup_{c \in M(S(T))} T(c) = T$. We also proof this by two steps, first and obviously, $\bigcup_{c \in M(S(T))} T(c) \subset \bigcup_{c \in S(T)} T(c)$. Then we just need to proof that $\bigcup_{c \in S(T)} T(c) \subset \bigcup_{c \in M(S(T))} T(c)$.
 
-Above all, the set $M(S(T))$ holds this proposition.
+In fact by definition of $M(S(T))$, for $\forall c'\in S(T) \backslash M(S(T))$,  we can have some $c \in M(S(T))$, such that $c \prec c'$. According to the Proposition 1, $T(c') \subset T(c)$. So for any test case $t \in \bigcup_{c \in S(T)} T(c) $, as we have either $\exists c'\in S(T) \backslash M(S(T)), s.t., t \in T(c')$ or $\exists c \in M(S(T)), s.t., t \in T(c)$. Both cases can deduce $t \in \bigcup_{c \in M(S(T))} T(c)$. Therefore, $\bigcup_{c \in S(T)} T(c) \subset \bigcup_{c \in M(S(T))} T(c)$
 
+At last, $M(S(T))$ is the set of combinations that holds this proposition.
 \end{proof}.
+In fact, for all the test cases for fault $F_{m}$ which denoted as $T_{F_{m}}$, $\mathcal{C}(T_{F_{m}})$ is the set of failure-inducing combinations of $F_{m}$. And obviously $\mathcal{C}(T(c_{m})) = c_{m}$.
 
-In fact, for all the test cases for fault $F_{m}$ which denoted as $T_{F_{m}}$, $\mathcal{C}(T_{F_{m}})$ is the set of failure-inducing combinations of $F_{m}$.
-
-And obviously $\mathcal{C}(T(c_{m})) = c_{m}$
-
-From the construction process of $\mathcal{C}(T)$, we can find that, the combinations in $S(T)$ either be the one in $\mathcal{C}(T)$, either be the parent combination of one of them.
-
-Another observation is as follows:
-
+From the construction process of $\mathcal{C}(T)$, one observation is that the combinations in $S(T)$ either be the one in $\mathcal{C}(T)$, either be the parent combination of one of them. Then we can have the following proposition.
 \begin{proposition}
- For any $T(c) \subset T$, then it must be that $c \in S(T) $. 
+ For any $T(c) \subset T$, then it must be that $c \in S(T) $.
 \end{proposition}
-
 \begin{proof}
-
- In fact, $c = \mathcal{C}(T(c))$.
- then $ \mathcal{C}(T(c)) \subset S(T(c)) $, and $T(c) \subset T$ so that, $S(T(c)) \subset S(T) $ ,
- Then we can get $\mathcal{C}(T(c)) \subset S(T) $, so, $c \in S(T)$
- 
+ In fact, $c = \mathcal{C}(T(c))$, and it has $ \mathcal{C}(T(c)) \subset S(T(c)) $. Then as $T(c) \subset T$, so it follows $S(T(c)) \subset S(T)$ by definition. So we can have $\mathcal{C}(T(c)) \subset S(T) $ and hence $c \in S(T)$.
 \end{proof}
 
 %\newdef{proposition}{Proposition}
@@ -399,53 +386,29 @@ Another observation is as follows:
 %From this two observation, we can have the following lemma:
 
 Based on this proposition, we can easily get the following lemma:
-
 \newtheorem{lemma}{Lemma}
 \begin{lemma}
 For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
-
  \begin{displaymath} \forall c_{l} \in \mathcal{C}(T_{l})\,  either\ c_{l} \in \mathcal{C}(T_{k})\ or \exists c_{k} \in \mathcal{C}(T_{k}), s.t., c_{k} \prec c_{l}.
  \end{displaymath}
-
-
 \end{lemma}
 
 \begin{proof}
-
-Obviously for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$.
-
-According to the proposition 3, we can that $c_{l} \in S(T_{k})$. As we have known that the combinations in $S(T_{k})$ either is also in $\mathcal{C}(T_{k})$, or must be the parent of some combination in $\mathcal{C}(T_{k})$. So this lemma holds.
-
+Obviously for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. According to the proposition 3, we can that $c_{l} \in S(T_{k})$. So this lemma holds as the combinations in $S(T_{k})$ either is also in $\mathcal{C}(T_{k})$, or must be the parent of some combination in $\mathcal{C}(T_{k})$.
 \end{proof}.
 
-Based on this lemma, we can get the following lemma:
-\begin{lemma}
-For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
-
- \begin{displaymath} \forall c_{k} \in \mathcal{C}(T_{k}),\  \not\exists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{l} \prec c_{k}.
- \end{displaymath}
-
-\end{lemma}
-
-In fact, in this circumstance, $c_{k}$ either in $\mathcal{C}(T_{l})$, or be child combinations of some combinations in  $\mathcal{C}(T_{l})$, or $\not\exists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{k} \prec c_{l} or c_{k} = c_{l}$. For the third circumstance, we call $c_{k}$ is \emph{irrelevant} to $\mathcal{C}(T_{l})$
-%\begin{definition}
-%for combination $c_{m}$, and a set of combinations $C = \{c_{1}, c_{2}...\}$, if $\not\exists c_{l} \in\ C$ so that either $c_{m}$ is the same of $c_{l}$, or $c_{m}$ is the parent combination or child combination of $c_{l}$, we called $c_{m}$ is \emph{irrelevant} to set $C$
-%%Based on this, if a test case $t$ hit such a failure-inducing combination, say $c(F)$, it should trigger the fault $F$, for which the test case can be put as $t(F)$
-%\end{definition}
-%
-%So we can get the following lemma:
+%Based on this, we can have the following lemma:
 %\begin{lemma}
 %For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$. Then we have
-%
-%\begin{displaymath} \not\exists c_{l} \in \mathcal{C}(T_{l}) , s.t., c_{l}\ is\ irrelevant\ to\  \mathcal{C}(T_{k}) \end{displaymath}
+% \begin{displaymath} \forall c_{k} \in \mathcal{C}(T_{k}),\  \not\exists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{l} \prec c_{k}.
+% \end{displaymath}
 %\end{lemma}
-%
-%\begin{proof}
-%As for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. If $c_{l}$ is irrelevant of $\mathcal{C}(T_{k})$.
-%\end{proof}.
 
+Based on this lemma, in fact, the $c_{k} \in T_{k}$  remained the following three conditions: 1. $c_{k} \in \mathcal{C}(T_{l})$, or 2. $\exists c_{l} \in \mathcal{C}(T_{l}), s.t.,\ c_{k} \prec c_{l}$, or 3. $\not\exists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{k} \prec c_{l}\ or\ c_{k} = c_{l},\ or\ c_{l} \prec c_{k}$. For the third case, we call $c_{k}$ is \emph{irrelevant} to $\mathcal{C}(T_{l})$
 
-We illustrate this these scenarios in table \ref{example_three_condition}. There are two parts in this table, in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
+We illustrate this these scenarios in table \ref{example_three_condition}. There are two parts in this table, each part shows two set of test cases: $T_{l}$ and $T_{k}$, which have $T_{l} \subset T_{k}$. For the left part, we can see that the combination in $\mathcal{C}(T_{l})$: (0, 0, -) and (0, 1, 0), both are the parent of the combination of the one in $\mathcal{C}(T_{k})$:(0,-,-). While for the right part, the combinations in $\mathcal{C}(T_{l})$: (0, 0, -) and (0, 1, 0) are both also in $\mathcal{C}(T_{k})$. Furthermore, one combination in $\mathcal{C}(T_{k})$: (1,-,-) is irreverent to $\mathcal{C}(T_{l})$.
+
+%in which the left part shows the case that the failure-inducing combinations satisfy the first properties( both (0,0,-) and (0,1,0) subsume (0,-,-)). While the right part give an example to the second properties, as (1,-,-) is irrelevant to any one of (0,0,-) and (0,1,0).
 
 %\begin{proof}
 %We proof this by two sides:
@@ -463,7 +426,7 @@ $T_{l}$&$T_{k}$ \\ \hline
 (0, 0, 1)&(0, 0, 1) \\
 (0, 1, 0)&(0, 1, 0)\\
          &(0, 1, 1) \\ \hline
- $C_{l}$&$C_{k}$ \\ \hline
+ $\mathcal{C}(T_{l})$& $\mathcal{C}(T_{k})$ \\ \hline
 (0, 0, -)&(0, -, -)\\
 (0, 1, 0)&		   \\ \hline
   \end{tabular}
@@ -477,7 +440,7 @@ $T_{l}$&$T_{k}$\\ \hline
 		  & (1, 0, 1)\\
 		  & (1, 1, 0)\\
 		  & (1, 1, 1)\\ \hline
-$C_{l}$&$C_{k}$ \\ \hline
+$\mathcal{C}(T_{l})$& $\mathcal{C}(T_{k})$ \\ \hline
 (0, 0, -)&  (0, 0, -)\\
 (0, 1, 0)&  (0, 1, 0)\\
 		 &  (1, -, -)\\  \hline
@@ -506,25 +469,30 @@ $C_{l}$&$C_{k}$ \\ \hline
 
 
 %This proposition gives us a signal that, will be longer than expected. For the Set, if the subset , then the failure-inducing combinations will be larger than the original. This proposition is important when we analyse the masking effect condition.
-
-Next, let move to formal analysis of the masking effects.
+%
+%Next, let us move to formal analysis of the masking effects.
 
 \subsection{masking effect}
-
+This section formally introduces the masking effects and analyses how this effect impact on the FCI approaches.
 \begin{definition}
 A \emph{masking effect} is the effect that a test case \emph{t} hit a failure-inducing combination for $F_{a}$, say $c$ , but doesn't trigger fault $F_{a}$ as expected because this test case triggered other fault which is different from $F_{a}$, say, $F_{b}$.
 
 %This masking effect can be presented as $t(F_{b})[F_{a}]$, which means test case \emph{t} should trigger $F_{a}$ if didn't trigger $F_{b}$.
 \end{definition}
 
-based on this definition, we can learn that, to get the accurate result, we should take consider these test cases do not trigger some specific fault because it trigger other faults. We call these test cases $T_{mask(F_{m})}$ for a particular fault $F_{m}$ masked by these test cases.
+Taking the masking effects into account, when identifying the failure-inducing combinations for a specific fault, say, $F_{m}$, we should not ignore these test cases which do not trigger $F_{m}$ because they trigger other faults. We call these test cases $T_{mask(F_{m})}$. Hence, the failure-inducing combinations for fault $F_{m}$ should be $\mathcal{C}(T_{F_{m}} \bigcup T_{mask(F_{m})})$
 
-So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} \bigcup T_{mask(F_{m})}$. We call the failure-inducing combinations with considering the masking effects the \emph{perfect failure-inducing combinations}. However, this is not possible in practice, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
+%So in fact, the failure-inducing combination for $F_{m}$ should be the combination which have the test cases $T_{F_{m}} \bigcup T_{mask(F_{m})}$. We call the failure-inducing combinations with considering the masking effects the \emph{perfect failure-inducing combinations}.
 
-For traditional FCI approaches, there are two kinds of approaches, let me see what they like:
+As an example, in the motivation example in section 2, the $F_{mask(F_{Ex\ 2})}$  is \{ (7,4,4,5),(11,4,4,5)\}, So the failure-inducing combinations for $Ex 2$ is $\mathcal{C}(T_{F_{Ex\ 2}} \bigcup T_{mask(F_{Ex\ 2})})$, which is (-,-,4,5).
+ %taking this test cases into account, we can get the failure-inducing combinations for Ex 1 is .
+
+In practice with masking effects, however, it is not possible to correctly identifying the failure-inducing combinations, unless we fix some bugs in the SUT and re-execute the test cases to figure out $T_{mask(F_{m})}$.
+
+In effect for traditional FCI approaches, without knowledge of  $T_{mask(F_{m})}$,  only two strategies can be adopted when facing the multiple faults problem.
 
 \subsubsection{regard as one fault}
-This is the most common dealing approach, they don't distinguish the faults, i.e., regard all the types of faults as one fault--\emph{failure}, others as the \emph{pass}.
+The first one is the most common strategy, it doesn't distinguish the faults, i.e., regard all the types of faults as one fault--\emph{failure}, others as the \emph{pass}.
 
 So they will find the $c_{m}$ for $T_{F} = \bigcup_{i = 1}^{L}F_{i}$, $L$ is the number of all the faults in the SUT. Obviously, $T_{F_{m}} \bigcup T_{mask(F_{m})} \subset T_{F}$ . So in this circumstance, by the proposed lemma, the failure-inducing combinations we get will have some combinations irrelevant to the perfect failure-inducing combinations , or some combinations just be the child-combinations of some of the perfect failure-inducing combinations.
 
@@ -537,191 +505,7 @@ Without no information of the masking effect, distinguish FCI approaches can onl
 
 It is noted that, the motivation example list the approach which adopt this strategy, and we in fact identified the parent combinations of the failure-inducing combinations of Ex 2.
 
-%\section{Formally analysis}
-%For a SUT, assume it has n different faults: $F_{i} ( 1 \leq i \leq L)$, they can be distinguished by the fault information come along with them(such as exception traces or fatal code).
-%
-%Let $\mathcal{C}(t)$ denotes all the combinations in a test case $t$. For example, for test case $t$ = (1,1,1) the  $\mathcal{C}(t)$ is \{(1,1,1),(1,1,-),(1,-,1),(-,1,1),(-,-,1),(-,1,-)\}.
-%
-%Similarly, Let $\mathcal{C}(\mathcal{T})$ denote all the combinations in a suite $\mathcal{T}$ of test cases. In fact, $\mathcal{C}(\mathcal{T}) = \bigcup_{i = 1}^{|\mathcal{T}|}\mathcal{C}(t_{i})$.
-%
-%The notation $F_{i}(\mathcal{T})$  denote the subset of test cases of the suite $\mathcal{T}$ that each one in the subset will trigger fault $F_{i}$.  Additionally, let $P(T)$ denote the subset of test cases that passed the testing without triggering any faults, and let $F(\mathcal{T})$ indicate the subset of test cases that each one in this set will trigger some type of fault. It is obviously that $F(\mathcal{T}) =  \bigcup_{i = 1}^{L}F_{i}(\mathcal{T})$ and $F(\mathcal{T})\bigcup P(\mathcal{T}) = \mathcal{T}$.
-%
-%Obviously, the failure-inducing combinations for a particular fault $F_{i}$ must be the subset of $\mathcal{C}(F_{i}(\mathcal{T}))$ and exclusive those in $\mathcal{C}(P(\mathcal{T}))$.
-%
-%\subsection{Regard as one fault}
-%
-%In our previous work(TOSEM), we didn't distinguish the types of fault, i.e., we treat all the faults as one failure. In this circumstance, the FCI process can be formulated as:
-% $$let\ \mathcal{M} = \mathcal{C}(F(\mathcal{T})) - \mathcal{C}(P(\mathcal{T}))$$
-%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-%
-%With this formula we cannot figure out the failure-inducing combinations for a particular fault. Moreover, as it force to merge all the different faults into one fault, it may get a wrongly identified result. For example, for SUT(3,2), assume (0,-,0) and (-,0,0) are the failure-inducing combinations of \emph{err 1} and (1,1,-) and (1,-,0) is the failure-inducing combinations of \emph{err 2}. In addition, let \emph{err 1}'s faulting level higher than \emph{err 2}. The test cases and result is listed in table \ref{example_first_scenario}.
-%
-%\begin{table}
-%\centering
-%\caption{a simple example}
-%\label{example_first_scenario}
-%\begin{tabular}{|c|c|c|c|} \hline
-%id&test inputs & result & masking \\\hline
-%1&(0, 0, 0) &  Err 1 & -\\ \hline
-%2&(0, 0, 1) &  PASS & -\\ \hline
-%3&(0, 1, 0) &  Err 1 & -\\ \hline
-%4&(0, 1, 1) &  PASS & -\\ \hline
-%5&(1, 0, 0) &  Err 1 & Err 2\\ \hline
-%6&(1, 0, 1) &  PASS & -\\ \hline
-%7&(1, 1, 0) &  Err 2 & -\\ \hline
-%8&(1, 1, 1) &  Err 2 & -\\ \hline
-%\hline\end{tabular}
-%\end{table}
-%
-%Then using our previous work, firstly, we will treat the test result as listed in \ref{previous_work}.
-%
-%\begin{table}
-%\centering
-%\caption{one fault treating}
-%\label{previous_work}
-%\begin{tabular}{|c|c|c|} \hline
-%id&test inputs & result\\ \hline
-%1&(0, 0, 0) &  FAIL\\ \hline
-%2&(0, 0, 1) &  PASS\\ \hline
-%3&(0, 1, 0) &  FAIL\\ \hline
-%4&(0, 1, 1) &  PASS\\ \hline
-%5&(1, 0, 0) &  FAIL\\ \hline
-%6&(1, 0, 1) &  PASS\\ \hline
-%7&(1, 1, 0) &  FAIL\\ \hline
-%8&(1, 1, 1) &  FAIL\\ \hline
-%\hline\end{tabular}
-%\end{table}
-%
-%And then we will wrongly identified as (1,1,-) and (-,-,0) for the fault.
-%
-%\subsection{distinguish fault}
-%
-%To solve this problem, a naturally solution is to distinguish these faults, and for a particular fault, say $F_{i}$, we treat the test configurations trigger this fault as failure test configuration and the remained test configurations (consist of pass and other faults test configurations) will be regarded as pass.
-%
-%So for this idea, the identifying process for a particular fault, say, $F_{i}$ can be formulated as follows:
-%
-%$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) - \mathcal{C}(P(\mathcal{T})) - \bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T}))$$
-%
-%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-%
-%Using this we will treat the table \ref{example_first_scenario} as the following table \ref{simple_idea}, then we will get the result as : (0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) is the MFS of err 2. It is very approximate to the solution except that it loose the (1,-,0) for err 2. This is because in fact when we look at the 5th test configuration (1,0,0), it has already triggered the err 1 which have a higher level than err 2 so that err 2 is not triggered. But this approach just regard the 5th test configuration as a passed test configuration as it does not trigger err 2.
-%
-%\begin{table}
-%\centering
-%\caption{do not consider the masking effect}
-%\label{simple_idea}
-%\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-%   ERR 1 & ERR 2
-%\end{tabular}
-%
-%\begin{tabular}{c|c|c|c|c|c} \hline
-%id &test inputs & result & id&test inputs & result\\ \hline
-%1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-%2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-%3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-%4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-%5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  PASS\\ \hline
-%6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-%7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-%8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-%\hline\end{tabular}
-%\end{table}
 
-
-%\subsection{Test configurations with higher level fault masked every lower level fault}
-%
-%So what if we just consider the configurations triggered higher fault as having triggered the lower fault, in other words, we defaulted think that for each test configurations triggering a fault, say, $F_{i}$, it has masked all the faults has a level lower than it, i.e., these faults $F_{j}, i < j \leq L $ will be triggered in these configurations if the fault $F_{i}$ does not trigger. For this idea, the identifying process for a particular fault with considering masking effect, say, $F_{i}$ can be formulated as follows:
-%
-%Let $$S_{ca} =\bigcup_{j = 1}^{i}S_{T_{F_{j}}} - S_{T_{P}} - \bigcup_{j = i+1}^{L}S_{T_{F_{j}}}$$
-%$$M_{F} = \{s_{i} | s_{i} \in S_{ca}\ and \not\exists s_{j} \prec s_{i}\ s.t.\ s_{j} \in S_{ca} \}$$
-%
-%We can see the different part with the previous formula is that it just minus the schemas in these passing test configurations and these test configurations triggering a lower level than $F_{i}$. With this, we will treat the table \ref{example_first_scenario} as : table \ref{another_idea_masking}.  This time we get  (0,-,0) and  are the MFS of err 1, (1,1,-) and (-,-,0) for the err 2. Obviously it is still not the correct answer.
-%
-%This is because we look at 1th, 3th test configuration, actually they have trigger the err 1 which has the higher level than err 2, but it does not mask the err 2 as this two test configurations didn't contain the MFS for err 2 we set at first. So they should be regard as pass test configuration for err 2, but this approach didn't know this, they just set all the test configurations that trigger higher level fault as the fail test configuration for the under test fault.
-%
-%\begin{table}
-%\centering
-%\caption{over mask example}
-%\label{another_idea_masking}
-%\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-%   ERR 1 & ERR 2
-%\end{tabular}
-%
-%\begin{tabular}{c|c|c|c|c|c} \hline
-%id &test inputs & result & id&test inputs & result\\ \hline
-%1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  FAIL\\ \hline
-%2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-%3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  FAIL\\ \hline
-%4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-%5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
-%6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-%7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-%8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-%\hline\end{tabular}
-%\end{table}
-
-%\subsection{Ideal solution}
-%To get an ideal solution, we should known which test case was masked by some fault so that it didn't output expected fault information. Supposed we have known these test cases, and denoted them as $F_{i}[\mathcal{T}]$
-%
-%%For a particular fault, say, $F_{i}$, with ,these test configurations triggered higher fault are  $ \bigcup_{j = 1}^{i-1}T_{F_{j}}$ .Assume we have known previously that in this set some test configurations will trigger $F_{i}$ if the higher fault will not triggered, we label this set as
-%%
-%%$ T_{tri-F_{i}}$ (this part is needed because of if there are more than two faults in a SUT, the higher fault may even make the lower fault don't appear)
-%%
-%%And some test configurations in this set will not trigger $F_{i}$. We label them as:
-%%
-%%$ T_{\neg tri-F_{i}}$.
-%%
-%%Obviously,$ T_{tri-F_{i}}\bigcup T_{\neg tri-F_{i}} = \bigcup_{j = 1}^{i-1}T_{F_{j}}$.
-%
-%
-%Then we should do as the following to get the ideal computing formula:
-%
-%$$let\ \mathcal{M} = \mathcal{C}(F_{i}(\mathcal{T})) + F_{i}[\mathcal{T}]  - \mathcal{C}(P(\mathcal{T})) - (\bigcup_{j = 1 \& j \neq i }^{L}\mathcal{C}(F_{j}(\mathcal{T})) - F_{i}[\mathcal{T}])$$
-%
-%$$fics = \{c_{i} | c_{i} \in \mathcal{M} \ and \not\exists c_{j} \prec c_{i}\ s.t.\ c_{j} \in \mathcal{M} \}$$
-%
-%%So still for the example table \ref{example_first_scenario}, we will first get
-%%$ T_{tri-F_{i}}$ = \{(1,0,0)\} and $ T_{tri-F_{i}}$ = { (0, 0, 0), (0, 1, 0)}
-%
-%So still for the example table \ref{example_first_scenario}, we will first get
-% $F_{err1}[\mathcal{T}]= \emptyset $ and  $F_{err2}[\mathcal{T}]$ = \{ (1, 0, 0)\}
-%
-%And then we will treat table \ref{example_first_scenario} as table \ref{ideal_solution}, so this time we will accurately get the expected result:
-%
-%(0,-,0) and (-,0,0) are the MFS of err 1 and (1,1,-) and (1,-,0) is the MFS of err 2.
-%
-%\begin{table}
-%\centering
-%\caption{ideal solution}
-%\label{ideal_solution}
-%\begin{tabular}{p{0.4\columnwidth}|p{0.4\columnwidth}} \hline
-%   ERR 1 & ERR 2
-%\end{tabular}
-%
-%\begin{tabular}{c|c|c|c|c|c} \hline
-%id &test inputs & result & id&test inputs & result\\ \hline
-%1 &(0, 0, 0) &  FAIL &1&(0, 0, 0) &  PASS\\ \hline
-%2 &(0, 0, 1) &  PASS &2&(0, 0, 1) &  PASS\\ \hline
-%3 &(0, 1, 0) &  FAIL &3&(0, 1, 0) &  PASS\\ \hline
-%4 &(0, 1, 1) &  PASS &4&(0, 1, 1) &  PASS\\ \hline
-%5 &(1, 0, 0) &  FAIL &5&(1, 0, 0) &  FAIL\\ \hline
-%6 &(1, 0, 1) &  PASS &6&(1, 0, 1) &  PASS\\ \hline
-%7 &(1, 1, 0) &  PASS &7&(1, 1, 0) &  FAIL\\ \hline
-%8 &(1, 1, 1) &  PASS &8&(1, 1, 1) &  FAIL\\ \hline
-%\hline\end{tabular}
-%\end{table}
-%
-%
-%\subsection{limitations in practice}
-%In practice, we cannot use the ideal formula to compute the MFS for each fault for there are three main limitations which we will encounter:
-%
-%\begin{enumerate}
-% \item We cannot execute all the test configurations if the parameters and their values it too much for the SUT, that is in practice, $T_{F}\bigcup T_{P} \neq T_{all}$
-%
-% \item If we find the faults, we can't judge the faulting levels of these faults just using black-box testing method.
-%
-% \item Even if we have known the faulting levels of each faults, we still cannot decide the value of $F_{i}[\mathcal{T}]$ without fixing the higher level fault than $F_{i}$ and re-executing the test configurations.
-%\end{enumerate}
 \subsection{summary of formal model}
 From the formal model of the analysis, we can learn that masking effects do influence the FCI approaches, worse more, both strategies \emph{regard as one fault} and \emph{distinguish faults} do harmful effects, which the former may get the child combinations of the failure-inducing combinations and may get more irreverent combinations, while the later may get the parent combinations of the failure-inducing combinations and may ignore some failure-inducing combinations.
 
@@ -777,7 +561,7 @@ The process of replace a test configuration with a new one with keeping some fix
        \State $s_{mutant} \leftarrow t_{original} - s_{fixed}$
        \ForAll {$opt \in s_{mutant}$}
           \State $i = getIndex(Param,opt) $
-          \State $opt \leftarrow opt' \ s.t.\ o \in Param[i]\ and\ opt' != opt$
+          \State $opt \leftarrow opt' \ s.t.\ opt' \in Param[i]\ and\ opt' != opt$
        \EndFor
        \State $t_{new} \leftarrow s_{fixed} \bigcup s_{mutant} $
        \State $result \leftarrow execute(t_{new})$
@@ -1312,13 +1096,19 @@ There are several threats to validity for these empirical studies. First, we hav
 
 \section{related works}
 
+Shi in \cite{shi2005software} presented a further testing strategy for fault revealing and failure diagnosis, which ﬁrst tests SUT with a covering array, then reduces the value schemas contained in the failed test case by eliminating those appearing in the passed test cases. If the failure-causing schema is found in the reduced schema set, failure diagnosis is completed with the identiﬁcation of the speciﬁc input values which caused the failure;
+otherwise, a further test suite based on SOFOT is developed for each failed test cases,
+testing is repeated, and the schema set is then further reduced, until no more failure
+is found or the fault has been located. Based on this work, Wang in \cite{wang2010adaptive} proposed an AIFL approach which extended the SOFOT process by mutating the changing strength in each iteration of characterizing failure-inducing combinations.
+
 Nie's approach in \cite{nie2011minimal} first separates the faulty possible tuples and healthy-possible tuples into two sets. Subsequently, by changing a parameter value at a time of the original test configuration, this approach generates extra test configurations. After executing the configurations, the approach converges by reducing the number of tuples in the faulty-possible sets.
 
-Delta debugging \cite{zeller2002simplifying} proposed by Zeller is an adaptive divide-and-conquer approach to locate interaction fault. It is very efficient and has been applied to real software environment. Zhang et al. \cite{zhang2011characterizing} also proposed a similar approach that can identify the failure-inducing combinations that has no overlapped part efficiently.
+Delta debugging \cite{zeller2002simplifying} proposed by Zeller is an adaptive divide-and-conquer approach to locate interaction fault. It is very efficient and has been applied to real software environment. Zhang et al. \cite{zhang2011characterizing} also proposed a similar approach that can identify the failure-inducing combinations that has no overlapped part efficiently. Later Li in \cite{li2012improved} improved the delta-debugging based failure-inducing combination by exploiting the useful information in the executed covering array.
 
 Colbourn and McClary \cite{colbourn2008locating} proposed a non-adaptive method. Their approach extends the covering array to the locating array to detect and locate interaction faults. C. Martinez \cite{martinez2008algorithms,martinez2009locating} proposed two adaptive algorithms. The first one needs safe value as their assumption and the second one remove the assumption when the number of values of each parameter is equal to 2. Their algorithms focus on identifying the faulty tuples that have no more than 2 parameters.
 
-Ghandehari.etc \cite{ghandehari2012identifying} defines the suspiciousness of tuple and suspiciousness of the environment of a tuple. Based on this, they rank the possible tuples and generate the test configurations. Although their approach imposes minimal assumption, it does not ensure that the tuples ranked in the top are the faulty tuples.
+Ghandehari.etc \cite{ghandehari2012identifying} defines the suspiciousness of tuple and suspiciousness of the environment of a tuple. Based on this, they rank the possible tuples and generate the test configurations. Although their approach imposes minimal assumption, it does not ensure that the tuples ranked in the top are the faulty tuples. They further in \cite{ghandehari2013fault} utilzed the test cases generated from the inducing combination to locate the faults inside the source code.
+
 
 Yilmaz \cite{yilmaz2006covering} proposed a machine learning method to identify inducing combinations from a combinatorial testing set. They construct a classified tree to analyze the covering arrays and detect potential faulty combinations. Beside this, Fouché \cite{fouche2009incremental} and Shakya \cite{shakya2012isolating} made some improvements in identifying failure-inducing combinations based on Yilmaz's work.
 
@@ -1326,7 +1116,9 @@ Our previous work \cite{niu2013identifying} have proposed an approach that utili
 
 Besides works that aims at identifying the failure-inducing combinations in test cases, there are some work focus on working around the masking effects:
 
-With having known masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. Additional constraints impacts in CT were studied in works like \cite{bryce2006prioritized,chen2010combinatorial,calvagna2008logic,grindal2006handling,yilmaz2013test}. These approaches use some rules or to avoid these invalidated test cases to improve the efficiency when examine the test cases.
+With having known masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. Additional constraints impacts in CT were studied in works like \cite{bryce2006prioritized,calvagna2008logic,grindal2006handling,yilmaz2013test}. These approaches use some rules or to avoid these invalidated test cases to improve the efficiency when examine the test cases.
+
+Zhang etc. in \cite{chen2010combinatorial} proposed an approach with considering the shielding parameter problem.
 
 Dumlu and Ylimaz in \cite{dumlu2011feedback} proposed a feedback-driven approach to work around the masking effects. In specific, it first use CTA classify the possible failure-inducing combinations and then eliminate them and generate new test cases to detect possible masked interaction in the next iteration. They further extended their work in \cite{yilmaz2013reducing}, in which they proposed a multiple-class CTA approach to distinguish faults in SUT. In addition, they empirically studied the impacts on both ternary-class and multiple-class CTA approaches.
 
