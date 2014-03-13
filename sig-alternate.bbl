@@ -61,6 +61,12 @@ M.~Grindal, J.~Offutt, and J.~Mellin.
   strategies for software testing.
 \newblock 2006.
 
+\bibitem{hall2009weka}
+M.~Hall, E.~Frank, G.~Holmes, B.~Pfahringer, P.~Reutemann, and I.~H. Witten.
+\newblock The weka data mining software: An update; sigkdd explorations, volume
+  11, issue 1.
+\newblock {\em See also http://www. cs. waikato. ac. nz/ml/weka}, 2009.
+
 \bibitem{li2012improved}
 J.~Li, C.~Nie, and Y.~Lei.
 \newblock Improved delta debugging based on combinatorial testing.

@@ -220,9 +220,3 @@
   year={2005},
   publisher={Springer}
 }
-@article{hall2009weka,
-  title={The WEKA Data Mining Software: An Update; SIGKDD Explorations, Volume 11, Issue 1},
-  author={Hall, Mark and Frank, Eibe and Holmes, Geoffrey and Pfahringer, Bernhard and Reutemann, Peter and Witten, Ian H},
-  journal={See also http://www. cs. waikato. ac. nz/ml/weka},
-  year={2009}
-}
