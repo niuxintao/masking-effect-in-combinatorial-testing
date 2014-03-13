@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.5.6)  13 MAR 2014 17:08
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.5.6)  13 MAR 2014 22:16
 entering extended mode
 **sig-alternate.tex
 
@@ -228,10 +228,6 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@algorithm=\toks39
 \c@algorithm=\count117
 )
-(D:\CTEX\MiKTeX\tex\latex\ltxmisc\url.sty
-\Urlmuskip=\muskip11
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
-)
 (D:\CTEX\MiKTeX\tex\latex\subfigure\subfigure.sty
 Package: subfigure 2002/07/30 v2.1.4 subfigure package
 \subfigtopskip=\skip48
@@ -382,29 +378,29 @@ Overfull \hbox (4.31972pt too wide) in paragraph at lines 744--754
  []
 
 
-Overfull \hbox (2.13652pt too wide) in paragraph at lines 789--826
+Overfull \hbox (2.13652pt too wide) in paragraph at lines 773--810
  [][][] 
  []
 
 
-Overfull \hbox (10.30249pt too wide) in paragraph at lines 833--834
+Overfull \hbox (10.30249pt too wide) in paragraph at lines 817--818
 []\T1/aer/m/n/9 next,previous,first,last| 
  []
 
 [7]
-Overfull \hbox (3.73318pt too wide) in paragraph at lines 966--967
+Overfull \hbox (3.73318pt too wide) in paragraph at lines 950--951
 [][]\T1/aer/m/n/9 We nex-t com-pared the re-sult with the pri-or failure-induci
 ng
  []
 
 
-Overfull \hbox (3.55334pt too wide) in paragraph at lines 968--969
+Overfull \hbox (3.55334pt too wide) in paragraph at lines 952--953
 [][]\T1/aer/m/n/9 The num-ber of cor-rect-ly i-den-ti-fied failure-inducing com
 -
  []
 
 
-Overfull \hbox (11.79291pt too wide) in paragraph at lines 1005--1006
+Overfull \hbox (11.79291pt too wide) in paragraph at lines 988--989
 \T1/aer/m/n/9 sub-figure, the five column-s "ac-cu-rate", "par-en-t","child","i
 gnore"
  []
@@ -425,12 +421,12 @@ File: CTA_our.eps Graphic file (type eps)
 Underfull \vbox (badness 6542) has occurred while \output is active []
 
  [9]
-Overfull \hbox (6.96436pt too wide) in paragraph at lines 1099--1100
+Overfull \hbox (6.96436pt too wide) in paragraph at lines 1082--1083
 [][]\T1/aer/m/n/9 Colbourn and M-cClary [5] pro-posed a non-adaptive method.
  []
 
 
-Overfull \hbox (1.63556pt too wide) in paragraph at lines 1106--1107
+Overfull \hbox (1.63556pt too wide) in paragraph at lines 1089--1090
 \T1/aer/m/n/9 ti-lize the tu-ple re-la-tion-ship tree to iso-late the failure-i
 nducing
  []
@@ -450,12 +446,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 (C:\Users\niuxintao\Desktop\masking-effect-in-combinatorial-testing\sig-alterna
 te.aux) ) 
 Here is how much of TeX's memory you used:
- 2902 strings out of 495355
- 34801 string characters out of 3183883
- 98221 words of memory out of 3000000
- 6018 multiletter control sequences out of 15000+200000
+ 2829 strings out of 495355
+ 33947 string characters out of 3183883
+ 97136 words of memory out of 3000000
+ 5949 multiletter control sequences out of 15000+200000
  43299 words of font info for 54 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  39i,14n,26p,1615b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (12 pages, 124188 bytes).
+Output written on sig-alternate.dvi (12 pages, 124668 bytes).
