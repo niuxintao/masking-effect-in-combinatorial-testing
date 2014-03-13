@@ -50,7 +50,7 @@
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \usepackage{amsmath}
-\usepackage{url}
+%\usepackage{url}
 \usepackage{graphicx}
 \usepackage{subfigure}
 
@@ -725,15 +725,15 @@ $t_{4}$ &0  \ \ \ \  0 \ \ \ \  0  \ \ \ \  1 & Pass
 %\end{table}
 
 \section{empirical studies}
-We conducted several case studies to address the following questions:
+We conducted several empirical studies to address the following questions:
 
 \textbf{Q1}: Do masking effects existed in real software when it contain multiple faults?
 
 \textbf{Q2}: How much do traditional approaches suffer from these real masking effects?
 
 \textbf{Q3}: Can our approach do better than traditional approaches when facing these masking effects?
-
-Specifically, section 6.1 surveyed several open-source software to gain a insight of the existence of multiple faults and their masking effects. Section 6.2 directly applied three MFS-identifying programs on the surveyed software and analysis their results. Section 6.3 applied our approach on the software and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
+%
+%Specifically, section 6.1 surveyed several open-source software to gain a insight of the existence of multiple faults and their masking effects. Section 6.2 directly applied three MFS-identifying programs on the surveyed software and analysis their results. Section 6.3 applied our approach on the software and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
 
 \subsection{The existence of masking effects between multiple faults}
 In the first study, we surveyed two open-source software to gain an insight on the existence of multiple faults and their effects. The software under study are: HSQLDB and JFlex, the first is a database management software written in pure java and the second is a lexical analyser generator. Each of them contain different versions. All the two subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code , number of classes in the project and the bug's id of each software we studied.
@@ -761,27 +761,11 @@ JFlex  &1.4.1 &  10040 &58 & \#87 \& \#80 \\
 \subsubsection{Study setup}
 We first looked through the bug tracker forum of each software and scratched some bugs which are caused by the options combination to study later. We then classify these bugs according to the version they belong to. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#981 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed result will be regarded as the "prior failure-inducing combinations" later.
 
-We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected, and for each pair of bugs, we have posted the source code of the merging file on the web site.
+We further selected pairs of bugs belong to the same version and merged their test file. This merging manipulation vary with the pair of bugs we selected, and for each pair of bugs, we have posted the source code of the merging file as well as other detailed experiment information on the site -- https://code.google.com/p/merging-bug-file.
 
-%\section{masking faults statistic}
-%\begin{table}\renewcommand{\arraystretch}{1.3}
-%\caption{real faults detailed}
-%\label{masking effect detail}
-%\begin{tabular}{c|c|c} \hline
-%software & version & faults ID pair\\ \hline
-%HSQLDB  & 2.0rc8 & \#981 \& \#1005  \\ \hline
-%- & 2.2.5 & \#1173 \&  \#1179   \\ \hline
-%- & 2.2.9 & \#1286 \& \#1280  \\ \hline
-%JFlex   & 1.4.1 & \#87 \& \#80 \\ \hline
-% - & 1.4.2 & \#98 \& \#93   \\
-%\hline\end{tabular}
-%\end{table}
+Next we built the input model which consist of the options related to the failure-inducing combinations and additional noise options. The detailed model information is Table \ref{modelHSQLDB} and \ref{modelJFlex} for HSQLDB and JFLex respectively. Each table is organised into three groups: "Common options", under which each version of this software will be tested, "Specific options", which is only be tested for specific version of that software and "Configure space", which depicts the input model of each version of the software.
 
-Next we built the input model which consist of the options related to the failure-inducing combinations and additional noise options. The detailed model information is Table \ref{modelHSQLDB} and \ref{modelJFlex} for HSQLDB and JFLex respectively. Each table is organised as:
-
-We then generated the exhaustive test suite consist of all the possible combinations of these options under which we executed the merged test file. We record the output of each test case to observe whether there are test cases contain prior failure-inducing combination but do not produce the corresponding bug.
-
-
+We then generated the exhaustive test suite consist of all the possible combinations of these options under which we executed the merged test file. We recorded the output of each test case to observe whether there are test cases contain prior failure-inducing combination but do not produce the corresponding bug.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
   \caption{input model of HSQLDB} \centering
@@ -966,9 +950,8 @@ We first selected failing test cases from the exhaustive test suite for a partic
 We next compared the result with the prior failure-inducing combinations to quantify the degree to what do traditional approaches suffers from masking effect. There are five metrics we need to care in this study, which are listed as follows:
  \begin{enumerate}
  \item The number of correctly identified failure-inducing combinations. We measure this metric by counting the same combinations between these identified by traditional FCI approaches with prior ones, and refer it as \emph{accurate combinations} later.
- \item The number of combinations identified by FCI approaches that is the parent combinations of some perfect combinations, which is refer to \emph{identified parent combinations}.
- \item The number of combinations  identified by FCI approaches that is the child combinations of some perfect combinations, which is refer to \emph{identified child combinations}.
-
+ \item The number of combinations identified by FCI approaches that is the parent combinations of some prior failure-inducing combinations, which is refer to \emph{identified parent combinations}.
+ \item The number of combinations  identified by FCI approaches that is the sub combinations of some prior failure-inducing combinations, which is refer to \emph{identified child combinations}.
  \item The number of ignored failure-inducing combinations. This metric counts these combinations in perfect ones, which satisfy that neither these combinations nor their parent and child combinations are in those identified by FCI approaches. We label them as \emph{ignored combinations}.
  \item The number of wrongly identified combinations. This metric counts these combinations in these identified by FCI approaches, of which neither themselves nor their child and parent combinations is in these perfect ones. It is referred to the \emph{irrelevant combinations}.
 

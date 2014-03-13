@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.5.6)  13 MAR 2014 22:16
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2013.5.6)  13 MAR 2014 23:37
 entering extended mode
 **sig-alternate.tex
 
@@ -367,7 +367,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 592--609
 []
  []
 
-[6]
+
 Underfull \hbox (badness 10000) in paragraph at lines 746--746
 [][]\T1/aer/m/n/9 http://sourceforge.net/p/hsqldb/bugs
  []
@@ -377,7 +377,7 @@ Overfull \hbox (4.31972pt too wide) in paragraph at lines 744--754
 [][][] 
  []
 
-
+[6]
 Overfull \hbox (2.13652pt too wide) in paragraph at lines 773--810
  [][][] 
  []
@@ -400,6 +400,22 @@ Overfull \hbox (3.55334pt too wide) in paragraph at lines 952--953
  []
 
 
+Overfull \hbox (1.69969pt too wide) in paragraph at lines 952--953
+\T1/aer/m/n/9 com-mon com-bi-na-tion-s ap-peared in both i-den-ti-fied com-
+ []
+
+
+Overfull \hbox (4.61572pt too wide) in paragraph at lines 953--954
+[][]\T1/aer/m/n/9 The num-ber of the com-bi-na-tion-s in i-den-ti-fied ones whi
+ch
+ []
+
+
+Overfull \hbox (4.96637pt too wide) in paragraph at lines 953--954
+\T1/aer/m/n/9 is the par-en-t com-bi-na-tion-s of some pri-or failure-inducing
+ []
+
+
 Overfull \hbox (11.79291pt too wide) in paragraph at lines 988--989
 \T1/aer/m/n/9 sub-figure, the five column-s "ac-cu-rate", "par-en-t","child","i
 gnore"
@@ -418,12 +434,15 @@ File: OFOT_our.eps Graphic file (type eps)
 <OFOT_our.eps>
 File: CTA_our.eps Graphic file (type eps)
  <CTA_our.eps>
-Underfull \vbox (badness 6542) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9]
 Overfull \hbox (6.96436pt too wide) in paragraph at lines 1082--1083
 [][]\T1/aer/m/n/9 Colbourn and M-cClary [5] pro-posed a non-adaptive method.
  []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (1.63556pt too wide) in paragraph at lines 1089--1090
@@ -448,10 +467,10 @@ te.aux) )
 Here is how much of TeX's memory you used:
  2829 strings out of 495355
  33947 string characters out of 3183883
- 97136 words of memory out of 3000000
+ 100136 words of memory out of 3000000
  5949 multiletter control sequences out of 15000+200000
  43299 words of font info for 54 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  39i,14n,26p,1615b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (12 pages, 124668 bytes).
+Output written on sig-alternate.dvi (12 pages, 123752 bytes).
