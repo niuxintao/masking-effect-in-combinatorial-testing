@@ -17,6 +17,21 @@ B.~Chen, J.~Yan, and J.~Zhang.
 \newblock In {\em Software Engineering Conference (APSEC), 2010 17th Asia
   Pacific}, pages 280--289. IEEE, 2010.
 
+\bibitem{cohen2007exploiting}
+M.~B. Cohen, M.~B. Dwyer, and J.~Shi.
+\newblock Exploiting constraint solving history to construct interaction test
+  suites.
+\newblock In {\em Testing: Academic and Industrial Conference Practice and
+  Research Techniques-MUTATION, 2007. TAICPART-MUTATION 2007}, pages 121--132.
+  IEEE, 2007.
+
+\bibitem{cohen2007interaction}
+M.~B. Cohen, M.~B. Dwyer, and J.~Shi.
+\newblock Interaction testing of highly-configurable systems in the presence of
+  constraints.
+\newblock In {\em Proceedings of the 2007 international symposium on Software
+  testing and analysis}, pages 129--139. ACM, 2007.
+
 \bibitem{cohen2008constructing}
 M.~B. Cohen, M.~B. Dwyer, and J.~Shi.
 \newblock Constructing interaction test suites for highly-configurable systems
@@ -41,6 +56,12 @@ S.~Fouch{\'e}, M.~B. Cohen, and A.~Porter.
   configuration spaces.
 \newblock In {\em Proceedings of the eighteenth international symposium on
   Software testing and analysis}, pages 177--188. ACM, 2009.
+
+\bibitem{garvin2011evaluating}
+B.~J. Garvin, M.~B. Cohen, and M.~B. Dwyer.
+\newblock Evaluating improvements to a meta-heuristic search for constrained
+  interaction testing.
+\newblock {\em Empirical Software Engineering}, 16(1):61--102, 2011.
 
 \bibitem{ghandehari2013fault}
 L.~S. Ghandehari, Y.~Lei, D.~Kung, R.~Kacker, and R.~Kuhn.

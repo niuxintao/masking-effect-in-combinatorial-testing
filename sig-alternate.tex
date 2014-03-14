@@ -1071,7 +1071,7 @@ There are several threats to validity for these empirical studies. First, we hav
 
 \section{related works}
 
-Shi in \cite{shi2005software} presented a further testing strategy for fault revealing and failure diagnosis, which ﬁrst tests SUT with a covering array, then reduces the value schemas contained in the failed test case by eliminating those appearing in the passed test cases. If the failure-causing schema is found in the reduced schema set, failure diagnosis is completed with the identiﬁcation of the speciﬁc input values which caused the failure;
+Shi in \cite{shi2005software} presented a further testing strategy for fault revealing and failure diagnosis, which first tests SUT with a covering array, then reduces the value schemas contained in the failed test case by eliminating those appearing in the passed test cases. If the failure-causing schema is found in the reduced schema set, failure diagnosis is completed with the identiﬁcation of the speciﬁc input values which caused the failure;
 otherwise, a further test suite based on SOFOT is developed for each failed test cases,
 testing is repeated, and the schema set is then further reduced, until no more failure
 is found or the fault has been located. Based on this work, Wang in \cite{wang2010adaptive} proposed an AIFL approach which extended the SOFOT process by mutating the changing strength in each iteration of characterizing failure-inducing combinations.
@@ -1089,13 +1089,11 @@ Yilmaz \cite{yilmaz2006covering} proposed a machine learning method to identify 
 
 Our previous work \cite{niu2013identifying} have proposed an approach that utilize the tuple relationship tree to isolate the failure-inducing combinations in a failing test case. One novelty of this approach is that it can identify the overlapped faulty combinations. This work also alleviates the problem of introducing newly failure-inducing combinations in additional test cases.
 
-Besides works that aims at identifying the failure-inducing combinations in test cases, there are some work focus on working around the masking effects:
+Besides the works that aims at identifying the failure-inducing combinations in test cases, there are some studies focus on working around the masking effects:
 
-With having known masking effects in prior, Cohen \cite{cohen2008constructing} use a SAT solver to avoid these masking effects in test cases generating process. They have added more papers.
- 
-Additional constraints impacts in CT were studied in works like \cite{bryce2006prioritized,calvagna2008logic,grindal2006handling,yilmaz2013test}. These approaches use some rules or to avoid these invalidated test cases to improve the efficiency when examine the test cases.
+With having known masking effects in prior, Cohen  in\cite{cohen2007exploiting,cohen2007interaction,cohen2008constructing} studied the impacts that the masking effects render some generated test cases invalid in CT, and they proposed the approach that integrate the incremental SAT solver with covering array generating algorithms to avoid these masking effects in test cases generating process. Additional constraints impacts in CT were studied in works like \cite{garvin2011evaluating,bryce2006prioritized,calvagna2008logic,grindal2006handling,yilmaz2013test}. %These approaches use some rules or to avoid these invalidated test cases to improve the efficiency when examine the test cases.
 
-Chen etc. in \cite{chen2010combinatorial} addressed the issues of shielding parameters in combinatorial testing  and proposed the Mixed Covering Array with Shielding Parameters (MCAS) to explain the problem caused by shielding parameters. The shielding parameters can disable other parameters in certain conditions, which, can be considered to be a special case of masking effects.
+Chen etc. in \cite{chen2010combinatorial} addressed the issues of shielding parameters in combinatorial testing and proposed the Mixed Covering Array with Shielding Parameters (MCAS) to solve the problem caused by shielding parameters. The shielding parameters can disable some parameter values to expose additional interaction errors, which can be regarded as a special case of masking effects.
 
 Dumlu and Ylimaz in \cite{dumlu2011feedback} proposed a feedback-driven approach to work around the masking effects. In specific, it first use CTA classify the possible failure-inducing combinations and then eliminate them and generate new test cases to detect possible masked interaction in the next iteration. They further extended their work in \cite{yilmaz2013reducing}, in which they proposed a multiple-class CTA approach to distinguish faults in SUT. In addition, they empirically studied the impacts on both ternary-class and multiple-class CTA approaches.
 
@@ -1108,7 +1106,7 @@ Masking effects of multiple faults in SUT can bias the result of traditional fai
 
 In the empirically studies, we extended three FCI approaches with our strategy. The comparison between this three traditional approaches and their variation is conducted on on several open-source software. The results shows that our strategy do assist traditional FCI approaches get a better performance when facing masking effects in SUT.
 
-As a future work, we need to do more empirical studies to make our conclusion more general. Our current experimental subjects are several middle-sized software, we would like to extend our approach into more complicated and large-scaled testing scenarios. Another promising work in the future is to combine white-box testing technique to make the FCI approaches get more accurate results when handling masking effects. We believe that figuring out the fault levels of different bugs through white-box testing technique is helpful to reduce misjudgements in the failure-inducing combinations identifying process. Still
+As a future work, we need to do more empirical studies to make our conclusion more general. Our current experimental subjects are several middle-sized software, we would like to extend our approach into more complicated and large-scaled testing scenarios. Another promising work in the future is to combine white-box testing technique to make the FCI approaches get more accurate results when handling masking effects. We believe that figuring out the fault levels of different bugs through white-box testing technique is helpful to reduce misjudgements in the failure-inducing combinations identifying process. Further future work will be proposed a hypebox method, to.
 
 %\end{document}  % This is where a 'short' article might terminate
 
