@@ -22,7 +22,8 @@ M.~B. Cohen, M.~B. Dwyer, and J.~Shi.
 \newblock Exploiting constraint solving history to construct interaction test
   suites.
 \newblock In {\em Testing: Academic and Industrial Conference Practice and
-  Research Techniques-MUTATION, 2007.}, pages 121--132. IEEE, 2007.
+  Research Techniques-MUTATION, 2007. TAICPART-MUTATION 2007}, pages 121--132.
+  IEEE, 2007.
 
 \bibitem{cohen2007interaction}
 M.~B. Cohen, M.~B. Dwyer, and J.~Shi.
@@ -85,7 +86,7 @@ M.~Grindal, J.~Offutt, and J.~Mellin.
 M.~Hall, E.~Frank, G.~Holmes, B.~Pfahringer, P.~Reutemann, and I.~H. Witten.
 \newblock The weka data mining software: An update; sigkdd explorations, volume
   11, issue 1.
-\newblock 2009.
+\newblock {\em See also http://www. cs. waikato. ac. nz/ml/weka}, 2009.
 
 \bibitem{li2012improved}
 J.~Li, C.~Nie, and Y.~Lei.

@@ -1,58 +1,7 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
-The top-level auxiliary file: sig-alternate.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: sig-alternate.aux
 The style file: abbrv.bst
 Database file #1: sigproc.bib
-You're missing a field name---line 291 of file sigproc.bib
- : 
- : %  title = {Grep bug \#29537},
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-You're missing a field name---line 299 of file sigproc.bib
- : 
- : %  title = {Grep bug \#33080},
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
 Warning--empty journal in grindal2006handling
+Warning--empty journal in hall2009weka
 Warning--empty journal in yilmaz2013reducing
-You've used 28 entries,
-            2118 wiz_defined-function locations,
-            650 strings with 9060 characters,
-and the built_in function-call counts, 11995 in all, are:
-= -- 1245
-> -- 538
-< -- 15
-+ -- 215
-- -- 182
-* -- 818
-:= -- 1852
-add.period$ -- 99
-call.type$ -- 28
-change.case$ -- 175
-chr.to.int$ -- 0
-cite$ -- 30
-duplicate$ -- 488
-empty$ -- 924
-format.name$ -- 182
-if$ -- 2631
-int.to.chr$ -- 0
-int.to.str$ -- 28
-missing$ -- 28
-newline$ -- 143
-num.names$ -- 56
-pop$ -- 204
-preamble$ -- 1
-purify$ -- 147
-quote$ -- 0
-skip$ -- 367
-stack$ -- 0
-substring$ -- 828
-swap$ -- 173
-text.length$ -- 15
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 112
-warning$ -- 2
-while$ -- 119
-width$ -- 30
-write$ -- 320
-(There were 2 error messages)
+(There were 3 warnings)
