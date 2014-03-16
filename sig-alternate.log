@@ -1,37 +1,34 @@
-This is XeTeX, Version 3.1415926-2.3-0.9997.5 (MiKTeX 2.9) (preloaded format=xelatex 2013.4.23)  16 MAR 2014 23:42
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  17 MAR 2014 03:44
 entering extended mode
+ %&-line parsing enabled.
 **sig-alternate.tex
-
-(C:\Users\niuxintao\Desktop\masking-effect-in-combinatorial-testing\sig-alterna
-te.tex
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for loaded.
-
-(C:\Users\niuxintao\Desktop\masking-effect-in-combinatorial-testing\sig-alterna
-te.cls (D:\CTEX\MiKTeX\tex\latex\graphics\epsfig.sty
+(./sig-alternate.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, pinyin, loaded.
+(./sig-alternate.cls (/usr/share/texmf-texlive/tex/latex/graphics/epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(D:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(D:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(D:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(D:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(D:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: xetex.def on input line 91.
+Package graphics Info: Driver file: dvips.def on input line 91.
 
-(D:\CTEX\MiKTeX\tex\xelatex\xetex-def\xetex.def
-File: xetex.def 2009/11/22 v0.94 LaTeX color/graphics driver for XeTeX (RRM/JK)
-
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen102
 \Gin@req@width=\dimen103
@@ -39,10 +36,10 @@ File: xetex.def 2009/11/22 v0.94 LaTeX color/graphics driver for XeTeX (RRM/JK)
 \epsfxsize=\dimen104
 \epsfysize=\dimen105
 )
-(D:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
-(D:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
@@ -50,33 +47,33 @@ Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-(D:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-(D:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(D:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen106
 ))
-(D:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-(D:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count80
+\inf@bad=\count79
 LaTeX Info: Redefining \frac on input line 211.
-\uproot@=\count81
-\leftroot@=\count82
+\uproot@=\count80
+\leftroot@=\count81
 LaTeX Info: Redefining \overline on input line 307.
-\classnum@=\count83
-\DOTSCASE@=\count84
+\classnum@=\count82
+\DOTSCASE@=\count83
 LaTeX Info: Redefining \ldots on input line 379.
 LaTeX Info: Redefining \dots on input line 382.
 LaTeX Info: Redefining \cdots on input line 467.
@@ -85,15 +82,15 @@ LaTeX Info: Redefining \cdots on input line 467.
 \big@size=\dimen108
 LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
-\macc@depth=\count85
-\c@MaxMatrixCols=\count86
+\macc@depth=\count84
+\c@MaxMatrixCols=\count85
 \dotsspace@=\muskip10
-\c@parentequation=\count87
-\dspbrk@lvl=\count88
+\c@parentequation=\count86
+\dspbrk@lvl=\count87
 \tag@help=\toks17
-\row@=\count89
-\column@=\count90
-\maxfields@=\count91
+\row@=\count88
+\column@=\count89
+\maxfields@=\count90
 \andhelp@=\toks18
 \eqnshift@=\dimen109
 \alignsep@=\dimen110
@@ -120,182 +117,143 @@ Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org
 \footheight=\dimen115
 \@maxsep=\dimen116
 \@dblmaxsep=\dimen117
-\aucount=\count92
-\originalaucount=\count93
+\aucount=\count91
+\originalaucount=\count92
 \auwidth=\dimen118
 \auskip=\dimen119
-\auskipcount=\count94
+\auskipcount=\count93
 \auskip=\dimen120
 \allauboxes=\dimen121
 \addauthors=\toks21
-\addauflag=\count95
+\addauflag=\count94
 \subtitletext=\toks22
-Requested font "ptmb8t" at 12.0pt
- -> ptmb8t
-Requested font "ptmbi8t" at 12.0pt
- -> ptmbi8t
-Requested font "ptmri8t" at 11.0pt
- -> ptmri8t
-Requested font "ptmbi8t" at 11.0pt
- -> ptmbi8t
-Requested font "phvb8t" at 18.0pt
- -> phvb8t
-Requested font "phvbo8t" at 18.0pt
- -> phvbo8t
-Requested font "phvr8t" at 14.0pt
- -> phvr8t
-Requested font "phvro8t" at 14.0pt
- -> phvro8t
-Requested font "phvb8t" at 14.0pt
- -> phvb8t
-Requested font "phvr8t" at 12.0pt
- -> phvr8t
-Requested font "phvro8t" at 12.0pt
- -> phvro8t
-Requested font "phvr8t" at 10.0pt
- -> phvr8t
-Requested font "phvro8t" at 10.0pt
- -> phvro8t
-Requested font "ptmr8t" at 9.0pt
- -> ptmr8t
-Requested font "ptmri8t" at 8.0pt
- -> ptmri8t
-Requested font "ptmr8t" at 8.0pt
- -> ptmr8t
-\savesection=\count96
-\sectioncntr=\count97
-\c@figure=\count98
-\c@table=\count99
+\savesection=\count95
+\sectioncntr=\count96
+\c@figure=\count97
+\c@table=\count98
 \titleboxnotes=\toks23
-\titleboxnoteflag=\count100
+\titleboxnoteflag=\count99
 Document Class: sig-alternate 2012/05/23 - V2.5 - based on acmproc.cls V1.3 <No
 v. 30 '99>
-(D:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
+(/usr/share/texmf-texlive/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
 )
-Requested font "cmr9" at 9.0pt
- -> cmr9
 \@acmtitlebox=\box28
-\titlenotecount=\count101
+\titlenotecount=\count100
 \tntoks=\toks24
 \tntokstwo=\toks25
 \tntoksthree=\toks26
 \tntoksfour=\toks27
 \tntoksfive=\toks28
-\catcount=\count102
+\catcount=\count101
 \copyrightnotice=\toks29
 \conf=\toks30
 \confinfo=\toks31
-\c@part=\count103
-\c@section=\count104
-\c@subsection=\count105
-\c@subsubsection=\count106
-\c@paragraph=\count107
+\c@part=\count102
+\c@section=\count103
+\c@subsection=\count104
+\c@subsubsection=\count105
+\c@paragraph=\count106
 
 Using 'Abbrev' bibliography style
 LaTeX Info: Redefining \cite on input line 1211.
 \bibindent=\dimen122
-\colcntr=\count108
+\colcntr=\count107
 \saveb@x=\box29
 \copyrtyr=\toks32
 \acmcopyr=\toks33
 \boilerplate=\toks34
 \copyrightetc=\toks35
-(D:\CTEX\MiKTeX\tex\latex\base\fontenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(D:\CTEX\MiKTeX\tex\latex\base\t1enc.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
- (D:\CTEX\MiKTeX\tex\latex\ae\t1aer.fd
+
+(/usr/share/texmf-texlive/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-)
-Requested font "aer9" at 9.0pt
- -> aer9
-)) (D:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
+)))
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/ulem.sty
 \UL@box=\box30
 \UL@hyphenbox=\box31
 \UL@skip=\skip44
 \UL@hook=\toks36
-\UL@height=\dimen123
-\UL@pe=\count109
-\UL@pixel=\dimen124
+\UL@pe=\count108
+\UL@pixel=\dimen123
 \ULC@box=\box32
-Requested font "lasy6" scaled 1000
- -> lasy6
-Package: ulem 2011/03/18
-\ULdepth=\dimen125
+Package: ulem 2000/05/26
+\ULdepth=\dimen124
 )
-(D:\CTEX\MiKTeX\tex\latex\algorithmicx\algpseudocode.sty
+(/usr/share/texmf-texlive/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
 
-(D:\CTEX\MiKTeX\tex\latex\base\ifthen.sty
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(D:\CTEX\MiKTeX\tex\latex\algorithmicx\algorithmicx.sty
+(/usr/share/texmf-texlive/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count110
-\c@ALG@rem=\count111
-\c@ALG@nested=\count112
+\c@ALG@line=\count109
+\c@ALG@rem=\count110
+\c@ALG@nested=\count111
 \ALG@tlm=\skip45
 \ALG@thistlm=\skip46
-\c@ALG@Lnr=\count113
-\c@ALG@blocknr=\count114
-\c@ALG@storecount=\count115
-\c@ALG@tmpcounter=\count116
+\c@ALG@Lnr=\count112
+\c@ALG@blocknr=\count113
+\c@ALG@storecount=\count114
+\c@ALG@tmpcounter=\count115
 \ALG@tmplength=\skip47
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) (D:\CTEX\MiKTeX\tex\latex\algorithms\algorithm.sty
-Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+) (/usr/share/texmf-texlive/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-(D:\CTEX\MiKTeX\tex\latex\float\float.sty
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count117
+\c@float@type=\count116
 \float@exts=\toks37
 \float@box=\box33
 \@float@everytoks=\toks38
 \@floatcapt=\box34
 )
 \@float@every@algorithm=\toks39
-\c@algorithm=\count118
+\c@algorithm=\count117
 )
-(D:\CTEX\MiKTeX\tex\latex\subfigure\subfigure.sty
-Package: subfigure 2002/07/30 v2.1.4 subfigure package
+(/usr/share/texmf-texlive/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigtopskip=\skip48
 \subfigcapskip=\skip49
-\subfigcaptopadj=\dimen126
+\subfigcaptopadj=\dimen125
 \subfigbottomskip=\skip50
-\subfigcapmargin=\dimen127
+\subfigcapmargin=\dimen126
 \subfiglabelskip=\skip51
-\c@subfigure=\count119
-\c@lofdepth=\count120
-\c@subtable=\count121
-\c@lotdepth=\count122
+\c@subfigure=\count118
+\c@lofdepth=\count119
+\c@subtable=\count120
+\c@lotdepth=\count121
 
 ****************************************
 * Local config file subfigure.cfg used *
 ****************************************
-(D:\CTEX\MiKTeX\tex\latex\subfigure\subfigure.cfg)
+(/usr/share/texmf-texlive/tex/latex/subfigure/subfigure.cfg)
 \subfig@top=\skip52
 \subfig@bottom=\skip53
 )
-(D:\CTEX\MiKTeX\tex\latex\mdwtools\footnote.sty
+(/usr/share/texmf-texlive/tex/latex/mdwtools/footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \fn@notes=\box35
-\fn@width=\dimen128
-)
-(C:\Users\niuxintao\Desktop\masking-effect-in-combinatorial-testing\sig-alterna
-te.aux)
+\fn@width=\dimen127
+) (./sig-alternate.aux)
+\openout1 = `sig-alternate.aux'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
@@ -308,82 +266,40 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
-Requested font "cmr6" at 6.0pt
- -> cmr6
-Requested font "cmmi9" at 9.0pt
- -> cmmi9
-Requested font "cmmi6" at 6.0pt
- -> cmmi6
-Requested font "cmsy9" at 9.0pt
- -> cmsy9
-Requested font "cmsy6" at 6.0pt
- -> cmsy6
-Requested font "cmex9" at 9.0pt
- -> cmex9
-Requested font "cmex7" at 6.0pt
- -> cmex7
-Requested font "cmex7" at 5.0pt
- -> cmex7
 LaTeX Font Info:    Try loading font information for U+msa on input line 138.
- (D:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-Requested font "msam10" at 9.0pt
- -> msam10
-Requested font "msam7" at 6.0pt
- -> msam7
-Requested font "msam5" at 5.0pt
- -> msam5
 LaTeX Font Info:    Try loading font information for U+msb on input line 138.
 
-(D:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-Requested font "msbm10" at 9.0pt
- -> msbm10
-Requested font "msbm7" at 6.0pt
- -> msbm7
-Requested font "msbm5" at 5.0pt
- -> msbm5
 LaTeX Font Info:    Try loading font information for U+lasy on input line 138.
 
-(D:\CTEX\MiKTeX\tex\latex\base\ulasy.fd
+(/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Requested font "lasy9" at 9.0pt
- -> lasy9
-Requested font "lasy5" at 5.0pt
- -> lasy5
-Requested font "aebx9" at 9.0pt
- -> aebx9
-Requested font "aeti9" at 9.0pt
- -> aeti9
+Overfull \hbox (1.40163pt too wide) in paragraph at lines 156--157
+\T1/aer/m/n/9 forts by re-duc-ing the code scope that needed to in-spected[12].
 
-Underfull \vbox (badness 1389) has occurred while \output is active []
+ []
 
-Requested font "aer6" at 6.0pt
- -> aer6
- [1
+[1
 
 
 ]
 LaTeX Font Info:    Try loading font information for T1+aett on input line 200.
 
-
-(D:\CTEX\MiKTeX\tex\latex\ae\t1aett.fd
+ (/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
-)
-Requested font "aett9" at 9.0pt
- -> aett9
- [2]
-\c@definition=\count123
-\c@proposition=\count124
-Requested font "aecsc10" at 9.0pt
- -> aecsc10
+) [2]
+\c@definition=\count122
+\c@proposition=\count123
  [3]
 Overfull \hbox (6.00491pt too wide) in paragraph at lines 361--362
-\T1/aer/m/n/9 prove this by t-wo step-s, first and ob-vi-ous-ly, $[][] \OML/cmm
-/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^Z
+\T1/aer/m/n/9 prove this by two steps, first and ob-vi-ously, $[][] \OML/cmm/m/
+it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^Z
  []
 
 
@@ -404,15 +320,15 @@ y/m/n/9 n\OML/cmm/m/it/9 M\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 S\OT1/cmr/m/n/9 (\OML
 
 
 Overfull \hbox (4.7765pt too wide) in paragraph at lines 374--375
-[]\T1/aer/m/n/9 In fac-t, $\OML/cmm/m/it/9 c \OT1/cmr/m/n/9 = \OMS/cmsy/m/n/9 C
-\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/
-9 ))$\T1/aer/m/n/9 , and it has $\OMS/cmsy/m/n/9 C\OT1/cmr/m/n/9 (\OML/cmm/m/it
-/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 )) \OMS/cmsy/m/n/9 ^^Z \OML
-/cmm/m/it/9 S\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c
-\OT1/cmr/m/n/9 ))$\T1/aer/m/n/9 .
+[]\T1/aer/m/n/9 In fact, $\OML/cmm/m/it/9 c \OT1/cmr/m/n/9 = \OMS/cmsy/m/n/9 C\
+OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9
+ ))$\T1/aer/m/n/9 , and it has $\OMS/cmsy/m/n/9 C\OT1/cmr/m/n/9 (\OML/cmm/m/it/
+9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 )) \OMS/cmsy/m/n/9 ^^Z \OML/
+cmm/m/it/9 S\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\
+OT1/cmr/m/n/9 ))$\T1/aer/m/n/9 .
  []
 
-\c@lemma=\count125
+\c@lemma=\count124
 [4]
 Overfull \hbox (1.08356pt too wide) in paragraph at lines 482--483
 \T1/aer/m/n/9 fig-ure out the $\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9
@@ -423,7 +339,7 @@ ML/cmm/m/it/9 mask[]\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^Z [][] \OML/cmm/m/it/9 T
 
 
 Overfull \hbox (11.6856pt too wide) in paragraph at lines 486--486
-[]\secfnt Replace test case trig-ger-ing un-ex-pect-ed fault 
+[]\secfnt Replace test case trig-ger-ing un-ex-pected fault 
  []
 
 
@@ -463,35 +379,34 @@ Overfull \hbox (2.13652pt too wide) in paragraph at lines 694--731
  []
 
 
-Overfull \hbox (10.30249pt too wide) in paragraph at lines 745--746
+Overfull \hbox (10.30249pt too wide) in paragraph at lines 747--748
 []\T1/aer/m/n/9 next,previous,first,last| 
  []
 
 
-Overfull \hbox (17.07935pt too wide) in paragraph at lines 826--846
- [][] 
+Overfull \hbox (8.40045pt too wide) in paragraph at lines 832--833
+[]\T1/aer/m/n/9 public, apipri-vate,cup,caseless,char,line,column,notunix,| 
  []
 
 [7]
-Overfull \hbox (3.73318pt too wide) in paragraph at lines 928--929
-[]\T1/aer/m/n/9 We nex-t com-pared the re-sult with the pri-or failure-inducing
-
+Overfull \hbox (3.73318pt too wide) in paragraph at lines 933--934
+[]\T1/aer/m/n/9 We next com-pared the re-sult with the prior failure-inducing
  []
 
 
-Overfull \hbox (3.55334pt too wide) in paragraph at lines 930--931
-[]\T1/aer/m/n/9 The num-ber of cor-rect-ly i-den-ti-fied failure-inducing com-
+Overfull \hbox (1.96768pt too wide) in paragraph at lines 938--939
+\T1/aer/m/n/9 inducing com-bi-na-tions, which are ir-rel-e-vant to the iden-
  []
 
 
-Overfull \hbox (1.69969pt too wide) in paragraph at lines 930--931
-\T1/aer/m/n/9 com-mon com-bi-na-tion-s ap-peared in both i-den-ti-fied com-
+Overfull \hbox (11.95917pt too wide) in paragraph at lines 946--947
+[]\T1/aer/m/n/9 This case study was con-ducted on the five sub-jects: HSQLDB
  []
 
 
-Overfull \hbox (6.45602pt too wide) in paragraph at lines 966--967
-\T1/aer/m/n/9 sub-figure, the five column-s ``ac-cu-rate", ``par-en-t",``sub",`
-`ignore"
+Overfull \hbox (6.45602pt too wide) in paragraph at lines 970--971
+\T1/aer/m/n/9 sub-figure, the five columns ``ac-cu-rate", ``par-ent",``sub",``i
+gnore"
  []
 
 File: FIC_BS_normal.eps Graphic file (type eps)
@@ -500,51 +415,51 @@ File: OFOT_normal.eps Graphic file (type eps)
  <OFOT_normal.eps>
 File: CTA_normal.eps Graphic file (type eps)
  <CTA_normal.eps>
-File: FIC_BS_our.eps Graphic file (type eps)
- <FIC_BS_our.eps>
-File: OFOT_our.eps Graphic file (type eps)
+Overfull \hbox (1.69952pt too wide) in paragraph at lines 1016--1017
+\T1/aer/m/n/9 strat-egy to get a com-par-i-son with the aug-mented ap-proaches.
+ 
+ []
 
-<OFOT_our.eps>
+File: FIC_BS_our.eps Graphic file (type eps)
+<FIC_BS_our.eps>
+File: OFOT_our.eps Graphic file (type eps)
+ <OFOT_our.eps>
 File: CTA_our.eps Graphic file (type eps)
  <CTA_our.eps> [8]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9]
-Overfull \hbox (1.60919pt too wide) in paragraph at lines 1060--1061
+Overfull \hbox (1.60919pt too wide) in paragraph at lines 1064--1065
 []\T1/aer/m/n/9 Nie et al. in-tro-duced the no-tion of Min-i-mal Failure-causin
 g
  []
 
 
-Overfull \hbox (1.63556pt too wide) in paragraph at lines 1070--1071
-\T1/aer/m/n/9 ti-lize the tu-ple re-la-tion-ship tree to iso-late the failure-i
-nducing
+Overfull \hbox (6.76543pt too wide) in paragraph at lines 1074--1075
+\T1/aer/m/n/9 uti-lize the tu-ple re-la-tion-ship tree to iso-late the failure-
+inducing
  []
 
 
-Overfull \hbox (3.41844pt too wide) in paragraph at lines 1072--1073
-[]\T1/aer/m/n/9 In ad-di-tion to the work-s that aim-s at i-den-ti-fy-ing the f
-ailure-
+Overfull \hbox (3.41844pt too wide) in paragraph at lines 1076--1077
+[]\T1/aer/m/n/9 In ad-di-tion to the works that aims at iden-ti-fy-ing the fail
+ure-
  []
 
-[10]
-(C:\Users\niuxintao\Desktop\masking-effect-in-combinatorial-testing\sig-alterna
-te.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [11])
-[12
+Overfull \hbox (1.83165pt too wide) in paragraph at lines 1091--1092
+[]\T1/aer/m/n/9 In the em-pir-i-cal stud-ies, we ex-tended three FCI ap-proache
+s
+ []
 
-]
-(C:\Users\niuxintao\Desktop\masking-effect-in-combinatorial-testing\sig-alterna
-te.aux) ) 
+(./sig-alternate.bbl [10]) [11] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 2849 strings out of 430478
- 32603 string characters out of 3191502
- 95532 words of memory out of 3000000
- 5940 multiletter control sequences out of 15000+200000
+ 2828 strings out of 495047
+ 34019 string characters out of 1181960
+ 98452 words of memory out of 3000000
+ 5958 multiletter control sequences out of 15000+50000
  43299 words of font info for 54 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
+ 28 hyphenation exceptions out of 8191
  39i,14n,26p,1608b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.pdf (12 pages).
+Output written on sig-alternate.dvi (11 pages, 98424 bytes).

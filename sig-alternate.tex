@@ -137,7 +137,7 @@ Changhai Nie\\
 % number that will appear in the \additionalauthors section.
 \maketitle
 \begin{abstract}
-Combinatorial testing(CT) is proven to be effective to reveal the potential failures caused by the interaction of the inputs or options of the System Under Test(SUT). A key problem in CT is to isolate the failure-inducing interactions of the related failure as it can facilitate the debugging efforts by reducing the scope of code that needs to be inspected. Many algorithms has been proposed to identify the failure-inducing interactions, however, most of these studies either just consider the condition of one fault or ignore masking effects among multiple faults which can bias their identified results. In this paper, we analysed how the masking effect of multiple faults affect on the isolation of failure-inducing interactions. We further give a strategy of selecting test cases to alleviate this impact. Our approach first prune these test cases that may trigger masking effect and then generate no-masking-effect ones to test the interactions supposed to be tested in these pruned test cases. The test-case selecting process repeated until we get enough information to isolate the failure-inducing interactions. We conducted some empirical studies on several open-source software. The result of the studies shows that multiple faults as well as the masking effects do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when handling multiple faults in SUT.
+Combinatorial testing(CT) is proven to be effective to reveal the potential failures caused by the interaction of the inputs or options of the System Under Test(SUT). A key problem in CT is to isolate the failure-inducing combinations of the related failure as it can facilitate the debugging efforts by reducing the scope of code that needs to be inspected. Many algorithms has been proposed to identify such combinations, however, most of these studies either just consider the condition of one fault or ignore masking effects among multiple faults which can bias their identified results. In this paper, we analysed how the masking effect of multiple faults affect on the isolation of failure-inducing combinations. We further give a strategy of selecting test cases to alleviate this impact, which works by pruning these test cases that may trigger masking effect and replacing them with no-masking-effect ones. The test case selecting process repeated until we get enough information to isolate the failure-inducing combinations. We conducted some empirical studies on several open-source software. The result of the studies shows that multiple faults as well as the masking effects do exist in real software and our approach can assist combinatorial-based failure-inducing identifying methods to get a better result when handling multiple faults in SUT.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -153,7 +153,7 @@ Combinatorial testing(CT) is proven to be effective to reveal the potential fail
 
 With the increasing complexity and size of modern software, many factors, such as input parameters and configuration options, can influence the behaviour of the SUT. The unexpected faults caused by the interaction among these factors can make testing such software a big challenge if the interaction space is too large. One remedy for this problem is combinatorial testing, which systematically sample the interaction space and select a relatively small set of test cases that cover all the valid iterations with the number of factors involved in the interaction no more than a prior fixed integer, i.e., the \emph{strength} of the interaction.
 
-Once failures are detected, it is desired to isolate the failure-inducing interactions in these failing test cases. This task is important in CT as it can facilitate the debugging efforts by reducing the code scope that needed to inspected\cite{ghandehari2012identifying}. Many algorithms have been proposed to identify the failure-inducing interactions in SUT, which include approaches such as building classification tree model \cite{yilmaz2006covering}, exploiting the methodology of minimal failure-causing schema \cite{nie2011minimal}, ranking suspicious interactions based on some rules\cite{ghandehari2012identifying}, using graphic-based deduction \cite{martinez2008algorithms} and so on. These approaches can be partitioned into two categories \cite{colbourn2008locating}: \emph{adaptive}--test cases are chosen based on the outcomes of the executed tests \cite{nie2011minimal,ghandehari2012identifying,niu2013identifying,zhang2011characterizing,shakya2012isolating,wang2010adaptive,li2012improved}or \emph{nonadaptive}--test cases are chosen independently and can be executed parallel \cite{yilmaz2006covering,colbourn2008locating,martinez2008algorithms,martinez2009locating,fouche2009incremental}.
+Once failures are detected, it is desired to isolate the failure-inducing combinations in these failing test cases. This task is important in CT as it can facilitate the debugging efforts by reducing the code scope that needed to inspected\cite{ghandehari2012identifying}. Many algorithms have been proposed to identify the failure-inducing combinations in SUT, which include approaches such as building classification tree model \cite{yilmaz2006covering}, exploiting the methodology of minimal failure-causing schema \cite{nie2011minimal}, ranking suspicious combinations based on some rules\cite{ghandehari2012identifying}, using graphic-based deduction \cite{martinez2008algorithms} and so on. These approaches can be partitioned into two categories \cite{colbourn2008locating}: \emph{adaptive}--test cases are chosen based on the outcomes of the executed tests \cite{nie2011minimal,ghandehari2012identifying,niu2013identifying,zhang2011characterizing,shakya2012isolating,wang2010adaptive,li2012improved}or \emph{nonadaptive}--test cases are chosen independently and can be executed parallel \cite{yilmaz2006covering,colbourn2008locating,martinez2008algorithms,martinez2009locating,fouche2009incremental}.
 
 %jieLi and paritiion
 
@@ -163,7 +163,7 @@ While all these approaches can help developers to isolate the failure-inducing c
 
 As known that masking effects negatively affect the performance of FCI approaches, a natural question is how this effect bias the results of FCI approaches. In this paper, we formalized the process of identifying failure-inducing combinations under the circumstance that masking effects exist in SUT and try to answer this question. One insight from the formal analysis is that we cannot completely get away from the impact of the masking effect even if we do exhaustive testing. Furthermore, both ignoring the masking effects and regarding multiple faults as one fault are harmful for FCI process.
 
-Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the divide and conquer framework, i.e., separately handles each fault in SUT. For a particular fault under analysis, we pick the test cases that trigger faults different from the one under analysis and replace them with regenerated newly test cases. It is noted that the replacement manipulation should satisfy some criteria so that it will not disrupt the normal operation of FCI approach. Specifically, for the One Fact One Time approach(OFOT), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
+Based on the insight we proposed a strategy to alleviate this impact. This strategy adopts the divide and conquer framework, i.e., separately handles each fault in SUT. For a particular fault under analysis, when applying traditional FCI approaches to identify the failure-inducing combinations, we pick the test cases generated by FCI approaches that trigger unexpected faults and replace them with regenerated newly test cases. These newly test cases should either pass or trigger the same fault under analysis.
 
 % For example, for the CTA, we will generate more test cases to keep as the same coverage as possible after we deleting some unsatisfied test cases from original covering array. While for the One Fact One Time approach(OFOT for short), we will repeat generating test case until we find a test case can test the fixed part as well as not trigger unsatisfied fault or until a prior ending criteria is met.
 
@@ -337,7 +337,7 @@ Suppose $ \forall t \in T(c_{k})$, we have that $t$ hits $c_{k}$. Then as $c_{l}
 
 \begin{proposition}
 
-For any set $T$ of test cases of a SUT, we can always get a set of minimal combinations $\mathcal{C}(T) = \{c \}$, i.e., $\not\exists c', c \in \mathcal{C}(T), s.t. c' \prec  c $,  such that,
+For any set $T$ of test cases of a SUT, we can always get a set of minimal combinations $\mathcal{C}(T) = \{c \}$, i.e., $\nexists c', c \in \mathcal{C}(T), s.t. c' \prec  c $,  such that,
 
 \begin{displaymath} T  =  \bigcup_{c \in \mathcal{C}(T)} T(c) \end{displaymath}
 
@@ -358,11 +358,11 @@ Then second, for any test case t in $T$, as we have learned at least find one $c
 
 Since $\bigcup_{c \in S(T)}T(c) \subset T$ and $ T \subset \bigcup_{c \in S(T)}T(c)$, so it follows $\bigcup_{c \in S(T)}T(c) = T$.
 
-Then we denote the minimal combinations of $S(T)$ as $M(S(T)) = \{c | c \in S(T)\ and\ \not\exists c' \prec c, s.t., c' \in S(T)\}$. For this set, we can still have $ \bigcup_{c \in M(S(T))} T(c) = T$. We also prove this by two steps, first and obviously, $\bigcup_{c \in M(S(T))} T(c) \subset \bigcup_{c \in S(T)} T(c)$. Then we just need to proof that $\bigcup_{c \in S(T)} T(c) \subset \bigcup_{c \in M(S(T))} T(c)$.
+Then we denote the minimal combinations of $S(T)$ as $M(S(T)) = \{c | c \in S(T)\ and\ \nexists c' \prec c, s.t., c' \in S(T)\}$. For this set, we can still have $ \bigcup_{c \in M(S(T))} T(c) = T$. We also prove this by two steps, first and obviously, $\bigcup_{c \in M(S(T))} T(c) \subset \bigcup_{c \in S(T)} T(c)$. Then we just need to proof that $\bigcup_{c \in S(T)} T(c) \subset \bigcup_{c \in M(S(T))} T(c)$.
 
 In fact by definition of $M(S(T))$, for $\forall c'\in S(T) \backslash M(S(T))$,  we can have some $c \in M(S(T))$, such that $c \prec c'$. According to the Proposition 1, $T(c') \subset T(c)$. So for any test case $t \in \bigcup_{c \in S(T)} T(c) $, as we have either $\exists c'\in S(T) \backslash M(S(T)), s.t., t \in T(c')$ or $\exists c \in M(S(T)), s.t., t \in T(c)$. Both cases can deduce $t \in \bigcup_{c \in M(S(T))} T(c)$. So, $\bigcup_{c \in S(T)} T(c) \subset \bigcup_{c \in M(S(T))} T(c)$.
 
-At last, $M(S(T))$ is the set of combinations that holds this proposition.
+Hence, $\bigcup_{c \in S(T)} T(c) = \bigcup_{c \in M(S(T))} T(c)$, and $M(S(T))$ is the set of combinations that holds this proposition.
 \end{proof}.
 In fact, for all the test cases for fault $F_{m}$ which denoted as $T_{F_{m}}$, $\mathcal{C}(T_{F_{m}})$ is the set of failure-inducing combinations of $F_{m}$. And obviously $\mathcal{C}(T(c_{m})) = c_{m}$.
 
@@ -395,7 +395,7 @@ For two set of test cases $T_{l}$ and $T_{k}$, assume that $T_{l} \subset T_{k}$
 \begin{proof}
 Obviously for $\forall c_{l} \in \mathcal{C}(T_{l}) $ we can get $T(c_{l}) \subset T_{l} \subset T_{k}$. According to the proposition 3, we can have $c_{l} \in S(T_{k})$. So this lemma holds as the combinations in $S(T_{k})$ either is also in $\mathcal{C}(T_{k})$, or must be the parent of some combination in $\mathcal{C}(T_{k})$.
 \end{proof}.
-Based on this lemma, in fact, the $c_{k} \in T_{k}$  remains the following three possibilities: 1) $c_{k} \in \mathcal{C}(T_{l})$, or 2) $\exists c_{l} \in \mathcal{C}(T_{l}), s.t.,\ c_{k} \prec c_{l}$, or 3) $\not\exists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{k} \prec c_{l}\ or\ c_{k} = c_{l},\ or\ c_{l} \prec c_{k}$. For the third case, we call $c_{k}$ is \emph{irrelevant} to $\mathcal{C}(T_{l})$
+Based on this lemma, in fact, the $c_{k} \in T_{k}$  remains the following three possibilities: 1) $c_{k} \in \mathcal{C}(T_{l})$, or 2) $\exists c_{l} \in \mathcal{C}(T_{l}), s.t.,\ c_{k} \prec c_{l}$, or 3) $\nexists c_{l} \in \mathcal{C}(T_{l}), s.t., c_{k} \prec c_{l}\ or\ c_{k} = c_{l},\ or\ c_{l} \prec c_{k}$. For the third case, we call $c_{k}$ is \emph{irrelevant} to $\mathcal{C}(T_{l})$
 
 We illustrate these scenarios in Table \ref{example_three_condition}. There are two parts in this table, each part shows two set of test cases: $T_{l}$ and $T_{k}$, which have $T_{l} \subset T_{k}$. For the left part, we can see that the combination in $\mathcal{C}(T_{l})$: (0, 0, -) and (0, 1, 0), both are the parent of the combination of the one in $\mathcal{C}(T_{k})$:(0,-,-). While for the right part, the combinations in $\mathcal{C}(T_{l})$: (0, 0, -) and (0, 1, 0) are both also in $\mathcal{C}(T_{k})$. Furthermore, one combination in $\mathcal{C}(T_{k})$: (1,-,-) is irrelevant to $\mathcal{C}(T_{l})$.
 
@@ -595,7 +595,7 @@ We conducted several empirical studies to address the following questions:
 %Specifically, section 6.1 surveyed several open-source software to gain a insight of the existence of multiple faults and their masking effects. Section 6.2 directly applied three MFS-identifying programs on the surveyed software and analysis their results. Section 6.3 applied our approach on the software and a comparison with traditional approaches will be discussed. Section 6.4 discuss the threats to validity of our empirical studies.
 
 \subsection{The existence of masking effects}
-In the first study, we surveyed two open-source software to gain an insight on the existence of multiple faults and their effects. The software under study are: HSQLDB and JFlex, the first is a database management software written in pure java and the second is a lexical analyser generator. Each of them contain different versions. All the two subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code , number of classes in the project and the bug's id of each software we studied.
+In the first study, we surveyed two open-source software to gain an insight on the existence of multiple faults and their effects. The software under study are: HSQLDB and JFlex, the first is a database management software written in pure java and the second is a lexical analyser generator. Each of them contain different versions. All the two subjects are highly configurable so that the options and their combination can influence their behaviour. Additionally, they all have developers' community so that we can easily get the real bugs reported in the bug tracker forum. Table \ref{software description} lists the program, the number of versions we surveyed, number of lines of uncommented code, number of classes in the project and the bug's id of each software we studied.
 
 \begin{table}\renewcommand{\arraystretch}{1.3}
 \caption{Software under survey}
@@ -618,13 +618,13 @@ JFlex  &1.4.1 &  10040 &58 & \#87 \& \#80 \\
 % \footnote{http://sourceforge.net/projects/hsqldb/files/hsqldb/ }
 
 \subsubsection{Study setup}
-We first looked through the bug tracker forum of each software and picked some bugs which are caused by the options combination. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#981 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed result will be regarded as the ``prior failure-inducing combinations" later.
+We first looked through the bug tracker forum of each software and picked some bugs which are caused by the options combination. For each bug, we will derive its failure-inducing combinations by analysing the bug description report and its attached test file which can reproduce the bug. For example, through analysing the source code of the test file of bug\#981 for HSQLDB, we found the failure-inducing combinations for this bug is: (\emph{preparestatement}, \emph{placeHolder}, \emph{Long string}), this three factors together form the condition on which the bug will be triggered. These analysed results will be regarded as the ``prior failure-inducing combinations" later.
 
 We further selected pairs of bugs belong to the same version and merged their test file, so that we can reproduce different faults through controlling the inputs to that merged test file. This merging manipulation varies with the pair of bugs we selected, and for each pair of bugs, the source code of the merging file as well as other detailed experiment information is available at-- https://code.google.com/p/merging-bug-file.
 
-Next we built the input model which consist of the options related to the failure-inducing combinations and additional noise options. The detailed model information is Table \ref{modelHSQLDB} and \ref{modelJFlex} for HSQLDB and JFLex respectively. Each table is organised into three groups: ``Common options", under which each version of this software will be tested, ``Specific options", which is only be tested for specific version of that software and ``Configure space", which depicts the input model for each version of the software.
+Next we built the input model which consist of the options related to the failure-inducing combinations and additional noise options. The detailed model information is in Table \ref{modelHSQLDB} and \ref{modelJFlex} for HSQLDB and JFLex respectively. Each table is organised into four groups: 1)``common options", which lists the options as well as their values under which every version of this software can be tested. 2)``common boolean options", which lists additional common options whose values type is boolean. 3)``specific options", under which only the specific version of that software can be tested. 4)``configure space", which depicts the input model for each version of the software.
 
-We then generated the exhaustive test suite consist of all the possible combinations of these options under which we executed the merged test file. We recorded the output of each test case to observe whether there are test cases contain prior failure-inducing combination but do not produce the corresponding bug.
+We then generated the exhaustive test suite consist of all the possible combinations of these options and under each of them we executed the merged test file. We recorded the output of each test case to observe whether there are test cases contain prior failure-inducing combination but do not produce the corresponding bug.
 
 %\begin{table}\renewcommand{\arraystretch}{1.3}
 %  \caption{Input model of HSQLDB} \centering
@@ -693,7 +693,7 @@ We then generated the exhaustive test suite consist of all the possible combinat
   \label{modelHSQLDB}
   \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
   \hline
-  \bfseries Common options &   \bfseries values \\
+  \bfseries common options &   \bfseries values \\
    \hline
 %     sql.enforce\_strict\_size & true, false \\
 %      sql.enforce\_names & true, false \\
@@ -729,8 +729,10 @@ We then generated the exhaustive test suite consist of all the possible combinat
    StatementType & statement, prepared \\
   \end{tabular}
 
-   \begin{tabular}{c}
-    \bfseries binary options \\
+   \begin{tabular}{p{0.95\columnwidth}}
+     \hline
+    \bfseries common boolean options \\
+    \hline
      sql.enforce\_strict\_size, sql.enforce\_names, sql.enforce\_refs\\
 
   \end{tabular}
@@ -817,15 +819,18 @@ We then generated the exhaustive test suite consist of all the possible combinat
   \label{modelJFlex}
   \begin{tabular}{c*{2}{p{0.53\columnwidth}}}
   \hline
-  \bfseries Common options &   \bfseries values \\
+  \bfseries common options &   \bfseries values \\
    \hline
         generation & switch, table, pack \\
      charset &default, 7bit, 8bit, 16bit\\
    \end{tabular}
 
-     \begin{tabular}{c}
-    \bfseries binary options \\
-     public, apiprivate,cup,caseless,char,line,column,notunix,yyeof\\
+     \begin{tabular}{p{0.9\columnwidth}}
+     \hline
+    \bfseries common boolean options \\
+    \hline
+     public, apiprivate,cup,caseless,char,line,column,notunix,
+     \\yyeof\\
 
 
 %      sql.enforce\_size & true, false \\
@@ -884,7 +889,7 @@ JFlex & 1.4.1 & 36864 & 24576 &6144\\ \hline
 \hline\end{tabular}
 \end{table}
 
-We observed that for each version of the software under analysis we listed in the Table \ref{masking effect condition}, the test cases with masking effects exist, i.e., test cases containing failure inducing combinations did not trigger the corresponding bug. In effect, there is about 768 out of 4608 test cases (16.7\%) in hsqldb with 2rc8 version. This rate is about 16.7\%, 50\%, 25\%, 16.7\% respectively for the remaining software versions, which is not trivial.
+We observed that for each version of the software under analysis we listed in the Table \ref{masking effect condition}, the test cases with masking effects do exist, i.e., test cases containing failure inducing combinations did not trigger the corresponding bug. In effect, there is about 768 out of 4608 test cases (16.7\%) in hsqldb with 2rc8 version. This rate is about 16.7\%, 50\%, 25\%, 16.7\% respectively for the remaining software versions, which is not trivial.
 
 So the answer to \textbf{Q1} is that in practice, when SUT have multiple faults, the masking effects do exist widely in the test cases.
 
@@ -895,7 +900,7 @@ So the answer to \textbf{Q1} is that in practice, when SUT have multiple faults,
 %can make these two bugs existed in one test case and only one fault will be observed. Other faults listed in table \ref{masking effect detail} as well as their masking effect can also be easily reappeared in well-designed test cases.
 
 \subsection{Performance of the traditional algorithms}
-In the second study, our aim is to learn to what degree do the masking effect impact on the traditional approaches. To conduct this study, we need to apply the traditional algorithms to identify the failure-inducing combinations for the prepared software in Table \ref{software description} and compare them with the prior failure-inducing combinations.
+In the second study, our aim is to learn the degree that the masking effect impact on the traditional approaches. To conduct this study, we need to apply the traditional algorithms to identify the failure-inducing combinations for the prepared software in Table \ref{software description} and compare them with the prior failure-inducing combinations.
 
 %The detailed model is listed as table \ref{subject_model}. And the HSQLDB can be modeled as table \ref{modelHSQLDB}.
 %
@@ -919,7 +924,7 @@ The traditional approaches we selected are: OFOT\cite{nie2011minimal}, FIC\_BS \
 
 %For OFOT and FIC, our set up is as follows:
 
-We first selected failing test cases from the exhaustive test suite for a particular software, and for each test case, we applied OFOT, FIC\_BS and CTA respectively to isolate the failure-inducing combinations in this test case.  As the subject under test has multiple faults, there are two strategies we adopt in this case study, i.e., \emph{regard as one fault} and \emph{distinguish faults} described in Section 3.2. We then collected all the failure-inducing combinations identified by each algorithm for each strategy respectively and refer them as \emph{identified combinations} for convenience.
+For each test case in the exhaustive set for a particular software, we applied OFOT, FIC\_BS and CTA respectively to isolate the failure-inducing combinations in this test case. As the subject under test has multiple faults, there are two strategies we adopted in this case study, i.e., \emph{regard as one fault} and \emph{distinguish faults} described in Section 3.2. We then collected all the failure-inducing combinations identified by each algorithm for each strategy respectively and refer them as \emph{identified combinations} for convenience.
 %
 %For CTA, our setup is as follows:
 %
@@ -927,19 +932,18 @@ We first selected failing test cases from the exhaustive test suite for a partic
 
 We next compared the result with the prior failure-inducing combinations to quantify the degree that traditional approaches suffers from masking effect. There are five metrics we need to care in this study, which are listed as follows:
  \begin{enumerate}
- \item The number of correctly identified failure-inducing combinations. We measure this metric by counting the common combinations appeared in both identified combinations and prior failure-inducing combinations, and refer it as \emph{accurate number} later.
+ \item The number of the common combinations appeared in both identified combinations and prior failure-inducing combinations. We denote it as \emph{accurate number} later.
  \item The number of the identified combinations which is the parent combinations of some prior failure-inducing combinations. We refer it to \emph{parent number}.
- \item The number of the identified combinations that is the sub combinations of some prior failure-inducing combinations, which is refer to \emph{sub number}.
+ \item The number of the identified combinations that is the sub combinations of some prior failure-inducing combinations, which is referred to \emph{sub number}.
  \item The number of ignored failure-inducing combinations. This metric counts these combinations in prior failure-inducing combinations, which are irrelevant to the identified combinations. We label it as \emph{ignored number}.
  \item The number of irrelevant combinations. This metric counts these combinations in these identified combinations, which are irrelevant to the prior failure-inducing combinations. It is referred to the \emph{irrelevant number}.
-
 \end{enumerate}
 
-Among these five metrics,  \emph{accurate number} indicates the extend to what FCI approaches properly performs. In the contrast, \emph{ignored number} and \emph{irrelevant number} indicate the degree of deviation of FCI approaches. For \emph{parent number} and \emph{sub number}, they indicate FCI approaches, although with additional noisy information, can determine part parameter values about the failure-inducing combinations.
+Among these five metrics, high \emph{accurate number} value indicates FCI approaches performs effectively, while \emph{ignored number} and \emph{irrelevant number} indicate the degree of deviation for the FCI approaches. For \emph{parent number} and \emph{sub number}, they indicate FCI approaches that, although with additional noisy information, can determine part parameter values about the failure-inducing combinations.
 
 %Besides, as we discussed in the formal model, \emph{regards as one fault} will, while \emph{distingush} will. So the four metric will to some extent validate this formal analysis.
 
-This case study is conducted on the five subjects: HSQLDB with version 2rc8, 2.2.5 and 2.2.9, JFlex with versions 1.4.1 and 1.4.2. We summed up these metrics for each subject and illustrate them together in Figure \ref{fig:normalexperiment} for analysis.
+This case study was conducted on the five subjects: HSQLDB with version 2rc8, 2.2.5 and 2.2.9, JFlex with versions 1.4.1 and 1.4.2. We summed up these metrics for each subject and illustrated them together in Figure \ref{fig:normalexperiment} for analysis.
 
 %, which indicate the less impact do on the FCI approaches.
 
@@ -986,9 +990,9 @@ Figure \ref{fig:normalexperiment} depicts the result of the second case study. T
 \label{fig:normalexperiment}
 \end{figure*}
 
-We first observed that, traditional approaches do suffer from the masking effect to some extent. Specifically, in the Figure \ref{fig:subfig1}, FIC\_BS approach only correctly identified 12 and 10 accurate combinations for the two traditional strategies respectively, while wrongly identified 14 and 69 combinations, in which for the identified parent combinations, identified sub combinations, identified irreverent combinations are 9,3,2 and 0,8,61 respectively. This is similar to the result illustrated in Figure \ref{fig:subfig2} and \ref{fig:subfig3} for approach OFOT and CTA .
+We first observed that, traditional approaches do suffer from the masking effect to some extent. Specifically, in the Figure \ref{fig:subfig1}, FIC\_BS approach only correctly identified 12 and 10 accurate combinations for the two traditional strategies respectively, while wrongly identified 14 and 69 combinations, among which \emph{parent number}, \emph{sub number}, \emph{irrelevant number} are 9,3,2 and 0,8,61 respectively. Similar results can be observed in Figure \ref{fig:subfig2} and \ref{fig:subfig3} for approach OFOT and CTA .
 
-Another interesting observations is that for the \emph{regard as one fault} and \emph{distinguish faults} strategy, the former get more \emph{sub combinations} than latter, while \emph{distinguish faults} strategy get more \emph{parent combinations} than \emph{regard as one}. This result accorded with our formal analysis in section 3.2. With respect to the metrics \emph{irrelevant combinations}, however, we didn't get as expected as the formal analysis. In fact, both the case that \emph{regard as one fault} has more \emph{irrelevant combinations} ( see Figure \ref{fig:subfig1}) and the case that \emph{distinguish faults} has more (see Figure \ref{fig:subfig2} and \ref{fig:subfig3}) exist. With checking the executing process and the combinations they got, we believed one possible main reason for this result is that the algorithm encountered the problem of importing newly faults which bias their identifying process.
+Another interesting observations is that for the \emph{regard as one fault} and \emph{distinguish faults} strategy, the former get more \emph{sub combinations} than latter, while \emph{distinguish faults} strategy get more \emph{parent combinations} than \emph{regard as one} strategy. This result accorded with our formal analysis in section 3.2. With respect to the metrics \emph{irrelevant combinations}, however, we didn't get as expected as the formal analysis. In fact, both the case that \emph{regard as one fault} has more \emph{irrelevant combinations} ( see Figure \ref{fig:subfig1}) and the case that \emph{distinguish faults} obtained more \emph{irrelevant combinations} (see Figure \ref{fig:subfig2} and \ref{fig:subfig3}) exist. With checking the executing process and the combinations they got, we believed one possible main reason for this result is that the algorithm encountered the problem of importing newly faults which bias their identifying process.
 
 %\emph{regard as one fault} would get more \emph{} except the following case,  An exception is for the FIC\_BS, which we think when consider the regard as one fault faults strategy, it increase the possibility that import newly bugs so that bais the result. it always that . fahter and parent. which are accordant with the analysis in the formal model.
 
@@ -1000,7 +1004,7 @@ We further observed that, for different algorithms, the extent to what they suff
 Therefore, the answer we got for \textbf{Q2} is: traditional algorithms do suffer from the multiple faults and their masking effect, although the extent varies in different algorithms.
 
 \subsection{Performance of our approach}
-The last empirical study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Our approach augment the three traditional FCI approaches with replacing test cases strategy described in Section 4.
+The last empirical study aims to observe the performance of our approach and compare it with the result got by the traditional approaches. Our approach augments the three traditional FCI approaches with replacing test cases strategy described in Section 4.
 %, and then we applied these augmented approaches to identify the failure-inducing combinations in the prepared subjects.
 
 \subsubsection{Study setup}
@@ -1009,7 +1013,7 @@ The setup of this case study is almost the same as the second case study. The di
 %Additionally, comparisons between the augmented approaches and three traditional ones will be quantified.
 
 \subsubsection{Result and discussion}
-Figure \ref{fig:subfigureExample2} presents the result of the last case study. The organization of this figure is similar to the second study. The bar in each column depicts the results of the augmented approaches, which is labelled as ``replacing strategy". We marked two additional points in each column which represent the result of \emph{regard as one fault} and \emph{distinguish faults} strategy to get a comparison with the augment approaches.
+Figure \ref{fig:subfigureExample2} presents the result of the last case study. The organization of this figure is similar to the second study. The bar in each column depicts the results of the augmented approaches, which is labelled as ``replacing strategy". We marked two additional points in each column which represent the result of \emph{regard as one fault} and \emph{distinguish faults} strategy to get a comparison with the augmented approaches.
 
 % We just added some information in the parentheses attached the value in each cell. This information display the  discrepancy between traditional ones. Notation '+' means promotions against traditional ones, while '-' indicates decrease. The value in parentheses has been normalized.
 
@@ -1035,11 +1039,11 @@ Figure \ref{fig:subfigureExample2} presents the result of the last case study. T
 \end{figure*}
 
 
-Comparing the augment approach with two traditional strategies in Figure \ref{fig:subfigureExample2}, we observed that there is significant improvement for augment approach in reducing the wrongly identified combinations. For instance, CTA approach in Figure \ref{fig:subfig6} only got 2 irrelevant combinations with replacing strategy, while the traditional two strategy got 5 and 19 irrelevant combinations respectively. And for FIC\_BS in Figure \ref{fig:subfig4} this comparison is 2 for replacing strategy, and 2 , 61 for two traditional strategies.
+Comparing our approach with two traditional strategies in Figure \ref{fig:subfigureExample2}, we observed that there is significant improvement for augmented approaches in reducing the wrongly identified combinations. For instance, CTA approach in Figure \ref{fig:subfig6} only got 2 irrelevant combinations with replacing strategy, while the traditional two strategy got 5 and 19 irrelevant combinations respectively. And for FIC\_BS in Figure \ref{fig:subfig4} this comparison is 2 for replacing strategy, and 2 , 61 for two traditional strategies.
 
 Besides, the augmented approaches also get a good performance at limiting the number of sub combinations and parent combination. In effect, compared with \emph{distinguish faults} which is good at limiting sub combinations while producing more parent combinations and \emph{regard as one fault} which is the other way around, the augmented ones get a more balanced result. Specifically, for instance, in Figure \ref{fig:subfig4} for approach FIC\_BS, \emph{distinguish faults} strategy obtained 9 parent combinations while got 3 sub combinations. And for \emph{regard as one fault} strategy, it got none parent combination but attained 8 sub combinations. For the replacing strategy, it only identified 4 parent combinations, which smaller than \emph{distinguish faults} strategy, and obtained 3 sub combinations which is smaller than \emph{regard as one fault} strategy and equal to \emph{distinguish faults} strategy.
 
-Apart from these improvement, there is some slight decline for the augmented approach in some specific situation. For example, we noted that for replacing strategy, it nearly got 2 less accurate combinations on average than traditional strategies, and ignored 1 more failure-inducing combinations on average than traditional ones.
+Apart from these improvement, there is some slight decline for the augmented approaches in some specific situation. For example, we noted that for replacing strategy, it nearly got 2 less accurate combinations on average than traditional strategies, and ignored 1 more failure-inducing combinations on average than traditional ones.
 % Further more it also that number of correctly identified combinations with replacing strategy slightly declines than traditional ones(about 2 less in average).
 
 %As a compensation, however, We noted that the augment approaches got slightly . But promotions against traditional ones. In fact, there are 10 out of 14 cases that augment ones outperform traditional ones at the metric of "similarity", and 9 out of 14 cases that augment ones are better than traditional ones at the metric of "num diff". Additional, this promotion is distinct. As we can see, the best promotion for similarity is 0.9 and the best promotion for num diff is 0.7. Furthermore, the average performance promotion for similarity reached '+ 0.6' and this value reached '+ 0.5' for the num diff metric.
