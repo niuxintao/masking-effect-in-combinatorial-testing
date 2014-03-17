@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  17 MAR 2014 03:44
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  17 MAR 2014 12:38
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -303,9 +303,9 @@ it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^Z
  []
 
 
-Overfull \hbox (5.87619pt too wide) in paragraph at lines 361--362
+Overfull \hbox (6.66833pt too wide) in paragraph at lines 361--362
 [][] \OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 )$\T1/aer
-/m/n/9 . Then we just need to proof that $[][] \OML/cmm/m/it/9 T\OT1/cmr/m/n/9 
+/m/n/9 . Then we just need to prove that $[][] \OML/cmm/m/it/9 T\OT1/cmr/m/n/9 
 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^Z
  []
 
@@ -316,16 +316,6 @@ Overfull \hbox (3.20639pt too wide) in paragraph at lines 363--364
 /9 2 \OML/cmm/m/it/9 S\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 )\OMS/cms
 y/m/n/9 n\OML/cmm/m/it/9 M\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 S\OT1/cmr/m/n/9 (\OML
 /cmm/m/it/9 T\OT1/cmr/m/n/9 ))\OML/cmm/m/it/9 ; s:t:; t \OMS/cmsy/m/n/9 2
- []
-
-
-Overfull \hbox (4.7765pt too wide) in paragraph at lines 374--375
-[]\T1/aer/m/n/9 In fact, $\OML/cmm/m/it/9 c \OT1/cmr/m/n/9 = \OMS/cmsy/m/n/9 C\
-OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9
- ))$\T1/aer/m/n/9 , and it has $\OMS/cmsy/m/n/9 C\OT1/cmr/m/n/9 (\OML/cmm/m/it/
-9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\OT1/cmr/m/n/9 )) \OMS/cmsy/m/n/9 ^^Z \OML/
-cmm/m/it/9 S\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 c\
-OT1/cmr/m/n/9 ))$\T1/aer/m/n/9 .
  []
 
 \c@lemma=\count124
@@ -462,4 +452,4 @@ Here is how much of TeX's memory you used:
  28 hyphenation exceptions out of 8191
  39i,14n,26p,1608b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (11 pages, 98424 bytes).
+Output written on sig-alternate.dvi (11 pages, 98504 bytes).
