@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.26)  17 MAR 2014 12:38
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.9.2)  17 MAR 2014 15:26
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -320,7 +320,7 @@ y/m/n/9 n\OML/cmm/m/it/9 M\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 S\OT1/cmr/m/n/9 (\OML
 
 \c@lemma=\count124
 [4]
-Overfull \hbox (1.08356pt too wide) in paragraph at lines 482--483
+Overfull \hbox (1.08356pt too wide) in paragraph at lines 484--485
 \T1/aer/m/n/9 fig-ure out the $\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\OML/cmm/m/it/9
  mask[]\OT1/cmr/m/n/9 )$\T1/aer/m/n/9 . As $\OML/cmm/m/it/9 T\OT1/cmr/m/n/9 (\O
 ML/cmm/m/it/9 mask[]\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^Z [][] \OML/cmm/m/it/9 T
@@ -328,73 +328,63 @@ ML/cmm/m/it/9 mask[]\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^Z [][] \OML/cmm/m/it/9 T
  []
 
 
-Overfull \hbox (11.6856pt too wide) in paragraph at lines 486--486
-[]\secfnt Replace test case trig-ger-ing un-ex-pected fault 
- []
-
-
-Overfull \hbox (4.28264pt too wide) in paragraph at lines 492--493
+Overfull \hbox (4.28264pt too wide) in paragraph at lines 494--495
 []\T1/aer/m/n/9 The \T1/aer/m/it/9 fixed part \T1/aer/m/n/9 can be the fac-tors
  that should not be changed
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 558--575
+Underfull \hbox (badness 10000) in paragraph at lines 560--577
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 558--575
+Underfull \hbox (badness 10000) in paragraph at lines 560--577
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 558--575
+Underfull \hbox (badness 10000) in paragraph at lines 560--577
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 605--605
+Underfull \hbox (badness 10000) in paragraph at lines 607--607
 [][]\T1/aer/m/n/9 http://sourceforge.net/p/hsqldb/bugs
  []
 
 
-Overfull \hbox (4.31972pt too wide) in paragraph at lines 603--613
+Overfull \hbox (4.31972pt too wide) in paragraph at lines 605--615
 [][] 
  []
 
 [6]
-Overfull \hbox (2.13652pt too wide) in paragraph at lines 694--731
+Overfull \hbox (2.13652pt too wide) in paragraph at lines 696--733
  [][] 
  []
 
 
-Overfull \hbox (10.30249pt too wide) in paragraph at lines 747--748
+Overfull \hbox (10.30249pt too wide) in paragraph at lines 749--750
 []\T1/aer/m/n/9 next,previous,first,last| 
  []
 
 
-Overfull \hbox (8.40045pt too wide) in paragraph at lines 832--833
+Overfull \hbox (8.40045pt too wide) in paragraph at lines 834--835
 []\T1/aer/m/n/9 public, apipri-vate,cup,caseless,char,line,column,notunix,| 
  []
 
 [7]
-Overfull \hbox (3.73318pt too wide) in paragraph at lines 933--934
+Overfull \hbox (3.73318pt too wide) in paragraph at lines 935--936
 []\T1/aer/m/n/9 We next com-pared the re-sult with the prior failure-inducing
  []
 
 
-Overfull \hbox (1.96768pt too wide) in paragraph at lines 938--939
+Overfull \hbox (1.96768pt too wide) in paragraph at lines 940--941
 \T1/aer/m/n/9 inducing com-bi-na-tions, which are ir-rel-e-vant to the iden-
  []
 
 
-Overfull \hbox (11.95917pt too wide) in paragraph at lines 946--947
-[]\T1/aer/m/n/9 This case study was con-ducted on the five sub-jects: HSQLDB
- []
-
-
-Overfull \hbox (6.45602pt too wide) in paragraph at lines 970--971
+Overfull \hbox (6.45602pt too wide) in paragraph at lines 972--973
 \T1/aer/m/n/9 sub-figure, the five columns ``ac-cu-rate", ``par-ent",``sub",``i
 gnore"
  []
@@ -405,7 +395,7 @@ File: OFOT_normal.eps Graphic file (type eps)
  <OFOT_normal.eps>
 File: CTA_normal.eps Graphic file (type eps)
  <CTA_normal.eps>
-Overfull \hbox (1.69952pt too wide) in paragraph at lines 1016--1017
+Overfull \hbox (1.69952pt too wide) in paragraph at lines 1018--1019
 \T1/aer/m/n/9 strat-egy to get a com-par-i-son with the aug-mented ap-proaches.
  
  []
@@ -419,25 +409,25 @@ File: CTA_our.eps Graphic file (type eps)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9]
-Overfull \hbox (1.60919pt too wide) in paragraph at lines 1064--1065
+Overfull \hbox (1.60919pt too wide) in paragraph at lines 1066--1067
 []\T1/aer/m/n/9 Nie et al. in-tro-duced the no-tion of Min-i-mal Failure-causin
 g
  []
 
 
-Overfull \hbox (6.76543pt too wide) in paragraph at lines 1074--1075
+Overfull \hbox (6.76543pt too wide) in paragraph at lines 1076--1077
 \T1/aer/m/n/9 uti-lize the tu-ple re-la-tion-ship tree to iso-late the failure-
 inducing
  []
 
 
-Overfull \hbox (3.41844pt too wide) in paragraph at lines 1076--1077
+Overfull \hbox (3.41844pt too wide) in paragraph at lines 1078--1079
 []\T1/aer/m/n/9 In ad-di-tion to the works that aims at iden-ti-fy-ing the fail
 ure-
  []
 
 
-Overfull \hbox (1.83165pt too wide) in paragraph at lines 1091--1092
+Overfull \hbox (1.83165pt too wide) in paragraph at lines 1093--1094
 []\T1/aer/m/n/9 In the em-pir-i-cal stud-ies, we ex-tended three FCI ap-proache
 s
  []
@@ -445,11 +435,11 @@ s
 (./sig-alternate.bbl [10]) [11] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
  2828 strings out of 495047
- 34019 string characters out of 1181960
- 98452 words of memory out of 3000000
+ 34019 string characters out of 1181961
+ 99452 words of memory out of 3000000
  5958 multiletter control sequences out of 15000+50000
  43299 words of font info for 54 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  39i,14n,26p,1608b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sig-alternate.dvi (11 pages, 98504 bytes).
+Output written on sig-alternate.dvi (11 pages, 98516 bytes).
